@@ -49,7 +49,7 @@ export default class Controller {
     for (var i = 0; i < arr.length; i++) {
       points.push(arr[i].x, arr[i].y, arr[i].z);
     }
-    console.log(points);
+
     const line = new MeshLine();
     line.setGeometry(points);
     const geometry = line.geometry;

@@ -1,6 +1,7 @@
 import Base from "../Base/Controller.es6";
 import Setup from "./setup/Controller.es6";
 import Stick from "./Stick/Controller.es6";
+import Sail from "./Sail/Controller.es6";
 export default class Controller extends Base {
   constructor() {
     super();
@@ -20,8 +21,10 @@ export default class Controller extends Base {
       }
     ];
     this.stick = new Stick(posi, 10);
+    this.sail = new Sail(posi, 10);
 
     this.setup.scene.add(this.stick.obj);
+    this.setup.scene.add(this.sail.obj);
   }
 
   setEvent() {
@@ -32,6 +35,7 @@ export default class Controller extends Base {
 
   update() {
     this.stick.update();
+    this.sail.update();
     this.setup.render();
   }
 }
