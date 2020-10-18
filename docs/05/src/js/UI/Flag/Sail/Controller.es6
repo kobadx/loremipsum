@@ -1,5 +1,6 @@
 import Line from "./Line/Obj.es6";
 import * as dat from "dat.gui";
+const noise = require("simplenoise");
 export default class Controller {
   constructor(posi, num) {
     this.posi = posi;
@@ -34,7 +35,7 @@ export default class Controller {
         {
           height: 50 + (Math.sin((i / this.NUM) * Math.PI) + 1) * 10,
           i: 3,
-          offset: 100
+          offset: 50
         }
       );
       this.obj.add(line.obj);
@@ -42,7 +43,7 @@ export default class Controller {
     }
 
     this.dat = new dat.GUI();
-    this.dat.add(this.param, "height", 50, 500).onChange(e => {
+    this.dat.add(this.param, "height", 10, 500).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.height = i + e;
       });
@@ -80,8 +81,14 @@ export default class Controller {
   }
 
   update() {
-    this.lines.forEach(line => {
-      line.update();
+    const time = Date.now() / 4000 + Math.random() / 100;
+
+    this.lines.forEach((line, index) => {
+      // const time = (index + 1) * 0.0001;
+      const i = index / 30;
+      let n = noise.perlin2(i, time) * 10;
+      // n = Math.abs(n) > 5 ? n * 0.8 : n;
+      line.update(n);
     });
   }
 }

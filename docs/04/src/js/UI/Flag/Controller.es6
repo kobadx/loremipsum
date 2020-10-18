@@ -32,6 +32,9 @@ export default class Controller extends Base {
 
   setEvent() {
     super.__setUpdateFlag(true);
+    $(window).on("resize", e => {
+      this.setup.onWindowResize();
+    });
   }
 
   reset() {}
