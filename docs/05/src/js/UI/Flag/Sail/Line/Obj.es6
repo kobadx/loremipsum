@@ -6,7 +6,7 @@ export default class Controller {
     this.config = config;
     this.NUM = 200;
     this.TIME = 0;
-    this.color = 0x0041e1;
+    this.color = 0x0047e9;
     this.setup();
   }
 
