@@ -1,12 +1,12 @@
 import Line from "./Line/Obj.es6";
-import * as dat from "dat.gui";
+
 const noise = require("simplenoise");
 export default class Controller {
   constructor(posi, num) {
     this.posi = posi;
-    this.LENGTH = window.innerWidth * 0.6;
+    this.LENGTH = 1000;
     this.obj = new THREE.Group();
-    this.width = 10;
+    this.width = 8;
     this.lines = [];
     this.NUM = this.verticalLength / this.width;
     // this.NUM = 1;
@@ -42,18 +42,17 @@ export default class Controller {
       this.lines.push(line);
     }
 
-    this.dat = new dat.GUI();
-    this.dat.add(this.param, "height", 10, 500).onChange(e => {
+    window.dat.add(this.param, "height", 10, 500).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.height = i + e;
       });
     });
-    this.dat.add(this.param, "i", 1, 10, 0.1).onChange(e => {
+    window.dat.add(this.param, "i", 1, 10, 0.1).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.i = e;
       });
     });
-    this.dat.add(this.param, "offset", 10, 1000).onChange(e => {
+    window.dat.add(this.param, "offset", 10, 1000).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.offset = e;
       });

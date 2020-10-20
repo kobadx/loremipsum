@@ -3,7 +3,7 @@ export default class Controller {
     this.posi = posi;
     this.r = r;
     this.obj = new THREE.Group();
-    this.color = 0x0035af;
+    this.color = 0x0041e1;
     this.setup();
   }
 

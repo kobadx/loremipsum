@@ -7,6 +7,8 @@ export default class ClassName extends Base {
     this.initScene();
     this.initCamera();
     this.initRender();
+    this.initComposer();
+    this.onWindowResize();
     this.render();
   }
 
@@ -27,6 +29,7 @@ export default class ClassName extends Base {
       1,
       20000
     );
+
     this.setCameraByPixel();
   }
 
@@ -51,8 +54,49 @@ export default class ClassName extends Base {
       antialias: true,
       alpha: true
     });
-    this.onWindowResize(true);
+    const v = {
+      exposure: 1
+    };
+    this.renderer.toneMappingExposure = v.p;
+    window.dat.add(v, "exposure", 0.1, 2).onChange(e => {
+      this.renderer.toneMappingExposure = Math.pow(e, 4.0);
+    });
+    // this.onWindowResize(true);
+    this.renderer.toneMapping = THREE.ReinhardToneMapping;
     this.$dom.append(this.renderer.domElement);
+  }
+
+  initComposer() {
+    this.composer = new THREE.EffectComposer(this.renderer);
+    const renderPass = new THREE.RenderPass(this.scene, this.camera);
+    this.composer.addPass(renderPass);
+    const param = {
+      Threshold: 0.1,
+      Strength: 0.4,
+      Radius: 0.85
+    };
+    const effectBloom = new THREE.UnrealBloomPass(
+      new THREE.Vector2(
+        window.innerWidth * window.devicePixelRatio,
+        window.innerHeight * window.devicePixelRatio
+      ),
+      0.1,
+      0.4,
+      0.85
+    );
+    window.dat.add(param, "Threshold", 0, 1).onChange(e => {
+      effectBloom.threshold = e;
+    });
+    window.dat.add(param, "Strength", 0, 3).onChange(e => {
+      effectBloom.strength = e;
+    });
+    window.dat.add(param, "Radius", 0, 1).onChange(e => {
+      effectBloom.radius = e;
+    });
+    // this.composer.addPass(effectBloom);
+    const toScreen = new THREE.ShaderPass(THREE.CopyShader);
+    toScreen.renderToScreen = true;
+    this.composer.addPass(toScreen);
   }
 
   onWindowResize() {
@@ -60,11 +104,13 @@ export default class ClassName extends Base {
     const h = this.$dom.height();
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(w, h);
+    // this.composer.setSize(w, h);
     this.setCameraByPixel();
   }
 
   render() {
-    this.renderer.render(this.scene, this.camera);
+    // this.renderer.render(this.scene, this.camera);
+    this.composer.render();
     if (this.is_autoRender) {
       requestAnimationFrame(this.render.bind(this));
     }

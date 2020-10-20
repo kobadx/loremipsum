@@ -2,6 +2,7 @@ import Base from "../Base/Controller.es6";
 import Setup from "./setup/Controller.es6";
 import Stick from "./Stick/Controller.es6";
 import Sail from "./Sail/Controller.es6";
+import * as dat from "dat.gui";
 export default class Controller extends Base {
   constructor() {
     super();
@@ -9,6 +10,7 @@ export default class Controller extends Base {
 
   init() {
     this.name = "UIController";
+    window.dat = new dat.GUI();
     this.setup = new Setup($(".canvas"));
     const posi = [
       {

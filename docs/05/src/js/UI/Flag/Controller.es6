@@ -2,6 +2,7 @@ import Base from "../Base/Controller.es6";
 import Setup from "./setup/Controller.es6";
 import Stick from "./Stick/Controller.es6";
 import Sail from "./Sail/Controller.es6";
+import * as dat from "dat.gui";
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
   lerp: (a, b, n) => (1 - n) * a + n * b,
@@ -14,16 +15,19 @@ export default class Controller extends Base {
 
   init() {
     this.name = "UIController";
-    this.setup = new Setup($(".canvas"));
+    window.dat = new dat.GUI();
+    this.$canvas = $(".canvas");
+    this.setup = new Setup(this.$canvas);
+
     this.speed = 0.1;
     const posi = [
       {
-        x: -window.innerWidth * 0.4,
-        y: window.innerHeight * 0.3
+        x: -window.innerWidth * 0.5 + 230 - 54,
+        y: this.$canvas.height() * 0.5
       },
       {
-        x: -window.innerWidth * 0.45,
-        y: -window.innerHeight * 0.4
+        x: -window.innerWidth * 0.5,
+        y: this.$canvas.height() * 0.5 - 775
       }
     ];
     this.stick = new Stick(posi, 10);
@@ -33,6 +37,8 @@ export default class Controller extends Base {
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
+    // this.obj.position.x = 54;
+    this.obj.position.y = -173;
     // this.setup.scene.add();
     this.setup.scene.add(this.obj);
 
@@ -44,12 +50,14 @@ export default class Controller extends Base {
       x: 0,
       y: 0
     };
+    // this.update();
   }
 
   setEvent() {
     super.__setUpdateFlag(true);
     $(window).on("resize", e => {
       this.setup.onWindowResize();
+      // this.obj.position.y = window.innerHeight * 0.5;
     });
 
     $(window).on("mousemove", e => {
@@ -77,11 +85,11 @@ export default class Controller extends Base {
             100
         ) / 100
     };
-    this.obj.rotation.y =
-      ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-      0.3;
-    this.obj.rotation.x =
-      ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
-      0.3;
+    // this.obj.rotation.y =
+    //   ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
+    //   0.3;
+    // this.obj.rotation.x =
+    //   ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
+    //   0.3;
   }
 }

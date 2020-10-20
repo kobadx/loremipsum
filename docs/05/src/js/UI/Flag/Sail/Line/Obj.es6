@@ -6,15 +6,15 @@ export default class Controller {
     this.config = config;
     this.NUM = 200;
     this.TIME = 0;
-    this.color = 0x0035af;
+    this.color = 0x0041e1;
     this.setup();
   }
 
   setup() {
     const points = [];
-    const w = window.innerWidth * 0.007;
+
     for (let i = 0; i < 100; i++) {
-      const x = this.posi[0].x + i * w;
+      const x = this.posi[0].x + i * 10;
       points.push(x, this.posi[0].y + this.sin(0, i), 0);
     }
     // const line = new MeshLine();
@@ -26,13 +26,12 @@ export default class Controller {
       "position",
       new THREE.BufferAttribute(new Float32Array(points), 3)
     );
+    // const line = new MeshLine();
+    // line.setGeometry(geometry);
 
-    const material = new THREE.LineBasicMaterial({
-      color: this.color,
-      depthTest: false,
-      blending: THREE.AdditiveBlending
-    });
+    const material = new THREE.LineBasicMaterial({ color: this.color });
     this.obj = new THREE.Line(geometry, material);
+    // this.obj.raycast = MeshLineRaycast;
     this.obj.geometry.attributes.position.needsUpdate = true;
 
     this.pointsNUM = this.obj.geometry.attributes.position.array.length;
