@@ -13,10 +13,10 @@ body {
 
 .canvasWrap {
   width: 100%;
-  padding-top: (950/1280) * 100%;
-  // height: 100%;
+  // padding-top: (950/1280) * 100%;
+  height: 100%;
   position: relative;
-  height: 0;
+  // height: 0;
   background-color: #00076d;
 
   .canvas {

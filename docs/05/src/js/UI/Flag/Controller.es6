@@ -38,7 +38,7 @@ export default class Controller extends Base {
     this.obj.add(this.sail.obj);
 
     this.obj.position.x = window.innerWidth * 0.5 - 585;
-    this.obj.position.y = -173;
+    this.obj.position.y = -window.innerHeight * 0.5 + 375;
     // this.setup.scene.add();
     this.setup.scene.add(this.obj);
 
@@ -85,11 +85,11 @@ export default class Controller extends Base {
             100
         ) / 100
     };
-    this.obj.rotation.y =
-      ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-      0.3;
-    this.obj.rotation.x =
-      ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
-      0.3;
+    // this.obj.rotation.y =
+    //   ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
+    //   0.3;
+    // this.obj.rotation.x =
+    //   ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
+    //   0.3;
   }
 }

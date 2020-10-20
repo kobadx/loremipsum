@@ -9,6 +9,7 @@ export default class Controller {
     this.width = 8;
     this.lines = [];
     this.NUM = this.verticalLength / this.width;
+    console.log(this.verticalLength * (1 / 0.7));
     // this.NUM = 1;
     this.param = {
       height: 50,
