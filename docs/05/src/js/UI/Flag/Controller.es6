@@ -37,7 +37,7 @@ export default class Controller extends Base {
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
-    // this.obj.position.x = 54;
+    this.obj.position.x = 54;
     this.obj.position.y = -173;
     // this.setup.scene.add();
     this.setup.scene.add(this.obj);
