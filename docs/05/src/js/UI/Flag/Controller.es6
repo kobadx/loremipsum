@@ -90,11 +90,11 @@ export default class Controller extends Base {
             100
         ) / 100
     };
-    // this.obj.rotation.y =
-    //   ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-    //   0.3;
-    // this.obj.rotation.x =
-    //   ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
-    //   0.3;
+    this.obj.rotation.y =
+      ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
+      0.3;
+    this.obj.rotation.x =
+      ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
+      0.3;
   }
 }
