@@ -41,6 +41,11 @@ export default class Controller extends Base {
     this.obj.position.y = -window.innerHeight * 0.5 + 375;
     // this.setup.scene.add();
     this.setup.scene.add(this.obj);
+    console.log(window.innerWidth);
+    if (window.innerWidth < 1300 * 2) {
+      console.log("aaa");
+      this.setup.camera.position.z += (2600 - window.innerWidth) * 0.2;
+    }
 
     this.mousePosi = {
       x: 0,
