@@ -17,7 +17,7 @@ export default class Controller {
       const x = this.posi[0].x + i * 10;
       points.push(x, this.posi[0].y + this.sin(0, i), 0);
     }
-    // const line = new MeshLine();
+    const line = new MeshLine();
     // line.setGeometry(points);
 
     const geometry = new THREE.BufferGeometry();
@@ -26,11 +26,9 @@ export default class Controller {
       "position",
       new THREE.BufferAttribute(new Float32Array(points), 3)
     );
-    // const line = new MeshLine();
-    // line.setGeometry(geometry);
-
     const material = new THREE.LineBasicMaterial({ color: this.color });
     this.obj = new THREE.Line(geometry, material);
+    this.obj.geometry.attributes.position.needsUpdate = true;
     // this.obj.raycast = MeshLineRaycast;
     this.obj.geometry.attributes.position.needsUpdate = true;
 

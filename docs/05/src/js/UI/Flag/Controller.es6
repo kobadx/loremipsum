@@ -17,7 +17,6 @@ export default class Controller extends Base {
     this.name = "UIController";
     window.dat = new dat.GUI();
     this.$canvas = $(".canvas");
-    this.setup = new Setup(this.$canvas);
 
     this.speed = 0.1;
     const posi = [
@@ -39,8 +38,12 @@ export default class Controller extends Base {
 
     this.obj.position.x = window.innerWidth * 0.5 - 585;
     this.obj.position.y = -window.innerHeight * 0.5 + 375;
+    const scene = new THREE.Scene();
+    scene.add(this.obj);
+    scene.background = new THREE.Color(0x00076d);
+    this.setup = new Setup(this.$canvas, this.obj, scene);
     // this.setup.scene.add();
-    this.setup.scene.add(this.obj);
+
     console.log(window.innerWidth);
     if (window.innerWidth < 1300 * 2) {
       console.log("aaa");

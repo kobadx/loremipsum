@@ -28,15 +28,16 @@ export default class Controller {
       // const
       points.push(this.posi[i].x, this.posi[i].y, 0);
     }
-    const line = new MeshLine();
-    line.setGeometry(points);
-    const geometry = line.geometry;
-    const material = new MeshLineMaterial({
-      transparent: true,
-      lineWidth: 1,
-      color: new THREE.Color(this.color)
-    });
-    return new THREE.Mesh(geometry, material);
+    // const line = new MeshLine();
+    // line.setGeometry(points);
+    const geometry = new THREE.BufferGeometry();
+    geometry.addAttribute(
+      "position",
+      new THREE.BufferAttribute(new Float32Array(points), 3)
+    );
+    // const geometry = line.geometry;
+    const material = new THREE.LineBasicMaterial({ color: this.color });
+    return new THREE.Line(geometry, material);
   }
 
   get curve() {
@@ -51,15 +52,21 @@ export default class Controller {
       points.push(arr[i].x, arr[i].y, arr[i].z);
     }
 
-    const line = new MeshLine();
-    line.setGeometry(points);
-    const geometry = line.geometry;
-    const material = new MeshLineMaterial({
-      transparent: true,
-      lineWidth: 1,
-      color: new THREE.Color(this.color)
-    });
-    return new THREE.Mesh(geometry, material);
+    // const line = new MeshLine();
+    // line.setGeometry(points);
+    // const geometry = line.geometry;
+    const geometry = new THREE.BufferGeometry();
+    geometry.addAttribute(
+      "position",
+      new THREE.BufferAttribute(new Float32Array(points), 3)
+    );
+    // const material = new MeshLineMaterial({
+    //   transparent: true,
+    //   lineWidth: 1,
+    //   color: new THREE.Color(this.color)
+    // });
+    const material = new THREE.LineBasicMaterial({ color: this.color });
+    return new THREE.Line(geometry, material);
   }
 
   update() {}
