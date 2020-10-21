@@ -61,20 +61,21 @@ export default class ClassName extends Base {
     };
     // this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.toneMappingExposure = Math.pow(v.exposure, 4.0);
-    console.log(Math.pow(v.p, 4.0));
+    // console.log(Math.pow(v.p, 4.0));
     window.dat.add(v, "exposure", 0.1, 2).onChange(e => {
       this.renderer.toneMappingExposure = Math.pow(e, 4.0);
-      console.log(Math.pow(e, 4.0));
+      // console.log(Math.pow(e, 4.0));
     });
 
     this.renderer.toneMapping = THREE.ReinhardToneMapping;
-    this.renderer.context.enable(
-      this.renderer.context.SAMPLE_ALPHA_TO_COVERAGE
-    );
+    // this.renderer.context.enable(
+    //   this.renderer.context.SAMPLE_ALPHA_TO_COVERAGE
+    // );
     this.$dom.append(this.renderer.domElement);
   }
 
   initComposer() {
+    // console.log(THREE.EffectComposer);
     this.composer = new THREE.EffectComposer(this.renderer);
     const renderPass = new THREE.RenderPass(this.objScene, this.camera);
     this.composer.addPass(renderPass);
@@ -120,6 +121,7 @@ export default class ClassName extends Base {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(w, h);
     this.composer.setSize(w, h);
+    this.composer.setPixelRatio(window.devicePixelRatio);
     this.setCameraByPixel();
   }
 
