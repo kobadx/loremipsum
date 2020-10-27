@@ -57,12 +57,14 @@ export default class ClassName extends Base {
       alpha: true
     });
     const v = {
-      exposure: 1.3
+      画面の明るさ: 1.3
     };
+
     // this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.toneMappingExposure = Math.pow(v.exposure, 4.0);
+    this.renderer.toneMappingExposure = Math.pow(v["画面の明るさ"], 4.0);
+    this._dat = dat.addFolder("glow");
     // console.log(Math.pow(v.p, 4.0));
-    window.dat.add(v, "exposure", 0.1, 2).onChange(e => {
+    this._dat.add(v, "画面の明るさ", 0.1, 2).onChange(e => {
       this.renderer.toneMappingExposure = Math.pow(e, 4.0);
       // console.log(Math.pow(e, 4.0));
     });
@@ -80,9 +82,9 @@ export default class ClassName extends Base {
     const renderPass = new THREE.RenderPass(this.objScene, this.camera);
     this.composer.addPass(renderPass);
     const param = {
-      Threshold: 0.139,
-      Strength: 1.9,
-      Radius: 0.36
+      しきい値: 0.139,
+      対象の明るさ: 1.9,
+      グローの半径: 0.36
     };
     const effectBloom = new THREE.UnrealBloomPass(
       new THREE.Vector2(
@@ -96,16 +98,16 @@ export default class ClassName extends Base {
       this.scene,
       this.camera
     );
-    effectBloom.threshold = param.Threshold;
-    effectBloom.strength = param.Strength;
-    effectBloom.radius = param.Radius;
-    window.dat.add(param, "Threshold", 0, 1).onChange(e => {
+    effectBloom.threshold = param["しきい値"];
+    effectBloom.strength = param["対象の明るさ"];
+    effectBloom.radius = param["グローの半径"];
+    this._dat.add(param, "しきい値", 0, 1).onChange(e => {
       effectBloom.threshold = e;
     });
-    window.dat.add(param, "Strength", 0, 3).onChange(e => {
+    this._dat.add(param, "対象の明るさ", 0, 3).onChange(e => {
       effectBloom.strength = e;
     });
-    window.dat.add(param, "Radius", 0, 1).onChange(e => {
+    this._dat.add(param, "グローの半径", 0, 1).onChange(e => {
       effectBloom.radius = e;
     });
     this.composer.addPass(effectBloom);

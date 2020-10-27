@@ -20,14 +20,16 @@ export default class Controller extends Base {
 
     this.speed = 0.1;
     const posi = [
-      {
-        x: -window.innerWidth * 0.5 + 230 - 54,
-        y: this.$canvas.height() * 0.5
-      },
-      {
-        x: -window.innerWidth * 0.5,
-        y: this.$canvas.height() * 0.5 - 775
-      }
+      new THREE.Vector3(
+        -window.innerWidth * 0.5 + 230 - 54,
+        this.$canvas.height() * 0.5,
+        -10
+      ),
+      new THREE.Vector3(
+        -window.innerWidth * 0.5,
+        this.$canvas.height() * 0.5 - 775,
+        0
+      )
     ];
     this.stick = new Stick(posi, 10);
     this.sail = new Sail(posi, 10);
@@ -69,8 +71,8 @@ export default class Controller extends Base {
     });
 
     $(window).on("mousemove", e => {
-      this.mousePosi.x = e.pageX;
-      this.mousePosi.y = e.pageY;
+      // this.mousePosi.x = e.pageX;
+      // this.mousePosi.y = e.pageY;
     });
   }
 

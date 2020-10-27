@@ -3,6 +3,10 @@
     {
       "url": "./02/dist",
       "name": "flag01"
+    },
+    {
+      "url": "./05/dist",
+      "name": "flag bloom"
     }
   ]
 }

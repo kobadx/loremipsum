@@ -12,10 +12,10 @@ export default class Controller {
 
   setup() {
     const points = [];
-
-    for (let i = 0; i < 100; i++) {
+    console.log(this.posi);
+    for (let i = 0; i < this.config.num; i++) {
       const x = this.posi[0].x + i * 10;
-      points.push(x, this.posi[0].y + this.sin(0, i), 0);
+      points.push(x, this.posi[0].y + this.sin(0, i), this.posi[0].z);
     }
     const line = new MeshLine();
     // line.setGeometry(points);
@@ -47,7 +47,7 @@ export default class Controller {
     ++this.TIME;
 
     for (let i = 0; i < this.pointsNUM; i++) {
-      if (i % 3 == 2 && i > 3) {
+      if (i % 3 == 2) {
         this.obj.geometry.attributes.position.needsUpdate = true;
         const p =
           n *
