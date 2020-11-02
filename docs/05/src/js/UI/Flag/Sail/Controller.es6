@@ -12,7 +12,7 @@ export default class Controller {
       (this.verticalLength / this.width) % 2
         ? this.verticalLength / this.width
         : this.verticalLength / this.width - 1;
-    console.log(this.verticalLength * (1 / 0.7));
+
     // this.NUM = 1;
     this.param = {
       height: 50,

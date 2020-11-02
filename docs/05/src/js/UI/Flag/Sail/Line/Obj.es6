@@ -12,7 +12,7 @@ export default class Controller {
 
   setup() {
     const points = [];
-    console.log(this.posi);
+
     for (let i = 0; i < this.config.num; i++) {
       const x = this.posi[0].x + i * 10;
       points.push(x, this.posi[0].y + this.sin(0, i), this.posi[0].z);

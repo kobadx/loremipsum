@@ -32,20 +32,12 @@ function curve(r, color, posi) {
   for (let j = 0; j < Math.PI; j += (2 * Math.PI) / 10) {
     points.push(r * Math.cos(j) * 0.5, r * Math.sin(j) * 0.5, 0);
   }
-
-  // const line = new MeshLine();
-  // line.setGeometry(points);
-  // const geometry = line.geometry;
   const geometry = new THREE.BufferGeometry();
   geometry.addAttribute(
     "position",
     new THREE.BufferAttribute(new Float32Array(points), 3)
   );
-  // const material = new MeshLineMaterial({
-  //   transparent: true,
-  //   lineWidth: 1,
-  //   color: new THREE.Color(this.color)
-  // });
+
   const material = new THREE.LineBasicMaterial({ color: color });
   const obj = new THREE.Line(geometry, material);
   obj.rotation.x = 0.5 * Math.PI;

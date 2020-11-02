@@ -23,7 +23,7 @@ export default class Controller extends Base {
       new THREE.Vector3(
         -window.innerWidth * 0.5 + 230 - 54,
         this.$canvas.height() * 0.5,
-        -10
+        0
       ),
       new THREE.Vector3(
         -window.innerWidth * 0.5,
