@@ -17,7 +17,7 @@ export default class Controller {
     this.param = {
       height: 50,
       speed: 3,
-      細かさ: 100
+      細かさ: 20
     };
     this.setup();
   }
@@ -31,9 +31,9 @@ export default class Controller {
         z: this.getVector(i).z + this.posi[0].z
       };
       const line = new Line([p], {
-        height: 50 + (Math.sin((i / this.NUM) * Math.PI) + 1) * 10,
-        i: 3,
-        offset: 50,
+        height: this.param.height,
+        i: this.param.speed,
+        offset: this.param["細かさ"],
         num: 100 - Math.abs(this.NUM * 0.5 - i) * 2.5
       });
       this.obj.add(line.obj);
@@ -42,21 +42,31 @@ export default class Controller {
 
     this.obj.position.x = 30;
     const _dat = dat.addFolder("flag");
-    _dat.add(this.param, "height", 10, 500).onChange(e => {
+    _dat.add(this.param, "height", 0, 500).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.height = i + e;
       });
     });
-    _dat.add(this.param, "speed", 1, 10, 0.1).onChange(e => {
+    _dat.add(this.param, "speed", 0, 10, 0.1).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.i = e;
       });
     });
-    _dat.add(this.param, "細かさ", 10, 1000).onChange(e => {
+    _dat.add(this.param, "細かさ", 0, 1000).onChange(e => {
       this.lines.forEach((line, i) => {
         line.config.offset = e;
       });
     });
+
+    const noisedat = dat.addFolder("noise");
+    window.noiseparam = {
+      line: 2,
+      wave: 70
+      // wave2: 70
+    };
+    noisedat.add(window.noiseparam, "line", 0, 2);
+    noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
+    // noisedat.add(window.noiseparam, "wave2", 1, );
   }
 
   getVector(index) {
@@ -80,14 +90,15 @@ export default class Controller {
   }
 
   update() {
-    const time = Date.now() / 4000 + (Math.random() / 300) * 2 - 1 / 300;
-
+    const time = Date.now() / 5000 + (Math.random() / 300) * 2 - 1 / 300;
+    // noise.seed(time);
+    // console.log(this.lines);
     this.lines.forEach((line, index) => {
       // const time = (index + 1) * 0.0001;
-      const i = index / 50;
+      const i = index / window.noiseparam.wave;
       let n = noise.perlin2(i, time) * 10;
       // n = Math.abs(n) > 5 ? n * 0.8 : n;
-      line.update(n);
+      line.update(n, index);
     });
   }
 }

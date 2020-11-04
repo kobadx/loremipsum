@@ -46,7 +46,6 @@ export default class Controller extends Base {
     this.setup = new Setup(this.$canvas, this.obj, scene);
     // this.setup.scene.add();
 
-    console.log(window.innerWidth);
     if (window.innerWidth < 1300 * 2) {
       console.log("aaa");
       this.setup.camera.position.z += (2600 - window.innerWidth) * 0.2;

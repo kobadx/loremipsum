@@ -43,18 +43,26 @@ export default class Controller {
     );
   }
 
-  update(n = 1) {
+  update(n = 1, index) {
     ++this.TIME;
-
+    let u = 0;
     for (let i = 0; i < this.pointsNUM; i++) {
       if (i % 3 == 2) {
         this.obj.geometry.attributes.position.needsUpdate = true;
         const p =
           n *
-          Math.abs(Math.sin((i / this.NUM / 3) * Math.PI)) *
+          Math.abs(Math.sin(((i + 20) / this.NUM / 3) * Math.PI)) *
           this.sin(this.TIME * -1, i);
+        u += p / this.pointsNUM;
+        // console.log(noise.perlin2(p, i), p);
         this.obj.geometry.attributes.position.array[i] = p;
       }
     }
+    // const time = (Date.now() - 1000) / 2000;
+    // const r = noise.perlin2(index, time) * window.noiseparam.line;
+    // this.obj.position.x = noise.perlin2(n, this.TIME) ;
+    // this.obj.position.y = u * window.noiseparam.line;
+    this.obj.position.x = u * window.noiseparam.line;
+    this.obj.position.z = u * window.noiseparam.line;
   }
 }

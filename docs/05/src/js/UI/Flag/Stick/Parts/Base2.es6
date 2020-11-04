@@ -99,6 +99,7 @@ function tube(_v, _v2, material) {
     );
     obj.add(new THREE.Line(_geometry, material));
     if (i == 0) {
+      //チョビ線
       const _points = [];
       const v4 = v1.clone().sub(new THREE.Vector3(-13, 5, 0));
       const _geometry2 = new THREE.BufferGeometry();
@@ -109,7 +110,9 @@ function tube(_v, _v2, material) {
         "position",
         new THREE.BufferAttribute(new Float32Array(_points), 3)
       );
-      obj.add(new THREE.Line(_geometry2, material));
+      const line = new THREE.Line(_geometry2, material);
+      line.name = "chobiline";
+      obj.add(line);
     }
   }
 
