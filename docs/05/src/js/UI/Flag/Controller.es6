@@ -68,10 +68,15 @@ export default class Controller extends Base {
       this.setup.onWindowResize();
       // this.obj.position.y = window.innerHeight * 0.5;
     });
+    const interaction = window.dat.addFolder("interaction");
+    this.mouseMove = true;
+    interaction.add(this, "mouseMove");
 
     $(window).on("mousemove", e => {
-      // this.mousePosi.x = e.pageX;
-      // this.mousePosi.y = e.pageY;
+      if (this.mouseMove) {
+        this.mousePosi.x = e.pageX;
+        this.mousePosi.y = e.pageY;
+      }
     });
   }
 
