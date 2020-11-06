@@ -12,7 +12,7 @@ export default class Controller {
 
   setup() {
     const points = [];
-
+    this.r = 0;
     for (let i = 0; i < this.config.num; i++) {
       const x = this.posi[0].x + i * 10;
       points.push(x, this.posi[0].y + this.sin(0, i), this.posi[0].z);
@@ -36,7 +36,7 @@ export default class Controller {
   sin(t, i) {
     return (
       this.config.height *
-      Math.sin((t * this.config.i + i) / this.config.offset)
+      Math.sin(this.r + (t * this.config.i + i) / this.config.offset)
     );
   }
 
@@ -59,7 +59,7 @@ export default class Controller {
     // const r = noise.perlin2(index, time) * window.noiseparam.line;
     // this.obj.position.x = noise.perlin2(n, this.TIME) ;
     // this.obj.position.y = u * window.noiseparam.line;
-    this.obj.position.x = u * window.noiseparam.line;
-    this.obj.position.z = u * window.noiseparam.line;
+    // this.obj.position.x = u * window.noiseparam.line;
+    // this.obj.position.z = u * window.noiseparam.line;
   }
 }

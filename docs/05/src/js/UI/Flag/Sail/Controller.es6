@@ -6,7 +6,7 @@ export default class Controller {
     this.posi = posi;
     this.LENGTH = 1000;
     this.obj = new THREE.Group();
-    this.width = 8;
+    this.width = 15;
     this.lines = [];
     this.NUM =
       (this.verticalLength / this.width) % 2
@@ -26,7 +26,7 @@ export default class Controller {
     for (let i = 0; i < this.NUM; i++) {
       const points = [];
       const p = {
-        x: this.getVector(i).x + this.posi[0].x + 10,
+        x: this.getVector(i).x + this.posi[0].x,
         y: this.getVector(i).y + this.posi[0].y,
         z: this.getVector(i).z + this.posi[0].z
       };
@@ -34,7 +34,7 @@ export default class Controller {
         height: this.param.height,
         i: this.param.speed,
         offset: this.param["細かさ"],
-        num: 100 - Math.abs(this.NUM * 0.5 - i) * 2.5
+        num: 100 - Math.abs(this.NUM * 0.5 - i) * 4.3
       });
       this.obj.add(line.obj);
       this.lines.push(line);
@@ -66,6 +66,7 @@ export default class Controller {
     };
     noisedat.add(window.noiseparam, "line", 0, 2);
     noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
+    this.obj.position.y = -35;
     // noisedat.add(window.noiseparam, "wave2", 1, );
   }
 
@@ -85,7 +86,7 @@ export default class Controller {
         this.posi[0].x - this.posi[1].x,
         this.posi[0].y - this.posi[1].y,
         0
-      ).length() * 0.7
+      ).length() * 0.79
     );
   }
 

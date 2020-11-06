@@ -29,7 +29,7 @@ function curve(posi1, posi2, color) {
     .sub(posi2)
     .multiplyScalar(0.5)
     .add(posi2)
-    .add(new THREE.Vector3(0, 5, 0));
+    .add(new THREE.Vector3(0, 4.5, 0));
   const v2 = posi1
     .clone()
     .sub(v)
@@ -47,9 +47,10 @@ function curve(posi1, posi2, color) {
     .sub(v)
     .multiplyScalar(0.5)
     .add(v)
-    .add(new THREE.Vector3(9, 0, 0));
-  // const v4 = posi2.clone().add(new THREE.Vector3(2, 0, 0));
-  const _curve2 = new THREE.QuadraticBezierCurve3(v, v3, posi2);
+    .add(new THREE.Vector3(9, -2, 0));
+
+  const v4 = posi2.clone().add(new THREE.Vector3(0, -3, 0));
+  const _curve2 = new THREE.QuadraticBezierCurve3(v, v3, v4);
   const arr2 = _curve2.getPoints(50);
   for (var u = 0; u < arr2.length; u++) {
     points.push(arr2[u].x, arr2[u].y, arr2[u].z);
@@ -72,16 +73,16 @@ function curve2(posi, r, color) {
     .clone()
     .sub(posi[1])
     .normalize()
-    .multiplyScalar(10);
-  const v1 = v.add(posi[0]);
+    .multiplyScalar(8);
+  const v1 = v.add(posi[0]).add(new THREE.Vector3(1, 0, 0));
 
   const points = [];
   //左側直線
   points.push(posi[0].x + 0.5, posi[0].y, posi[0].z);
   points.push(v1.x, v1.y, v1.z);
   //カーブ
-  const v2 = posi[0].clone().add(new THREE.Vector3(16, -3, 0));
-  const v3 = v1.clone().add(new THREE.Vector3(16, -3, 0));
+  const v2 = posi[0].clone().add(new THREE.Vector3(16, -1, 0));
+  const v3 = v1.clone().add(new THREE.Vector3(16, -4, 0));
   const p = v1
     .clone()
     .sub(v3)
@@ -96,7 +97,7 @@ function curve2(posi, r, color) {
 
   //右側直線
   points.push(v3.x, v3.y, v3.z);
-  points.push(v2.x, v2.y, v2.z);
+  points.push(v2.x + 1, v2.y - 3, v2.z);
   const geometry = new THREE.BufferGeometry();
   const material = new THREE.LineBasicMaterial({ color: color });
   geometry.addAttribute(
