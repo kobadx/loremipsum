@@ -8,7 +8,25 @@ export default class Controller extends Base {
   init() {
     this.name = "UIController";
 
-    this.flag = new Flag();
+    this.timeline();
+  }
+
+  timeline() {
+    var tl = new TimelineMax({ delay: 0.0 });
+
+    tl
+      // ------------------------------------------------------------
+      // canvas
+      // ------------------------------------------------------------
+      .add(() => {
+        this.flag = new Flag();
+      }, 1.0)
+      // ------------------------------------------------------------
+      // dom
+      // ------------------------------------------------------------
+      .add(() => {
+        // this.Dom.timeline();
+      }, 0.5);
   }
 
   setEvent() {
@@ -16,8 +34,4 @@ export default class Controller extends Base {
   }
 
   reset() {}
-
-  update() {
-    console.log("update");
-  }
 }
