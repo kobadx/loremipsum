@@ -1,0 +1,204 @@
+/* --------------------------------------------------------------------------------
+*
+*   button
+*
+-------------------------------------------------------------------------------- */
+
+.btn-block {
+  margin-top: 55px;
+  display: flex;
+  justify-content: center;
+
+  @media only screen and (max-width: $bp01) {
+    margin-top: 25px;
+  }
+
+  &.is-right {
+    justify-content: flex-end;
+
+    @media only screen and (max-width: $bp01) {
+      justify-content: center;
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 290px;
+  height: 64px;
+  font-size: 1.6rem;
+
+  @media only screen and (max-width: $bp01) {
+    width: 198px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
+
+  &.is-blank {
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 11px;
+      background: url(/assets/img/common/icon_blank.png) no-repeat 0;
+      background-size: 15px 11px;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+}
+
+.btn-primary,
+.btn-primary:visited {
+  background-color: #000ba3;
+  color: #fff;
+}
+
+
+/* --------------------------------------------------------------------------------
+*
+*   title
+*
+-------------------------------------------------------------------------------- */
+.section-head {
+  margin-bottom: 40px;
+
+  @media only screen and (max-width: $bp01) {
+    margin-bottom: 15px;
+  }
+
+  &.is-center {
+    text-align: center;
+
+    .section-head-lead {
+      font-size: 1.83rem;
+      margin-bottom: 20px;
+
+      @media only screen and (max-width: $bp01) {
+        font-size: 1.24rem;
+        margin-bottom: 5px;
+      }
+    }
+
+    .section-head-title {
+      font-size: 4.25rem;
+
+      @media only screen and (max-width: $bp01) {
+        font-size: 2.8rem;
+      }
+    }
+  }
+}
+
+.section-head-lead {
+  color: #00a2ff;
+  font-size: 1.4rem;
+  @extend .font-futura-rd;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.0rem;
+    margin-bottom: 5px;
+  }
+}
+
+.section-head-title {
+  color: #fff;
+  font-size: 2.56rem;
+  font-weight: normal;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.87rem;
+  }
+}
+
+
+/* --------------------------------------------------------------------------------
+*
+*   category
+*
+-------------------------------------------------------------------------------- */
+.category {
+  color: #fff;
+  font-size: 1.05rem;
+  display: inline-block;
+  border: solid 1px #fff;
+  padding: 0 5px;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 0.93rem;
+  }
+
+  &.is-bg {
+    color: #2e2f30;
+    background-color: #e4e4e4;
+  }
+}
+
+
+/* --------------------------------------------------------------------------------
+*
+*   bar
+*
+-------------------------------------------------------------------------------- */
+.left_bar {
+
+}
+.left_bar:after {
+  display: block;
+  width: rem(7 ,$fz);
+  height: rem(35 ,$fz);
+  content: '';
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  top: rem(-6 ,$fz);
+}
+
+.up_bar {
+
+}
+.up_bar:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: rem(10 ,$fz);
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  transition: height .18s $easeOutCubic, background-color .2s $easeOutQuad;
+}
+
+/* --------------------------------------------------------------------------------
+*
+*   select
+*
+-------------------------------------------------------------------------------- */
+body.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+/* --------------------------------------------------------------------------------
+*
+*   grab
+*
+-------------------------------------------------------------------------------- */
+.grab {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+.grabbing {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
