@@ -43,7 +43,11 @@ export default class Controller {
     );
 
     // mat
-    const material = new THREE.LineBasicMaterial({ color: this.color });
+    const material = new THREE.LineBasicMaterial({
+      color: this.color,
+      opacity: 0,
+      transparent: true
+    });
     this.obj = new THREE.Line(geometry, material);
 
     this.pointsNUM = this.obj.geometry.attributes.position.array.length;

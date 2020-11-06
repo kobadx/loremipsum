@@ -2,6 +2,7 @@ import { Base } from "./Parts/Base.es6";
 import { Base2 } from "./Parts/Base2.es6";
 import { Cap } from "./Parts/Cap.es6";
 const noise = require("simplenoise");
+import gsap from "gsap";
 export default class Controller {
   constructor(posi, r) {
     this.posi = posi;
@@ -14,16 +15,15 @@ export default class Controller {
 
   setup() {
     //line
-    this.obj.add(Base(this.posi, this.color, this.r));
-    this.obj.add(Base2(this.posi, this.color, this.r));
-    this.obj.add(Cap(this.posi, this.color, this.r + 7, this.r));
+    this.base = Base(this.posi, this.color, this.r);
+    this.base2 = Base2(this.posi, this.color, this.r);
+    this.cap = Cap(this.posi, this.color, this.r + 7, this.r);
+    this.obj.add(this.base);
+    this.obj.add(this.base2);
+    this.obj.add(this.cap);
     this.chobisens = [];
-    this.obj.children[1].children.map(obj => {
-      obj.children.map(obj2 => {
-        obj2.children.map(obj3 => {
-          if (obj3.name == "chobiline") this.chobisens.push(obj3);
-        });
-      });
+    this.getMesh(this.obj).map(obj => {
+      if (obj.name == "chobiline") this.chobisens.push(obj);
     });
 
     console.log(this.chobisens[0].geometry.attributes.position.array);
@@ -49,5 +49,34 @@ export default class Controller {
 
   sin(t, i) {
     return 2 * Math.sin((t * 3 + i) / 20);
+  }
+
+  show() {
+    const tl = gsap.timeline();
+    this.getMesh(this.obj).forEach((obj, index) => {
+      tl.to(
+        obj.material,
+        1,
+        {
+          opacity: 1,
+          ease: "expo.out"
+        },
+        index * 0
+      );
+    });
+
+    return tl;
+  }
+
+  getMesh(obj) {
+    const arr = [];
+    obj.children.forEach(children => {
+      if (children.type == "Group") {
+        arr.push(...this.getMesh(children));
+      } else {
+        arr.push(children);
+      }
+    });
+    return arr;
   }
 }

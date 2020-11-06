@@ -65,7 +65,11 @@ function pole(posi, color, v) {
   points.push(_v2.x, _v2.y, _v2.z);
   const geometry = new THREE.BufferGeometry();
 
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   geometry.addAttribute(
     "position",
     new THREE.BufferAttribute(new Float32Array(points), 3)
@@ -152,7 +156,11 @@ function curve2(posi, posi2, color, v) {
     new THREE.BufferAttribute(new Float32Array(points), 3)
   );
   // const geometry = line.geometry;
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   return new THREE.Line(geometry, material);
 }
 
@@ -181,6 +189,10 @@ function curve(posi, posi2, color, v) {
     new THREE.BufferAttribute(new Float32Array(points), 3)
   );
   // const geometry = line.geometry;
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   return new THREE.Line(geometry, material);
 }
