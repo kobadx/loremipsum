@@ -11,10 +11,10 @@ export default class Controller {
     this.fixDist = 5;
     this.color = 0x0047e9;
 
-    this.noiseOffset0 = this.randomInt(0, 100000);
-    this.noiseOffset1 = this.randomInt(0, 100000);
-    this.noiseScale = 0.01;
-    this.noiseTime = this.randomInt(0, 1000000);
+    this.noiseOffset0 = this.random(-100000, 100000);
+    this.noiseOffset1 = this.random(-100000, 100000);
+    this.noiseScale = 100;
+    this.noiseTime = this.random(-1000000, 1000000);
 
     this.setup();
   }
@@ -91,7 +91,7 @@ export default class Controller {
       if (i == 0) {
         var nd = this.nodes[i];
         nd.x = 0;
-        nd.y = this.sin(this.TIME * -1, i);
+        nd.y = 0;
       } else {
         var nd0 = this.nodes[i - 1];
         var nd1 = this.nodes[i];
@@ -107,24 +107,24 @@ export default class Controller {
         }
         nd1.vx -=
           fx +
-          this.random(-0.3, 0.3) +
-          (noise.simplex3(
-            nd1.x * this.noiseScale,
-            nd1.y * this.noiseScale,
-            this.noiseOffset0 + this.noiseTime
-          ) -
-            0.5);
+          // this.random(-0.3, 0.3) +
+          1 *
+            noise.simplex3(
+              nd1.x * this.noiseScale,
+              nd1.y * this.noiseScale,
+              this.noiseOffset0 + this.noiseTime
+            );
         nd1.vy -=
           fy +
-          this.random(-0.3, 0.3) +
-          (noise.simplex3(
-            nd1.x * this.noiseScale + 2398523,
-            nd1.y * this.noiseScale + 1309854,
-            this.noiseOffset1 + this.noiseTime
-          ) -
-            0.5);
-        nd1.vx *= 0.9;
-        nd1.vy *= 0.9;
+          // this.random(-0.3, 0.3) +
+          1 *
+            noise.simplex3(
+              nd1.x * this.noiseScale + 2398523,
+              nd1.y * this.noiseScale + 1309854,
+              this.noiseOffset1 + this.noiseTime
+            );
+        nd1.vx *= 0.8;
+        nd1.vy *= 0.8;
 
         // var maxSpeed = body.maxSpeed;
         var maxSpeed = 5;
