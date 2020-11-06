@@ -88,6 +88,7 @@
     "@vimeo/player": "^2.6.3",
     "dat.gui": "^0.7.5",
     "dateformat": "^3.0.3",
+    "es2015": "0.0.0",
     "glsl-easings": "^1.0.0",
     "glsl-map": "^1.0.1",
     "glsl-random": "0.0.5",

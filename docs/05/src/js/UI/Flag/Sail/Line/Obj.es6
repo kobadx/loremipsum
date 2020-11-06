@@ -20,6 +20,7 @@ export default class Controller {
     // const line = new MeshLine();
     // line.setGeometry(points);
 
+    // geo
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(100 * 3);
     geometry.addAttribute(
@@ -42,19 +43,23 @@ export default class Controller {
 
   update(n = 1, index) {
     ++this.TIME;
+
     let u = 0;
     for (let i = 0; i < this.pointsNUM; i++) {
       if (i % 3 == 2) {
-        this.obj.geometry.attributes.position.needsUpdate = true;
-        const p =
-          n *
-          Math.abs(Math.sin(((i + 20) / this.NUM / 3) * Math.PI)) *
-          this.sin(this.TIME * -1, i);
+        // update
+        const p = n * Math.abs(Math.sin(((i + 20) / this.NUM / 3) * Math.PI));
         u += p / this.pointsNUM;
         // console.log(noise.perlin2(p, i), p);
+
         this.obj.geometry.attributes.position.array[i] = p;
       }
     }
+
+    // draw
+    this.obj.geometry.attributes.position.needsUpdate = true;
+
+    // position
     // const time = (Date.now() - 1000) / 2000;
     // const r = noise.perlin2(index, time) * window.noiseparam.line;
     // this.obj.position.x = noise.perlin2(n, this.TIME) ;

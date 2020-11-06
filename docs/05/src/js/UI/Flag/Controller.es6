@@ -6,7 +6,7 @@ import * as dat from "dat.gui";
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
   lerp: (a, b, n) => (1 - n) * a + n * b,
-  clamp: (val, min, max) => Math.max(Math.min(val, max), min)
+  clamp: (val, min, max) => Math.max(Math.min(val, max), min),
 };
 export default class Controller extends Base {
   constructor() {
@@ -19,6 +19,8 @@ export default class Controller extends Base {
     this.$canvas = $(".canvas");
 
     this.speed = 0.1;
+
+    // layout
     const posi = [
       new THREE.Vector3(
         -window.innerWidth * 0.5 + 230 - 54,
@@ -29,8 +31,10 @@ export default class Controller extends Base {
         -window.innerWidth * 0.5,
         this.$canvas.height() * 0.5 - 775,
         0
-      )
+      ),
     ];
+
+    // objects
     this.stick = new Stick(posi, 10);
     this.sail = new Sail(posi, 10);
 
@@ -53,18 +57,18 @@ export default class Controller extends Base {
 
     this.mousePosi = {
       x: 0,
-      y: 0
+      y: 0,
     };
     this.prevMosePosi = {
       x: 0,
-      y: 0
+      y: 0,
     };
     // this.update();
   }
 
   setEvent() {
     super.__setUpdateFlag(true);
-    $(window).on("resize", e => {
+    $(window).on("resize", (e) => {
       this.setup.onWindowResize();
       // this.obj.position.y = window.innerHeight * 0.5;
     });
@@ -72,7 +76,7 @@ export default class Controller extends Base {
     this.mouseMove = true;
     interaction.add(this, "mouseMove");
 
-    $(window).on("mousemove", e => {
+    $(window).on("mousemove", (e) => {
       if (this.mouseMove) {
         this.mousePosi.x = e.pageX;
         this.mousePosi.y = e.pageY;
@@ -83,10 +87,12 @@ export default class Controller extends Base {
   reset() {}
 
   update() {
+    // update
     this.stick.update();
     this.sail.update();
     this.setup.render();
 
+    // マウス インタラクション
     this.prevMosePosi = {
       x:
         Math.floor(
@@ -97,7 +103,7 @@ export default class Controller extends Base {
         Math.floor(
           MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) *
             100
-        ) / 100
+        ) / 100,
     };
     this.obj.rotation.y =
       ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
