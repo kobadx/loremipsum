@@ -1,0 +1,42 @@
+<%include('ejs/_data'); var meta = getData();%>
+<%
+var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
+%>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="touch">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="" name="description">
+    <meta name="keywords" content="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css?<%=Math.random()%>">
+    <link href="https://pactera-technology-japan.balance.bz/assets/css/style.css" rel="stylesheet">
+    <script src='assets/js/lib.js' defer></script>
+    <script src="assets/js/app.js?<%=Math.random()%>" defer></script>
+  </head>
+  <body id="top" class="">
+
+    <div id="wrapper" class="id_top">
+      <div id="inner">
+        <%-include('./ejs/_header')%>
+
+
+      <!-- ************************************************************
+    //  index-kv
+    // ************************************************************ -->
+        <%-include('./ejs/_kv')%>
+      </div>
+    </div>
+
+<!-- ************************************************************
+//
+//  script
+//
+// ************************************************************ -->
+<script src="./assets/js/bundle.js"></script>
+
+</body>
+</html>
