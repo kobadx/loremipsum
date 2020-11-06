@@ -10,17 +10,17 @@ export default class Controller {
     this.lines = [];
 
     // 可変 線の個数？
-    // this.NUM =
-    //   (this.verticalLength / this.width) % 2
-    //     ? this.verticalLength / this.width
-    //     : this.verticalLength / this.width - 1;
+    this.NUM =
+      (this.verticalLength / this.width) % 2
+        ? this.verticalLength / this.width
+        : this.verticalLength / this.width - 1;
 
-    this.NUM = 1;
+    // this.NUM = 3;
 
     this.param = {
       height: 50,
       speed: 3,
-      細かさ: 20,
+      細かさ: 30,
     };
 
     this.setup();
