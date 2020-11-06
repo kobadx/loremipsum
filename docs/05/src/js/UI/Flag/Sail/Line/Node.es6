@@ -6,9 +6,9 @@ export default class Controller {
     this.vx = x;
     this.vy = y;
     this.vz = z;
-    this.px = x;
-    this.py = y;
-    this.pz = z;
+    this.defx = x;
+    this.defy = y;
+    this.defz = z;
 
     this.cnt = 0;
   }
