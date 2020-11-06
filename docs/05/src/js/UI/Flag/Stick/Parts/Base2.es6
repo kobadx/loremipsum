@@ -5,7 +5,7 @@ export function Base2(posi, color, r) {
     posi[0].y - posi[1].y,
     posi[0].z - posi[1].z
   );
-  const linePer = -0.6;
+  const linePer = -0.76;
   const _line = curve2(
     posi[0],
     v
@@ -22,7 +22,7 @@ export function Base2(posi, color, r) {
   const _line2 = curve(
     v
       .clone()
-      .multiplyScalar(linePer + 0.02)
+      .multiplyScalar(linePer + 0.04)
       .add(new THREE.Vector3(posi[0].x, posi[0].y, posi[0].z)),
     posi[1],
     color,
@@ -54,7 +54,7 @@ function pole(posi, color, v) {
   const obj = new THREE.Group();
   const _v = v
     .clone()
-    .multiplyScalar(-0.07)
+    .multiplyScalar(-0.05)
     .add(new THREE.Vector3(posi.x, posi.y, posi.z));
   const _v2 = v
     .clone()
@@ -135,7 +135,7 @@ function curve2(posi, posi2, color, v) {
     .add(new THREE.Vector3(posi.x, posi.y, posi.z));
   const _v2 = v
     .clone()
-    .multiplyScalar(-0.07)
+    .multiplyScalar(-0.05)
     .add(new THREE.Vector3(posi.x, posi.y, posi.z));
   const _curve = new THREE.QuadraticBezierCurve3(
     _v2,

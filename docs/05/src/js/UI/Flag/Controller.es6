@@ -23,13 +23,13 @@ export default class Controller extends Base {
     // layout
     const posi = [
       new THREE.Vector3(
-        -window.innerWidth * 0.5 + 230 - 54,
+        -window.innerWidth * 0.5 + 100,
         this.$canvas.height() * 0.5,
         0
       ),
       new THREE.Vector3(
-        -window.innerWidth * 0.5,
-        this.$canvas.height() * 0.5 - 775,
+        -window.innerWidth * 0.5 - 25,
+        this.$canvas.height() * 0.5 - 800,
         0
       ),
     ];
@@ -49,11 +49,6 @@ export default class Controller extends Base {
     scene.background = new THREE.Color(0x00076d);
     this.setup = new Setup(this.$canvas, this.obj, scene);
     // this.setup.scene.add();
-
-    if (window.innerWidth < 1300 * 2) {
-      console.log("aaa");
-      this.setup.camera.position.z += (2600 - window.innerWidth) * 0.2;
-    }
 
     this.mousePosi = {
       x: 0,
@@ -77,10 +72,13 @@ export default class Controller extends Base {
     interaction.add(this, "mouseMove");
 
     $(window).on("mousemove", (e) => {
-      if (this.mouseMove) {
-        this.mousePosi.x = e.pageX;
-        this.mousePosi.y = e.pageY;
-      }
+      // if (this.mouseMove) {
+      //   this.mousePosi.x = e.pageX;
+      //   this.mousePosi.y = e.pageY;
+      // } else {
+      //   this.mousePosi.x = 0;
+      //   this.mousePosi.y = 0;
+      // }
     });
   }
 
