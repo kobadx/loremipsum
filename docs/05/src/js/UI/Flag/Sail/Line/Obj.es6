@@ -34,7 +34,7 @@ export default class Controller {
     this.nodes = [];
     this.points = [];
     for (let i = 0; i < this.config.num; i++) {
-      var x = this.posi[0].x + i * 10;
+      var x = this.posi[0].x + i * (10 / 1.4);
       var y = this.posi[0].y + this.sin(0, i);
       var z = this.posi[0].z;
 
@@ -188,7 +188,7 @@ export default class Controller {
 
   update(n = 1, index) {
     this.noiseTime += 0.005;
-    this.noiseTime2 += 0.002;
+    this.noiseTime2 -= 0.002;
 
     // update
     for (let i = 0; i < this.config.num; i++) {
@@ -205,7 +205,8 @@ export default class Controller {
         noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
       nd.z =
         nd.defz +
-        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * i * 3.5;
+        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * i * 2 +
+        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * i * 3.0;
     }
 
     // draw
