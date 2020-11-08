@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+/* --------------------------------------------------------------------------------
+*
+*   index-casestudy
+*
+-------------------------------------------------------------------------------- */
+.index-casestudy {
+  margin-bottom: 240px;
+
+  @media only screen and (max-width: $bp01) {
+    margin-bottom: 140px;
+  }
+}
+
+.index-casestudy-inner {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @media only screen and (max-width: $bp01) {
+    padding: 0 22px;
+  }
+}
+
+.index-casestudy-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+
+  @media only screen and (max-width: $bp01) {
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 35px;
+  }
+}
+
+.index-casestudy-item {
+  flex: 0 0 32.2%;
+  width: 32.2%;
+  margin-right: 1.7%;
+
+  @media only screen and (max-width: $bp01) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 25px;
+  }
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  &:last-child {
+    @media only screen and (max-width: $bp01) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.index-casestudy-link {
+  display: block;
+}
+
+.index-casestudy-img {
+  margin-bottom: 15px;
+
+  @media only screen and (max-width: $bp01) {
+    margin-bottom: 20px;
+  }
+}
+
+.index-casestudy-img-item {
+  width: 100%;
+  height: auto;
+}
+
+.index-casestudy-title {
+  font-size: 1.42rem;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.24rem;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.index-casestudy-name {
+  font-size: 1.28rem;
+  color: #fff;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.12rem;
+  }
+}

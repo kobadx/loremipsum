@@ -29,7 +29,6 @@ export default class Controller extends Base {
     this.obj.add(this.sail.obj);
     // this.obj.position.z = 50;
     this.setup.scene.add(this.obj);
-    // this.setup.scene.add(this.sail.obj);
   }
 
   setEvent() {

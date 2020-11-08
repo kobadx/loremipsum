@@ -57,7 +57,11 @@ function curve(posi1, posi2, color) {
   }
 
   const geometry = new THREE.BufferGeometry();
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   geometry.addAttribute(
     "position",
     new THREE.BufferAttribute(new Float32Array(points), 3)
@@ -99,7 +103,11 @@ function curve2(posi, r, color) {
   points.push(v3.x, v3.y, v3.z);
   points.push(v2.x + 1, v2.y - 3, v2.z);
   const geometry = new THREE.BufferGeometry();
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   geometry.addAttribute(
     "position",
     new THREE.BufferAttribute(new Float32Array(points), 3)

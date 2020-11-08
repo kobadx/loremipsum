@@ -22,7 +22,7 @@ export default class ClassName extends Base {
 
   initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xff0000);
+    // this.scene.background = new THREE.Color(0xff0000);
   }
 
   initCamera() {

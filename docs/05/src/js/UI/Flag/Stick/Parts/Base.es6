@@ -23,7 +23,11 @@ function line(posi, color) {
     new THREE.BufferAttribute(new Float32Array(points), 3)
   );
   // const geometry = line.geometry;
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   return new THREE.Line(geometry, material);
 }
 
@@ -38,7 +42,11 @@ function curve(r, color, posi) {
     new THREE.BufferAttribute(new Float32Array(points), 3)
   );
 
-  const material = new THREE.LineBasicMaterial({ color: color });
+  const material = new THREE.LineBasicMaterial({
+    color: color,
+    opacity: 0,
+    transparent: true
+  });
   const obj = new THREE.Line(geometry, material);
   obj.rotation.x = 0.5 * Math.PI;
   obj.position.y = posi[0].y;

@@ -24,7 +24,7 @@ export default class Controller {
       x: 0,
       y: 0,
       vx: 0,
-      vy: 0,
+      vy: 0
     };
 
     this.setup();
@@ -57,6 +57,8 @@ export default class Controller {
     const material = new THREE.LineBasicMaterial({
       color: this.color,
       blending: THREE.AdditiveBlending,
+      opacity: 0,
+      transparent: true
     });
     this.obj = new THREE.Line(geometry, material);
 

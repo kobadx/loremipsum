@@ -2,6 +2,7 @@ import Base from "../Base/Controller.es6";
 import Setup from "./setup/Controller.es6";
 import Stick from "./Stick/Controller.es6";
 import Sail from "./Sail/Controller.es6";
+import BG from "./BG/Controller.es6";
 import * as dat from "dat.gui";
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
@@ -38,7 +39,10 @@ export default class Controller extends Base {
     this.stick = new Stick(posi, 10);
     this.sail = new Sail(posi, 10);
 
+    this.bg = new BG();
+
     this.obj = new THREE.Group();
+
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
@@ -46,6 +50,7 @@ export default class Controller extends Base {
     this.obj.position.y = -window.innerHeight * 0.5 + 375;
     // this.obj.position.z = -1000
     const scene = new THREE.Scene();
+    scene.add(this.bg.obj);
     scene.add(this.obj);
     scene.background = new THREE.Color(0x00076d);
     this.setup = new Setup(this.$canvas, this.obj, scene);
@@ -84,6 +89,12 @@ export default class Controller extends Base {
   }
 
   reset() {}
+
+  show() {
+    this.sail.show();
+    this.stick.show();
+    this.bg.show();
+  }
 
   update() {
     // update

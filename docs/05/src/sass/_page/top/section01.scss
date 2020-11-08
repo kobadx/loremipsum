@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+/* --------------------------------------------------------------------------------
+*
+*   index-kv
+*
+-------------------------------------------------------------------------------- */
+.index-kv {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  @media only screen and (max-width: $bp01) {
+    align-items: flex-end;
+  }
+}
+
+.index-kv-inner {
+  flex: 1 1 auto;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @media only screen and (max-width: $bp01) {
+    padding-left: 20px;
+    padding-bottom: 50px;
+  }
+}
+
+.index-kv-lead {
+  color: #fff;
+  font-size: 1.83rem;
+  letter-spacing: 0.1em;
+  opacity: 0;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+  }
+}
+
+.index-kv-title {
+  color: #fff;
+  font-size: 8.6rem;
+  line-height: 1.1;
+  opacity: 0;
+  @media only screen and (max-width: $bp01) {
+    font-size: 3.85rem;
+  }
+}

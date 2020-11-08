@@ -1,5 +1,5 @@
 import Line from "./Line/Obj.es6";
-
+import gsap from "gsap";
 const noise = require("simplenoise");
 export default class Controller {
   constructor(posi, num) {
@@ -114,5 +114,21 @@ export default class Controller {
     noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
     this.obj.position.y = -35;
     // noisedat.add(window.noiseparam, "wave2", 1, );
+  }
+
+  show() {
+    const tl = gsap.timeline();
+    this.lines.forEach((line, index) => {
+      tl.to(
+        line.obj.material,
+        1,
+        {
+          opacity: 1,
+          ease: "expo.out",
+        },
+        index * 0
+      );
+    });
+    return tl;
   }
 }
