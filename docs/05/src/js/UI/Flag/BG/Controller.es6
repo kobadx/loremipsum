@@ -12,6 +12,7 @@ export default class Controller {
     //140ごとに罫線
     this.num = Math.ceil(w / 140);
     this.obj.position.x = (w - this.num * 140) * 0.5;
+    this.obj.position.z = -2;
     console.log((w - this.num * 140) * 0.5, "m");
     // this.obj.position.;
 
@@ -19,7 +20,7 @@ export default class Controller {
       color: new THREE.Color(0x9f9f9f),
       lineWidth: 1,
       opacity: 0,
-      transparent: true
+      transparent: true,
     });
 
     for (let i = 0; i < this.num; i++) {
@@ -42,7 +43,7 @@ export default class Controller {
     this.obj.children.forEach((children, index) => {
       tl.to(children.material, 1, {
         opacity: 0.1,
-        ease: "expo.out"
+        ease: "expo.out",
       });
     });
     return tl;

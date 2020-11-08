@@ -42,7 +42,8 @@ export default class ClassName extends Base {
     var vFOV = fov * (Math.PI / 180);
     var vpHeight = this.h;
     var z = vpHeight / (2 * Math.tan(vFOV / 2));
-    this.z = z * 0.3;
+    this.defz = z * 1;
+    this.z = z * 0.27;
     this.camera.position.set(0, 0, this.z);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -83,10 +84,12 @@ export default class ClassName extends Base {
     this.composer.addPass(renderPass);
     const param = {
       しきい値: 0.139,
-      対象の明るさ: 1.9,
-      グローの半径: 0.36,
+      // 対象の明るさ: 1.9,
+      // グローの半径: 0.36,
+      対象の明るさ: 2,
+      グローの半径: 0.3,
     };
-    const effectBloom = new THREE.UnrealBloomPass(
+    this.effectBloom = new THREE.UnrealBloomPass(
       new THREE.Vector2(
         window.innerWidth * window.devicePixelRatio,
         window.innerHeight * window.devicePixelRatio
@@ -98,19 +101,19 @@ export default class ClassName extends Base {
       this.scene,
       this.camera
     );
-    effectBloom.threshold = param["しきい値"];
-    effectBloom.strength = param["対象の明るさ"];
-    effectBloom.radius = param["グローの半径"];
+    this.effectBloom.threshold = param["しきい値"];
+    this.effectBloom.strength = param["対象の明るさ"];
+    this.effectBloom.radius = param["グローの半径"];
     this._dat.add(param, "しきい値", 0, 1).onChange((e) => {
-      effectBloom.threshold = e;
+      this.effectBloom.threshold = e;
     });
     this._dat.add(param, "対象の明るさ", 0, 3).onChange((e) => {
-      effectBloom.strength = e;
+      this.effectBloom.strength = e;
     });
     this._dat.add(param, "グローの半径", 0, 1).onChange((e) => {
-      effectBloom.radius = e;
+      this.effectBloom.radius = e;
     });
-    this.composer.addPass(effectBloom);
+    this.composer.addPass(this.effectBloom);
     const toScreen = new THREE.ShaderPass(THREE.CopyShader);
     toScreen.renderToScreen = true;
     this.composer.addPass(toScreen);

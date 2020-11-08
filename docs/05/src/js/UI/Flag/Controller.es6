@@ -36,19 +36,21 @@ export default class Controller extends Base {
     ];
 
     // objects
+    this.bg = new BG();
     this.stick = new Stick(posi, 10);
     this.sail = new Sail(posi, 10);
-
-    this.bg = new BG();
 
     this.obj = new THREE.Group();
 
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
+    // layout
     this.obj.position.x = window.innerWidth * 0.5 - 585;
     this.obj.position.y = -window.innerHeight * 0.5 + 375;
     // this.obj.position.z = -1000
+
+    // add scene
     const scene = new THREE.Scene();
     scene.add(this.bg.obj);
     scene.add(this.obj);
@@ -93,7 +95,7 @@ export default class Controller extends Base {
   show() {
     this.sail.show();
     this.stick.show();
-    this.bg.show();
+    // this.bg.show();
   }
 
   update() {

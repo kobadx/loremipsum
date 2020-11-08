@@ -68,7 +68,7 @@ function pole(posi, color, v) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
   });
   geometry.addAttribute(
     "position",
@@ -159,7 +159,8 @@ function curve2(posi, posi2, color, v) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
+    depthTest: false,
   });
   return new THREE.Line(geometry, material);
 }
@@ -192,7 +193,8 @@ function curve(posi, posi2, color, v) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
+    depthTest: false,
   });
   return new THREE.Line(geometry, material);
 }
