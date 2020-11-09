@@ -3,17 +3,15 @@
 //  ViewTop sss
 //
 //--------------------------------------------------
-import Base from '_MyLibs/Util/Base.es6';
+import Base from "_MyLibs/Util/Base.es6";
 
-import UIController from './UI/Controller.es6';
+import UIController from "./UI/Controller.es6";
 
 export default class ViewCommon extends Base {
-
-  constructor(){
-
+  constructor() {
     super();
 
-    this.name = 'ViewCommon';
+    this.name = "ViewCommon";
 
     this.isUEv = false; // update
     this.isREv = true; // resize
@@ -22,74 +20,50 @@ export default class ViewCommon extends Base {
 
     this.setup();
     this.setEvents();
-
   }
 
   setup() {
-
+    this.ui = new UIController();
   }
 
   onLoad() {
-
-
+    this.ui.setup();
     // ------------------------------------------------------------
     // timeline
     // ------------------------------------------------------------
-    
-    
   }
 
-  onLoadingEnd() { 
-
+  onLoadingEnd() {
     // ------------------------------------------------------------
-     //  Util
-     // ------------------------------------------------------------
-
-     // ------------------------------------------------------------
-     //  layout
-     // ------------------------------------------------------------
-
-     // ------------------------------------------------------------
-     //  ui
-     // ------------------------------------------------------------
-          
-
-     // ------------------------------------------------------------
-     // effect
-     // ------------------------------------------------------------
-
-     // ------------------------------------------------------------
-     // Scene / timeline
-     // ------------------------------------------------------------
-
-
+    //  Util
+    // ------------------------------------------------------------
+    // ------------------------------------------------------------
+    //  layout
+    // ------------------------------------------------------------
+    // ------------------------------------------------------------
+    //  ui
+    // ------------------------------------------------------------
+    // ------------------------------------------------------------
+    // effect
+    // ------------------------------------------------------------
+    // ------------------------------------------------------------
+    // Scene / timeline
+    // ------------------------------------------------------------
   }
 
-  update() {
+  update() {}
 
-
-  }
-
-  onResize() {
-
-
-  }
+  onResize() {}
 
   onLoadAll() {
-
     // new Responsive();
-
   }
 
   setEvents() {
-
     super.setEvents();
 
-    $(window).on('load', this.onLoad.bind(this));
-    $(window).on('loadingEnd', this.onLoadingEnd.bind(this));
-    $(window).on('loadAll', this.onLoadAll.bind(this));
-
-
+    $(window).on("load", this.onLoad.bind(this));
+    $(window).on("loadingEnd", this.onLoadingEnd.bind(this));
+    $(window).on("loadAll", this.onLoadAll.bind(this));
   }
-
 }

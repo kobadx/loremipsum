@@ -112,12 +112,23 @@
   right: 0;
   z-index: 101;
   background-color: #fff;
-  background-image: linear-gradient(to right, #f3f3f3, #f3f3f3 1px, transparent 1px, transparent 2px);
+  background-image: linear-gradient(
+    to right,
+    #f3f3f3,
+    #f3f3f3 1px,
+    transparent 1px,
+    transparent 2px
+  );
   background-size: 140px 1px;
   background-position: left top;
   background-repeat: repeat;
   width: 82.8%;
-  display: none;
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+  &.is-active {
+    pointer-events: auto;
+  }
 
   @media only screen and (max-width: $bp01) {
     width: 100%;
@@ -207,26 +218,38 @@
     font-size: 1.6rem;
   }
 
-  &:hover {
-    padding-left: 90px;
-
-    .menu-arrow {
-      display: block;
+  svg {
+    width: 72px;
+    // margin-top: 10px;
+    overflow: visible;
+    position: absolute;
+    top: 5px;
+    height: 14px;
+    polyline {
+      stroke: currentColor;
     }
   }
+
+  // &:hover {
+  //   padding-left: 90px;
+  //
+  //   .menu-arrow {
+  //     display: block;
+  //   }
+  // }
 }
 
-.menu-arrow {
-  display: block;
-  background: url(/assets/img/common/arrow_r_blk.png) no-repeat 0 center;
-  background-size: 72px auto;
-  width: 72px;
-  height: 14px;
-  position: absolute;
-  left: 0;
-  top: 5px;
-  display: none;
-}
+// .menu-arrow {
+//   display: block;
+//   background: url(/assets/img/common/arrow_r_blk.png) no-repeat 0 center;
+//   background-size: 72px auto;
+//   width: 72px;
+//   height: 14px;
+//   position: absolute;
+//   left: 0;
+//   top: 5px;
+//   display: none;
+// }
 
 .menu-util {
 }

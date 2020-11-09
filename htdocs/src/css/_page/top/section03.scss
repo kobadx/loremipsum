@@ -9,7 +9,7 @@
   position: relative;
   margin-bottom: 140px;
 
-  .bg {
+  & > .bg {
     position: absolute;
     width: 82%;
     height: 106%;
@@ -53,7 +53,7 @@
 
 .index-recruit-img-item {
   width: 100%;
-  height: auto;
+  // height: auto;
 }
 
 .index-news {
@@ -103,7 +103,9 @@
   font-size: 1.6rem;
   position: relative;
   display: block;
-
+  p {
+    font-feature-settings: "palt";
+  }
   .arrow {
     display: block;
     position: absolute;
