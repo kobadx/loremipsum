@@ -15,12 +15,12 @@ export default class Controller {
         ? this.verticalLength / this.width
         : this.verticalLength / this.width - 1;
 
-    // this.NUM = 3;
+    // this.NUM = 1;
 
     this.param = {
       height: 50,
       speed: 3,
-      細かさ: 30
+      細かさ: 30,
     };
 
     this.setup();
@@ -34,17 +34,21 @@ export default class Controller {
       const p = {
         x: this.getVector(i).x + this.posi[0].x,
         y: this.getVector(i).y + this.posi[0].y,
-        z: this.getVector(i).z + this.posi[0].z
+        z: this.getVector(i).z + this.posi[0].z,
       };
       const line = new Line([p], {
         height: this.param.height,
         i: this.param.speed,
         offset: this.param["細かさ"],
-        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1
+        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.4,
       });
       this.obj.add(line.obj);
       this.lines.push(line);
     }
+
+    // layout
+    this.obj.position.x = 30;
+    // this.obj.position.y = -35;
   }
 
   getVector(index) {
@@ -84,21 +88,46 @@ export default class Controller {
     });
   }
 
+  show() {
+    const tl = gsap.timeline();
+
+    tl
+      // draw line
+      .add(() => {
+        this.lines.forEach((line, index) => {
+          line.drawLine();
+        });
+      }, 0.0)
+
+      // spread
+      .add(() => {
+        this.lines.forEach((line, index) => {
+          line.spread();
+        });
+
+        // positionを正しい位置に
+        TweenMax.to(this.obj.position, 3.0, {
+          y: -35,
+          ease: Power2.easeInOut,
+        });
+      }, 1.5);
+  }
+
   setEvents() {
     // param
-    this.obj.position.x = 30;
+
     const _dat = dat.addFolder("flag");
-    _dat.add(this.param, "height", 0, 500).onChange(e => {
+    _dat.add(this.param, "height", 0, 500).onChange((e) => {
       this.lines.forEach((line, i) => {
         line.config.height = i + e;
       });
     });
-    _dat.add(this.param, "speed", 0, 10, 0.1).onChange(e => {
+    _dat.add(this.param, "speed", 0, 10, 0.1).onChange((e) => {
       this.lines.forEach((line, i) => {
         line.config.i = e;
       });
     });
-    _dat.add(this.param, "細かさ", 0, 1000).onChange(e => {
+    _dat.add(this.param, "細かさ", 0, 1000).onChange((e) => {
       this.lines.forEach((line, i) => {
         line.config.offset = e;
       });
@@ -107,28 +136,11 @@ export default class Controller {
     const noisedat = dat.addFolder("noise");
     window.noiseparam = {
       line: 2,
-      wave: 70
+      wave: 70,
       // wave2: 70
     };
     noisedat.add(window.noiseparam, "line", 0, 2);
     noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
-    this.obj.position.y = -35;
     // noisedat.add(window.noiseparam, "wave2", 1, );
-  }
-
-  show() {
-    const tl = gsap.timeline();
-    this.lines.forEach((line, index) => {
-      tl.to(
-        line.obj.material,
-        1,
-        {
-          opacity: 1,
-          ease: "expo.out"
-        },
-        index * 0
-      );
-    });
-    return tl;
   }
 }

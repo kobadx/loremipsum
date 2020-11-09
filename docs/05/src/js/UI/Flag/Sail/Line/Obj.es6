@@ -20,11 +20,15 @@ export default class Controller {
     this.rad = 0;
     this.maxSpeed = 5;
 
+    this.s = 0;
+    this.e = 0;
+    this.t = 0;
+
     this.start = {
       x: 0,
       y: 0,
       vx: 0,
-      vy: 0
+      vy: 0,
     };
 
     this.setup();
@@ -32,15 +36,19 @@ export default class Controller {
 
   setup() {
     this.nodes = [];
+    this.vec = [];
     this.points = [];
     for (let i = 0; i < this.config.num; i++) {
-      var x = this.posi[0].x + i * 10;
+      var x = this.posi[0].x + i * (10 / 1.4);
       var y = this.posi[0].y + this.sin(0, i);
       var z = this.posi[0].z;
 
       var node = new Node(x, y, z);
+      var v = new THREE.Vector3(x, y, z);
+      node.defy2 = Math.sin(i * 0.05) * 10;
 
       this.nodes.push(node);
+      this.vec.push(v);
       this.points.push(node.x, node.y, node.z);
     }
 
@@ -57,12 +65,16 @@ export default class Controller {
     const material = new THREE.LineBasicMaterial({
       color: this.color,
       blending: THREE.AdditiveBlending,
-      opacity: 0,
-      transparent: true
+      opacity: 1,
+      transparent: true,
+      depthTest: false,
     });
     this.obj = new THREE.Line(geometry, material);
 
     this.pointsNUM = this.obj.geometry.attributes.position.array.length;
+
+    this.curve = new THREE.CatmullRomCurve3(this.vec);
+    this.curve.curveType = "centripetal";
   }
 
   // oka
@@ -190,37 +202,113 @@ export default class Controller {
 
   update(n = 1, index) {
     this.noiseTime += 0.005;
-    this.noiseTime2 += 0.002;
+    this.noiseTime2 -= 0.002;
 
     // update
     for (let i = 0; i < this.config.num; i++) {
       var nd = this.nodes[i];
 
-      // nd.y +=
-      //   noise.simplex3(
-      //     nd.x * this.noiseScale + 2398523,
-      //     nd.y * this.noiseScale + 1309854,
-      //     index + this.noiseTime
-      //   ) * 1;
       nd.y =
         nd.defy +
         noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
       nd.z =
         nd.defz +
-        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * i * 3.5;
+        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * i * 2 +
+        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * i * 3.0;
+
+      var y = this.lerp(nd.defy2, nd.y, this.t);
+      var z = this.lerp(nd.defz, nd.z, this.t);
+
+      this.curve.points[i].y = y;
+      this.curve.points[i].z = z;
     }
 
     // draw
-    for (let i = 0; i < this.config.num; i++) {
-      var y = this.nodes[i].y;
-      var z = this.nodes[i].z;
+    // for (let i = 0; i < this.config.num; i++) {
+    //   var y = this.nodes[i].y;
+    //   var z = this.nodes[i].z;
 
-      this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
-      this.obj.geometry.attributes.position.array[i * 3 + 2] = z;
+    //   this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
+    //   this.obj.geometry.attributes.position.array[i * 3 + 2] = z;
+    // }
+
+    // this.obj.geometry.attributes.position.array = [];
+
+    for (var i = 0; i < this.config.num; i++) {
+      var s = this.s;
+      var e = this.e * (i / this.config.num);
+      var t = this.clamp(s + e, 0.0, 1.0);
+
+      var v = this.curve.getPoint(t);
+
+      this.obj.geometry.attributes.position.array[i * 3 + 0] = v.x;
+      this.obj.geometry.attributes.position.array[i * 3 + 1] = v.y;
+      this.obj.geometry.attributes.position.array[i * 3 + 2] = v.z;
     }
 
     // draw
     this.obj.geometry.attributes.position.needsUpdate = true;
+  }
+
+  drawLine() {
+    var tl = new TimelineMax({ repeat: 0, yoyo: false });
+    var dur = 3.0;
+
+    tl
+      // end
+      .to(
+        this,
+        dur,
+        {
+          e: 1,
+          ease: Expo.easeInOut,
+        },
+        0.0
+      );
+  }
+
+  spread() {
+    var tl = new TimelineMax({ repeat: 0, yoyo: false });
+    var dur = 3.0;
+
+    tl
+      // end
+      .to(
+        this,
+        dur,
+        {
+          t: 1,
+          ease: Expo.easeInOut,
+        },
+        0.0
+      );
+  }
+
+  timeline() {
+    var tl = new TimelineMax({ repeat: 0, yoyo: false });
+    var dur = 3.0 + 3.0 + Math.random();
+
+    tl
+      // end
+      .to(
+        this,
+        dur,
+        {
+          e: 1,
+          ease: Expo.easeInOut,
+        },
+        0.0
+      );
+    // // start
+    // .to(
+    //   this,
+    //   dur,
+    //   {
+    //     s: 1,
+    //     ease: Expo.easeInOut,
+    //   },
+    //   1.4
+    // );
   }
 
   sin(t, i) {
@@ -243,5 +331,18 @@ export default class Controller {
   // -----------------------------------
   range(val) {
     return this.randomInt(-val, val);
+  }
+
+  clamp(val, min, max, minVal, maxVal) {
+    if (val < min) val = minVal == undefined ? min : minVal;
+    else if (val > max) val = maxVal == undefined ? max : maxVal;
+
+    return val;
+  }
+
+  lerp(val01, val02, val) {
+    val = val < 0 ? 0 : val;
+    val = val > 1 ? 1 : val;
+    return val01 + (val02 - val01) * val;
   }
 }

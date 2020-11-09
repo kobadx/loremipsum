@@ -60,7 +60,8 @@ function curve(posi1, posi2, color) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
+    depthTest: false,
   });
   geometry.addAttribute(
     "position",
@@ -106,7 +107,8 @@ function curve2(posi, r, color) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
+    depthTest: false,
   });
   geometry.addAttribute(
     "position",

@@ -26,7 +26,8 @@ function line(posi, color) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
+    depthTest: false,
   });
   return new THREE.Line(geometry, material);
 }
@@ -45,7 +46,7 @@ function curve(r, color, posi) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true
+    transparent: true,
   });
   const obj = new THREE.Line(geometry, material);
   obj.rotation.x = 0.5 * Math.PI;

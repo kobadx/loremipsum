@@ -49,3 +49,21 @@
     font-size: 3.85rem;
   }
 }
+
+// line
+.index-kv-inner.line {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .index-kv-title {
+    -webkit-text-stroke: 1px #fff;
+    color: rgba(255, 255, 255, 0);
+  }
+
+  .index-kv-title {
+    -webkit-text-stroke: 1px #fff;
+    color: rgba(255, 255, 255, 0);
+  }
+}

@@ -8,6 +8,7 @@ export default class Controller {
     this.vz = z;
     this.defx = x;
     this.defy = y;
+    this.defy2 = y;
     this.defz = z;
 
     this.cnt = 0;
