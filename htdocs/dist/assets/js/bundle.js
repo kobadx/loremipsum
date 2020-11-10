@@ -51707,8 +51707,12 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        $btn: $(".header-menu-btn"),
 	        $contents: $(".menu")
 	      });
-	
-	      new _Controller10.default($(".parallax"));
+	      $(".parallax,.parallax2").each(function (i, e) {
+	        new _Controller10.default($(e), {
+	          ease: e.dataset.ease - 0,
+	          max: e.dataset.max - 0
+	        });
+	      });
 	
 	      $(".HoverImg").each(function (i, e) {
 	        new _Controller12.default(e);
@@ -53116,12 +53120,19 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
 	
-	  function Controller($ele) {
+	  function Controller($ele, _ref) {
+	    var ease = _ref.ease,
+	        max = _ref.max;
+	
 	    _classCallCheck(this, Controller);
 	
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	
 	    _this.$ele = $ele;
+	    _this.ease = ease;
+	    _this.max = max;
+	
+	    _this.$ele.get(0).style.setProperty("--max", max + "px");
 	
 	    _this.target = _this.$ele.find(".parallax-inner").get(0);
 	
@@ -53138,10 +53149,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.renderedStyles = {
 	        previous: 0,
 	        current: 0,
-	        ease: 0.1,
+	        ease: this.ease,
 	        maxValue: 4,
 	        setValue: function setValue() {
-	          var maxValue = 40;
+	          var maxValue = _this2.max;
 	          var minValue = -1 * maxValue;
 	          return Math.max(Math.min(MathUtils.map(_this2.props.top - _this2.st, window.innerHeight, -1 * _this2.props.height, minValue, maxValue), maxValue), minValue);
 	        }
@@ -53172,6 +53183,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "update",
 	    value: function update() {
+	      // this.getSize();
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
 	

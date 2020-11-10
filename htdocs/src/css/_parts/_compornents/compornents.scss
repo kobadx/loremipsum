@@ -221,9 +221,11 @@ body.no-select {
   padding-top: (526 / 1040) * 100%;
   position: relative;
   height: 0;
-  &-inner {
+  .parallax-inner {
     height: calc(100% + 2 * 40px);
+    height: calc(100% + 2 * var(--max));
     top: -40px;
+    top: calc(var(--max) * -1);
     width: 100%;
     position: absolute;
     left: 0;

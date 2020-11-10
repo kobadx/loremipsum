@@ -47,8 +47,12 @@ export default class Controller extends Base {
       $btn: $(".header-menu-btn"),
       $contents: $(".menu")
     });
-
-    new Parallax($(".parallax"));
+    $(".parallax,.parallax2").each((i, e) => {
+      new Parallax($(e), {
+        ease: e.dataset.ease - 0,
+        max: e.dataset.max - 0
+      });
+    });
 
     $(".HoverImg").each((i, e) => {
       new HoverImg(e);

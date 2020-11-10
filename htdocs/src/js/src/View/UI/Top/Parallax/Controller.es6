@@ -11,9 +11,13 @@ const MathUtils = {
   lerp: (a, b, n) => (1 - n) * a + n * b
 };
 export default class Controller extends Base {
-  constructor($ele) {
+  constructor($ele, { ease, max }) {
     super();
     this.$ele = $ele;
+    this.ease = ease;
+    this.max = max;
+
+    this.$ele.get(0).style.setProperty("--max", max + "px");
 
     this.target = this.$ele.find(".parallax-inner").get(0);
 
@@ -25,10 +29,10 @@ export default class Controller extends Base {
     this.renderedStyles = {
       previous: 0,
       current: 0,
-      ease: 0.1,
+      ease: this.ease,
       maxValue: 4,
       setValue: () => {
-        const maxValue = 40;
+        const maxValue = this.max;
         const minValue = -1 * maxValue;
         return Math.max(
           Math.min(
@@ -67,6 +71,7 @@ export default class Controller extends Base {
   }
 
   update() {
+    // this.getSize();
     this.renderedStyles.current = this.renderedStyles.setValue();
     this.renderedStyles.previous = MathUtils.lerp(
       this.renderedStyles.previous,
