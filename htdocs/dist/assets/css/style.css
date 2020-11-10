@@ -1050,7 +1050,7 @@ img
 {
     .menu-close
     {
-        top: 50px;
+        top: 28px;
         right: 25px;
 
         width: 50px;
@@ -1062,6 +1062,14 @@ img
     position: relative;
 
     height: 32px;
+}
+
+@media only screen and (max-width: 768px)
+{
+    .menu-close-lines
+    {
+        height: 26px;
+    }
 }
 
 .menu-close-line
@@ -1154,7 +1162,7 @@ img
     {
         display: block;
 
-        padding: 30px 20px;
+        padding: 60px 20px 30px;
     }
 }
 
@@ -1357,6 +1365,11 @@ img
 *   html,body
 *
 -------------------------------------------------------------------------------- */
+body
+{
+    --h: 100vh;
+}
+
 html
 {
     font-family: 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', Meiryo, 'メイリオ', Arial, sans-serif;
@@ -2504,6 +2517,7 @@ a:active
     display:         flex;
 
     height: 100vh;
+    height: var(--h);
 
     -webkit-align-items: center;
     -ms-flex-align: center;
@@ -2538,7 +2552,7 @@ a:active
 {
     #wrapper.id_top .index-kv-inner
     {
-        padding-bottom: 50px;
+        padding-bottom: 78px;
         padding-left: 20px;
     }
 }
@@ -2592,6 +2606,14 @@ a:active
             transform: translateX(-50%);
 }
 
+@media only screen and (max-width: 768px)
+{
+    #wrapper.id_top .index-kv-inner.line
+    {
+        width: calc(100% - 40px);
+    }
+}
+
 #wrapper.id_top .index-kv-inner.line .index-kv-title
 {
     color: rgba(255, 255, 255, 0);
@@ -2604,6 +2626,65 @@ a:active
     color: rgba(255, 255, 255, 0);
 
     -webkit-text-stroke: 1px #fff;
+}
+
+#wrapper.id_top .scroll-btn
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 1px;
+    height: 60px;
+    margin: auto;
+    margin-top: -25px;
+    padding: 0 20px;
+
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 769px)
+{
+    #wrapper.id_top .scroll-btn
+    {
+        display: none;
+    }
+}
+
+#wrapper.id_top .scroll-btn .bar
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    width: 1px;
+    height: 100%;
+    margin: auto;
+
+    -webkit-transform: translateY(-110%);
+        -ms-transform: translateY(-110%);
+            transform: translateY(-110%);
+
+    background: #eeeff2;
+}
+
+#wrapper.id_top .scroll-btn .bar2
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    width: 1px;
+    height: 100%;
+    margin: auto;
+
+    -webkit-transform: translateY(-110%);
+        -ms-transform: translateY(-110%);
+            transform: translateY(-110%);
+
+    background: rgba(238, 239, 242, .3);
 }
 
 #wrapper.id_top .index-about

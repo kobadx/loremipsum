@@ -18,6 +18,9 @@ export default class Controller extends Base {
     this.name = "UIController";
     window.dat = new dat.GUI();
     this.$canvas = $(".canvas");
+    this.bp = 768;
+    this.per = this.$canvas.width() / 1280;
+    if (this.per > 1) this.per = 1;
 
     this.speed = 0.1;
 
@@ -46,8 +49,15 @@ export default class Controller extends Base {
     this.obj.add(this.sail.obj);
 
     // layout
+
     this.obj.position.x = window.innerWidth * 0.5 - 585;
+
     this.obj.position.y = -window.innerHeight * 0.5 + 375;
+
+    if (this.$canvas.width() <= this.bp) {
+      this.obj.position.x = window.innerWidth * 0.5 - 300;
+      this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
+    }
     // this.obj.position.z = -1000
 
     // add scene
@@ -73,20 +83,28 @@ export default class Controller extends Base {
     super.__setUpdateFlag(true);
     $(window).on("resize", e => {
       this.setup.onWindowResize();
-      // this.obj.position.y = window.innerHeight * 0.5;
+      this.bg.resize();
+      if (this.$canvas.width() <= this.bp) {
+        const per = this.$canvas.width() / 1280;
+        this.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
+        this.obj.position.x = window.innerWidth * 0.5 - 300;
+      } else {
+        this.obj.scale.set(1, 1, 1);
+        this.obj.position.x = window.innerWidth * 0.5 - 585;
+      }
     });
     const interaction = window.dat.addFolder("interaction");
-    this.mouseMove = true;
+    this.mouseMove = false;
     interaction.add(this, "mouseMove");
 
     $(window).on("mousemove", e => {
-      // if (this.mouseMove) {
-      //   this.mousePosi.x = e.pageX;
-      //   this.mousePosi.y = e.pageY;
-      // } else {
-      //   this.mousePosi.x = 0;
-      //   this.mousePosi.y = 0;
-      // }
+      if (this.mouseMove) {
+        this.mousePosi.x = e.pageX;
+        this.mousePosi.y = e.pageY;
+      } else {
+        this.mousePosi.x = 0;
+        this.mousePosi.y = 0;
+      }
     });
   }
 

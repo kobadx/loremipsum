@@ -8,6 +8,10 @@ html,
 body {
 }
 
+body {
+  --h: 100vh;
+}
+
 html {
   // baseフォント
   color: $font-color;

@@ -14,6 +14,8 @@ import Menu from "./Menu/Controller.es6";
 import Parallax from "./Parallax/Controller.es6";
 import HoverImg from "./HoverImg/Controller.es6";
 
+import ScrollBtn from "./ScrollBtn/Controller.es6";
+
 import KV from "./KV/Controller.es6";
 
 export default class Controller extends Base {
@@ -22,6 +24,7 @@ export default class Controller extends Base {
 
     this.setup();
     this.setEvents();
+    this.onResize();
 
     // this.timeline();
   }
@@ -50,6 +53,8 @@ export default class Controller extends Base {
     $(".HoverImg").each((i, e) => {
       new HoverImg(e);
     });
+
+    this.scrollBtn = new ScrollBtn($(".scroll-btn"));
     super.onU();
 
     this.kv = new KV();
@@ -59,6 +64,7 @@ export default class Controller extends Base {
 
   show() {
     this.kv.timeline(e => {
+      this.scrollBtn.show();
       return this.menu.showBtn();
     });
   }
@@ -71,9 +77,15 @@ export default class Controller extends Base {
     });
   }
 
-  onResize() {}
+  onResize() {
+    console.log("resize");
+
+    document.body.style.setProperty("--h", window.innerHeight + "px");
+  }
 
   setEvents() {
     super.setEvents();
+
+    $(window).on("resize", this.onResize.bind(this));
   }
 }

@@ -166,12 +166,15 @@
   @media only screen and (max-width: $bp01) {
     width: 50px;
     right: 25px;
-    top: 50px;
+    top: 56px * 0.5;
   }
 }
 .menu-close-lines {
   position: relative;
   height: 32px;
+  @media only screen and (max-width: $bp01) {
+    height: 26px;
+  }
 }
 .menu-close-line {
   display: block;
@@ -223,7 +226,7 @@
   // z-index: 2;
   @media only screen and (max-width: $bp01) {
     display: block;
-    padding: 30px 20px;
+    padding: 60px 20px 30px;
   }
 }
 

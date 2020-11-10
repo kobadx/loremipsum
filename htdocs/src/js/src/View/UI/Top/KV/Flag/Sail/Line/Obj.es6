@@ -28,7 +28,7 @@ export default class Controller {
       x: 0,
       y: 0,
       vx: 0,
-      vy: 0,
+      vy: 0
     };
 
     this.setup();
@@ -67,7 +67,7 @@ export default class Controller {
       blending: THREE.AdditiveBlending,
       opacity: 1,
       transparent: true,
-      depthTest: false,
+      depthTest: false
     });
     this.obj = new THREE.Line(geometry, material);
 
@@ -261,7 +261,7 @@ export default class Controller {
         dur,
         {
           e: 1,
-          ease: Expo.easeInOut,
+          ease: Expo.easeInOut
         },
         0.0
       );
@@ -278,7 +278,7 @@ export default class Controller {
         dur,
         {
           t: 1,
-          ease: Expo.easeInOut,
+          ease: Expo.easeInOut
         },
         0.0
       );
@@ -295,7 +295,7 @@ export default class Controller {
         dur,
         {
           e: 1,
-          ease: Expo.easeInOut,
+          ease: Expo.easeInOut
         },
         0.0
       );
