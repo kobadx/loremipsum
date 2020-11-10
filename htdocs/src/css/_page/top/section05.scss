@@ -60,11 +60,6 @@
 
 .index-casestudy-link {
   display: block;
-  &:hover {
-    img {
-      transform: scale(1.05);
-    }
-  }
 }
 
 .index-casestudy-img {
@@ -73,7 +68,6 @@
   backface-visibility: hidden;
   img {
     backface-visibility: hidden;
-    transition: transform 1.75s $easeOutExpo;
   }
   @media only screen and (max-width: $bp01) {
     margin-bottom: 20px;

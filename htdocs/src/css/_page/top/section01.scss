@@ -33,6 +33,8 @@
   font-size: 1.83rem;
   letter-spacing: 0.1em;
 
+  opacity: 0;
+
   @media only screen and (max-width: $bp01) {
     font-size: 1.4rem;
     margin-bottom: 5px;
@@ -44,8 +46,27 @@
   font-size: 8.6rem;
   line-height: 1.1;
 
+  opacity: 0;
+
   @media only screen and (max-width: $bp01) {
     font-size: 3.85rem;
   }
 }
 
+// line
+.index-kv-inner.line {
+  position: absolute;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .index-kv-title {
+    -webkit-text-stroke: 1px #fff;
+    color: rgba(255, 255, 255, 0);
+  }
+
+  .index-kv-title {
+    -webkit-text-stroke: 1px #fff;
+    color: rgba(255, 255, 255, 0);
+  }
+}
