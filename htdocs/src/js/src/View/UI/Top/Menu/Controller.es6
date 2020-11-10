@@ -6,7 +6,10 @@
 
 import Base from "_MyLibs/Util/Base.es6";
 
-import Hover from "./Hover/Controller.es6";
+import HoverArrow from "./HoverArrow/Controller.es6";
+import CloseBtn from "./CloseBtn/Controller.es6";
+import OpenBtn from "./OpenBtn/Controller.es6";
+import Renderer from "./Renderer.es6";
 
 export default class Controller extends Base {
   constructor({ $btn, $contents }) {
@@ -19,8 +22,13 @@ export default class Controller extends Base {
 
   setup() {
     this.$contents.find(".menu-item").each((i, e) => {
-      new Hover(e);
+      new HoverArrow(e);
     });
+
+    this.closeBtn = new CloseBtn(this.$contents.find(".menu-close"));
+    this.openBtn = new OpenBtn($(".header-menu-btn"));
+
+    this.renderer = new Renderer(this.$contents);
   }
 
   timeline() {}
@@ -29,24 +37,31 @@ export default class Controller extends Base {
 
   show() {
     const tl = new TimelineMax();
-    tl.to(this.$contents, 1, {
-      opacity: 1,
-      ease: Expo.easeOut,
-      onComplete: () => {
-        this.$contents.addClass("is-active");
-      }
-    });
+    tl
+      //show
+      .add(
+        this.renderer.show(e => {
+          this.$contents.addClass("is-active");
+          return this.closeBtn.show();
+        })
+      );
+  }
+
+  showBtn() {
+    return this.openBtn.show();
   }
 
   hide() {
     const tl = new TimelineMax();
-    tl.to(this.$contents, 1, {
-      opacity: 0,
-      ease: Expo.easeOut,
-      onComplete: () => {
-        this.$contents.removeClass("is-active");
-      }
-    });
+    this.$contents.removeClass("is-active");
+    tl
+
+      //hide
+      .add(
+        this.renderer.hide(e => {
+          return this.closeBtn.hide();
+        })
+      );
   }
 
   onResize() {}

@@ -4,12 +4,15 @@
 *
 -------------------------------------------------------------------------------- */
 
-html,body {
+html,
+body {
+}
 
+body {
+  --h: 100vh;
 }
 
 html {
-
   // baseフォント
   color: $font-color;
   font-size: $fz + px;
@@ -28,27 +31,29 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 
-  @if $visible == true { opacity: 1; }
-  @else { opacity: 0; }
+  @if $visible == true {
+    opacity: 1;
+  } @else {
+    opacity: 0;
+  }
 
-  @if $sp_select == true { -webkit-tap-highlight-color:rgba(0,0,0,0); }
+  @if $sp_select == true {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
 
-  @if $hidden == true { overflow: hidden; }
+  @if $hidden == true {
+    overflow: hidden;
+  }
 
   // other
   // backface-visibility: hidden; //CSS 3D Transformsによる3次元の裏側を描画するかしないか　visible or hidden
   -webkit-font-smoothing: antialiased; //太く、細く
   // text-rendering: auto; // web fontカーニング指定
   // -webkit-font-smoothing: antialiased;
-
-
 }
 
 body {
-
   overflow-x: hidden;
-
-
 }
 
 /* --------------------------------------------------------------------------------
@@ -57,20 +62,21 @@ body {
 *
 -------------------------------------------------------------------------------- */
 #wrapper {
-  background: url(/assets/img/common/bg_pattern_line02.png) repeat center top #000657;
+  background: #000657;
 }
 
 #inner {
-  background: url(/assets/img/common/bg_flag.png) no-repeat center center;
-  background-attachment: fixed;
-
-  @media only screen and (max-width: $bp01) {
-    background-size: 105% auto;
-  }
+  position: relative;
+  z-index: 1;
+  // background: url(/assets/img/common/bg_flag.png) no-repeat center center;
+  // background-attachment: fixed;
+  //
+  // @media only screen and (max-width: $bp01) {
+  //   background-size: 105% auto;
+  // }
 }
 
 .isDeviceSP #wrapper {
-
 }
 
 /* --------------------------------------------------------------------------------
@@ -79,5 +85,4 @@ body {
 *
 -------------------------------------------------------------------------------- */
 .wrapper {
-
 }
