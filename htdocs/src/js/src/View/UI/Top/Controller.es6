@@ -18,6 +18,8 @@ import ScrollBtn from "./ScrollBtn/Controller.es6";
 
 import KV from "./KV/Controller.es6";
 
+import Cookie from "./Cookie/Controller.es6";
+
 export default class Controller extends Base {
   constructor() {
     super();
@@ -63,14 +65,21 @@ export default class Controller extends Base {
 
     this.kv = new KV();
 
+    this.cookie = new Cookie();
+
     this.show();
   }
 
   show() {
-    this.kv.timeline(e => {
-      this.scrollBtn.show();
-      return this.menu.showBtn();
-    });
+    this.kv
+      .timeline(e => {
+        this.scrollBtn.show();
+
+        return this.menu.showBtn();
+      })
+      .then(e => {
+        this.cookie.show();
+      });
   }
 
   timeline() {}

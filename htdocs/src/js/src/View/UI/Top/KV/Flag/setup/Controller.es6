@@ -90,10 +90,7 @@ export default class ClassName extends Base {
       グローの半径: 0.3
     };
     this.effectBloom = new THREE.UnrealBloomPass(
-      new THREE.Vector2(
-        window.innerWidth * window.devicePixelRatio,
-        window.innerHeight * window.devicePixelRatio
-      ),
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
       0.01,
       1.07,
       0.85,

@@ -51665,6 +51665,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _Controller16 = _interopRequireDefault(_Controller15);
 	
+	var _Controller17 = __webpack_require__(61);
+	
+	var _Controller18 = _interopRequireDefault(_Controller17);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51729,6 +51733,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      this.kv = new _Controller16.default();
 	
+	      this.cookie = new _Controller18.default();
+	
 	      this.show();
 	    }
 	  }, {
@@ -51738,7 +51744,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      this.kv.timeline(function (e) {
 	        _this2.scrollBtn.show();
+	
 	        return _this2.menu.showBtn();
+	      }).then(function (e) {
+	        _this2.cookie.show();
 	      });
 	    }
 	  }, {
@@ -53564,81 +53573,85 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      var menuBtnShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
-	      var tl = new TimelineMax({ delay: 0.0 });
-	
-	      tl
-	
-	      // ------------------------------------------------------------
-	      // canvas
-	      // ------------------------------------------------------------
-	
-	      // draw line
-	      // 広がる
-	      //   y,z
-	      .add(function () {
-	        _this2.flag.show();
-	      }, 1.0)
-	
-	      // effectを強める
-	      .add(function () {
-	        TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
-	          strength: 6,
-	          ease: Power2.easeInOut
-	        });
-	        // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
-	        //   radius: 3,
-	        //   ease: Power2.easeInOut,
-	        // });
-	      }, 1.0 + 1.5)
-	
-	      // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
-	      //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
-	      //     1frame強めの → this.frameか？
-	      //     3frame弱めでrandomなのを2、3回？
-	
-	      //   composerに入れる → soyフォルダに書いてるか？
-	      .add(function () {
-	        // camera
-	        var tl = new TimelineMax();
+	      return new Promise(function (resolve, reject) {
+	        var tl = new TimelineMax({ delay: 0.0 });
 	
 	        tl
-	        // ゆっくり引く
-	        .to(_this2.flag.setup.camera.position, 2.0, {
-	          z: _this2.flag.setup.defz,
-	          ease: Expo.easeInOut
-	        }, 0.0)
-	        // パッと引く
-	        .to(_this2.flag.setup.camera.position, 0.01, {
-	          z: _this2.flag.setup.defz * 0.85,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // this.flag.setup.effectBloom.threshold = 0.03;
-	            _this2.flag.setup.effectBloom.strength = 10;
-	            _this2.flag.setup.effectBloom.radius = 3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
-	          }
-	        }, 0.8)
-	        // 再度ゆっくり
-	        .to(_this2.flag.setup.camera.position, 4.5, {
-	          z: _this2.flag.setup.defz * 1,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
-	            // this.flag.setup.effectBloom.threshold = 0.14;
-	            _this2.flag.setup.effectBloom.strength = 2;
-	            _this2.flag.setup.effectBloom.radius = 0.3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
-	          }
-	        }, 0.8 + 0.05);
-	      }, 4.0)
 	
-	      // ------------------------------------------------------------
-	      // dom
-	      // ------------------------------------------------------------
-	      .add(function () {
-	        _this2.dom.show(menuBtnShow);
-	        _this2.flag.bg.show();
-	      }, 4.0 + 0.9);
+	        // ------------------------------------------------------------
+	        // canvas
+	        // ------------------------------------------------------------
+	
+	        // draw line
+	        // 広がる
+	        //   y,z
+	        .add(function () {
+	          _this2.flag.show();
+	        }, 1.0)
+	
+	        // effectを強める
+	        .add(function () {
+	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
+	            strength: 6,
+	            ease: Power2.easeInOut
+	          });
+	          // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
+	          //   radius: 3,
+	          //   ease: Power2.easeInOut,
+	          // });
+	        }, 1.0 + 1.5)
+	
+	        // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
+	        //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
+	        //     1frame強めの → this.frameか？
+	        //     3frame弱めでrandomなのを2、3回？
+	
+	        //   composerに入れる → soyフォルダに書いてるか？
+	        .add(function () {
+	          // camera
+	          var tl = new TimelineMax();
+	
+	          tl
+	          // ゆっくり引く
+	          .to(_this2.flag.setup.camera.position, 2.0, {
+	            z: _this2.flag.setup.defz,
+	            ease: Expo.easeInOut
+	          }, 0.0)
+	          // パッと引く
+	          .to(_this2.flag.setup.camera.position, 0.01, {
+	            z: _this2.flag.setup.defz * 0.85,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              // this.flag.setup.effectBloom.threshold = 0.03;
+	              _this2.flag.setup.effectBloom.strength = 10;
+	              _this2.flag.setup.effectBloom.radius = 3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
+	            }
+	          }, 0.8)
+	          // 再度ゆっくり
+	          .to(_this2.flag.setup.camera.position, 4.5, {
+	            z: _this2.flag.setup.defz * 1,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
+	              // this.flag.setup.effectBloom.threshold = 0.14;
+	              _this2.flag.setup.effectBloom.strength = 2;
+	              _this2.flag.setup.effectBloom.radius = 0.3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
+	            }
+	          }, 0.8 + 0.05);
+	        }, 4.0)
+	
+	        // ------------------------------------------------------------
+	        // dom
+	        // ------------------------------------------------------------
+	        .add(function () {
+	          _this2.dom.show(menuBtnShow);
+	          _this2.flag.bg.show();
+	        }, 4.0 + 0.9).add(function () {
+	          resolve();
+	        }, 6);
+	      });
 	    }
 	  }, {
 	    key: "setEvent",
@@ -54046,7 +54059,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        対象の明るさ: 2,
 	        グローの半径: 0.3
 	      };
-	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
+	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
 	      this.effectBloom.threshold = param["しきい値"];
 	      this.effectBloom.strength = param["対象の明るさ"];
 	      this.effectBloom.radius = param["グローの半径"];
@@ -58182,6 +58195,65 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	  return Controller;
 	}(_Controller2.default);
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Controller = function () {
+	  function Controller() {
+	    _classCallCheck(this, Controller);
+	
+	    this.setEvents();
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "show",
+	    value: function show() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 1,
+	        ease: Expo.easeOut
+	      });
+	    }
+	  }, {
+	    key: "hide",
+	    value: function hide() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 0,
+	        ease: Expo.easeOut,
+	        onComplete: function onComplete() {
+	          $(".cookie").remove();
+	        }
+	      });
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {
+	      var _this = this;
+	
+	      $(".cookie .btn").on("click", function (e) {
+	        _this.hide();
+	        return false;
+	      });
+	    }
+	  }]);
+	
+	  return Controller;
+	}();
 	
 	exports.default = Controller;
 
