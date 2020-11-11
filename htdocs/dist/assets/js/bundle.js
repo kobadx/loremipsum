@@ -52434,6 +52434,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
+	      this.setBG();
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        new _Controller2.default(e);
 	      });
@@ -52442,6 +52443,20 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.openBtn = new _Controller6.default($(".header-menu-btn"));
 	
 	      this.renderer = new _Renderer2.default(this.$contents);
+	    }
+	  }, {
+	    key: "setBG",
+	    value: function setBG() {
+	      var w = window.innerWidth * 0.828;
+	
+	      var l = Math.ceil(w / 140);
+	      for (var i = 0; i < l; i++) {
+	        var span = $("<span></span>");
+	        span.css({
+	          left: i * 140
+	        });
+	        this.$contents.find(".bg").append(span);
+	      }
 	    }
 	  }, {
 	    key: "timeline",
@@ -52483,7 +52498,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    }
 	  }, {
 	    key: "onResize",
-	    value: function onResize() {}
+	    value: function onResize() {
+	      this.$contents.find(".bg span").remove();
+	      this.setBG();
+	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
@@ -52999,6 +53017,20 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0);
+	      this.$contents.find(".bg span").each(function (i, e) {
+	        tl.to(e, 0.2, {
+	          "background-color": "rgb(200,200,200)",
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	        tl.to(e, 0.5, {
+	          "background-color": "rgb(243,243,243)",
+	          ease: Expo.easeOut
+	        }, i * 0.05 + 0.2);
+	        tl.to(e, 0.75, {
+	          scaleY: 1,
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	      });
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        tl.to(e, 1, {
 	          x: 0,
@@ -53059,7 +53091,20 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        x: -10
 	      }, 0);
 	      tl.add(btnhide(), 0);
-	
+	      this.$contents.find(".bg span").each(function (i, e) {
+	        tl.to(e, 0.2, {
+	          "background-color": "rgb(200,200,200)",
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	        tl.to(e, 0.5, {
+	          "background-color": "rgb(243,243,243)",
+	          ease: Expo.easeOut
+	        }, i * 0.05 + 0.2);
+	        tl.to(e, 0.75, {
+	          scaleY: 0,
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	      });
 	      tl.to(this.$contents.find(".bg"), 0.25, {
 	        opacity: 0,
 	        ease: Expo.easeOut,
@@ -53068,7 +53113,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            display: "none"
 	          });
 	        }
-	      }, 0.5);
+	      }, 1);
 	      return tl;
 	    }
 	  }]);

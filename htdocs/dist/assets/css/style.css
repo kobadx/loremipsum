@@ -1009,10 +1009,27 @@ img
 
     opacity: 0;
     background-color: #fff;
-    background-image: linear-gradient(to right, #f3f3f3, #f3f3f3 1px, transparent 1px, transparent 2px);
-    background-repeat: repeat;
-    background-position: left top;
-    background-size: 140px 1px;
+}
+
+.menu > .bg span
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 1px;
+    height: 100%;
+
+    -webkit-transform: scaleY(0);
+        -ms-transform: scaleY(0);
+            transform: scaleY(0);
+    -webkit-transform-origin: top;
+        -ms-transform-origin: top;
+            transform-origin: top;
+
+    background-color: #f3f3f3;
 }
 
 .menu.is-active
