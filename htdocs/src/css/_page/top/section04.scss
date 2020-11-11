@@ -15,13 +15,13 @@
     padding: 0;
   }
 
-  .bg {
+  & > .bg {
     position: absolute;
     top: 24px;
     left: 0;
     width: 59%;
     height: 82%;
-    background-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, 0.2);
 
     @media only screen and (max-width: $bp01) {
       width: 78%;
@@ -91,6 +91,27 @@
 
 .index-solution-tab-item {
   flex: 0 0 50%;
+  position: relative;
+
+  .bg,
+  .base_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .base_bg {
+    background-color: #000ba3;
+  }
+
+  .bg {
+    transform: scaleX(0);
+    background: rgba(0, 0, 0, 0.3);
+  }
+  &.is-active .bg {
+    opacity: 0;
+  }
 }
 
 .index-solution-tab-btn {
@@ -98,26 +119,30 @@
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  background-color: #000ba3;
+
   color: #fff;
   font-size: 1.6rem;
   height: 64px;
+  position: relative;
+  z-index: 2;
 
   @media only screen and (max-width: $bp01) {
     font-size: 1.12rem;
     height: 50px;
   }
 
-  &.is-active {
-    background-color: #fff;
-    color: #2e2f30;
-  }
+  // &.is-active {
+  //   background-color: #fff;
+  //   color: #2e2f30;
+  // }
 }
 
 .index-solution-contents {
   background-color: #fff;
   padding-bottom: 70px;
-
+  &-inner {
+    position: relative;
+  }
   @media only screen and (max-width: $bp01) {
     margin: 0 12px;
     padding: 35px 12px;
@@ -130,11 +155,19 @@
 
 .index-solution-list {
   padding: 80px 45px 0;
-  display: none;
+  // display: none;
+  display: flex;
   flex-wrap: wrap;
-
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .tabContentsItem {
+    opacity: 0;
+    transform: translateY(10px);
+  }
   &.is-active {
-    display: flex;
+    pointer-events: auto;
   }
 
   @media only screen and (max-width: $bp01) {
@@ -167,6 +200,8 @@
 
 .index-solution-img {
   margin-bottom: 12px;
+  overflow: hidden;
+  backface-visibility: hidden;
 
   @media only screen and (max-width: $bp01) {
     margin-bottom: 8px;

@@ -1,0 +1,79 @@
+//--------------------------------------------------
+//
+//  Controller
+//
+//--------------------------------------------------
+
+import Base from "_MyLibs/Util/Base.es6";
+
+import HoverArrow from "./HoverArrow/Controller.es6";
+import CloseBtn from "./CloseBtn/Controller.es6";
+import OpenBtn from "./OpenBtn/Controller.es6";
+import Renderer from "./Renderer.es6";
+
+export default class Controller extends Base {
+  constructor({ $btn, $contents }) {
+    super();
+    this.$btn = $btn;
+    this.$contents = $contents;
+    this.setup();
+    this.setEvents();
+  }
+
+  setup() {
+    this.$contents.find(".menu-item").each((i, e) => {
+      new HoverArrow(e);
+    });
+
+    this.closeBtn = new CloseBtn(this.$contents.find(".menu-close"));
+    this.openBtn = new OpenBtn($(".header-menu-btn"));
+
+    this.renderer = new Renderer(this.$contents);
+  }
+
+  timeline() {}
+
+  update() {}
+
+  show() {
+    const tl = new TimelineMax();
+    tl
+      //show
+      .add(
+        this.renderer.show(e => {
+          this.$contents.addClass("is-active");
+          return this.closeBtn.show();
+        })
+      );
+  }
+
+  showBtn() {
+    return this.openBtn.show();
+  }
+
+  hide() {
+    const tl = new TimelineMax();
+    this.$contents.removeClass("is-active");
+    tl
+
+      //hide
+      .add(
+        this.renderer.hide(e => {
+          return this.closeBtn.hide();
+        })
+      );
+  }
+
+  onResize() {}
+
+  setEvents() {
+    super.setEvents();
+
+    this.$btn.on("click", e => {
+      this.show();
+    });
+    this.$contents.find(".menu-close").on("click", e => {
+      this.hide();
+    });
+  }
+}
