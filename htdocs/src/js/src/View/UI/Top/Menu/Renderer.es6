@@ -142,6 +142,7 @@ export default class Controller {
     );
     tl.add(btnhide(), 0);
     this.$contents.find(".bg span").each((i, e) => {
+      const index = this.$contents.find(".bg span").length - i - 1;
       tl.to(
         e,
         0.2,
@@ -149,7 +150,7 @@ export default class Controller {
           "background-color": "rgb(200,200,200)",
           ease: Expo.easeOut
         },
-        i * 0.05
+        index * 0.05
       );
       tl.to(
         e,
@@ -158,7 +159,7 @@ export default class Controller {
           "background-color": "rgb(243,243,243)",
           ease: Expo.easeOut
         },
-        i * 0.05 + 0.2
+        index * 0.05 + 0.2
       );
       tl.to(
         e,
@@ -167,7 +168,7 @@ export default class Controller {
           scaleY: 0,
           ease: Expo.easeOut
         },
-        i * 0.05
+        index * 0.05
       );
     });
     tl.to(
