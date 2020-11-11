@@ -236,3 +236,8 @@ body.no-select {
     }
   }
 }
+
+.section {
+  position: relative;
+  z-index: 2;
+}

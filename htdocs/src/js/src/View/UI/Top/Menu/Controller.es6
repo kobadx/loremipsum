@@ -33,13 +33,16 @@ export default class Controller extends Base {
   }
 
   setBG() {
-    const w = window.innerWidth * 0.828;
-
-    const l = Math.ceil(w / 140);
+    const isSp = window.innerWidth <= 768;
+    console.log(isSp);
+    const w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+    const length = isSp ? 54 : 140;
+    const l = Math.ceil(w / length) + 1;
+    // const m = (w - (l - 1) * length) * 0.5;
     for (var i = 0; i < l; i++) {
       const span = $("<span></span>");
       span.css({
-        left: i * 140
+        left: i * length
       });
       this.$contents.find(".bg").append(span);
     }

@@ -21,8 +21,13 @@
     left: 0;
     width: 59%;
     height: 82%;
-    background-color: rgba(0, 0, 0, 0.2);
-
+    overflow: visible;
+    padding: 0;
+    .bg-inner {
+      background-color: rgba(0, 0, 0, 0.2);
+      height: 100%;
+      top: 0;
+    }
     @media only screen and (max-width: $bp01) {
       width: 78%;
     }

@@ -28,13 +28,14 @@
 .index-column-inner {
   max-width: 1120px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
   position: relative;
   padding: 0 20px;
-
-  @media only screen and (max-width: $bp01) {
-    display: block;
+  & > .parallax-inner {
+    display: flex;
+    justify-content: space-between;
+    @media only screen and (max-width: $bp01) {
+      display: block;
+    }
   }
 }
 

@@ -7,6 +7,7 @@ export default class Controller extends Base {
 
   init() {
     this.name = "DomController";
+    this.ft = $(".footer").height();
   }
 
   show(menuBtnShow) {
@@ -97,8 +98,32 @@ export default class Controller extends Base {
       .add(menuBtnShow(), 1.5);
   }
 
+  update() {}
+
+  canvasStop(st) {
+    // if (!$("body").hasClass("isIE")) return;
+    const ftop = $(".footer").offset().top - window.innerHeight;
+    if (ftop <= st) {
+      $(".canvasWrap").css({
+        bottom: this.ft
+      });
+
+      $(".canvasWrap").addClass("absolute");
+    } else {
+      $(".canvasWrap").removeClass("absolute");
+      $(".canvasWrap").css({
+        bottom: ""
+      });
+    }
+  }
+
   setEvent() {
     super.__setUpdateFlag(false);
+
+    $(window).on("scroll", e => {
+      const st = $(window).scrollTop();
+      this.canvasStop(st);
+    });
   }
 
   reset() {}
