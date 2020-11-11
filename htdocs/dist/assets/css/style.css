@@ -2203,17 +2203,19 @@ body.no-select
     padding-top: 50.57692%;
 }
 
-.parallax-inner
+.parallax .parallax-inner
 {
     position: absolute;
     top: -40px;
+    top: calc(var(--max) * -1);
     left: 0;
 
     width: 100%;
     height: calc(100% + 2 * 40px);
+    height: calc(100% + 2 * var(--max));
 }
 
-.parallax-inner img
+.parallax .parallax-inner img
 {
     width: 100%;
     height: 100%;
@@ -2844,8 +2846,18 @@ a:active
     top: -60px;
     right: 0;
 
+    overflow: visible;
+
     width: 82%;
     height: 106%;
+    padding-top: 0;
+}
+
+#wrapper.id_top .index-column > .bg .bg-inner
+{
+    top: 0;
+
+    height: 100%;
 
     background-color: rgba(0, 0, 0, .2);
 }
@@ -2878,6 +2890,8 @@ a:active
 #wrapper.id_top .index-recruit
 {
     width: 46.4%;
+    height: auto;
+    padding: 0;
 
     -webkit-flex: 0 0 46.4%;
         -ms-flex: 0 0 46.4%;
@@ -2909,6 +2923,8 @@ a:active
 #wrapper.id_top .index-news
 {
     width: 46.4%;
+    height: auto;
+    padding: 0;
 
     -webkit-flex: 0 0 46.4%;
         -ms-flex: 0 0 46.4%;
