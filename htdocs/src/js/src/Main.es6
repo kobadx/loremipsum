@@ -21,6 +21,8 @@ import MouseMgr from "_MyLibs/View/Events/EventMgr/MouseMgr.es6";
 import ScrollList from "_MyLibs/View/Events/EventMgr/ScrollList.es6";
 // import MouseList from '_MyLibs/View/Events/EventMgr/MouseList.es6';
 
+import JudgeEnvironment from "_MyLibs/Util/JudgeEnvironment.es6";
+
 // view
 import View from "View/View.es6";
 
@@ -43,6 +45,8 @@ export default class Common {
     gb.d = new Debugger();
     gb.u = new U();
     gb.f = new Func();
+
+    new JudgeEnvironment();
 
     if (gb.conf.isUpdateMgr) gb.up = new UpdateMgr();
     if (gb.conf.isResizeMgr) gb.r = new ResizeMgr();

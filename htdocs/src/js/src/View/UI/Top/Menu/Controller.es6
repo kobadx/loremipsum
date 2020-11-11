@@ -21,6 +21,7 @@ export default class Controller extends Base {
   }
 
   setup() {
+    this.setBG();
     this.$contents.find(".menu-item").each((i, e) => {
       new HoverArrow(e);
     });
@@ -29,6 +30,22 @@ export default class Controller extends Base {
     this.openBtn = new OpenBtn($(".header-menu-btn"));
 
     this.renderer = new Renderer(this.$contents);
+  }
+
+  setBG() {
+    const isSp = window.innerWidth <= 768;
+    console.log(isSp);
+    const w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+    const length = isSp ? 54 : 140;
+    const l = Math.ceil(w / length) + 1;
+    // const m = (w - (l - 1) * length) * 0.5;
+    for (var i = 0; i < l; i++) {
+      const span = $("<span></span>");
+      span.css({
+        left: i * length
+      });
+      this.$contents.find(".bg").append(span);
+    }
   }
 
   timeline() {}
@@ -64,7 +81,10 @@ export default class Controller extends Base {
       );
   }
 
-  onResize() {}
+  onResize() {
+    this.$contents.find(".bg span").remove();
+    this.setBG();
+  }
 
   setEvents() {
     super.setEvents();

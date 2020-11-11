@@ -7,6 +7,9 @@
   background: url(/assets/img/common/bg_pattern_line01.png) repeat center top
     #fff;
 
+  position: relative;
+  z-index: 99;
+
   @media only screen and (max-width: $bp01) {
     background: none;
   }

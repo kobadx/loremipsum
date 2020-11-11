@@ -117,6 +117,10 @@
 	
 	var _ScrollList2 = _interopRequireDefault(_ScrollList);
 	
+	var _JudgeEnvironment = __webpack_require__(17);
+	
+	var _JudgeEnvironment2 = _interopRequireDefault(_JudgeEnvironment);
+	
 	var _View = __webpack_require__(30);
 	
 	var _View2 = _interopRequireDefault(_View);
@@ -148,6 +152,8 @@
 	      gb.d = new _Debugger2.default();
 	      gb.u = new _Util2.default();
 	      gb.f = new _Func2.default();
+	
+	      new _JudgeEnvironment2.default();
 	
 	      if (gb.conf.isUpdateMgr) gb.up = new _UpdateMgr2.default();
 	      if (gb.conf.isResizeMgr) gb.r = new _ResizeMgr2.default();
@@ -5404,6 +5410,7 @@
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
+	      this.setBG();
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        new _Controller2.default(e);
 	      });
@@ -5412,6 +5419,23 @@
 	      this.openBtn = new _Controller6.default($(".header-menu-btn"));
 	
 	      this.renderer = new _Renderer2.default(this.$contents);
+	    }
+	  }, {
+	    key: "setBG",
+	    value: function setBG() {
+	      var isSp = window.innerWidth <= 768;
+	      console.log(isSp);
+	      var w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+	      var length = isSp ? 54 : 140;
+	      var l = Math.ceil(w / length) + 1;
+	      // const m = (w - (l - 1) * length) * 0.5;
+	      for (var i = 0; i < l; i++) {
+	        var span = $("<span></span>");
+	        span.css({
+	          left: i * length
+	        });
+	        this.$contents.find(".bg").append(span);
+	      }
 	    }
 	  }, {
 	    key: "timeline",
@@ -5453,7 +5477,10 @@
 	    }
 	  }, {
 	    key: "onResize",
-	    value: function onResize() {}
+	    value: function onResize() {
+	      this.$contents.find(".bg span").remove();
+	      this.setBG();
+	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
@@ -5969,6 +5996,20 @@
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0);
+	      this.$contents.find(".bg span").each(function (i, e) {
+	        tl.to(e, 0.2, {
+	          "background-color": "rgb(200,200,200)",
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	        tl.to(e, 0.5, {
+	          "background-color": "rgb(243,243,243)",
+	          ease: Expo.easeOut
+	        }, i * 0.05 + 0.2);
+	        tl.to(e, 0.75, {
+	          scaleY: 1,
+	          ease: Expo.easeOut
+	        }, i * 0.05);
+	      });
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        tl.to(e, 1, {
 	          x: 0,
@@ -6029,7 +6070,21 @@
 	        x: -10
 	      }, 0);
 	      tl.add(btnhide(), 0);
-	
+	      this.$contents.find(".bg span").each(function (i, e) {
+	        var index = _this.$contents.find(".bg span").length - i - 1;
+	        tl.to(e, 0.2, {
+	          "background-color": "rgb(200,200,200)",
+	          ease: Expo.easeOut
+	        }, index * 0.05);
+	        tl.to(e, 0.5, {
+	          "background-color": "rgb(243,243,243)",
+	          ease: Expo.easeOut
+	        }, index * 0.05 + 0.2);
+	        tl.to(e, 0.75, {
+	          scaleY: 0,
+	          ease: Expo.easeOut
+	        }, index * 0.05);
+	      });
 	      tl.to(this.$contents.find(".bg"), 0.25, {
 	        opacity: 0,
 	        ease: Expo.easeOut,
@@ -6038,7 +6093,7 @@
 	            display: "none"
 	          });
 	        }
-	      }, 0.5);
+	      }, 1);
 	      return tl;
 	    }
 	  }]);
@@ -6157,7 +6212,7 @@
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
 	
-	      this.target.style.transform = "translate(0, " + this.renderedStyles.previous + "px)";
+	      this.target.style.transform = "translate(0, " + -this.renderedStyles.previous + "px)";
 	    }
 	  }, {
 	    key: "setEvents",
@@ -10996,6 +11051,7 @@
 	    key: "init",
 	    value: function init() {
 	      this.name = "DomController";
+	      this.ft = $(".footer").height();
 	    }
 	  }, {
 	    key: "show",
@@ -11057,9 +11113,37 @@
 	      .add(menuBtnShow(), 1.5);
 	    }
 	  }, {
+	    key: "update",
+	    value: function update() {}
+	  }, {
+	    key: "canvasStop",
+	    value: function canvasStop(st) {
+	      // if (!$("body").hasClass("isIE")) return;
+	      var ftop = $(".footer").offset().top - window.innerHeight;
+	      if (ftop <= st) {
+	        $(".canvasWrap").css({
+	          bottom: this.ft
+	        });
+	
+	        $(".canvasWrap").addClass("absolute");
+	      } else {
+	        $(".canvasWrap").removeClass("absolute");
+	        $(".canvasWrap").css({
+	          bottom: ""
+	        });
+	      }
+	    }
+	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
+	      var _this2 = this;
+	
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, false);
+	
+	      $(window).on("scroll", function (e) {
+	        var st = $(window).scrollTop();
+	        _this2.canvasStop(st);
+	      });
 	    }
 	  }, {
 	    key: "reset",

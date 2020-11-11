@@ -27,6 +27,35 @@ export default class Controller {
       },
       0
     );
+    this.$contents.find(".bg span").each((i, e) => {
+      tl.to(
+        e,
+        0.2,
+        {
+          "background-color": "rgb(200,200,200)",
+          ease: Expo.easeOut
+        },
+        i * 0.05
+      );
+      tl.to(
+        e,
+        0.5,
+        {
+          "background-color": "rgb(243,243,243)",
+          ease: Expo.easeOut
+        },
+        i * 0.05 + 0.2
+      );
+      tl.to(
+        e,
+        0.75,
+        {
+          scaleY: 1,
+          ease: Expo.easeOut
+        },
+        i * 0.05
+      );
+    });
     this.$contents.find(".menu-item").each((i, e) => {
       tl.to(
         e,
@@ -112,7 +141,36 @@ export default class Controller {
       0
     );
     tl.add(btnhide(), 0);
-
+    this.$contents.find(".bg span").each((i, e) => {
+      const index = this.$contents.find(".bg span").length - i - 1;
+      tl.to(
+        e,
+        0.2,
+        {
+          "background-color": "rgb(200,200,200)",
+          ease: Expo.easeOut
+        },
+        index * 0.05
+      );
+      tl.to(
+        e,
+        0.5,
+        {
+          "background-color": "rgb(243,243,243)",
+          ease: Expo.easeOut
+        },
+        index * 0.05 + 0.2
+      );
+      tl.to(
+        e,
+        0.75,
+        {
+          scaleY: 0,
+          ease: Expo.easeOut
+        },
+        index * 0.05
+      );
+    });
     tl.to(
       this.$contents.find(".bg"),
       0.25,
@@ -125,7 +183,7 @@ export default class Controller {
           });
         }
       },
-      0.5
+      1
     );
     return tl;
   }

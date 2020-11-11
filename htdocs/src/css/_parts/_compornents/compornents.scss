@@ -259,7 +259,6 @@ body.no-select {
   }
 }
 
-
 /* --------------------------------------------------------------------------------
 *
 *   cookie
@@ -271,7 +270,7 @@ body.no-select {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 10;
 }
 
 .cookie-inner {
@@ -323,4 +322,9 @@ body.no-select {
       font-size: 1.2rem;
     }
   }
+}
+
+.section {
+  position: relative;
+  z-index: 2;
 }
