@@ -43,7 +43,8 @@ export default class ClassName extends Base {
     var vpHeight = this.h;
     var z = vpHeight / (2 * Math.tan(vFOV / 2));
     this.defz = z * 1;
-    this.z = z * 0.27;
+    // this.z = z * 0.27;
+    this.z = z * 1;
     this.camera.position.set(0, 0, this.z);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
