@@ -84,7 +84,7 @@ export default class Controller extends Base {
             this.flag.setup.camera.position,
             4.5,
             {
-              z: this.flag.setup.defz * 1,
+              z: this.flag.setup.defz * 1.1,
               ease: Expo.easeOut,
               onStart: () => {
                 // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);

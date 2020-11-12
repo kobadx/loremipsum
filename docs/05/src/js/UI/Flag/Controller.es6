@@ -19,7 +19,7 @@ export default class Controller extends Base {
     window.dat = new dat.GUI();
     this.$canvas = $(".canvas");
 
-    this.speed = 0.1;
+    this.speed = 0.015;
 
     // layout
     const posi = [
@@ -46,8 +46,8 @@ export default class Controller extends Base {
     this.obj.add(this.sail.obj);
 
     // layout
-    this.obj.position.x = window.innerWidth * 0.5 - 585;
-    this.obj.position.y = -window.innerHeight * 0.5 + 375;
+    this.obj.position.x = window.innerWidth * 0.5 - 540;
+    // this.obj.position.y = -window.innerHeight * 0.5 + 375;
     // this.obj.position.z = -1000
 
     // add scene
@@ -71,23 +71,28 @@ export default class Controller extends Base {
 
   setEvent() {
     super.__setUpdateFlag(true);
+
+    // resize
     $(window).on("resize", (e) => {
       this.setup.onWindowResize();
       // this.obj.position.y = window.innerHeight * 0.5;
     });
+
+    // マウスの揺れ
+    $(window).on("mousemove", (e) => {
+      if (this.mouseMove) {
+        this.mousePosi.x = e.pageX;
+        this.mousePosi.y = e.pageY;
+      } else {
+        this.mousePosi.x = 0;
+        this.mousePosi.y = 0;
+      }
+    });
+
+    // param
     const interaction = window.dat.addFolder("interaction");
     this.mouseMove = true;
     interaction.add(this, "mouseMove");
-
-    $(window).on("mousemove", (e) => {
-      // if (this.mouseMove) {
-      //   this.mousePosi.x = e.pageX;
-      //   this.mousePosi.y = e.pageY;
-      // } else {
-      //   this.mousePosi.x = 0;
-      //   this.mousePosi.y = 0;
-      // }
-    });
   }
 
   reset() {}
@@ -96,6 +101,14 @@ export default class Controller extends Base {
     this.sail.show();
     this.stick.show();
     // this.bg.show();
+
+    // move Y
+    // positionを正しい位置に
+    TweenMax.to(this.obj.position, 1.5, {
+      y: -window.innerHeight * 0.5 + 375,
+      ease: Power2.easeInOut,
+      delay: 2.0
+    });
   }
 
   update() {
@@ -119,9 +132,9 @@ export default class Controller extends Base {
     };
     this.obj.rotation.y =
       ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-      0.3;
+      0.15;
     this.obj.rotation.x =
-      ((this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight) *
-      0.3;
+      ((this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight) *
+      0.15;
   }
 }
