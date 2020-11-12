@@ -61,7 +61,7 @@ export default class Controller extends Base {
     this.obj.add(this.sail.obj);
 
     // layout
-    this.defY = -window.innerHeight * 0.5 + 375;
+    this.defY = 0;
     this.obj.position.x = window.innerWidth * 0.5 - 540;
     this.obj.position.y = this.defY;
 
@@ -99,6 +99,14 @@ export default class Controller extends Base {
     this.sail.show();
     this.stick.show();
     // this.bg.show();
+
+    // move Y
+    // positionを正しい位置に
+    TweenMax.to(this, 1.5, {
+      defY: -window.innerHeight * 0.5 + 530,
+      ease: Power2.easeInOut,
+      delay: 2.0,
+    });
   }
 
   update() {
@@ -168,8 +176,8 @@ export default class Controller extends Base {
     // マウスの揺れ
     $(window).on("mousemove", (e) => {
       if (this.mouseMove) {
-        this.mousePosi.x = e.pageX;
-        this.mousePosi.y = e.pageY;
+        this.mousePosi.x = e.clientX;
+        this.mousePosi.y = e.clientY;
       } else {
         this.mousePosi.x = 0;
         this.mousePosi.y = 0;
@@ -192,7 +200,7 @@ export default class Controller extends Base {
       var ftop = this.$f.offset().top - window.innerHeight;
       if (st > ftop - 150) st = ftop - 150;
 
-      this.defY = st - window.innerHeight * 0.5 + 375;
+      this.defY = st - window.innerHeight * 0.5 + 530;
     });
   }
 }

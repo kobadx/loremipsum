@@ -53932,7 +53932,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.obj.add(this.sail.obj);
 	
 	      // layout
-	      this.defY = -window.innerHeight * 0.5 + 375;
+	      this.defY = 0;
 	      this.obj.position.x = window.innerWidth * 0.5 - 540;
 	      this.obj.position.y = this.defY;
 	
@@ -53972,6 +53972,14 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.sail.show();
 	      this.stick.show();
 	      // this.bg.show();
+	
+	      // move Y
+	      // positionを正しい位置に
+	      TweenMax.to(this, 1.5, {
+	        defY: -window.innerHeight * 0.5 + 530,
+	        ease: Power2.easeInOut,
+	        delay: 2.0
+	      });
 	    }
 	  }, {
 	    key: "update",
@@ -54032,8 +54040,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      // マウスの揺れ
 	      $(window).on("mousemove", function (e) {
 	        if (_this2.mouseMove) {
-	          _this2.mousePosi.x = e.pageX;
-	          _this2.mousePosi.y = e.pageY;
+	          _this2.mousePosi.x = e.clientX;
+	          _this2.mousePosi.y = e.clientY;
 	        } else {
 	          _this2.mousePosi.x = 0;
 	          _this2.mousePosi.y = 0;
@@ -54056,7 +54064,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        var ftop = _this2.$f.offset().top - window.innerHeight;
 	        if (st > ftop - 150) st = ftop - 150;
 	
-	        _this2.defY = st - window.innerHeight * 0.5 + 375;
+	        _this2.defY = st - window.innerHeight * 0.5 + 530;
 	      });
 	    }
 	  }]);
