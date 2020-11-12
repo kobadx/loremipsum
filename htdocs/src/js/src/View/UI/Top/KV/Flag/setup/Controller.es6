@@ -132,7 +132,8 @@ export default class ClassName extends Base {
   render() {
     // this.renderer.render(this.objScene, this.camera);
 
-    if (this.frame % 10 == 0) this.composer.render();
+    this.composer.render();
+    // if (this.frame % 2 == 0) this.composer.render();
 
     if (this.is_autoRender) {
       requestAnimationFrame(this.render.bind(this));

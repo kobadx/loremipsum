@@ -10,9 +10,10 @@ export default class Controller extends Base {
     this.name = "UIController";
     this.flag = new Flag();
     this.dom = new Dom();
+    this.$c = $("canvas");
   }
 
-  timeline(menuBtnShow = e => {}) {
+  timeline(menuBtnShow = (e) => {}) {
     return new Promise((resolve, reject) => {
       var tl = new TimelineMax({ delay: 0.0 });
 
@@ -21,25 +22,32 @@ export default class Controller extends Base {
         // ------------------------------------------------------------
         // canvas
         // ------------------------------------------------------------
+        // canvasをop1に
+        .add(() => {
+          TweenMax.to(this.$c, 2.0, {
+            opacity: 1,
+            ease: Power2.easeInOut,
+          });
+        }, 0.0)
 
         // draw line
         // 広がる
         //   y,z
         .add(() => {
           this.flag.show();
-        }, 1.0)
+        }, 0.2)
 
         // effectを強める
         .add(() => {
           TweenMax.to(this.flag.setup.effectBloom, 2.0, {
             strength: 6,
-            ease: Power2.easeInOut
+            ease: Power2.easeInOut,
           });
           // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
           //   radius: 3,
           //   ease: Power2.easeInOut,
           // });
-        }, 1.0 + 1.5)
+        }, 0.2 + 1.5)
 
         // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
         //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
@@ -58,7 +66,7 @@ export default class Controller extends Base {
               2.0,
               {
                 z: this.flag.setup.defz,
-                ease: Expo.easeInOut
+                ease: Expo.easeInOut,
               },
               0.0
             )
@@ -77,7 +85,7 @@ export default class Controller extends Base {
                     1.5,
                     4.0
                   );
-                }
+                },
               },
               0.8
             )
@@ -97,22 +105,23 @@ export default class Controller extends Base {
                     1.3,
                     4.0
                   );
-                }
+                },
               },
               0.8 + 0.05
             );
-        }, 4.0)
+        }, 0.2 + 3.8)
 
-        // ------------------------------------------------------------
+        // bg line
+        .add(() => {
+          this.flag.bg.show();
+        }, 0.2 + 3.8 + 1.2)
         // dom
-        // ------------------------------------------------------------
         .add(() => {
           this.dom.show(menuBtnShow);
-          this.flag.bg.show();
-        }, 4.0 + 0.9)
+        }, 0.2 + 3.8 + 0.9)
         .add(() => {
           resolve();
-        }, 6);
+        }, 0.2 + 6.0);
     });
   }
 

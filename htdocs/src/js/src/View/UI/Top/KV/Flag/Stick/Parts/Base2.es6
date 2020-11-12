@@ -92,7 +92,7 @@ function tube(_v, _v2, material) {
         : v1.clone().sub(new THREE.Vector3(2.5, -2.5, 0));
     const v3 = v1.clone().sub(new THREE.Vector3(5, 0, 0));
     const _curve = new THREE.QuadraticBezierCurve3(v1, v2, v3);
-    const arr = _curve.getPoints(50);
+    const arr = _curve.getPoints(2);
     for (var u = 0; u < arr.length; u++) {
       points.push(arr[u].x, arr[u].y, arr[u].z);
     }
