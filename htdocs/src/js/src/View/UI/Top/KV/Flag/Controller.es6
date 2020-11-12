@@ -7,7 +7,7 @@ import * as dat from "dat.gui";
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
   lerp: (a, b, n) => (1 - n) * a + n * b,
-  clamp: (val, min, max) => Math.max(Math.min(val, max), min),
+  clamp: (val, min, max) => Math.max(Math.min(val, max), min)
 };
 export default class Controller extends Base {
   constructor() {
@@ -40,15 +40,17 @@ export default class Controller extends Base {
     // layout
     const posi = [
       new THREE.Vector3(
-        -this.baseW * 0.5 + 100,
+        // -this.baseW * 0.5 + 100,
+        0,
         this.$canvas.height() * 0.5,
         0
       ),
       new THREE.Vector3(
-        -this.baseW * 0.5 - 25,
+        // -this.baseW * 0.5 - 25,
+        -125,
         this.$canvas.height() * 0.5 - 800,
         0
-      ),
+      )
     ];
 
     // objects
@@ -75,11 +77,11 @@ export default class Controller extends Base {
 
     this.mousePosi = {
       x: 0,
-      y: 0,
+      y: 0
     };
     this.prevMosePosi = {
       x: 0,
-      y: 0,
+      y: 0
     };
     // this.update();
 
@@ -106,7 +108,7 @@ export default class Controller extends Base {
     TweenMax.to(this, 1.5, {
       defY: -window.innerHeight * 0.5 + tarY,
       ease: Power2.easeInOut,
-      delay: 2.0,
+      delay: 2.0
     });
 
     // TweenMax.to(this.obj.position, 1.5, {
@@ -122,7 +124,7 @@ export default class Controller extends Base {
       // update
       this.bg.update({
         posi: this.setup.camera.position.z,
-        depth: this.setup.defz,
+        depth: this.setup.defz
       });
       this.stick.update();
       this.sail.update();
@@ -138,7 +140,7 @@ export default class Controller extends Base {
           Math.floor(
             MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) *
               100
-          ) / 100,
+          ) / 100
       };
       this.obj.rotation.y =
         ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
@@ -171,12 +173,20 @@ export default class Controller extends Base {
     if (this.$canvas.width() <= this.bp) this.baseW = 375;
     this.per = this.$canvas.width() / this.baseW;
     if (this.$canvas.width() <= this.bp) {
-      this.obj.position.x = -29 * 4 * this.per;
+      // this.obj.position.x = -29 * 4 * this.per;
+      const scale = this.obj.scale.x;
+
       this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+
+      this.obj.position.x = 0;
+      //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
     } else {
-      this.obj.position.x = this.baseW * 0.5 - 540;
+      // this.obj.position.x = this.baseW * 0.5 - 540;
       this.obj.scale.set(this.per, this.per, this.per);
+      this.obj.position.x = -540 * this.per;
     }
+
+    // this.obj.updateMatrixWorld();
   }
 
   setEvent() {
@@ -186,7 +196,7 @@ export default class Controller extends Base {
     $(window).on("resize", this.onResize.bind(this, false));
 
     // マウスの揺れ
-    $(window).on("mousemove", (e) => {
+    $(window).on("mousemove", e => {
       if (this.mouseMove) {
         this.mousePosi.x = e.clientX;
         this.mousePosi.y = e.clientY;
@@ -206,7 +216,7 @@ export default class Controller extends Base {
     //   if (dis > 0) this.disY = 0;
     //   else this.disY = dis - 100;
     // });
-    $(window).on("scroll", (e) => {
+    $(window).on("scroll", e => {
       var st = $(window).scrollTop();
       this.st = st;
       var ftop = this.$f.offset().top - window.innerHeight;

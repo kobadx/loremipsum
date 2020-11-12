@@ -53743,6 +53743,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	        // bg line
 	        .add(function () {
+	          //scrollを解除
+	          $(".id_top").removeClass("fixed");
 	          _this2.flag.bg.show();
 	        }, 0.2 + 3.8 + 1.2)
 	        // dom
@@ -53927,7 +53929,11 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.$f = $(".footer");
 	
 	      // layout
-	      var posi = [new THREE.Vector3(-this.baseW * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-this.baseW * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
+	      var posi = [new THREE.Vector3(
+	      // -this.baseW * 0.5 + 100,
+	      0, this.$canvas.height() * 0.5, 0), new THREE.Vector3(
+	      // -this.baseW * 0.5 - 25,
+	      -125, this.$canvas.height() * 0.5 - 800, 0)];
 	
 	      // objects
 	      this.bg = new _Controller10.default();
@@ -54042,12 +54048,20 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = -29 * 4 * this.per;
+	        // this.obj.position.x = -29 * 4 * this.per;
+	        var scale = this.obj.scale.x;
+	
 	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+	
+	        this.obj.position.x = 0;
+	        //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
 	      } else {
-	        this.obj.position.x = this.baseW * 0.5 - 540;
+	        // this.obj.position.x = this.baseW * 0.5 - 540;
 	        this.obj.scale.set(this.per, this.per, this.per);
+	        this.obj.position.x = -540 * this.per;
 	      }
+	
+	      // this.obj.updateMatrixWorld();
 	    }
 	  }, {
 	    key: "setEvent",
