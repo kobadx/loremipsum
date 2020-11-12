@@ -9,7 +9,7 @@ export default class Controller extends Base {
     this.name = "DomController";
   }
 
-  show() {
+  show(menuBtnShow) {
     const header = $(".header");
     const $inner = $(".index-kv-inner.def");
     const $innerLine = $(".index-kv-inner.line");
@@ -34,7 +34,7 @@ export default class Controller extends Base {
         0.01,
         {
           opacity: 1,
-          ease: "expo.out",
+          ease: "expo.out"
         },
         0.0
       )
@@ -44,7 +44,7 @@ export default class Controller extends Base {
         0.9,
         {
           x: 0,
-          ease: "expo.out",
+          ease: "expo.out"
         },
         0.0
       )
@@ -55,7 +55,7 @@ export default class Controller extends Base {
         0.01,
         {
           opacity: 1,
-          ease: "expo.out",
+          ease: "expo.out"
         },
         0.0
       )
@@ -65,7 +65,7 @@ export default class Controller extends Base {
         0.9,
         {
           x: 0,
-          ease: "expo.out",
+          ease: "expo.out"
         },
         0.05
       )
@@ -77,7 +77,7 @@ export default class Controller extends Base {
         {
           x: 0,
           opacity: 1,
-          ease: "expo.out",
+          ease: "expo.out"
         },
         0.2
       )
@@ -88,20 +88,16 @@ export default class Controller extends Base {
         1,
         {
           opacity: 1,
+          y: 0,
           ease: "expo.out",
-        },
-        1.5
-      )
-      // btn
-      .to(
-        menuBtn,
-        1,
-        {
-          opacity: 1,
-          ease: "expo.out",
+          onStart() {
+            menuBtnShow();
+          }
         },
         1.5
       );
+    // btn
+    // .add(menuBtnShow(), 10);
   }
 
   setEvent() {

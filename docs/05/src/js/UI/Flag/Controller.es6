@@ -16,7 +16,10 @@ export default class Controller extends Base {
 
   init() {
     this.name = "UIController";
-    window.dat = new dat.GUI();
+    window.dat = new dat.GUI({
+      closed: true,
+    });
+    // dat.GUI.toggleHide();
     this.$canvas = $(".canvas");
 
     this.speed = 0.015;
@@ -72,7 +75,6 @@ export default class Controller extends Base {
   setEvent() {
     super.__setUpdateFlag(true);
 
-    // resize
     $(window).on("resize", (e) => {
       this.setup.onWindowResize();
       // this.obj.position.y = window.innerHeight * 0.5;
@@ -107,7 +109,7 @@ export default class Controller extends Base {
     TweenMax.to(this.obj.position, 1.5, {
       y: -window.innerHeight * 0.5 + 375,
       ease: Power2.easeInOut,
-      delay: 2.0
+      delay: 2.0,
     });
   }
 
