@@ -19,7 +19,7 @@ export default class Controller extends Base {
 
   setup() {
     TweenMax.set(this.$ele.find("polyline"), {
-      drawSVG: 0
+      drawSVG: 0,
     });
   }
 
@@ -30,52 +30,47 @@ export default class Controller extends Base {
   onResize() {}
 
   show() {
-    const tl = new TimelineMax();
-    const offset = 66;
-    tl
+    this.tlShow = new TimelineMax();
+    this.tlShow
       //show svg
       .fromTo(
         this.$ele.find("polyline"),
-        0.75,
+        0.9,
         {
-          drawSVG: "100% 100%"
+          drawSVG: "100% 100%",
         },
         {
           drawSVG: "0% 100%",
-          ease: Expo.easeOut
-        }
+          ease: Expo.easeOut,
+        },
+        0.0
       )
       //x
       .to(
         this.$ele.find("p"),
-        0.75,
+        0.7,
         {
-          x: this.$ele.find("svg").width() + 20,
-          ease: Expo.easeOut
+          x: this.$ele.find("svg").width() + 10,
+          z: 1,
+          ease: Expo.easeOut,
         },
-        0
+        0.0
       );
-
-    return tl;
   }
 
   hide(progress) {
-    const tl = new TimelineMax();
-    const offset = 66;
-    const t = 0.75 - 0.75 * progress;
-    tl
-      //progress x
-
+    this.tlHide = new TimelineMax();
+    this.tlHide
       //hide svg
       .to(
         this.$ele.find("polyline"),
-        0.75,
+        0.6,
 
         {
           drawSVG: "100% 100%",
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
-        0
+        0.0
       )
       //x
       .to(
@@ -83,28 +78,21 @@ export default class Controller extends Base {
         0.75,
         {
           x: 0,
-          ease: Expo.easeOut
+          z: 1,
+          ease: Expo.easeOut,
         },
-        0.1
+        0.0
       );
-
-    return tl;
   }
 
   onEnter() {
-    // console.log(this.tl);
-    // this.tl.kill();
-    if (this.tl) this.tl.kill();
-    this.tl = new TimelineMax();
-
-    this.tl.add(this.show());
+    if (this.tlHide) this.tlHide.kill();
+    this.show();
   }
 
   onLeave() {
-    const progress = this.tl.progress();
-    this.tl.kill();
-    this.tl = new TimelineMax();
-    this.tl.add(this.hide(progress));
+    if (this.tlShow) this.tlShow.kill();
+    this.hide();
   }
 
   setEvents() {

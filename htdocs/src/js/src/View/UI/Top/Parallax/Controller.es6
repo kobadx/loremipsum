@@ -8,11 +8,14 @@ import Base from "_MyLibs/Util/Base.es6";
 
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
-  lerp: (a, b, n) => (1 - n) * a + n * b
+  lerp: (a, b, n) => (1 - n) * a + n * b,
 };
 export default class Controller extends Base {
   constructor($ele, { ease, max }) {
     super();
+
+    this.isUEv = true;
+
     this.$ele = $ele;
     this.ease = ease;
     this.max = max;
@@ -47,10 +50,9 @@ export default class Controller extends Base {
           ),
           minValue
         );
-      }
+      },
     };
     this.reset();
-    super.onU();
   }
 
   scroll() {
@@ -60,7 +62,7 @@ export default class Controller extends Base {
   getSize() {
     this.props = {
       height: this.$ele.outerHeight(),
-      top: this.$ele.offset().top - this.st
+      top: this.$ele.offset().top - this.st,
     };
     this.renderedStyles.current = this.renderedStyles.previous = this.renderedStyles.setValue();
   }
@@ -79,11 +81,14 @@ export default class Controller extends Base {
       this.renderedStyles.ease
     );
 
-    this.target.style.transform = `translate(0, ${this.renderedStyles.previous}px)`;
+    this.target.style.transform = `translate(0, ${-this.renderedStyles
+      .previous}px)`;
   }
 
   setEvents() {
-    $(window).on("scroll", e => {
+    super.setEvents();
+
+    $(window).on("scroll", (e) => {
       this.scroll();
     });
   }

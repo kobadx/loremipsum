@@ -18,6 +18,8 @@ import ScrollBtn from "./ScrollBtn/Controller.es6";
 
 import KV from "./KV/Controller.es6";
 
+import Cookie from "./Cookie/Controller.es6";
+
 export default class Controller extends Base {
   constructor() {
     super();
@@ -45,12 +47,25 @@ export default class Controller extends Base {
 
     this.menu = new Menu({
       $btn: $(".header-menu-btn"),
-      $contents: $(".menu")
+      $contents: $(".menu"),
     });
-    $(".parallax,.parallax2").each((i, e) => {
+
+    // parallax box
+    $(".parallax,.parallax2,.parallax3").each((i, e) => {
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
-        max: e.dataset.max - 0
+        max: e.dataset.max - 0,
+      });
+    });
+    // parallax img
+    $(".parallaxImg").each((i, e) => {
+      var val = 0.06 + (Math.random() - 0.5) * 0.1;
+      var max = 200 + (Math.random() - 0.5) * 100;
+      $(e).attr("data-ease", val);
+
+      new Parallax($(e), {
+        ease: e.dataset.ease - 0,
+        max: e.dataset.max - 0,
       });
     });
 
@@ -61,22 +76,28 @@ export default class Controller extends Base {
     this.scrollBtn = new ScrollBtn($(".scroll-btn"));
     super.onU();
 
-    this.kv = new KV();
+    // this.kv = new KV();
+
+    this.cookie = new Cookie();
 
     this.show();
   }
 
   show() {
-    this.kv.timeline(e => {
-      this.scrollBtn.show();
-      return this.menu.showBtn();
-    });
+    // this.kv
+    //   .timeline((e) => {
+    //     this.scrollBtn.show();
+    //     return this.menu.showBtn();
+    //   })
+    //   .then((e) => {
+    //     this.cookie.show();
+    //   });
   }
 
   timeline() {}
 
   update() {
-    window.updates.map(update => {
+    window.updates.map((update) => {
       update.cb();
     });
   }

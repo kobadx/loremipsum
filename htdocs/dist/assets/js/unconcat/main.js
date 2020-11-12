@@ -117,6 +117,10 @@
 	
 	var _ScrollList2 = _interopRequireDefault(_ScrollList);
 	
+	var _JudgeEnvironment = __webpack_require__(17);
+	
+	var _JudgeEnvironment2 = _interopRequireDefault(_JudgeEnvironment);
+	
 	var _View = __webpack_require__(30);
 	
 	var _View2 = _interopRequireDefault(_View);
@@ -148,6 +152,8 @@
 	      gb.d = new _Debugger2.default();
 	      gb.u = new _Util2.default();
 	      gb.f = new _Func2.default();
+	
+	      new _JudgeEnvironment2.default();
 	
 	      if (gb.conf.isUpdateMgr) gb.up = new _UpdateMgr2.default();
 	      if (gb.conf.isResizeMgr) gb.r = new _ResizeMgr2.default();
@@ -4629,6 +4635,10 @@
 	
 	var _Controller16 = _interopRequireDefault(_Controller15);
 	
+	var _Controller17 = __webpack_require__(61);
+	
+	var _Controller18 = _interopRequireDefault(_Controller17);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4677,7 +4687,20 @@
 	        $btn: $(".header-menu-btn"),
 	        $contents: $(".menu")
 	      });
-	      $(".parallax,.parallax2").each(function (i, e) {
+	
+	      // parallax box
+	      $(".parallax,.parallax2,.parallax3").each(function (i, e) {
+	        new _Controller10.default($(e), {
+	          ease: e.dataset.ease - 0,
+	          max: e.dataset.max - 0
+	        });
+	      });
+	      // parallax img
+	      $(".parallaxImg").each(function (i, e) {
+	        var val = 0.06 + (Math.random() - 0.5) * 0.1;
+	        var max = 200 + (Math.random() - 0.5) * 100;
+	        $(e).attr("data-ease", val);
+	
 	        new _Controller10.default($(e), {
 	          ease: e.dataset.ease - 0,
 	          max: e.dataset.max - 0
@@ -4691,19 +4714,23 @@
 	      this.scrollBtn = new _Controller14.default($(".scroll-btn"));
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "onU", this).call(this);
 	
-	      this.kv = new _Controller16.default();
+	      // this.kv = new KV();
+	
+	      this.cookie = new _Controller18.default();
 	
 	      this.show();
 	    }
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      var _this2 = this;
-	
-	      this.kv.timeline(function (e) {
-	        _this2.scrollBtn.show();
-	        return _this2.menu.showBtn();
-	      });
+	      // this.kv
+	      //   .timeline((e) => {
+	      //     this.scrollBtn.show();
+	      //     return this.menu.showBtn();
+	      //   })
+	      //   .then((e) => {
+	      //     this.cookie.show();
+	      //   });
 	    }
 	  }, {
 	    key: "timeline",
@@ -5404,14 +5431,32 @@
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
+	      this.setBG();
 	      this.$contents.find(".menu-item").each(function (i, e) {
-	        new _Controller2.default(e);
+	        new _Controller2.default(e, i);
 	      });
 	
 	      this.closeBtn = new _Controller4.default(this.$contents.find(".menu-close"));
 	      this.openBtn = new _Controller6.default($(".header-menu-btn"));
 	
 	      this.renderer = new _Renderer2.default(this.$contents);
+	    }
+	  }, {
+	    key: "setBG",
+	    value: function setBG() {
+	      var isSp = window.innerWidth <= 768;
+	      console.log(isSp);
+	      var w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+	      var length = isSp ? 54 : 140;
+	      var l = Math.ceil(w / length) + 1;
+	      // const m = (w - (l - 1) * length) * 0.5;
+	      for (var i = 0; i < l; i++) {
+	        var span = $("<span></span>");
+	        span.css({
+	          left: i * length
+	        });
+	        this.$contents.find(".bg").append(span);
+	      }
 	    }
 	  }, {
 	    key: "timeline",
@@ -5453,7 +5498,10 @@
 	    }
 	  }, {
 	    key: "onResize",
-	    value: function onResize() {}
+	    value: function onResize() {
+	      this.$contents.find(".bg span").remove();
+	      this.setBG();
+	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
@@ -5541,63 +5589,50 @@
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      var tl = new TimelineMax();
-	      var offset = 66;
-	      tl
+	      this.tlShow = new TimelineMax();
+	      this.tlShow
 	      //show svg
-	      .fromTo(this.$ele.find("polyline"), 0.75, {
+	      .fromTo(this.$ele.find("polyline"), 0.9, {
 	        drawSVG: "100% 100%"
 	      }, {
 	        drawSVG: "0% 100%",
 	        ease: Expo.easeOut
-	      })
+	      }, 0.0)
 	      //x
-	      .to(this.$ele.find("p"), 0.75, {
-	        x: this.$ele.find("svg").width() + 20,
+	      .to(this.$ele.find("p"), 0.7, {
+	        x: this.$ele.find("svg").width() + 10,
+	        z: 1,
 	        ease: Expo.easeOut
-	      }, 0);
-	
-	      return tl;
+	      }, 0.0);
 	    }
 	  }, {
 	    key: "hide",
 	    value: function hide(progress) {
-	      var tl = new TimelineMax();
-	      var offset = 66;
-	      var t = 0.75 - 0.75 * progress;
-	      tl
-	      //progress x
-	
+	      this.tlHide = new TimelineMax();
+	      this.tlHide
 	      //hide svg
-	      .to(this.$ele.find("polyline"), 0.75, {
+	      .to(this.$ele.find("polyline"), 0.6, {
 	        drawSVG: "100% 100%",
 	        ease: Expo.easeOut
-	      }, 0)
+	      }, 0.0)
 	      //x
 	      .to(this.$ele.find("p"), 0.75, {
 	        x: 0,
+	        z: 1,
 	        ease: Expo.easeOut
-	      }, 0.1);
-	
-	      return tl;
+	      }, 0.0);
 	    }
 	  }, {
 	    key: "onEnter",
 	    value: function onEnter() {
-	      // console.log(this.tl);
-	      // this.tl.kill();
-	      if (this.tl) this.tl.kill();
-	      this.tl = new TimelineMax();
-	
-	      this.tl.add(this.show());
+	      if (this.tlHide) this.tlHide.kill();
+	      this.show();
 	    }
 	  }, {
 	    key: "onLeave",
 	    value: function onLeave() {
-	      var progress = this.tl.progress();
-	      this.tl.kill();
-	      this.tl = new TimelineMax();
-	      this.tl.add(this.hide(progress));
+	      if (this.tlShow) this.tlShow.kill();
+	      this.hide();
 	    }
 	  }, {
 	    key: "setEvents",
@@ -5959,86 +5994,188 @@
 	  }, {
 	    key: "show",
 	    value: function show() {
+	      var _this = this;
+	
 	      var btnshow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
 	      var tl = new TimelineMax();
 	      this.$contents.css({
 	        display: "block"
 	      });
-	      tl.to(this.$contents.find(".bg"), 0.25, {
-	        opacity: 1,
-	        ease: Expo.easeOut
-	      }, 0);
-	      this.$contents.find(".menu-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: 0,
-	          opacity: 1,
-	          ease: Expo.easeOut,
-	          startAt: {
-	            x: 10
-	          }
-	        }, i * 0.05);
-	      });
-	      this.$contents.find(".menu-lang-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: 0,
-	          opacity: 1,
-	          ease: Expo.easeOut,
-	          startAt: {
-	            x: 10
-	          }
-	        }, i * 0.1 + 0.5);
-	      });
-	      tl.to(this.$contents.find(".menu-search"), 1, {
+	
+	      tl
+	      // bg
+	      .to(this.$contents.find(".bg"), 0.8, {
 	        opacity: 1,
 	        x: 0,
-	        ease: Expo.easeOut,
+	        z: 1,
 	        startAt: {
-	          x: 10
-	        }
-	      }, 0.6);
-	      tl.add(btnshow(), 0.7);
+	          x: 200,
+	          opacity: 0
+	        },
+	        ease: Expo.easeOut
+	      }, 0.0)
+	
+	      // bg line
+	      .add(function () {
+	        _this.$contents.find(".bg span").each(function (i, e) {
+	          tl
+	          // color 濃く
+	          .to(e, 0.2, {
+	            "background-color": "rgb(200,200,200)",
+	            ease: Expo.easeOut
+	          }, i * 0.05)
+	          // color 薄く
+	          .to(e, 0.5, {
+	            "background-color": "rgb(243,243,243)",
+	            ease: Expo.easeOut
+	          }, i * 0.05 + 0.2)
+	          // 線伸ばす
+	          .to(e, 0.75, {
+	            scaleY: 1,
+	            startAt: {
+	              scaleY: 0
+	            },
+	            ease: Expo.easeOut
+	          }, i * 0.05);
+	        });
+	      }, 0.0)
+	
+	      // item
+	      .add(function () {
+	        _this.$contents.find(".menu-item").each(function (i, e) {
+	          TweenMax.to(e, 0.7, {
+	            x: 0,
+	            opacity: 1,
+	            ease: Expo.easeOut,
+	            startAt: {
+	              x: 20
+	            },
+	            delay: i * 0.045
+	          });
+	        });
+	      }, 0.3)
+	
+	      // lang item
+	      .add(function () {
+	        _this.$contents.find(".menu-lang-item").each(function (i, e) {
+	          TweenMax.to(e, 1.0, {
+	            x: 0,
+	            opacity: 1,
+	            ease: Expo.easeOut,
+	            startAt: {
+	              x: 10
+	            },
+	            delay: i * 0.06
+	          });
+	        });
+	      }, 0.3 + 0.2)
+	
+	      // search
+	      .add(function () {
+	        TweenMax.to(_this.$contents.find(".menu-search"), 1.0, {
+	          opacity: 1,
+	          x: 0,
+	          ease: Expo.easeOut,
+	          startAt: {
+	            x: 10
+	          }
+	        });
+	      }, 0.3 + 0.4);
+	
+	      tl.add(btnshow(), 0.7); // ?
 	      return tl;
 	    }
 	  }, {
 	    key: "hide",
 	    value: function hide() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var btnhide = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
 	      var tl = new TimelineMax();
 	
+	      // item
 	      this.$contents.find(".menu-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: -10,
+	        TweenMax.to(e, 0.7, {
+	          x: 0,
 	          opacity: 0,
-	          ease: Expo.easeOut
-	        }, i * 0.05);
+	          ease: Expo.easeOut,
+	          delay: i * 0.01
+	        });
 	      });
-	      this.$contents.find(".menu-lang-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: -10,
-	          opacity: 0,
-	          ease: Expo.easeOut
-	        }, i * 0.1);
-	      });
-	      tl.to(this.$contents.find(".menu-search"), 1, {
-	        opacity: 0,
-	        ease: Expo.easeOut,
-	        x: -10
-	      }, 0);
-	      tl.add(btnhide(), 0);
 	
-	      tl.to(this.$contents.find(".bg"), 0.25, {
+	      // lang item
+	      this.$contents.find(".menu-lang-item").each(function (i, e) {
+	        TweenMax.to(e, 0.7, {
+	          x: 0,
+	          opacity: 0,
+	          ease: Expo.easeOut,
+	          delay: i * 0.02
+	        });
+	      });
+	
+	      tl
+	      // search
+	      .to(this.$contents.find(".menu-search"), 0.7, {
 	        opacity: 0,
-	        ease: Expo.easeOut,
+	        x: 0,
+	        ease: Expo.easeOut
+	      }, 0.0);
+	
+	      // bg line
+	      // this.$contents.find(".bg span").each((i, e) => {
+	      //   const index = this.$contents.find(".bg span").length - i - 1;
+	      //   tl
+	      //     // color 濃く
+	      //     .to(
+	      //       e,
+	      //       0.2,
+	      //       {
+	      //         "background-color": "rgb(200,200,200)",
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05
+	      //     );
+	      //   tl
+	      //     // color 薄く
+	      //     .to(
+	      //       e,
+	      //       0.5,
+	      //       {
+	      //         "background-color": "rgb(243,243,243)",
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05 + 0.2
+	      //     );
+	      //   tl
+	      //     // 線伸ばす
+	      //     .to(
+	      //       e,
+	      //       0.75,
+	      //       {
+	      //         scaleY: 0,
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05
+	      //     );
+	      // });
+	
+	      tl
+	      // bg
+	      .to(this.$contents.find(".bg"), 0.4, {
+	        opacity: 0,
+	        x: 100,
+	        z: 1,
+	        ease: Power2.easeIn,
 	        onComplete: function onComplete() {
-	          _this.$contents.css({
+	          _this2.$contents.css({
 	            display: "none"
 	          });
 	        }
-	      }, 0.5);
+	      }, 0.0);
+	
+	      tl.add(btnhide(), 0); // ?
 	      return tl;
 	    }
 	  }]);
@@ -6098,6 +6235,8 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	
+	    _this.isUEv = true;
+	
 	    _this.$ele = $ele;
 	    _this.ease = ease;
 	    _this.max = max;
@@ -6128,7 +6267,6 @@
 	        }
 	      };
 	      this.reset();
-	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "onU", this).call(this);
 	    }
 	  }, {
 	    key: "scroll",
@@ -6157,12 +6295,14 @@
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
 	
-	      this.target.style.transform = "translate(0, " + this.renderedStyles.previous + "px)";
+	      this.target.style.transform = "translate(0, " + -this.renderedStyles.previous + "px)";
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this3 = this;
+	
+	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
 	      $(window).on("scroll", function (e) {
 	        _this3.scroll();
@@ -6479,81 +6619,85 @@
 	
 	      var menuBtnShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
-	      var tl = new TimelineMax({ delay: 0.0 });
-	
-	      tl
-	
-	      // ------------------------------------------------------------
-	      // canvas
-	      // ------------------------------------------------------------
-	
-	      // draw line
-	      // 広がる
-	      //   y,z
-	      .add(function () {
-	        _this2.flag.show();
-	      }, 1.0)
-	
-	      // effectを強める
-	      .add(function () {
-	        TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
-	          strength: 6,
-	          ease: Power2.easeInOut
-	        });
-	        // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
-	        //   radius: 3,
-	        //   ease: Power2.easeInOut,
-	        // });
-	      }, 1.0 + 1.5)
-	
-	      // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
-	      //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
-	      //     1frame強めの → this.frameか？
-	      //     3frame弱めでrandomなのを2、3回？
-	
-	      //   composerに入れる → soyフォルダに書いてるか？
-	      .add(function () {
-	        // camera
-	        var tl = new TimelineMax();
+	      return new Promise(function (resolve, reject) {
+	        var tl = new TimelineMax({ delay: 0.0 });
 	
 	        tl
-	        // ゆっくり引く
-	        .to(_this2.flag.setup.camera.position, 2.0, {
-	          z: _this2.flag.setup.defz,
-	          ease: Expo.easeInOut
-	        }, 0.0)
-	        // パッと引く
-	        .to(_this2.flag.setup.camera.position, 0.01, {
-	          z: _this2.flag.setup.defz * 0.85,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // this.flag.setup.effectBloom.threshold = 0.03;
-	            _this2.flag.setup.effectBloom.strength = 10;
-	            _this2.flag.setup.effectBloom.radius = 3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
-	          }
-	        }, 0.8)
-	        // 再度ゆっくり
-	        .to(_this2.flag.setup.camera.position, 4.5, {
-	          z: _this2.flag.setup.defz * 1,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
-	            // this.flag.setup.effectBloom.threshold = 0.14;
-	            _this2.flag.setup.effectBloom.strength = 2;
-	            _this2.flag.setup.effectBloom.radius = 0.3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
-	          }
-	        }, 0.8 + 0.05);
-	      }, 4.0)
 	
-	      // ------------------------------------------------------------
-	      // dom
-	      // ------------------------------------------------------------
-	      .add(function () {
-	        _this2.dom.show(menuBtnShow);
-	        _this2.flag.bg.show();
-	      }, 4.0 + 0.9);
+	        // ------------------------------------------------------------
+	        // canvas
+	        // ------------------------------------------------------------
+	
+	        // draw line
+	        // 広がる
+	        //   y,z
+	        .add(function () {
+	          _this2.flag.show();
+	        }, 1.0)
+	
+	        // effectを強める
+	        .add(function () {
+	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
+	            strength: 6,
+	            ease: Power2.easeInOut
+	          });
+	          // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
+	          //   radius: 3,
+	          //   ease: Power2.easeInOut,
+	          // });
+	        }, 1.0 + 1.5)
+	
+	        // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
+	        //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
+	        //     1frame強めの → this.frameか？
+	        //     3frame弱めでrandomなのを2、3回？
+	
+	        //   composerに入れる → soyフォルダに書いてるか？
+	        .add(function () {
+	          // camera
+	          var tl = new TimelineMax();
+	
+	          tl
+	          // ゆっくり引く
+	          .to(_this2.flag.setup.camera.position, 2.0, {
+	            z: _this2.flag.setup.defz,
+	            ease: Expo.easeInOut
+	          }, 0.0)
+	          // パッと引く
+	          .to(_this2.flag.setup.camera.position, 0.01, {
+	            z: _this2.flag.setup.defz * 0.85,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              // this.flag.setup.effectBloom.threshold = 0.03;
+	              _this2.flag.setup.effectBloom.strength = 10;
+	              _this2.flag.setup.effectBloom.radius = 3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
+	            }
+	          }, 0.8)
+	          // 再度ゆっくり
+	          .to(_this2.flag.setup.camera.position, 4.5, {
+	            z: _this2.flag.setup.defz * 1,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
+	              // this.flag.setup.effectBloom.threshold = 0.14;
+	              _this2.flag.setup.effectBloom.strength = 2;
+	              _this2.flag.setup.effectBloom.radius = 0.3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
+	            }
+	          }, 0.8 + 0.05);
+	        }, 4.0)
+	
+	        // ------------------------------------------------------------
+	        // dom
+	        // ------------------------------------------------------------
+	        .add(function () {
+	          _this2.dom.show(menuBtnShow);
+	          _this2.flag.bg.show();
+	        }, 4.0 + 0.9).add(function () {
+	          resolve();
+	        }, 6);
+	      });
 	    }
 	  }, {
 	    key: "setEvent",
@@ -6729,9 +6873,7 @@
 	      this.obj.add(this.sail.obj);
 	
 	      // layout
-	
 	      this.obj.position.x = window.innerWidth * 0.5 - 585;
-	
 	      this.obj.position.y = -window.innerHeight * 0.5 + 375;
 	
 	      if (this.$canvas.width() <= this.bp) {
@@ -6876,7 +7018,9 @@
 	
 	  _createClass(ClassName, [{
 	    key: "init",
-	    value: function init() {}
+	    value: function init() {
+	      this.frame = 0;
+	    }
 	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
@@ -6961,7 +7105,7 @@
 	        対象の明るさ: 2,
 	        グローの半径: 0.3
 	      };
-	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
+	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
 	      this.effectBloom.threshold = param["しきい値"];
 	      this.effectBloom.strength = param["対象の明るさ"];
 	      this.effectBloom.radius = param["グローの半径"];
@@ -6995,10 +7139,14 @@
 	    key: "render",
 	    value: function render() {
 	      // this.renderer.render(this.objScene, this.camera);
-	      this.composer.render();
+	
+	      if (this.frame % 10 == 0) this.composer.render();
+	
 	      if (this.is_autoRender) {
 	        requestAnimationFrame(this.render.bind(this));
 	      }
+	
+	      this.frame++;
 	    }
 	  }]);
 	
@@ -10996,6 +11144,7 @@
 	    key: "init",
 	    value: function init() {
 	      this.name = "DomController";
+	      this.ft = $(".footer").height();
 	    }
 	  }, {
 	    key: "show",
@@ -11057,9 +11206,37 @@
 	      .add(menuBtnShow(), 1.5);
 	    }
 	  }, {
+	    key: "update",
+	    value: function update() {}
+	  }, {
+	    key: "canvasStop",
+	    value: function canvasStop(st) {
+	      // if (!$("body").hasClass("isIE")) return;
+	      var ftop = $(".footer").offset().top - window.innerHeight;
+	      if (ftop <= st) {
+	        $(".canvasWrap").css({
+	          bottom: this.ft
+	        });
+	
+	        $(".canvasWrap").addClass("absolute");
+	      } else {
+	        $(".canvasWrap").removeClass("absolute");
+	        $(".canvasWrap").css({
+	          bottom: ""
+	        });
+	      }
+	    }
+	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
+	      var _this2 = this;
+	
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, false);
+	
+	      $(window).on("scroll", function (e) {
+	        var st = $(window).scrollTop();
+	        _this2.canvasStop(st);
+	      });
 	    }
 	  }, {
 	    key: "reset",
@@ -11068,6 +11245,65 @@
 	
 	  return Controller;
 	}(_Controller2.default);
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Controller = function () {
+	  function Controller() {
+	    _classCallCheck(this, Controller);
+	
+	    this.setEvents();
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "show",
+	    value: function show() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 1,
+	        ease: Expo.easeOut
+	      });
+	    }
+	  }, {
+	    key: "hide",
+	    value: function hide() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 0,
+	        ease: Expo.easeOut,
+	        onComplete: function onComplete() {
+	          $(".cookie").remove();
+	        }
+	      });
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {
+	      var _this = this;
+	
+	      $(".cookie .btn").on("click", function (e) {
+	        _this.hide();
+	        return false;
+	      });
+	    }
+	  }]);
+	
+	  return Controller;
+	}();
 	
 	exports.default = Controller;
 

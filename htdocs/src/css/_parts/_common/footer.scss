@@ -7,6 +7,9 @@
   background: url(/assets/img/common/bg_pattern_line01.png) repeat center top
     #fff;
 
+  position: relative;
+  z-index: 99;
+
   @media only screen and (max-width: $bp01) {
     background: none;
   }
@@ -22,6 +25,11 @@
   padding: 110px 0 110px 80px;
   display: flex;
   align-items: stretch;
+  position: relative;
+
+  @media only screen and (max-width: 1000px) {
+    display: block;
+  }
 
   @media only screen and (max-width: $bp01) {
     padding: 0;
@@ -36,11 +44,14 @@
   flex: 0 0 420px;
 
   @media only screen and (max-width: 1200px) {
-    flex: 0 0 280px;
+    flex: 0 0 220px;
   }
 }
 
 .footer-logo {
+  @media only screen and (max-width: 1000px) {
+    margin-bottom: 50px;
+  }
 }
 
 .footer-logo-link {
@@ -53,9 +64,15 @@
 
 .footer-copyright {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 110px;
+  left: 80px;
   font-size: 1.1rem;
+
+  @media only screen and (max-width: 1000px) {
+    position: relative;
+    bottom: 0;
+    left: 0;
+  }
 
   @media only screen and (max-width: $bp01) {
     background-color: #2e2f30;
@@ -73,15 +90,24 @@
   flex-wrap: wrap;
   flex: 1 1 auto;
 
+  @media only screen and (max-width: 1000px) {
+    margin-bottom: 30px;
+  }
+
   @media only screen and (max-width: $bp01) {
     background-color: #fff;
     justify-content: center;
     padding: 25px 0;
+    margin-bottom: 0;
   }
 }
 
 .footer-item {
   flex: 0 0 140px;
+
+  @media only screen and (max-width: 1000px) {
+    flex: 0 0 132px;
+  }
 
   @media only screen and (max-width: $bp01) {
     flex: 0 0 auto;

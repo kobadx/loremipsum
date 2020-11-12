@@ -21,14 +21,31 @@ export default class Controller extends Base {
   }
 
   setup() {
+    this.setBG();
     this.$contents.find(".menu-item").each((i, e) => {
-      new HoverArrow(e);
+      new HoverArrow(e, i);
     });
 
     this.closeBtn = new CloseBtn(this.$contents.find(".menu-close"));
     this.openBtn = new OpenBtn($(".header-menu-btn"));
 
     this.renderer = new Renderer(this.$contents);
+  }
+
+  setBG() {
+    const isSp = window.innerWidth <= 768;
+    console.log(isSp);
+    const w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+    const length = isSp ? 54 : 140;
+    const l = Math.ceil(w / length) + 1;
+    // const m = (w - (l - 1) * length) * 0.5;
+    for (var i = 0; i < l; i++) {
+      const span = $("<span></span>");
+      span.css({
+        left: i * length,
+      });
+      this.$contents.find(".bg").append(span);
+    }
   }
 
   timeline() {}
@@ -40,7 +57,7 @@ export default class Controller extends Base {
     tl
       //show
       .add(
-        this.renderer.show(e => {
+        this.renderer.show((e) => {
           this.$contents.addClass("is-active");
           return this.closeBtn.show();
         })
@@ -58,21 +75,24 @@ export default class Controller extends Base {
 
       //hide
       .add(
-        this.renderer.hide(e => {
+        this.renderer.hide((e) => {
           return this.closeBtn.hide();
         })
       );
   }
 
-  onResize() {}
+  onResize() {
+    this.$contents.find(".bg span").remove();
+    this.setBG();
+  }
 
   setEvents() {
     super.setEvents();
 
-    this.$btn.on("click", e => {
+    this.$btn.on("click", (e) => {
       this.show();
     });
-    this.$contents.find(".menu-close").on("click", e => {
+    this.$contents.find(".menu-close").on("click", (e) => {
       this.hide();
     });
   }
