@@ -42,7 +42,7 @@ export default class Controller {
         height: this.param.height,
         i: this.param.speed,
         offset: this.param["細かさ"],
-        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.4,
+        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.3,
       });
       this.obj.add(line.obj);
       this.lines.push(line);

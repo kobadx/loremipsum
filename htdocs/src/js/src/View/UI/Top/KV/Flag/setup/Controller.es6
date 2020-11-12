@@ -32,7 +32,7 @@ export default class ClassName extends Base {
       45,
       this.$dom.width() / this.$dom.height(),
       1,
-      20000
+      10000
     );
     this.setCameraByPixel();
   }

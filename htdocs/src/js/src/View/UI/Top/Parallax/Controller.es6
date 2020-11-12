@@ -81,8 +81,8 @@ export default class Controller extends Base {
       this.renderedStyles.ease
     );
 
-    this.target.style.transform = `translate(0, ${-this.renderedStyles
-      .previous}px)`;
+    this.target.style.transform = `translate3d(0, ${-this.renderedStyles
+      .previous}px, 0)`;
   }
 
   setEvents() {

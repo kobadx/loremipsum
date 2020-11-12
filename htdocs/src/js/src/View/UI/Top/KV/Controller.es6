@@ -120,6 +120,12 @@ export default class Controller extends Base {
         // dom
         .add(() => {
           this.dom.show(menuBtnShow);
+
+          // frame数を抑える
+          TweenMax.to(this.flag, 2.0, {
+            fr: 8,
+            ease: Power2.easeInOut,
+          });
         }, 0.2 + 3.8 + 0.9)
         .add(() => {
           resolve();

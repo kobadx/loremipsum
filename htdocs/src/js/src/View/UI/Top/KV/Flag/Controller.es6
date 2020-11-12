@@ -26,7 +26,7 @@ export default class Controller extends Base {
 
     this.mouseMove = true;
 
-    this.speed = 0.015;
+    this.speed = 0.04;
 
     this.disY = 0;
     this.dis = 0;
@@ -34,6 +34,8 @@ export default class Controller extends Base {
     this.tar = 0;
     this.st = 0;
     this.tarSt = 0;
+
+    this.fr = 1;
 
     this.$f = $(".footer");
 
@@ -118,7 +120,7 @@ export default class Controller extends Base {
 
   update() {
     this.frame++;
-    if (this.frame % 1 == 0) {
+    if (this.frame % Math.floor(this.fr) == 0) {
       // update
       this.bg.update({
         posi: this.setup.camera.position.z,
@@ -126,41 +128,38 @@ export default class Controller extends Base {
       });
       this.stick.update();
       this.sail.update();
-
-      // マウス インタラクション
-      this.prevMosePosi = {
-        x:
-          Math.floor(
-            MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) *
-              100
-          ) / 100,
-        y:
-          Math.floor(
-            MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) *
-              100
-          ) / 100,
-      };
-      this.obj.rotation.y =
-        ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-        0.15;
-      this.obj.rotation.x =
-        ((this.prevMosePosi.y - window.innerHeight * 0.7) /
-          window.innerHeight) *
-        0.15;
-
-      // return;
     }
 
-    this.setup.render();
+    // マウス インタラクション
+    this.prevMosePosi = {
+      x:
+        Math.floor(
+          MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) *
+            100
+        ) / 100,
+      y:
+        Math.floor(
+          MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) *
+            100
+        ) / 100,
+    };
+    this.obj.rotation.y =
+      ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
+      0.15;
+    this.obj.rotation.x =
+      ((this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight) *
+      0.15;
 
     // 一番下にいったときにfooterまでいかないように
-    // this.dis += (this.disY - this.dis) * 0.05;
-    // this.obj.position.y = this.defY - this.dis;
-    this.tar += (this.defY - this.tar) * 0.12;
-    this.obj.position.y = this.tar;
+    this.dis += (this.disY - this.dis) * 0.12;
+    this.obj.position.y = this.defY - this.dis;
+    // this.tar += (this.defY - this.tar) * 0.08;
+    // this.obj.position.y = this.tar;
 
-    this.tarSt += (this.st - this.tarSt) * 0.6;
-    this.wrap.position.y = this.tarSt;
+    // this.tarSt += (this.st - this.tarSt) * 0.4;
+    // this.wrap.position.y = this.tarSt;
+
+    this.setup.render();
   }
 
   onResize(isFirst = false) {
@@ -197,22 +196,22 @@ export default class Controller extends Base {
     });
 
     // // 一番下にいったときにfooterまでいかないように
-    // $(window).on("scroll", (e) => {
-    //   const st = $(window).scrollTop();
-
-    //   const ftop = this.$f.offset().top - window.innerHeight;
-
-    //   var dis = ftop - st;
-    //   if (dis > 0) this.disY = 0;
-    //   else this.disY = dis - 100;
-    // });
     $(window).on("scroll", (e) => {
-      var st = $(window).scrollTop();
-      this.st = st;
-      var ftop = this.$f.offset().top - window.innerHeight;
-      if (st > ftop - 150) st = ftop - 150;
+      const st = $(window).scrollTop();
 
-      this.defY = -st + -window.innerHeight * 0.5 + 375;
+      const ftop = this.$f.offset().top - window.innerHeight;
+
+      var dis = ftop - st;
+      if (dis > 0) this.disY = 0;
+      else this.disY = dis - 100;
     });
+    // $(window).on("scroll", (e) => {
+    //   var st = $(window).scrollTop();
+    //   this.st = st;
+    //   var ftop = this.$f.offset().top - window.innerHeight;
+    //   if (st > ftop - 150) st = ftop - 150;
+
+    //   this.defY = -st + -window.innerHeight * 0.5 + 375;
+    // });
   }
 }
