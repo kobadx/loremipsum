@@ -13,7 +13,7 @@ export default class Controller extends Base {
     this.$c = $("canvas");
   }
 
-  timeline(menuBtnShow = (e) => {}) {
+  timeline(menuBtnShow = e => {}) {
     return new Promise((resolve, reject) => {
       var tl = new TimelineMax({ delay: 0.0 });
 
@@ -26,7 +26,7 @@ export default class Controller extends Base {
         .add(() => {
           TweenMax.to(this.$c, 2.0, {
             opacity: 1,
-            ease: Power2.easeInOut,
+            ease: Power2.easeInOut
           });
         }, 0.0)
 
@@ -41,7 +41,7 @@ export default class Controller extends Base {
         .add(() => {
           TweenMax.to(this.flag.setup.effectBloom, 2.0, {
             strength: 6,
-            ease: Power2.easeInOut,
+            ease: Power2.easeInOut
           });
           // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
           //   radius: 3,
@@ -66,7 +66,7 @@ export default class Controller extends Base {
               2.0,
               {
                 z: this.flag.setup.defz,
-                ease: Expo.easeInOut,
+                ease: Expo.easeInOut
               },
               0.0
             )
@@ -87,7 +87,7 @@ export default class Controller extends Base {
                     1.5,
                     4.0
                   );
-                },
+                }
               },
               0.8
             )
@@ -107,7 +107,7 @@ export default class Controller extends Base {
                     1.3,
                     4.0
                   );
-                },
+                }
               },
               0.8 + 0.05
             );
@@ -115,6 +115,8 @@ export default class Controller extends Base {
 
         // bg line
         .add(() => {
+          //scrollを解除
+          $(".id_top").removeClass("fixed");
           this.flag.bg.show();
         }, 0.2 + 3.8 + 1.2)
         // dom
