@@ -2399,6 +2399,11 @@ body.no-select
     overflow: hidden;
 }
 
+canvas
+{
+    opacity: 0;
+}
+
 /* --------------------------------------------------------------------------------
 *
 *   loading
@@ -3785,7 +3790,6 @@ a:active
 
     width: 100%;
     height: 100vh;
-    height: var(--h);
 
     pointer-events: none;
 }

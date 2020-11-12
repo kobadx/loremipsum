@@ -35,7 +35,7 @@ export default class Controller extends Base {
         0.01,
         {
           opacity: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.0
       )
@@ -45,7 +45,7 @@ export default class Controller extends Base {
         0.9,
         {
           x: 0,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.0
       )
@@ -56,7 +56,7 @@ export default class Controller extends Base {
         0.01,
         {
           opacity: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.0
       )
@@ -66,7 +66,7 @@ export default class Controller extends Base {
         0.9,
         {
           x: 0,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.05
       )
@@ -78,7 +78,7 @@ export default class Controller extends Base {
         {
           x: 0,
           opacity: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.2
       )
@@ -90,40 +90,39 @@ export default class Controller extends Base {
         {
           opacity: 1,
           y: 0,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
-        1.5
+        0.7
       )
       // btn
-      .add(menuBtnShow(), 1.5);
+      .add(menuBtnShow(), 0.7);
   }
 
   update() {}
 
   canvasStop(st) {
-    // if (!$("body").hasClass("isIE")) return;
-    const ftop = $(".footer").offset().top - window.innerHeight;
-    if (ftop <= st) {
-      $(".canvasWrap").css({
-        bottom: this.ft
-      });
-
-      $(".canvasWrap").addClass("absolute");
-    } else {
-      $(".canvasWrap").removeClass("absolute");
-      $(".canvasWrap").css({
-        bottom: ""
-      });
-    }
+    // // if (!$("body").hasClass("isIE")) return;
+    // const ftop = $(".footer").offset().top - window.innerHeight;
+    // if (ftop <= st) {
+    //   $(".canvasWrap").css({
+    //     bottom: this.ft,
+    //   });
+    //   $(".canvasWrap").addClass("absolute");
+    // } else {
+    //   $(".canvasWrap").removeClass("absolute");
+    //   $(".canvasWrap").css({
+    //     bottom: "",
+    //   });
+    // }
   }
 
   setEvent() {
     super.__setUpdateFlag(false);
 
-    $(window).on("scroll", e => {
-      const st = $(window).scrollTop();
-      this.canvasStop(st);
-    });
+    // $(window).on("scroll", (e) => {
+    //   const st = $(window).scrollTop();
+    //   this.canvasStop(st);
+    // });
   }
 
   reset() {}

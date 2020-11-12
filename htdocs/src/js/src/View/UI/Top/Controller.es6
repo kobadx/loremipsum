@@ -24,6 +24,8 @@ export default class Controller extends Base {
   constructor() {
     super();
 
+    this.isUEv = true;
+
     this.setup();
     this.setEvents();
     this.onResize();
@@ -32,19 +34,26 @@ export default class Controller extends Base {
   }
 
   setup() {
+    // hover btn
     $(".btn-primary").each((i, e) => {
       new Hover(e);
     });
-
-    new Tab($(".tabWrap"));
-
+    // hover footer
     $(".footer-link").each((i, e) => {
       new HoverText(e);
     });
+    // hover menu lang
     $(".menu-lang-link").each((i, e) => {
       new HoverText(e);
     });
+    $(".HoverImg").each((i, e) => {
+      new HoverImg(e);
+    });
 
+    // tab
+    new Tab($(".tabWrap"));
+
+    // menu
     this.menu = new Menu({
       $btn: $(".header-menu-btn"),
       $contents: $(".menu"),
@@ -59,7 +68,7 @@ export default class Controller extends Base {
     });
     // parallax img
     $(".parallaxImg").each((i, e) => {
-      var val = 0.06 + (Math.random() - 0.5) * 0.1;
+      var val = 0.05 + (Math.random() - 0.5) * 0.07;
       var max = 200 + (Math.random() - 0.5) * 100;
       $(e).attr("data-ease", val);
 
@@ -69,29 +78,28 @@ export default class Controller extends Base {
       });
     });
 
-    $(".HoverImg").each((i, e) => {
-      new HoverImg(e);
-    });
-
+    // scroll 示唆
     this.scrollBtn = new ScrollBtn($(".scroll-btn"));
-    super.onU();
 
-    // this.kv = new KV();
+    // KV
+    this.kv = new KV();
 
+    // cookie
     this.cookie = new Cookie();
 
+    // opening
     this.show();
   }
 
   show() {
-    // this.kv
-    //   .timeline((e) => {
-    //     this.scrollBtn.show();
-    //     return this.menu.showBtn();
-    //   })
-    //   .then((e) => {
-    //     this.cookie.show();
-    //   });
+    this.kv
+      .timeline((e) => {
+        this.scrollBtn.show();
+        return this.menu.showBtn();
+      })
+      .then((e) => {
+        this.cookie.show();
+      });
   }
 
   timeline() {}

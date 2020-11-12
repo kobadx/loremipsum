@@ -4659,6 +4659,8 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	
+	    _this.isUEv = true;
+	
 	    _this.setup();
 	    _this.setEvents();
 	    _this.onResize();
@@ -4670,19 +4672,26 @@
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
+	      // hover btn
 	      $(".btn-primary").each(function (i, e) {
 	        new _Controller2.default(e);
 	      });
-	
-	      new _Controller4.default($(".tabWrap"));
-	
+	      // hover footer
 	      $(".footer-link").each(function (i, e) {
 	        new _Controller6.default(e);
 	      });
+	      // hover menu lang
 	      $(".menu-lang-link").each(function (i, e) {
 	        new _Controller6.default(e);
 	      });
+	      $(".HoverImg").each(function (i, e) {
+	        new _Controller12.default(e);
+	      });
 	
+	      // tab
+	      new _Controller4.default($(".tabWrap"));
+	
+	      // menu
 	      this.menu = new _Controller8.default({
 	        $btn: $(".header-menu-btn"),
 	        $contents: $(".menu")
@@ -4697,7 +4706,7 @@
 	      });
 	      // parallax img
 	      $(".parallaxImg").each(function (i, e) {
-	        var val = 0.06 + (Math.random() - 0.5) * 0.1;
+	        var val = 0.05 + (Math.random() - 0.5) * 0.07;
 	        var max = 200 + (Math.random() - 0.5) * 100;
 	        $(e).attr("data-ease", val);
 	
@@ -4707,30 +4716,29 @@
 	        });
 	      });
 	
-	      $(".HoverImg").each(function (i, e) {
-	        new _Controller12.default(e);
-	      });
-	
+	      // scroll 示唆
 	      this.scrollBtn = new _Controller14.default($(".scroll-btn"));
-	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "onU", this).call(this);
 	
-	      // this.kv = new KV();
+	      // KV
+	      this.kv = new _Controller16.default();
 	
+	      // cookie
 	      this.cookie = new _Controller18.default();
 	
+	      // opening
 	      this.show();
 	    }
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      // this.kv
-	      //   .timeline((e) => {
-	      //     this.scrollBtn.show();
-	      //     return this.menu.showBtn();
-	      //   })
-	      //   .then((e) => {
-	      //     this.cookie.show();
-	      //   });
+	      var _this2 = this;
+	
+	      this.kv.timeline(function (e) {
+	        _this2.scrollBtn.show();
+	        return _this2.menu.showBtn();
+	      }).then(function (e) {
+	        _this2.cookie.show();
+	      });
 	    }
 	  }, {
 	    key: "timeline",
@@ -6611,6 +6619,7 @@
 	      this.name = "UIController";
 	      this.flag = new _Controller4.default();
 	      this.dom = new _Controller6.default();
+	      this.$c = $("canvas");
 	    }
 	  }, {
 	    key: "timeline",
@@ -6627,13 +6636,20 @@
 	        // ------------------------------------------------------------
 	        // canvas
 	        // ------------------------------------------------------------
+	        // canvasをop1に
+	        .add(function () {
+	          TweenMax.to(_this2.$c, 2.0, {
+	            opacity: 1,
+	            ease: Power2.easeInOut
+	          });
+	        }, 0.0)
 	
 	        // draw line
 	        // 広がる
 	        //   y,z
 	        .add(function () {
 	          _this2.flag.show();
-	        }, 1.0)
+	        }, 0.2)
 	
 	        // effectを強める
 	        .add(function () {
@@ -6645,7 +6661,7 @@
 	          //   radius: 3,
 	          //   ease: Power2.easeInOut,
 	          // });
-	        }, 1.0 + 1.5)
+	        }, 0.2 + 1.5)
 	
 	        // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
 	        //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
@@ -6686,17 +6702,18 @@
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
 	            }
 	          }, 0.8 + 0.05);
-	        }, 4.0)
+	        }, 0.2 + 3.8)
 	
-	        // ------------------------------------------------------------
+	        // bg line
+	        .add(function () {
+	          _this2.flag.bg.show();
+	        }, 0.2 + 3.8 + 1.2)
 	        // dom
-	        // ------------------------------------------------------------
 	        .add(function () {
 	          _this2.dom.show(menuBtnShow);
-	          _this2.flag.bg.show();
-	        }, 4.0 + 0.9).add(function () {
+	        }, 0.2 + 3.8 + 0.9).add(function () {
 	          resolve();
-	        }, 6);
+	        }, 0.2 + 6.0);
 	      });
 	    }
 	  }, {
@@ -6859,6 +6876,15 @@
 	
 	      this.speed = 0.1;
 	
+	      this.disY = 0;
+	      this.dis = 0;
+	      this.defY = 0;
+	      this.tar = 0;
+	      this.st = 0;
+	      this.tarSt = 0;
+	
+	      this.$f = $(".footer");
+	
 	      // layout
 	      var posi = [new THREE.Vector3(-window.innerWidth * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-window.innerWidth * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
 	
@@ -6867,14 +6893,16 @@
 	      this.stick = new _Controller6.default(posi, 10);
 	      this.sail = new _Controller8.default(posi, 10);
 	
+	      this.wrap = new THREE.Group();
 	      this.obj = new THREE.Group();
 	
 	      this.obj.add(this.stick.obj);
 	      this.obj.add(this.sail.obj);
 	
 	      // layout
+	      this.defY = -window.innerHeight * 0.5 + 375;
 	      this.obj.position.x = window.innerWidth * 0.5 - 585;
-	      this.obj.position.y = -window.innerHeight * 0.5 + 375;
+	      this.obj.position.y = this.defY;
 	
 	      if (this.$canvas.width() <= this.bp) {
 	        this.obj.position.x = window.innerWidth * 0.5 - 300;
@@ -6885,7 +6913,8 @@
 	      // add scene
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
-	      scene.add(this.obj);
+	      this.wrap.add(this.obj);
+	      scene.add(this.wrap);
 	      scene.background = new THREE.Color(0x00076d);
 	      this.setup = new _Controller4.default(this.$canvas, this.obj, scene);
 	      // this.setup.scene.add();
@@ -6899,6 +6928,53 @@
 	        y: 0
 	      };
 	      // this.update();
+	
+	      this.frame = 0;
+	    }
+	  }, {
+	    key: "reset",
+	    value: function reset() {}
+	  }, {
+	    key: "show",
+	    value: function show() {
+	      this.sail.show();
+	      this.stick.show();
+	      // this.bg.show();
+	    }
+	  }, {
+	    key: "update",
+	    value: function update() {
+	      this.frame++;
+	      if (this.frame % 2 == 0) {
+	        // update
+	        this.bg.update({
+	          posi: this.setup.camera.position.z,
+	          depth: this.setup.defz
+	        });
+	        this.stick.update();
+	        this.sail.update();
+	
+	        // マウス インタラクション
+	        this.prevMosePosi = {
+	          x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
+	          y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
+	        };
+	        this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.3;
+	        this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight * 0.3;
+	
+	        return;
+	      }
+	
+	      this.setup.render();
+	
+	      // 一番下にいったときにfooterまでいかないように
+	      // this.dis += (this.disY - this.dis) * 0.05;
+	      // this.obj.position.y = this.defY - this.dis;
+	      this.tar += (-this.defY - this.tar) * 0.12;
+	      this.obj.position.y = this.tar;
+	
+	      this.tarSt += (this.st - this.tarSt) * 0.6;
+	      this.wrap.position.y = this.tarSt;
 	    }
 	  }, {
 	    key: "setEvent",
@@ -6931,36 +7007,25 @@
 	          _this2.mousePosi.y = 0;
 	        }
 	      });
-	    }
-	  }, {
-	    key: "reset",
-	    value: function reset() {}
-	  }, {
-	    key: "show",
-	    value: function show() {
-	      this.sail.show();
-	      this.stick.show();
-	      // this.bg.show();
-	    }
-	  }, {
-	    key: "update",
-	    value: function update() {
-	      // update
-	      this.bg.update({
-	        posi: this.setup.camera.position.z,
-	        depth: this.setup.defz
-	      });
-	      this.stick.update();
-	      this.sail.update();
-	      this.setup.render();
 	
-	      // マウス インタラクション
-	      this.prevMosePosi = {
-	        x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
-	        y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
-	      };
-	      this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.3;
-	      this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight * 0.3;
+	      // 一番下にいったときにfooterまでいかないように
+	      // $(window).on("scroll", (e) => {
+	      //   const st = $(window).scrollTop();
+	
+	      //   const ftop = this.$f.offset().top - window.innerHeight;
+	
+	      //   var dis = ftop - st;
+	      //   if (dis > 0) this.disY = 0;
+	      //   else this.disY = dis - 100;
+	      // });
+	      $(window).on("scroll", function (e) {
+	        var st = $(window).scrollTop();
+	        _this2.st = st;
+	        var ftop = _this2.$f.offset().top - window.innerHeight;
+	        if (st > ftop - 150) st = ftop - 150;
+	
+	        _this2.defY = st - window.innerHeight * 0.5 + 375;
+	      });
 	    }
 	  }]);
 	
@@ -7140,7 +7205,8 @@
 	    value: function render() {
 	      // this.renderer.render(this.objScene, this.camera);
 	
-	      if (this.frame % 10 == 0) this.composer.render();
+	      this.composer.render();
+	      // if (this.frame % 2 == 0) this.composer.render();
 	
 	      if (this.is_autoRender) {
 	        requestAnimationFrame(this.render.bind(this));
@@ -7213,22 +7279,34 @@
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      var _this2 = this;
-	
 	      var time = Date.now() / 5000;
 	      ++this.TIME;
 	      this.chobisens.forEach(function (obj) {
 	        var points = obj.geometry.attributes.position.array;
+	        console.log(obj.geometry.attributes.position);
 	        var l = points.length;
-	        for (var i = 0; i < l; i++) {
-	          if (i % 3 == 2 && i != 2) {
-	            obj.geometry.attributes.position.needsUpdate = true;
-	            var n = noise.perlin2(i, time);
-	            var p = _this2.sin(_this2.TIME * -1, i) * n;
+	        var count = obj.geometry.attributes.position.count;
+	        // for (var i = 0; i < l; i++) {
+	        //   if (i % 3 == 2 && i != 2) {
 	
-	            points[i] += p * 0.5;
-	          }
-	        }
+	        //     points[i] += p * 0.5;
+	
+	        //     obj.geometry.attributes.position.needsUpdate = true;
+	        //     // const n = noise.perlin2(i, time);
+	        //     // const p = this.sin(this.TIME * -1, i) * n;
+	
+	        //   }
+	        // }
+	        // for (var i = 0; i < count; i++) {
+	        //   if (i == count - 1) {
+	        //     const n = noise.perlin2(i, time);
+	        //     const p = this.sin(this.TIME * -1, i) * n;
+	
+	        //     points[i + 1] = p;
+	
+	        //     obj.geometry.attributes.position.needsUpdate = true;
+	        //   }
+	        // }
 	      });
 	    }
 	  }, {
@@ -7252,12 +7330,12 @@
 	  }, {
 	    key: "getMesh",
 	    value: function getMesh(obj) {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      var arr = [];
 	      obj.children.forEach(function (children) {
 	        if (children.type == "Group") {
-	          arr.push.apply(arr, _toConsumableArray(_this3.getMesh(children)));
+	          arr.push.apply(arr, _toConsumableArray(_this2.getMesh(children)));
 	        } else {
 	          arr.push(children);
 	        }
@@ -7398,7 +7476,7 @@
 	    var v2 = i == 0 ? v1.clone().sub(new THREE.Vector3(2.5, -4, 0)) : v1.clone().sub(new THREE.Vector3(2.5, -2.5, 0));
 	    var v3 = v1.clone().sub(new THREE.Vector3(5, 0, 0));
 	    var _curve = new THREE.QuadraticBezierCurve3(v1, v2, v3);
-	    var arr = _curve.getPoints(50);
+	    var arr = _curve.getPoints(2);
 	    for (var u = 0; u < arr.length; u++) {
 	      points.push(arr[u].x, arr[u].y, arr[u].z);
 	    }
@@ -11201,9 +11279,9 @@
 	        opacity: 1,
 	        y: 0,
 	        ease: Expo.easeOut
-	      }, 1.5)
+	      }, 0.7)
 	      // btn
-	      .add(menuBtnShow(), 1.5);
+	      .add(menuBtnShow(), 0.7);
 	    }
 	  }, {
 	    key: "update",
@@ -11211,32 +11289,29 @@
 	  }, {
 	    key: "canvasStop",
 	    value: function canvasStop(st) {
-	      // if (!$("body").hasClass("isIE")) return;
-	      var ftop = $(".footer").offset().top - window.innerHeight;
-	      if (ftop <= st) {
-	        $(".canvasWrap").css({
-	          bottom: this.ft
-	        });
-	
-	        $(".canvasWrap").addClass("absolute");
-	      } else {
-	        $(".canvasWrap").removeClass("absolute");
-	        $(".canvasWrap").css({
-	          bottom: ""
-	        });
-	      }
+	      // // if (!$("body").hasClass("isIE")) return;
+	      // const ftop = $(".footer").offset().top - window.innerHeight;
+	      // if (ftop <= st) {
+	      //   $(".canvasWrap").css({
+	      //     bottom: this.ft,
+	      //   });
+	      //   $(".canvasWrap").addClass("absolute");
+	      // } else {
+	      //   $(".canvasWrap").removeClass("absolute");
+	      //   $(".canvasWrap").css({
+	      //     bottom: "",
+	      //   });
+	      // }
 	    }
 	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
-	      var _this2 = this;
-	
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, false);
 	
-	      $(window).on("scroll", function (e) {
-	        var st = $(window).scrollTop();
-	        _this2.canvasStop(st);
-	      });
+	      // $(window).on("scroll", (e) => {
+	      //   const st = $(window).scrollTop();
+	      //   this.canvasStop(st);
+	      // });
 	    }
 	  }, {
 	    key: "reset",
