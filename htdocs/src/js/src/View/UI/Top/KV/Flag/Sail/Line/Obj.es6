@@ -28,10 +28,15 @@ export default class Controller {
       x: 0,
       y: 0,
       vx: 0,
-      vy: 0
+      vy: 0,
     };
 
+    this.ookisa = 1;
+    this.yureY = 1;
+    this.yureZ = 1;
+
     this.setup();
+    this.setEvents();
   }
 
   setup() {
@@ -67,7 +72,7 @@ export default class Controller {
       blending: THREE.AdditiveBlending,
       opacity: 1,
       transparent: true,
-      depthTest: false
+      depthTest: false,
     });
     this.obj = new THREE.Line(geometry, material);
 
@@ -200,7 +205,7 @@ export default class Controller {
   //   this.obj.geometry.attributes.position.needsUpdate = true;
   // }
 
-  update(n = 1, index) {
+  update(index) {
     this.noiseTime += 0.005;
     this.noiseTime2 -= 0.002;
 
@@ -208,14 +213,24 @@ export default class Controller {
     for (let i = 0; i < this.config.num; i++) {
       var nd = this.nodes[i];
 
+      var rate = this.clamp(i / (this.config.num - 1), 0, 1.0);
+      var val = this.outQuart(rate) * this.config.num;
+
+      // 揺れ
       nd.y =
         nd.defy +
-        noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
+        noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) *
+          15 *
+          this.yureY;
       nd.z =
         nd.defz +
-        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * i * 2 +
-        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * i * 3.0;
+        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 * this.ookisa +
+        noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) *
+          val *
+          2.0 *
+          this.yureZ;
 
+      // spread motion用
       var y = this.lerp(nd.defy2, nd.y, this.t);
       var z = this.lerp(nd.defz, nd.z, this.t);
 
@@ -261,7 +276,7 @@ export default class Controller {
         dur,
         {
           e: 1,
-          ease: Expo.easeInOut
+          ease: Expo.easeInOut,
         },
         0.0
       );
@@ -278,7 +293,7 @@ export default class Controller {
         dur,
         {
           t: 1,
-          ease: Expo.easeInOut
+          ease: Expo.easeInOut,
         },
         0.0
       );
@@ -295,7 +310,7 @@ export default class Controller {
         dur,
         {
           e: 1,
-          ease: Expo.easeInOut
+          ease: Expo.easeInOut,
         },
         0.0
       );
@@ -345,4 +360,21 @@ export default class Controller {
     val = val > 1 ? 1 : val;
     return val01 + (val02 - val01) * val;
   }
+
+  outExpo(t) {
+    if (t == 1.0) return 1;
+    else return -Math.pow(2, -10 * t) + 1;
+  }
+
+  outQuart(t) {
+    --t;
+    return 1.0 - t * t * t * t;
+  }
+
+  inExpo(t) {
+    if (t == 0) return 0;
+    else return Math.pow(2, 10 * (t - 1));
+  }
+
+  setEvents() {}
 }

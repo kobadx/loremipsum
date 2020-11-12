@@ -8827,7 +8827,7 @@
 	    return obj === false || obj === true;
 	  },
 	  isFunction: function isFunction(obj) {
-	    return Object.prototype.toString.call(obj) === '[object Function]';
+	    return obj instanceof Function;
 	  }
 	};
 	
@@ -9325,8 +9325,9 @@
 	});
 	Object.defineProperty(Color.prototype, 'hex', {
 	  get: function get$$1() {
-	    if (!this.__state.space !== 'HEX') {
+	    if (this.__state.space !== 'HEX') {
 	      this.__state.hex = ColorMath.rgb_to_hex(this.r, this.g, this.b);
+	      this.__state.space = 'HEX';
 	    }
 	    return this.__state.hex;
 	  },
@@ -10653,6 +10654,12 @@
 	  },
 	  close: function close() {
 	    this.closed = true;
+	  },
+	  hide: function hide() {
+	    this.domElement.style.display = 'none';
+	  },
+	  show: function show() {
+	    this.domElement.style.display = '';
 	  },
 	  onResize: function onResize() {
 	    var root = this.getRoot();

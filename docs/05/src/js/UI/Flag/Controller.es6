@@ -92,9 +92,9 @@ export default class Controller extends Base {
     });
 
     // param
-    const interaction = window.dat.addFolder("interaction");
-    this.mouseMove = true;
-    interaction.add(this, "mouseMove");
+    // const interaction = window.dat.addFolder("interaction");
+    // this.mouseMove = true;
+    // interaction.add(this, "mouseMove");
   }
 
   reset() {}

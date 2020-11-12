@@ -22,7 +22,9 @@ export default class Controller extends Base {
     this.per = this.$canvas.width() / 1280;
     if (this.per > 1) this.per = 1;
 
-    this.speed = 0.1;
+    this.mouseMove = true;
+
+    this.speed = 0.015;
 
     this.disY = 0;
     this.dis = 0;
@@ -60,7 +62,7 @@ export default class Controller extends Base {
 
     // layout
     this.defY = -window.innerHeight * 0.5 + 375;
-    this.obj.position.x = window.innerWidth * 0.5 - 585;
+    this.obj.position.x = window.innerWidth * 0.5 - 540;
     this.obj.position.y = this.defY;
 
     if (this.$canvas.width() <= this.bp) {
@@ -101,7 +103,7 @@ export default class Controller extends Base {
 
   update() {
     this.frame++;
-    if (this.frame % 2 == 0) {
+    if (this.frame % 1 == 0) {
       // update
       this.bg.update({
         posi: this.setup.camera.position.z,
@@ -125,13 +127,13 @@ export default class Controller extends Base {
       };
       this.obj.rotation.y =
         ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
-        0.3;
+        0.15;
       this.obj.rotation.x =
-        ((this.prevMosePosi.y - window.innerHeight * 0.5) /
+        ((this.prevMosePosi.y - window.innerHeight * 0.7) /
           window.innerHeight) *
-        0.3;
+        0.15;
 
-      return;
+      // return;
     }
 
     this.setup.render();
@@ -148,6 +150,8 @@ export default class Controller extends Base {
 
   setEvent() {
     super.__setUpdateFlag(true);
+
+    // resize
     $(window).on("resize", (e) => {
       this.setup.onWindowResize();
       this.bg.resize();
@@ -160,10 +164,8 @@ export default class Controller extends Base {
         this.obj.position.x = window.innerWidth * 0.5 - 585;
       }
     });
-    const interaction = window.dat.addFolder("interaction");
-    this.mouseMove = false;
-    interaction.add(this, "mouseMove");
 
+    // マウスの揺れ
     $(window).on("mousemove", (e) => {
       if (this.mouseMove) {
         this.mousePosi.x = e.pageX;

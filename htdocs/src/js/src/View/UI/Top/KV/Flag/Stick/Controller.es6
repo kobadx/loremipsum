@@ -34,7 +34,7 @@ export default class Controller {
     ++this.TIME;
     this.chobisens.forEach((obj) => {
       const points = obj.geometry.attributes.position.array;
-      console.log(obj.geometry.attributes.position);
+      // console.log(obj.geometry.attributes.position);
       const l = points.length;
       var count = obj.geometry.attributes.position.count;
       // for (var i = 0; i < l; i++) {

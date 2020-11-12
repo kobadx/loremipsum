@@ -6692,7 +6692,7 @@
 	          }, 0.8)
 	          // 再度ゆっくり
 	          .to(_this2.flag.setup.camera.position, 4.5, {
-	            z: _this2.flag.setup.defz * 1,
+	            z: _this2.flag.setup.defz * 1.1,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
 	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
@@ -6874,7 +6874,9 @@
 	      this.per = this.$canvas.width() / 1280;
 	      if (this.per > 1) this.per = 1;
 	
-	      this.speed = 0.1;
+	      this.mouseMove = true;
+	
+	      this.speed = 0.015;
 	
 	      this.disY = 0;
 	      this.dis = 0;
@@ -6901,7 +6903,7 @@
 	
 	      // layout
 	      this.defY = -window.innerHeight * 0.5 + 375;
-	      this.obj.position.x = window.innerWidth * 0.5 - 585;
+	      this.obj.position.x = window.innerWidth * 0.5 - 540;
 	      this.obj.position.y = this.defY;
 	
 	      if (this.$canvas.width() <= this.bp) {
@@ -6945,7 +6947,7 @@
 	    key: "update",
 	    value: function update() {
 	      this.frame++;
-	      if (this.frame % 2 == 0) {
+	      if (this.frame % 1 == 0) {
 	        // update
 	        this.bg.update({
 	          posi: this.setup.camera.position.z,
@@ -6959,10 +6961,10 @@
 	          x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
 	          y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
 	        };
-	        this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.3;
-	        this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight * 0.3;
+	        this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.15;
+	        this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight * 0.15;
 	
-	        return;
+	        // return;
 	      }
 	
 	      this.setup.render();
@@ -6982,6 +6984,8 @@
 	      var _this2 = this;
 	
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
+	
+	      // resize
 	      $(window).on("resize", function (e) {
 	        _this2.setup.onWindowResize();
 	        _this2.bg.resize();
@@ -6994,10 +6998,8 @@
 	          _this2.obj.position.x = window.innerWidth * 0.5 - 585;
 	        }
 	      });
-	      var interaction = window.dat.addFolder("interaction");
-	      this.mouseMove = false;
-	      interaction.add(this, "mouseMove");
 	
+	      // マウスの揺れ
 	      $(window).on("mousemove", function (e) {
 	        if (_this2.mouseMove) {
 	          _this2.mousePosi.x = e.pageX;
@@ -7283,7 +7285,7 @@
 	      ++this.TIME;
 	      this.chobisens.forEach(function (obj) {
 	        var points = obj.geometry.attributes.position.array;
-	        console.log(obj.geometry.attributes.position);
+	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
 	        // for (var i = 0; i < l; i++) {
@@ -8048,10 +8050,10 @@
 	        // const time = (index + 1) * 0.0001;
 	
 	        // noise
-	        var i = index / window.noiseparam.wave;
-	        var n = noise.perlin2(i, time) * 10;
+	        // const i = index / window.noiseparam.wave;
+	        // let n = noise.perlin2(i, time) * 10;
 	        // n = Math.abs(n) > 5 ? n * 0.8 : n;
-	        line.update(n, index);
+	        line.update(index);
 	      });
 	    }
 	  }, {
@@ -8084,38 +8086,7 @@
 	    }
 	  }, {
 	    key: "setEvents",
-	    value: function setEvents() {
-	      var _this2 = this;
-	
-	      // param
-	
-	      var _dat = dat.addFolder("flag");
-	      _dat.add(this.param, "height", 0, 500).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.height = i + e;
-	        });
-	      });
-	      _dat.add(this.param, "speed", 0, 10, 0.1).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.i = e;
-	        });
-	      });
-	      _dat.add(this.param, "細かさ", 0, 1000).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.offset = e;
-	        });
-	      });
-	
-	      var noisedat = dat.addFolder("noise");
-	      window.noiseparam = {
-	        line: 2,
-	        wave: 70
-	        // wave2: 70
-	      };
-	      noisedat.add(window.noiseparam, "line", 0, 2);
-	      noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
-	      // noisedat.add(window.noiseparam, "wave2", 1, );
-	    }
+	    value: function setEvents() {}
 	  }, {
 	    key: "verticalLength",
 	    get: function get() {
@@ -8182,7 +8153,12 @@
 	      vy: 0
 	    };
 	
+	    this.ookisa = 1;
+	    this.yureY = 1;
+	    this.yureZ = 1;
+	
 	    this.setup();
+	    this.setEvents();
 	  }
 	
 	  _createClass(Controller, [{
@@ -8352,10 +8328,7 @@
 	
 	  }, {
 	    key: "update",
-	    value: function update() {
-	      var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-	      var index = arguments[1];
-	
+	    value: function update(index) {
 	      this.noiseTime += 0.005;
 	      this.noiseTime2 -= 0.002;
 	
@@ -8363,9 +8336,14 @@
 	      for (var _i = 0; _i < this.config.num; _i++) {
 	        var nd = this.nodes[_i];
 	
-	        nd.y = nd.defy + noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
-	        nd.z = nd.defz + Math.sin(nd.x * 0.008 - this.noiseTime * 3) * _i * 2 + noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * _i * 3.0;
+	        var rate = this.clamp(_i / (this.config.num - 1), 0, 1.0);
+	        var val = this.outQuart(rate) * this.config.num;
 	
+	        // 揺れ
+	        nd.y = nd.defy + noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15 * this.yureY;
+	        nd.z = nd.defz + Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 * this.ookisa + noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * val * 2.0 * this.yureZ;
+	
+	        // spread motion用
 	        var y = this.lerp(nd.defy2, nd.y, this.t);
 	        var z = this.lerp(nd.defz, nd.z, this.t);
 	
@@ -8488,6 +8466,25 @@
 	      val = val > 1 ? 1 : val;
 	      return val01 + (val02 - val01) * val;
 	    }
+	  }, {
+	    key: "outExpo",
+	    value: function outExpo(t) {
+	      if (t == 1.0) return 1;else return -Math.pow(2, -10 * t) + 1;
+	    }
+	  }, {
+	    key: "outQuart",
+	    value: function outQuart(t) {
+	      --t;
+	      return 1.0 - t * t * t * t;
+	    }
+	  }, {
+	    key: "inExpo",
+	    value: function inExpo(t) {
+	      if (t == 0) return 0;else return Math.pow(2, 10 * (t - 1));
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {}
 	  }]);
 	
 	  return Controller;
