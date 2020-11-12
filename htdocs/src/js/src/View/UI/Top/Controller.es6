@@ -61,14 +61,14 @@ export default class Controller extends Base {
     // menu
     this.menu = new Menu({
       $btn: $(".header-menu-btn"),
-      $contents: $(".menu")
+      $contents: $(".menu"),
     });
 
     // parallax box
     $(".parallax,.parallax2,.parallax3").each((i, e) => {
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
-        max: e.dataset.max - 0
+        max: e.dataset.max - 0,
       });
     });
     // parallax img
@@ -79,7 +79,7 @@ export default class Controller extends Base {
 
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
-        max: e.dataset.max - 0
+        max: e.dataset.max - 0,
       });
     });
 
@@ -98,11 +98,11 @@ export default class Controller extends Base {
 
   show() {
     this.kv
-      .timeline(e => {
+      .timeline((e) => {
         this.scrollBtn.show();
         return this.menu.showBtn();
       })
-      .then(e => {
+      .then((e) => {
         this.cookie.show();
       });
   }
@@ -110,14 +110,12 @@ export default class Controller extends Base {
   timeline() {}
 
   update() {
-    window.updates.map(update => {
+    window.updates.map((update) => {
       update.cb();
     });
   }
 
   onResize() {
-    console.log("resize");
-
     document.body.style.setProperty("--h", window.innerHeight + "px");
   }
 

@@ -37,7 +37,7 @@ export default class Controller {
       // console.log(obj.geometry.attributes.position);
       const l = points.length;
       var count = obj.geometry.attributes.position.count;
-      console.log(count);
+      // console.log(count);
       // for (var i = 0; i < l; i++) {
       //   if (i % 3 == 2 && i != 2) {
 

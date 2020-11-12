@@ -51790,8 +51790,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "onResize",
 	    value: function onResize() {
-	      console.log("resize");
-	
 	      document.body.style.setProperty("--h", window.innerHeight + "px");
 	    }
 	  }, {
@@ -53910,7 +53908,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      window.dat = new dat.GUI();
 	      this.$canvas = $(".canvas");
 	      this.bp = 768;
-	      this.per = this.$canvas.width() / 1280;
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.per > 1) this.per = 1;
 	
 	      this.mouseMove = true;
@@ -53927,7 +53927,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.$f = $(".footer");
 	
 	      // layout
-	      var posi = [new THREE.Vector3(-window.innerWidth * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-window.innerWidth * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
+	      var posi = [new THREE.Vector3(-this.baseW * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-this.baseW * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
 	
 	      // objects
 	      this.bg = new _Controller10.default();
@@ -53940,15 +53940,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.obj.add(this.stick.obj);
 	      this.obj.add(this.sail.obj);
 	
-	      // layout
-	      this.defY = 0;
-	      this.obj.position.x = window.innerWidth * 0.5 - 540;
-	      this.obj.position.y = this.defY;
-	
-	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = window.innerWidth * 0.5 - 300;
-	        this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
-	      }
 	      // this.obj.position.z = -1000
 	
 	      // add scene
@@ -53970,6 +53961,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      };
 	      // this.update();
 	
+	      // layout
+	      this.defY = 0;
+	      this.obj.position.y = this.defY;
+	
+	      // resize
+	      this.onResize(true);
+	
 	      this.frame = 0;
 	    }
 	  }, {
@@ -53984,7 +53982,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      // move Y
 	      // positionを正しい位置に
-	      var tarY = this.$canvas.width() <= this.bp ? 318 : 375;
+	      var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
 	      TweenMax.to(this, 1.5, {
 	        defY: -window.innerHeight * 0.5 + tarY,
 	        ease: Power2.easeInOut,
@@ -54033,6 +54031,25 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.wrap.position.y = this.tarSt;
 	    }
 	  }, {
+	    key: "onResize",
+	    value: function onResize() {
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	
+	      this.setup.onWindowResize(isFirst);
+	      this.bg.resize();
+	
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
+	      if (this.$canvas.width() <= this.bp) {
+	        this.obj.position.x = -29 * 4 * this.per;
+	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+	      } else {
+	        this.obj.position.x = this.baseW * 0.5 - 540;
+	        this.obj.scale.set(this.per, this.per, this.per);
+	      }
+	    }
+	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
 	      var _this2 = this;
@@ -54040,18 +54057,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
 	
 	      // resize
-	      $(window).on("resize", function (e) {
-	        _this2.setup.onWindowResize();
-	        _this2.bg.resize();
-	        if (_this2.$canvas.width() <= _this2.bp) {
-	          var per = _this2.$canvas.width() / 1280;
-	          _this2.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 300;
-	        } else {
-	          _this2.obj.scale.set(1, 1, 1);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 585;
-	        }
-	      });
+	      $(window).on("resize", this.onResize.bind(this, false));
 	
 	      // マウスの揺れ
 	      $(window).on("mousemove", function (e) {
@@ -54165,16 +54171,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "setCameraByPixel",
 	    value: function setCameraByPixel() {
-	      var isRisize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 	
 	      this.w = this.$dom.width();
-	      this.h = this.$dom.height();
+	      this.h = window.innerHeight;
 	      var fov = 45;
 	      var vFOV = fov * (Math.PI / 180);
 	      var vpHeight = this.h;
 	      var z = vpHeight / (2 * Math.tan(vFOV / 2));
 	      this.defz = z * 1;
-	      this.z = isRisize ? z : z * 0.27;
+	      this.z = isFirst ? z * 0.27 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
@@ -54243,18 +54249,17 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
 	      this.composer.addPass(toScreen);
-	      this.onWindowResize(true);
 	    }
 	  }, {
 	    key: "onWindowResize",
-	    value: function onWindowResize(isInit) {
+	    value: function onWindowResize(isFirst) {
 	      var w = this.$dom.width();
-	      var h = this.$dom.height();
+	      var h = window.innerHeight;
+	      this.setCameraByPixel(isFirst);
 	      this.renderer.setPixelRatio(window.devicePixelRatio);
 	      this.renderer.setSize(w, h);
-	      this.composer.setSize(w, h);
 	      this.composer.setPixelRatio(window.devicePixelRatio);
-	      this.setCameraByPixel(!isInit);
+	      this.composer.setSize(w, h);
 	    }
 	  }, {
 	    key: "render",
@@ -54342,7 +54347,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
-	        console.log(count);
+	        // console.log(count);
 	        // for (var i = 0; i < l; i++) {
 	        //   if (i % 3 == 2 && i != 2) {
 	
@@ -55685,7 +55690,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    value: function resize() {
 	      this.obj.children = [];
 	      this.setup();
-	      console.log(this.obj);
+	      // console.log(this.obj);
 	      this.obj.children.forEach(function (children) {
 	        children.material.opacity = 0.005;
 	        children.material.uniforms.dashOffset.value = -2;

@@ -23,7 +23,7 @@ export default class Controller {
         transparent: true,
         dashOffset: 0,
         dashArray: 2 * h,
-        dashRatio: 0.99
+        dashRatio: 0.99,
       });
       const point = [];
       const _w = -w * 0.5;
@@ -49,7 +49,7 @@ export default class Controller {
         0.25,
         {
           opacity: 0.05,
-          ease: Expo.easeIn
+          ease: Expo.easeIn,
         },
         Math.abs(index - num) * 0.02
       );
@@ -58,7 +58,7 @@ export default class Controller {
         1,
         {
           opacity: 0.005,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         Math.abs(index - num) * 0.02 + 0.25
       );
@@ -67,7 +67,7 @@ export default class Controller {
         2,
         {
           value: -2,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         Math.abs(index - num) * 0.02 + 0.05
       );
@@ -78,8 +78,8 @@ export default class Controller {
   resize() {
     this.obj.children = [];
     this.setup();
-    console.log(this.obj);
-    this.obj.children.forEach(children => {
+    // console.log(this.obj);
+    this.obj.children.forEach((children) => {
       children.material.opacity = 0.005;
       children.material.uniforms.dashOffset.value = -2;
     });

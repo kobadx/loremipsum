@@ -19,7 +19,9 @@ export default class Controller extends Base {
     window.dat = new dat.GUI();
     this.$canvas = $(".canvas");
     this.bp = 768;
-    this.per = this.$canvas.width() / 1280;
+    this.baseW = 1424;
+    if (this.$canvas.width() <= this.bp) this.baseW = 375;
+    this.per = this.$canvas.width() / this.baseW;
     if (this.per > 1) this.per = 1;
 
     this.mouseMove = true;
@@ -38,12 +40,12 @@ export default class Controller extends Base {
     // layout
     const posi = [
       new THREE.Vector3(
-        -window.innerWidth * 0.5 + 100,
+        -this.baseW * 0.5 + 100,
         this.$canvas.height() * 0.5,
         0
       ),
       new THREE.Vector3(
-        -window.innerWidth * 0.5 - 25,
+        -this.baseW * 0.5 - 25,
         this.$canvas.height() * 0.5 - 800,
         0
       ),
@@ -60,15 +62,6 @@ export default class Controller extends Base {
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
-    // layout
-    this.defY = 0;
-    this.obj.position.x = window.innerWidth * 0.5 - 540;
-    this.obj.position.y = this.defY;
-
-    if (this.$canvas.width() <= this.bp) {
-      this.obj.position.x = window.innerWidth * 0.5 - 300;
-      this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
-    }
     // this.obj.position.z = -1000
 
     // add scene
@@ -90,6 +83,13 @@ export default class Controller extends Base {
     };
     // this.update();
 
+    // layout
+    this.defY = 0;
+    this.obj.position.y = this.defY;
+
+    // resize
+    this.onResize(true);
+
     this.frame = 0;
   }
 
@@ -102,7 +102,7 @@ export default class Controller extends Base {
 
     // move Y
     // positionを正しい位置に
-    var tarY = this.$canvas.width() <= this.bp ? 318 : 375;
+    var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
     TweenMax.to(this, 1.5, {
       defY: -window.innerHeight * 0.5 + tarY,
       ease: Power2.easeInOut,
@@ -163,22 +163,27 @@ export default class Controller extends Base {
     this.wrap.position.y = this.tarSt;
   }
 
+  onResize(isFirst = false) {
+    this.setup.onWindowResize(isFirst);
+    this.bg.resize();
+
+    this.baseW = 1424;
+    if (this.$canvas.width() <= this.bp) this.baseW = 375;
+    this.per = this.$canvas.width() / this.baseW;
+    if (this.$canvas.width() <= this.bp) {
+      this.obj.position.x = -29 * 4 * this.per;
+      this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+    } else {
+      this.obj.position.x = this.baseW * 0.5 - 540;
+      this.obj.scale.set(this.per, this.per, this.per);
+    }
+  }
+
   setEvent() {
     super.__setUpdateFlag(true);
 
     // resize
-    $(window).on("resize", (e) => {
-      this.setup.onWindowResize();
-      this.bg.resize();
-      if (this.$canvas.width() <= this.bp) {
-        const per = this.$canvas.width() / 1280;
-        this.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
-        this.obj.position.x = window.innerWidth * 0.5 - 300;
-      } else {
-        this.obj.scale.set(1, 1, 1);
-        this.obj.position.x = window.innerWidth * 0.5 - 585;
-      }
-    });
+    $(window).on("resize", this.onResize.bind(this, false));
 
     // マウスの揺れ
     $(window).on("mousemove", (e) => {
