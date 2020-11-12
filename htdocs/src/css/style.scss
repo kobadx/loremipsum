@@ -18,6 +18,12 @@
 #wrapper.id_top {
   position: relative;
   @import "./_page/top/**/*.scss";
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }
 
 .canvasWrap {
