@@ -25,8 +25,6 @@ export default class Controller {
     this.getMesh(this.obj).map(obj => {
       if (obj.name == "chobiline") this.chobisens.push(obj);
     });
-
-    console.log(this.chobisens[0].geometry.attributes.position.array);
   }
 
   update() {
@@ -41,7 +39,7 @@ export default class Controller {
           const n = noise.perlin2(i, time);
           const p = this.sin(this.TIME * -1, i) * n;
 
-          points[i] += p * 0.5;
+          points[i] += p * 0.2;
         }
       }
     });

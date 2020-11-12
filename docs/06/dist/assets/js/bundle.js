@@ -53919,7 +53919,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
 	      scene.add(this.obj);
-	      scene.add(this.lightObj);
+	      scene.add(this.bg.lightObj);
 	      scene.background = new THREE.Color(0x00076d);
 	      this.setup = new _Controller4.default(this.$canvas, this.obj, scene);
 	      // this.setup.scene.add();
@@ -54347,8 +54347,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.getMesh(this.obj).map(function (obj) {
 	        if (obj.name == "chobiline") _this.chobisens.push(obj);
 	      });
-	
-	      console.log(this.chobisens[0].geometry.attributes.position.array);
 	    }
 	  }, {
 	    key: "update",
@@ -54366,7 +54364,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            var n = noise.perlin2(i, time);
 	            var p = _this2.sin(_this2.TIME * -1, i) * n;
 	
-	            points[i] += p * 0.5;
+	            points[i] += p * 0.2;
 	          }
 	        }
 	      });
@@ -54554,10 +54552,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _v5 = v4.clone().sub(v1);
 	
 	      var l = _v5.length();
-	      for (var u = 0; u < 5; u++) {
-	        var p = _v5.clone().multiplyScalar(u / 5).add(v1);
-	        _points.push(p.x, p.y, p.z);
-	      }
+	      _points.push(v1.x, v1.y, v1.z);
+	      _points.push(v4.x, v4.y, v4.z);
+	      // for (var u = 0; u < 2; u++) {
+	      //   const p = _v5
+	      //     .clone()
+	      //     .multiplyScalar(u / 2)
+	      //     .add(v1);
+	      //   _points.push(p.x, p.y, p.z);
+	      // }
+	      console.log(_points, "chobi");
 	      _geometry2.addAttribute("position", new THREE.BufferAttribute(new Float32Array(_points), 3));
 	      var line = new THREE.Line(_geometry2, material);
 	      line.name = "chobiline";
