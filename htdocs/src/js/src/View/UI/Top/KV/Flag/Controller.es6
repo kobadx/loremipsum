@@ -102,11 +102,18 @@ export default class Controller extends Base {
 
     // move Y
     // positionを正しい位置に
+    var tarY = this.$canvas.width() <= this.bp ? 318 : 375;
     TweenMax.to(this, 1.5, {
-      defY: -window.innerHeight * 0.5 + 530,
+      defY: -window.innerHeight * 0.5 + tarY,
       ease: Power2.easeInOut,
       delay: 2.0,
     });
+
+    // TweenMax.to(this.obj.position, 1.5, {
+    //   y: -window.innerHeight * 0.5 + 375,
+    //   ease: Power2.easeInOut,
+    //   delay: 2.0,
+    // });
   }
 
   update() {
@@ -149,7 +156,7 @@ export default class Controller extends Base {
     // 一番下にいったときにfooterまでいかないように
     // this.dis += (this.disY - this.dis) * 0.05;
     // this.obj.position.y = this.defY - this.dis;
-    this.tar += (-this.defY - this.tar) * 0.12;
+    this.tar += (this.defY - this.tar) * 0.12;
     this.obj.position.y = this.tar;
 
     this.tarSt += (this.st - this.tarSt) * 0.6;
@@ -184,7 +191,7 @@ export default class Controller extends Base {
       }
     });
 
-    // 一番下にいったときにfooterまでいかないように
+    // // 一番下にいったときにfooterまでいかないように
     // $(window).on("scroll", (e) => {
     //   const st = $(window).scrollTop();
 
@@ -200,7 +207,7 @@ export default class Controller extends Base {
       var ftop = this.$f.offset().top - window.innerHeight;
       if (st > ftop - 150) st = ftop - 150;
 
-      this.defY = st - window.innerHeight * 0.5 + 530;
+      this.defY = -st + -window.innerHeight * 0.5 + 375;
     });
   }
 }

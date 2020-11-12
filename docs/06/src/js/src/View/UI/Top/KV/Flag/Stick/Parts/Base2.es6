@@ -197,7 +197,7 @@ function curve(posi, posi2, color, v) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false
+    depthTest: false,
   });
   return new THREE.Line(geometry, material);
 }

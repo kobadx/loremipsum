@@ -53721,6 +53721,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            z: _this2.flag.setup.defz * 0.85,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
+	              _this2.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+	              _this2.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
 	              // this.flag.setup.effectBloom.threshold = 0.03;
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
@@ -53982,11 +53984,18 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      // move Y
 	      // positionを正しい位置に
+	      var tarY = this.$canvas.width() <= this.bp ? 318 : 375;
 	      TweenMax.to(this, 1.5, {
-	        defY: -window.innerHeight * 0.5 + 530,
+	        defY: -window.innerHeight * 0.5 + tarY,
 	        ease: Power2.easeInOut,
 	        delay: 2.0
 	      });
+	
+	      // TweenMax.to(this.obj.position, 1.5, {
+	      //   y: -window.innerHeight * 0.5 + 375,
+	      //   ease: Power2.easeInOut,
+	      //   delay: 2.0,
+	      // });
 	    }
 	  }, {
 	    key: "update",
@@ -54017,7 +54026,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      // 一番下にいったときにfooterまでいかないように
 	      // this.dis += (this.disY - this.dis) * 0.05;
 	      // this.obj.position.y = this.defY - this.dis;
-	      this.tar += (-this.defY - this.tar) * 0.12;
+	      this.tar += (this.defY - this.tar) * 0.12;
 	      this.obj.position.y = this.tar;
 	
 	      this.tarSt += (this.st - this.tarSt) * 0.6;
@@ -54055,7 +54064,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        }
 	      });
 	
-	      // 一番下にいったときにfooterまでいかないように
+	      // // 一番下にいったときにfooterまでいかないように
 	      // $(window).on("scroll", (e) => {
 	      //   const st = $(window).scrollTop();
 	
@@ -54071,7 +54080,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        var ftop = _this2.$f.offset().top - window.innerHeight;
 	        if (st > ftop - 150) st = ftop - 150;
 	
-	        _this2.defY = st - window.innerHeight * 0.5 + 530;
+	        _this2.defY = -st + -window.innerHeight * 0.5 + 375;
 	      });
 	    }
 	  }]);
@@ -54333,6 +54342,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
+	        console.log(count);
 	        // for (var i = 0; i < l; i++) {
 	        //   if (i % 3 == 2 && i != 2) {
 	
@@ -54523,7 +54533,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    var v2 = i == 0 ? v1.clone().sub(new THREE.Vector3(2.5, -4, 0)) : v1.clone().sub(new THREE.Vector3(2.5, -2.5, 0));
 	    var v3 = v1.clone().sub(new THREE.Vector3(5, 0, 0));
 	    var _curve = new THREE.QuadraticBezierCurve3(v1, v2, v3);
-	    var arr = _curve.getPoints(2);
+	    var arr = _curve.getPoints(50);
 	    for (var u = 0; u < arr.length; u++) {
 	      points.push(arr[u].x, arr[u].y, arr[u].z);
 	    }
@@ -54539,10 +54549,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _v5 = v4.clone().sub(v1);
 	
 	      var l = _v5.length();
-	      for (var u = 0; u < 5; u++) {
-	        var p = _v5.clone().multiplyScalar(u / 5).add(v1);
-	        _points.push(p.x, p.y, p.z);
-	      }
+	      _points.push(v1.x, v1.y, v1.z);
+	      _points.push(v4.x, v4.y, v4.z);
+	      // for (var u = 0; u < 2; u++) {
+	      //   const p = _v5
+	      //     .clone()
+	      //     .multiplyScalar(u / 2)
+	      //     .add(v1);
+	      //   _points.push(p.x, p.y, p.z);
+	      // }
+	      console.log(_points, "chobi");
 	      _geometry2.addAttribute("position", new THREE.BufferAttribute(new Float32Array(_points), 3));
 	      var line = new THREE.Line(_geometry2, material);
 	      line.name = "chobiline";
@@ -55041,6 +55057,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    // this.NUM = 1;
 	
+	    console.log(this.NUM);
+	
 	    this.param = {
 	      height: 50,
 	      speed: 3,
@@ -55125,7 +55143,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // positionを正しい位置に
 	        TweenMax.to(_this.obj.position, 3.0, {
 	          y: -35,
-	          ease: Power2.easeInOut
+	          ease: Expo.easeInOut
 	        });
 	      }, 1.5);
 	    }
