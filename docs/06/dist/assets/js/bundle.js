@@ -51665,7 +51665,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _Controller16 = _interopRequireDefault(_Controller15);
 	
-	var _Controller17 = __webpack_require__(61);
+	var _Controller17 = __webpack_require__(64);
 	
 	var _Controller18 = _interopRequireDefault(_Controller17);
 	
@@ -53614,7 +53614,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _Controller4 = _interopRequireDefault(_Controller3);
 	
-	var _Controller5 = __webpack_require__(60);
+	var _Controller5 = __webpack_require__(63);
 	
 	var _Controller6 = _interopRequireDefault(_Controller5);
 	
@@ -53693,6 +53693,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            z: _this2.flag.setup.defz,
 	            ease: Expo.easeInOut
 	          }, 0.0)
+	
 	          // パッと引く
 	          .to(_this2.flag.setup.camera.position, 0.01, {
 	            z: _this2.flag.setup.defz * 0.85,
@@ -53701,6 +53702,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	              // this.flag.setup.effectBloom.threshold = 0.03;
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
+	              _this2.flag.setup.rgbshift.show();
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
 	            }
 	          }, 0.8)
@@ -53711,6 +53713,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            onStart: function onStart() {
 	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
 	              // this.flag.setup.effectBloom.threshold = 0.14;
+	
 	              _this2.flag.setup.effectBloom.strength = 2;
 	              _this2.flag.setup.effectBloom.radius = 0.3;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
@@ -53830,19 +53833,19 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _Controller4 = _interopRequireDefault(_Controller3);
 	
-	var _Controller5 = __webpack_require__(50);
+	var _Controller5 = __webpack_require__(53);
 	
 	var _Controller6 = _interopRequireDefault(_Controller5);
 	
-	var _Controller7 = __webpack_require__(55);
+	var _Controller7 = __webpack_require__(58);
 	
 	var _Controller8 = _interopRequireDefault(_Controller7);
 	
-	var _Controller9 = __webpack_require__(58);
+	var _Controller9 = __webpack_require__(61);
 	
 	var _Controller10 = _interopRequireDefault(_Controller9);
 	
-	var _dat = __webpack_require__(59);
+	var _dat = __webpack_require__(62);
 	
 	var dat = _interopRequireWildcard(_dat);
 	
@@ -53916,7 +53919,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
 	      scene.add(this.obj);
-	      scene.add(this.bg.lightObj);
+	      scene.add(this.lightObj);
 	      scene.background = new THREE.Color(0x00076d);
 	      this.setup = new _Controller4.default(this.$canvas, this.obj, scene);
 	      // this.setup.scene.add();
@@ -54017,6 +54020,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	var _Controller = __webpack_require__(47);
 	
 	var _Controller2 = _interopRequireDefault(_Controller);
+	
+	var _Controller3 = __webpack_require__(50);
+	
+	var _Controller4 = _interopRequireDefault(_Controller3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -54126,6 +54133,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _this3 = this;
 	
 	      // console.log(THREE.EffectComposer);
+	      this.rgbshift = new _Controller4.default();
 	      this.composer = new THREE.EffectComposer(this.renderer);
 	      var renderPass = new THREE.RenderPass(this.objScene, this.camera);
 	      this.composer.addPass(renderPass);
@@ -54150,6 +54158,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        _this3.effectBloom.radius = e;
 	      });
 	      this.composer.addPass(this.effectBloom);
+	      this.composer.addPass(this.rgbshift.shaderPass);
+	
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
 	      this.composer.addPass(toScreen);
@@ -54198,17 +54208,116 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Base = __webpack_require__(51);
+	var _frag = __webpack_require__(51);
 	
-	var _Base2 = __webpack_require__(52);
+	var _frag2 = _interopRequireDefault(_frag);
 	
-	var _Cap = __webpack_require__(53);
+	var _vert = __webpack_require__(52);
+	
+	var _vert2 = _interopRequireDefault(_vert);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Controller = function () {
+	  function Controller() {
+	    _classCallCheck(this, Controller);
+	
+	    this.shaderPass = new THREE.ShaderPass({
+	      uniforms: {
+	        tDiffuse: {
+	          value: null,
+	          type: "t"
+	        },
+	        time: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        blockSize: {
+	          value: 100.0,
+	          type: "f"
+	        },
+	        threshold: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        slideWidth: {
+	          value: 0,
+	          type: "f"
+	        }
+	      },
+	      vertexShader: _vert2.default,
+	      fragmentShader: _frag2.default
+	    });
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "show",
+	    value: function show() {
+	      var tl = new TimelineMax();
+	      var uniforms = this.shaderPass.uniforms;
+	      tl
+	      // .to(uniforms.s)
+	      .to(uniforms.time, 0.1, {
+	        value: 10,
+	        ease: Expo.easeOut
+	      }).to(uniforms.slideWidth, 0.1, {
+	        value: 0.06,
+	        ease: Expo.easeOut
+	      }, 0).set(uniforms.threshold, {
+	        value: 0.5
+	      }, 0)
+	
+	      //end
+	      .to(uniforms.threshold, 0.25, {
+	        value: 0,
+	        ease: Expo.easeOut
+	      });
+	      return tl;
+	    }
+	  }]);
+	
+	  return Controller;
+	}();
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+	module.exports = "#define GLSLIFY 1\nuniform sampler2D tDiffuse;\n\n\nuniform float blockSize;\nuniform float threshold;\nuniform float time;\nuniform float slideWidth;\n\n\nconst float PI  = 3.141592653589793;\n\nfloat rnd(vec2 n){\n    float a = 0.129898;\n    float b = 0.78233;\n    float c = 437.585453;\n    float dt= dot(n ,vec2(a, b));\n    float sn= mod(dt, 3.14);\n    return fract(sin(sn) * c);\n}\n\nvarying vec2 vUv;\nvoid main() {\n  \n  float v_1 = floor((gl_FragCoord.y) / blockSize) * blockSize;\n  float v_2 = floor((gl_FragCoord.y) / blockSize * .5) * blockSize * .5;\n  float v_3 = floor((gl_FragCoord.y) / blockSize * .2) * blockSize * .2;\n  float v_4 = floor((gl_FragCoord.y) / blockSize * .7) * blockSize * .7;\n  float v1 = mix(v_1,v_2,rnd(vec2(time)));\n  float v2 = mix(v_3,v_4,rnd(vec2(time)));\n  // vec2 c = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);\n  // float l = 0.1 / length(c) * ;\n  float n1 = rnd(vec2(mix(v1,v2,rnd(vec2(time))), time * 0.1));\n  float s = step(n1, threshold);\n  float n2 = rnd(vec2(time)) * 2.0 - 1.0;\n  float t = n2 * slideWidth;\n\n  // vec4 color = texture2D(tDiffuse, vUv + vec2(s * t, 0.0));\n  float c_r = texture2D(tDiffuse, vUv + vec2(s * t * 2.0, 0.0)).r;\n  float c_g = texture2D(tDiffuse, vUv + vec2(s * t * 1.5, 0.0)).g;\n  float c_b = texture2D(tDiffuse, vUv + vec2(s * t * 1.2, 0.0)).b;\n  \n  gl_FragColor = vec4(c_r,c_g,c_b,1.0);\n}\n"
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+	module.exports = "#define GLSLIFY 1\nvarying vec2 vUv;\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}\n"
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _Base = __webpack_require__(54);
+	
+	var _Base2 = __webpack_require__(55);
+	
+	var _Cap = __webpack_require__(56);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var noise = __webpack_require__(54);
+	var noise = __webpack_require__(57);
 	
 	var Controller = function () {
 	  function Controller(posi, r) {
@@ -54303,7 +54412,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -54365,7 +54474,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	}
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -54502,7 +54611,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	}
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -54602,7 +54711,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	}
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -54911,7 +55020,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -54922,7 +55031,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Obj = __webpack_require__(56);
+	var _Obj = __webpack_require__(59);
 	
 	var _Obj2 = _interopRequireDefault(_Obj);
 	
@@ -54930,7 +55039,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var noise = __webpack_require__(54);
+	var noise = __webpack_require__(57);
 	
 	var Controller = function () {
 	  function Controller(posi, num) {
@@ -55082,7 +55191,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -55093,7 +55202,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Node = __webpack_require__(57);
+	var _Node = __webpack_require__(60);
 	
 	var _Node2 = _interopRequireDefault(_Node);
 	
@@ -55101,7 +55210,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var noise = __webpack_require__(54);
+	var noise = __webpack_require__(57);
 	
 	var Controller = function () {
 	  function Controller(posi, config) {
@@ -55449,7 +55558,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -55494,7 +55603,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -55666,7 +55775,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -58203,7 +58312,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -58346,7 +58455,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	exports.default = Controller;
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	"use strict";

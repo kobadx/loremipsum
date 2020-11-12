@@ -62,6 +62,7 @@ export default class Controller extends Base {
               },
               0.0
             )
+
             // パッと引く
             .to(
               this.flag.setup.camera.position,
@@ -73,6 +74,7 @@ export default class Controller extends Base {
                   // this.flag.setup.effectBloom.threshold = 0.03;
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
+                  this.flag.setup.rgbshift.show();
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
                     1.5,
                     4.0
@@ -91,6 +93,7 @@ export default class Controller extends Base {
                 onStart: () => {
                   // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
                   // this.flag.setup.effectBloom.threshold = 0.14;
+
                   this.flag.setup.effectBloom.strength = 2;
                   this.flag.setup.effectBloom.radius = 0.3;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(

@@ -62,7 +62,7 @@ export default class Controller extends Base {
     const scene = new THREE.Scene();
     scene.add(this.bg.obj);
     scene.add(this.obj);
-    scene.add(this.bg.lightObj);
+    scene.add(this.lightObj);
     scene.background = new THREE.Color(0x00076d);
     this.setup = new Setup(this.$canvas, this.obj, scene);
     // this.setup.scene.add();
