@@ -4639,6 +4639,10 @@
 	
 	var _Controller18 = _interopRequireDefault(_Controller17);
 	
+	var _Controller19 = __webpack_require__(62);
+	
+	var _Controller20 = _interopRequireDefault(_Controller19);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4687,6 +4691,9 @@
 	      $(".HoverImg").each(function (i, e) {
 	        new _Controller12.default(e);
 	      });
+	
+	      //whitebgクラスがついてる要素がheaderとかぶったら、色を変える
+	      new _Controller20.default($(".header"), ".whitebg");
 	
 	      // tab
 	      new _Controller4.default($(".tabWrap"));
@@ -11384,6 +11391,91 @@
 	
 	  return Controller;
 	}();
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+	
+	var _Base2 = __webpack_require__(15);
+	
+	var _Base3 = _interopRequireDefault(_Base2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
+	//
+	//  Controller
+	//
+	//--------------------------------------------------
+	
+	var Controller = function (_Base) {
+	  _inherits(Controller, _Base);
+	
+	  function Controller($ele, targetClass) {
+	    _classCallCheck(this, Controller);
+	
+	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
+	
+	    _this.$ele = $ele;
+	    _this.targetClass = targetClass;
+	    _this.setup();
+	    _this.setEvents();
+	    return _this;
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "setup",
+	    value: function setup() {
+	      this.bp = 1364;
+	      this.scroll();
+	    }
+	  }, {
+	    key: "scroll",
+	    value: function scroll() {
+	      if (this.bp <= window.innerWidth) return;
+	      var st = $(window).scrollTop();
+	      var headerHeight = this.$ele.height();
+	      var isWhite = false;
+	      $(this.targetClass).each(function (i, e) {
+	        var t = $(e).offset().top;
+	        var h = $(e).outerHeight();
+	        if (t - st < headerHeight && t + h - st > headerHeight) {
+	          isWhite = true;
+	        }
+	      });
+	      this.$ele.toggleClass("is-blue", isWhite);
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {
+	      var _this2 = this;
+	
+	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
+	
+	      $(window).on("scroll", function (e) {
+	        _this2.scroll();
+	      });
+	    }
+	  }]);
+	
+	  return Controller;
+	}(_Base3.default);
 	
 	exports.default = Controller;
 
