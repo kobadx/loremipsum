@@ -7018,12 +7018,11 @@
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.$canvas.width() <= this.bp) {
-	        // this.obj.position.x = -29 * 4 * this.per;
-	        var scale = this.obj.scale.x;
+	        this.obj.position.x = -29 * 4 * this.per;
 	
 	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
 	
-	        this.obj.position.x = 0;
+	        // this.obj.position.x = ;
 	        //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
 	      } else {
 	        // this.obj.position.x = this.baseW * 0.5 - 540;
