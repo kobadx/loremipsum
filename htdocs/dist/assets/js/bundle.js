@@ -51790,8 +51790,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "onResize",
 	    value: function onResize() {
-	      console.log("resize");
-	
 	      document.body.style.setProperty("--h", window.innerHeight + "px");
 	    }
 	  }, {
@@ -53721,6 +53719,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            z: _this2.flag.setup.defz * 0.85,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
+	              _this2.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+	              _this2.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
 	              // this.flag.setup.effectBloom.threshold = 0.03;
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
@@ -53908,7 +53908,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      window.dat = new dat.GUI();
 	      this.$canvas = $(".canvas");
 	      this.bp = 768;
-	      this.per = this.$canvas.width() / 1280;
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.per > 1) this.per = 1;
 	
 	      this.mouseMove = true;
@@ -53925,7 +53927,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.$f = $(".footer");
 	
 	      // layout
-	      var posi = [new THREE.Vector3(-window.innerWidth * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-window.innerWidth * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
+	      var posi = [new THREE.Vector3(-this.baseW * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-this.baseW * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
 	
 	      // objects
 	      this.bg = new _Controller10.default();
@@ -53938,15 +53940,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.obj.add(this.stick.obj);
 	      this.obj.add(this.sail.obj);
 	
-	      // layout
-	      this.defY = -window.innerHeight * 0.5 + 375;
-	      this.obj.position.x = window.innerWidth * 0.5 - 540;
-	      this.obj.position.y = this.defY;
-	
-	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = window.innerWidth * 0.5 - 300;
-	        this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
-	      }
 	      // this.obj.position.z = -1000
 	
 	      // add scene
@@ -53968,6 +53961,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      };
 	      // this.update();
 	
+	      // layout
+	      this.defY = 0;
+	      this.obj.position.y = this.defY;
+	
+	      // resize
+	      this.onResize(true);
+	
 	      this.frame = 0;
 	    }
 	  }, {
@@ -53979,6 +53979,21 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.sail.show();
 	      this.stick.show();
 	      // this.bg.show();
+	
+	      // move Y
+	      // positionを正しい位置に
+	      var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
+	      TweenMax.to(this, 1.5, {
+	        defY: -window.innerHeight * 0.5 + tarY,
+	        ease: Power2.easeInOut,
+	        delay: 2.0
+	      });
+	
+	      // TweenMax.to(this.obj.position, 1.5, {
+	      //   y: -window.innerHeight * 0.5 + 375,
+	      //   ease: Power2.easeInOut,
+	      //   delay: 2.0,
+	      // });
 	    }
 	  }, {
 	    key: "update",
@@ -54009,11 +54024,30 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      // 一番下にいったときにfooterまでいかないように
 	      // this.dis += (this.disY - this.dis) * 0.05;
 	      // this.obj.position.y = this.defY - this.dis;
-	      this.tar += (-this.defY - this.tar) * 0.12;
+	      this.tar += (this.defY - this.tar) * 0.12;
 	      this.obj.position.y = this.tar;
 	
 	      this.tarSt += (this.st - this.tarSt) * 0.6;
 	      this.wrap.position.y = this.tarSt;
+	    }
+	  }, {
+	    key: "onResize",
+	    value: function onResize() {
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	
+	      this.setup.onWindowResize(isFirst);
+	      this.bg.resize();
+	
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
+	      if (this.$canvas.width() <= this.bp) {
+	        this.obj.position.x = -29 * 4 * this.per;
+	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+	      } else {
+	        this.obj.position.x = this.baseW * 0.5 - 540;
+	        this.obj.scale.set(this.per, this.per, this.per);
+	      }
 	    }
 	  }, {
 	    key: "setEvent",
@@ -54023,31 +54057,20 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
 	
 	      // resize
-	      $(window).on("resize", function (e) {
-	        _this2.setup.onWindowResize();
-	        _this2.bg.resize();
-	        if (_this2.$canvas.width() <= _this2.bp) {
-	          var per = _this2.$canvas.width() / 1280;
-	          _this2.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 300;
-	        } else {
-	          _this2.obj.scale.set(1, 1, 1);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 585;
-	        }
-	      });
+	      $(window).on("resize", this.onResize.bind(this, false));
 	
 	      // マウスの揺れ
 	      $(window).on("mousemove", function (e) {
 	        if (_this2.mouseMove) {
-	          _this2.mousePosi.x = e.pageX;
-	          _this2.mousePosi.y = e.pageY;
+	          _this2.mousePosi.x = e.clientX;
+	          _this2.mousePosi.y = e.clientY;
 	        } else {
 	          _this2.mousePosi.x = 0;
 	          _this2.mousePosi.y = 0;
 	        }
 	      });
 	
-	      // 一番下にいったときにfooterまでいかないように
+	      // // 一番下にいったときにfooterまでいかないように
 	      // $(window).on("scroll", (e) => {
 	      //   const st = $(window).scrollTop();
 	
@@ -54063,7 +54086,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        var ftop = _this2.$f.offset().top - window.innerHeight;
 	        if (st > ftop - 150) st = ftop - 150;
 	
-	        _this2.defY = st - window.innerHeight * 0.5 + 375;
+	        _this2.defY = -st + -window.innerHeight * 0.5 + 375;
 	      });
 	    }
 	  }]);
@@ -54148,16 +54171,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "setCameraByPixel",
 	    value: function setCameraByPixel() {
-	      var isRisize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 	
 	      this.w = this.$dom.width();
-	      this.h = this.$dom.height();
+	      this.h = window.innerHeight;
 	      var fov = 45;
 	      var vFOV = fov * (Math.PI / 180);
 	      var vpHeight = this.h;
 	      var z = vpHeight / (2 * Math.tan(vFOV / 2));
 	      this.defz = z * 1;
-	      this.z = isRisize ? z : z * 0.27;
+	      this.z = isFirst ? z * 0.27 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
@@ -54226,18 +54249,17 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
 	      this.composer.addPass(toScreen);
-	      this.onWindowResize(true);
 	    }
 	  }, {
 	    key: "onWindowResize",
-	    value: function onWindowResize(isInit) {
+	    value: function onWindowResize(isFirst) {
 	      var w = this.$dom.width();
-	      var h = this.$dom.height();
+	      var h = window.innerHeight;
+	      this.setCameraByPixel(isFirst);
 	      this.renderer.setPixelRatio(window.devicePixelRatio);
 	      this.renderer.setSize(w, h);
-	      this.composer.setSize(w, h);
 	      this.composer.setPixelRatio(window.devicePixelRatio);
-	      this.setCameraByPixel(!isInit);
+	      this.composer.setSize(w, h);
 	    }
 	  }, {
 	    key: "render",
@@ -54325,6 +54347,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
+	        // console.log(count);
 	        // for (var i = 0; i < l; i++) {
 	        //   if (i % 3 == 2 && i != 2) {
 	
@@ -54515,7 +54538,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    var v2 = i == 0 ? v1.clone().sub(new THREE.Vector3(2.5, -4, 0)) : v1.clone().sub(new THREE.Vector3(2.5, -2.5, 0));
 	    var v3 = v1.clone().sub(new THREE.Vector3(5, 0, 0));
 	    var _curve = new THREE.QuadraticBezierCurve3(v1, v2, v3);
-	    var arr = _curve.getPoints(2);
+	    var arr = _curve.getPoints(50);
 	    for (var u = 0; u < arr.length; u++) {
 	      points.push(arr[u].x, arr[u].y, arr[u].z);
 	    }
@@ -54531,10 +54554,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _v5 = v4.clone().sub(v1);
 	
 	      var l = _v5.length();
-	      for (var u = 0; u < 5; u++) {
-	        var p = _v5.clone().multiplyScalar(u / 5).add(v1);
-	        _points.push(p.x, p.y, p.z);
-	      }
+	      _points.push(v1.x, v1.y, v1.z);
+	      _points.push(v4.x, v4.y, v4.z);
+	      // for (var u = 0; u < 2; u++) {
+	      //   const p = _v5
+	      //     .clone()
+	      //     .multiplyScalar(u / 2)
+	      //     .add(v1);
+	      //   _points.push(p.x, p.y, p.z);
+	      // }
+	      console.log(_points, "chobi");
 	      _geometry2.addAttribute("position", new THREE.BufferAttribute(new Float32Array(_points), 3));
 	      var line = new THREE.Line(_geometry2, material);
 	      line.name = "chobiline";
@@ -55033,6 +55062,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    // this.NUM = 1;
 	
+	    console.log(this.NUM);
+	
 	    this.param = {
 	      height: 50,
 	      speed: 3,
@@ -55117,7 +55148,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // positionを正しい位置に
 	        TweenMax.to(_this.obj.position, 3.0, {
 	          y: -35,
-	          ease: Power2.easeInOut
+	          ease: Expo.easeInOut
 	        });
 	      }, 1.5);
 	    }
@@ -55659,7 +55690,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    value: function resize() {
 	      this.obj.children = [];
 	      this.setup();
-	      console.log(this.obj);
+	      // console.log(this.obj);
 	      this.obj.children.forEach(function (children) {
 	        children.material.opacity = 0.005;
 	        children.material.uniforms.dashOffset.value = -2;

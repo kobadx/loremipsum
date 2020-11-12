@@ -19,7 +19,9 @@ export default class Controller extends Base {
     window.dat = new dat.GUI();
     this.$canvas = $(".canvas");
     this.bp = 768;
-    this.per = this.$canvas.width() / 1280;
+    this.baseW = 1424;
+    if (this.$canvas.width() <= this.bp) this.baseW = 375;
+    this.per = this.$canvas.width() / this.baseW;
     if (this.per > 1) this.per = 1;
 
     this.mouseMove = true;
@@ -38,12 +40,12 @@ export default class Controller extends Base {
     // layout
     const posi = [
       new THREE.Vector3(
-        -window.innerWidth * 0.5 + 100,
+        -this.baseW * 0.5 + 100,
         this.$canvas.height() * 0.5,
         0
       ),
       new THREE.Vector3(
-        -window.innerWidth * 0.5 - 25,
+        -this.baseW * 0.5 - 25,
         this.$canvas.height() * 0.5 - 800,
         0
       ),
@@ -60,15 +62,6 @@ export default class Controller extends Base {
     this.obj.add(this.stick.obj);
     this.obj.add(this.sail.obj);
 
-    // layout
-    this.defY = -window.innerHeight * 0.5 + 375;
-    this.obj.position.x = window.innerWidth * 0.5 - 540;
-    this.obj.position.y = this.defY;
-
-    if (this.$canvas.width() <= this.bp) {
-      this.obj.position.x = window.innerWidth * 0.5 - 300;
-      this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
-    }
     // this.obj.position.z = -1000
 
     // add scene
@@ -90,6 +83,13 @@ export default class Controller extends Base {
     };
     // this.update();
 
+    // layout
+    this.defY = 0;
+    this.obj.position.y = this.defY;
+
+    // resize
+    this.onResize(true);
+
     this.frame = 0;
   }
 
@@ -99,6 +99,21 @@ export default class Controller extends Base {
     this.sail.show();
     this.stick.show();
     // this.bg.show();
+
+    // move Y
+    // positionを正しい位置に
+    var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
+    TweenMax.to(this, 1.5, {
+      defY: -window.innerHeight * 0.5 + tarY,
+      ease: Power2.easeInOut,
+      delay: 2.0,
+    });
+
+    // TweenMax.to(this.obj.position, 1.5, {
+    //   y: -window.innerHeight * 0.5 + 375,
+    //   ease: Power2.easeInOut,
+    //   delay: 2.0,
+    // });
   }
 
   update() {
@@ -141,42 +156,47 @@ export default class Controller extends Base {
     // 一番下にいったときにfooterまでいかないように
     // this.dis += (this.disY - this.dis) * 0.05;
     // this.obj.position.y = this.defY - this.dis;
-    this.tar += (-this.defY - this.tar) * 0.12;
+    this.tar += (this.defY - this.tar) * 0.12;
     this.obj.position.y = this.tar;
 
     this.tarSt += (this.st - this.tarSt) * 0.6;
     this.wrap.position.y = this.tarSt;
   }
 
+  onResize(isFirst = false) {
+    this.setup.onWindowResize(isFirst);
+    this.bg.resize();
+
+    this.baseW = 1424;
+    if (this.$canvas.width() <= this.bp) this.baseW = 375;
+    this.per = this.$canvas.width() / this.baseW;
+    if (this.$canvas.width() <= this.bp) {
+      this.obj.position.x = -29 * 4 * this.per;
+      this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+    } else {
+      this.obj.position.x = this.baseW * 0.5 - 540;
+      this.obj.scale.set(this.per, this.per, this.per);
+    }
+  }
+
   setEvent() {
     super.__setUpdateFlag(true);
 
     // resize
-    $(window).on("resize", (e) => {
-      this.setup.onWindowResize();
-      this.bg.resize();
-      if (this.$canvas.width() <= this.bp) {
-        const per = this.$canvas.width() / 1280;
-        this.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
-        this.obj.position.x = window.innerWidth * 0.5 - 300;
-      } else {
-        this.obj.scale.set(1, 1, 1);
-        this.obj.position.x = window.innerWidth * 0.5 - 585;
-      }
-    });
+    $(window).on("resize", this.onResize.bind(this, false));
 
     // マウスの揺れ
     $(window).on("mousemove", (e) => {
       if (this.mouseMove) {
-        this.mousePosi.x = e.pageX;
-        this.mousePosi.y = e.pageY;
+        this.mousePosi.x = e.clientX;
+        this.mousePosi.y = e.clientY;
       } else {
         this.mousePosi.x = 0;
         this.mousePosi.y = 0;
       }
     });
 
-    // 一番下にいったときにfooterまでいかないように
+    // // 一番下にいったときにfooterまでいかないように
     // $(window).on("scroll", (e) => {
     //   const st = $(window).scrollTop();
 
@@ -192,7 +212,7 @@ export default class Controller extends Base {
       var ftop = this.$f.offset().top - window.innerHeight;
       if (st > ftop - 150) st = ftop - 150;
 
-      this.defY = st - window.innerHeight * 0.5 + 375;
+      this.defY = -st + -window.innerHeight * 0.5 + 375;
     });
   }
 }

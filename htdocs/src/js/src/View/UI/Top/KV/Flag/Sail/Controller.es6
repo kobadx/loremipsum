@@ -17,6 +17,8 @@ export default class Controller {
 
     // this.NUM = 1;
 
+    console.log(this.NUM);
+
     this.param = {
       height: 50,
       speed: 3,
@@ -108,7 +110,7 @@ export default class Controller {
         // positionを正しい位置に
         TweenMax.to(this.obj.position, 3.0, {
           y: -35,
-          ease: Power2.easeInOut,
+          ease: Expo.easeInOut,
         });
       }, 1.5);
   }

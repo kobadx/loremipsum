@@ -37,15 +37,15 @@ export default class ClassName extends Base {
     this.setCameraByPixel();
   }
 
-  setCameraByPixel(isRisize = false) {
+  setCameraByPixel(isFirst = false) {
     this.w = this.$dom.width();
-    this.h = this.$dom.height();
+    this.h = window.innerHeight;
     var fov = 45;
     var vFOV = fov * (Math.PI / 180);
     var vpHeight = this.h;
     var z = vpHeight / (2 * Math.tan(vFOV / 2));
     this.defz = z * 1;
-    this.z = isRisize ? z : z * 0.27;
+    this.z = isFirst ? z * 0.27 : z * 1.1;
     this.camera.position.set(0, 0, this.z);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -116,17 +116,16 @@ export default class ClassName extends Base {
     const toScreen = new THREE.ShaderPass(THREE.CopyShader);
     toScreen.renderToScreen = true;
     this.composer.addPass(toScreen);
-    this.onWindowResize(true);
   }
 
-  onWindowResize(isInit) {
+  onWindowResize(isFirst) {
     const w = this.$dom.width();
-    const h = this.$dom.height();
+    const h = window.innerHeight;
+    this.setCameraByPixel(isFirst);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(w, h);
-    this.composer.setSize(w, h);
     this.composer.setPixelRatio(window.devicePixelRatio);
-    this.setCameraByPixel(!isInit);
+    this.composer.setSize(w, h);
   }
 
   render() {

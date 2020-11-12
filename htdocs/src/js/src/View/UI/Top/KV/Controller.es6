@@ -78,6 +78,8 @@ export default class Controller extends Base {
                 z: this.flag.setup.defz * 0.85,
                 ease: Expo.easeOut,
                 onStart: () => {
+                  this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+                  this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                   // this.flag.setup.effectBloom.threshold = 0.03;
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
