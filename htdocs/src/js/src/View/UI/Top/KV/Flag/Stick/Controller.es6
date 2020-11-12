@@ -22,7 +22,7 @@ export default class Controller {
     this.obj.add(this.base2);
     this.obj.add(this.cap);
     this.chobisens = [];
-    this.getMesh(this.obj).map((obj) => {
+    this.getMesh(this.obj).map(obj => {
       if (obj.name == "chobiline") this.chobisens.push(obj);
     });
 
@@ -32,9 +32,9 @@ export default class Controller {
   update() {
     const time = Date.now() / 5000;
     ++this.TIME;
-    this.chobisens.forEach((obj) => {
+    this.chobisens.forEach(obj => {
       const points = obj.geometry.attributes.position.array;
-      console.log(obj.geometry.attributes.position);
+      // console.log(obj.geometry.attributes.position);
       const l = points.length;
       var count = obj.geometry.attributes.position.count;
       // for (var i = 0; i < l; i++) {
@@ -73,7 +73,7 @@ export default class Controller {
         1,
         {
           opacity: 1,
-          ease: Expo.easeOut,
+          ease: Expo.easeOut
         },
         index * 0
       );
@@ -84,7 +84,7 @@ export default class Controller {
 
   getMesh(obj) {
     const arr = [];
-    obj.children.forEach((children) => {
+    obj.children.forEach(children => {
       if (children.type == "Group") {
         arr.push(...this.getMesh(children));
       } else {
