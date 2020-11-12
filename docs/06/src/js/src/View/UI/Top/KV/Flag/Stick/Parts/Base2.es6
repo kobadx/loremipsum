@@ -68,7 +68,7 @@ function pole(posi, color, v) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true,
+    transparent: true
   });
   geometry.addAttribute(
     "position",
@@ -111,13 +111,16 @@ function tube(_v, _v2, material) {
       const _v5 = v4.clone().sub(v1);
 
       const l = _v5.length();
-      for (var u = 0; u < 5; u++) {
-        const p = _v5
-          .clone()
-          .multiplyScalar(u / 5)
-          .add(v1);
-        _points.push(p.x, p.y, p.z);
-      }
+      _points.push(v1.x, v1.y, v1.z);
+      _points.push(v4.x, v4.y, v4.z);
+      // for (var u = 0; u < 2; u++) {
+      //   const p = _v5
+      //     .clone()
+      //     .multiplyScalar(u / 2)
+      //     .add(v1);
+      //   _points.push(p.x, p.y, p.z);
+      // }
+      console.log(_points, "chobi");
       _geometry2.addAttribute(
         "position",
         new THREE.BufferAttribute(new Float32Array(_points), 3)
@@ -160,7 +163,7 @@ function curve2(posi, posi2, color, v) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   return new THREE.Line(geometry, material);
 }
@@ -194,7 +197,7 @@ function curve(posi, posi2, color, v) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   return new THREE.Line(geometry, material);
 }
