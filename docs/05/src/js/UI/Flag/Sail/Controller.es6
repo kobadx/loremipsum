@@ -81,10 +81,10 @@ export default class Controller {
       // const time = (index + 1) * 0.0001;
 
       // noise
-      const i = index / window.noiseparam.wave;
-      let n = noise.perlin2(i, time) * 10;
+      // const i = index / window.noiseparam.wave;
+      // let n = noise.perlin2(i, time) * 10;
       // n = Math.abs(n) > 5 ? n * 0.8 : n;
-      line.update(n, index);
+      line.update(index);
     });
   }
 
@@ -114,33 +114,50 @@ export default class Controller {
   }
 
   setEvents() {
+    this.ookisa = 1;
+    this.yureY = 1;
+    this.yureZ = 1;
+
     // param
+    console.log(dat);
+    const _dat = dat.addFolder("旗");
+    _dat
+      .add(this, "ookisa", 0, 3, 0.01)
+      .name("揺れの大きさ")
+      .onChange((e) => {
+        this.lines.forEach((line, i) => {
+          line.ookisa = e;
+        });
+      });
+    _dat
+      .add(this, "yureY", 0, 3, 0.01)
+      .name("揺れの細かさY")
+      .onChange((e) => {
+        this.lines.forEach((line, i) => {
+          line.yureY = e;
+        });
+      });
+    _dat
+      .add(this, "yureZ", 0, 3, 0.01)
+      .name("揺れの細かさZ")
+      .onChange((e) => {
+        this.lines.forEach((line, i) => {
+          line.yureZ = e;
+        });
+      });
 
-    const _dat = dat.addFolder("flag");
-    _dat.add(this.param, "height", 0, 500).onChange((e) => {
-      this.lines.forEach((line, i) => {
-        line.config.height = i + e;
-      });
-    });
-    _dat.add(this.param, "speed", 0, 10, 0.1).onChange((e) => {
-      this.lines.forEach((line, i) => {
-        line.config.i = e;
-      });
-    });
-    _dat.add(this.param, "細かさ", 0, 1000).onChange((e) => {
-      this.lines.forEach((line, i) => {
-        line.config.offset = e;
-      });
-    });
-
-    const noisedat = dat.addFolder("noise");
-    window.noiseparam = {
-      line: 2,
-      wave: 70,
-      // wave2: 70
-    };
-    noisedat.add(window.noiseparam, "line", 0, 2);
-    noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
-    // noisedat.add(window.noiseparam, "wave2", 1, );
+    // param
+    // const _dat = dat.addFolder("旗");
+    // _dat.add(this.param, "揺れの大きさ", 0, 500).onChange((e) => {});
+    // _dat.add(this.param, "speed", 0, 10, 0.1).onChange((e) => {
+    //   this.lines.forEach((line, i) => {
+    //     line.config.i = e;
+    //   });
+    // });
+    // _dat.add(this.param, "細かさ", 0, 1000).onChange((e) => {
+    //   this.lines.forEach((line, i) => {
+    //     line.config.offset = e;
+    //   });
+    // });
   }
 }

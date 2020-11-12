@@ -31,7 +31,12 @@ export default class Controller {
       vy: 0,
     };
 
+    this.ookisa = 1;
+    this.yureY = 1;
+    this.yureZ = 1;
+
     this.setup();
+    this.setEvents();
   }
 
   setup() {
@@ -200,7 +205,7 @@ export default class Controller {
   //   this.obj.geometry.attributes.position.needsUpdate = true;
   // }
 
-  update(n = 1, index) {
+  update(index) {
     this.noiseTime += 0.005;
     this.noiseTime2 -= 0.002;
 
@@ -214,13 +219,16 @@ export default class Controller {
       // 揺れ
       nd.y =
         nd.defy +
-        noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
+        noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) *
+          15 *
+          this.yureY;
       nd.z =
         nd.defz +
-        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 +
+        Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 * this.ookisa +
         noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) *
           val *
-          2.0;
+          2.0 *
+          this.yureZ;
 
       // spread motion用
       var y = this.lerp(nd.defy2, nd.y, this.t);
@@ -367,4 +375,6 @@ export default class Controller {
     if (t == 0) return 0;
     else return Math.pow(2, 10 * (t - 1));
   }
+
+  setEvents() {}
 }
