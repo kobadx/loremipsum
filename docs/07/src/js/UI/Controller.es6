@@ -1,6 +1,7 @@
 import Base from "./Base/Controller.es6";
 import Flag from "./Flag/Controller.es6";
 import Dom from "./Dom/Controller.es6";
+import Menu from "./Menu/Controller.es6";
 export default class Controller extends Base {
   constructor() {
     super();
@@ -10,6 +11,10 @@ export default class Controller extends Base {
     this.name = "UIController";
     this.flag = new Flag();
     this.dom = new Dom();
+    this.menu = new Menu({
+      $btn: $(".header-menu-btn"),
+      $contents: $(".menu")
+    });
     this.timeline();
   }
 
@@ -31,7 +36,7 @@ export default class Controller extends Base {
       .add(() => {
         TweenMax.to(this.flag.setup.effectBloom, 3.0, {
           strength: 5,
-          ease: Power2.easeInOut,
+          ease: Power2.easeInOut
         });
         // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
         //   radius: 3,
@@ -60,9 +65,9 @@ export default class Controller extends Base {
               onStart: () => {
                 TweenMax.to(this.flag.setup.effectBloom, 4.0, {
                   strength: 2,
-                  ease: Power2.easeInOut,
+                  ease: Power2.easeInOut
                 });
-              },
+              }
             },
             0.0
           )
@@ -72,7 +77,7 @@ export default class Controller extends Base {
             4.5,
             {
               z: this.flag.setup.defz * 1,
-              ease: Expo.easeOut,
+              ease: Expo.easeOut
             },
             0.8 + 0.05
           );
@@ -81,7 +86,7 @@ export default class Controller extends Base {
       // dom
       // ------------------------------------------------------------
       .add(() => {
-        this.dom.show();
+        this.dom.show(e => this.menu.showBtn());
       }, 2.0 + 0.9);
   }
 
