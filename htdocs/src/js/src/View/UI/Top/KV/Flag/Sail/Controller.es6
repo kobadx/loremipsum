@@ -74,10 +74,6 @@ export default class Controller {
   }
 
   update() {
-    const time = Date.now() / 5000 + (Math.random() / 300) * 2 - 1 / 300;
-    // noise.seed(time);
-    // console.log(this.lines);
-
     // update line
     this.lines.forEach((line, index) => {
       // const time = (index + 1) * 0.0001;

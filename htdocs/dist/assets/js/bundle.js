@@ -52043,9 +52043,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.tl = new TimelineMax();
 	      this.tl
 	      //hide
-	      .add(this.hide($prevContents, $prevBtn)).add(this.showBtn($nextBtn), 0)
+	      .add(this.hide($prevContents, $prevBtn), 0.0).add(this.showBtn($nextBtn), 0.0)
 	      //show
-	      .add(this.show($nextContents, $nextBtn));
+	      .add(this.show($nextContents, $nextBtn), 0.4);
 	    }
 	  }, {
 	    key: "killTL",
@@ -52060,7 +52060,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 1,
 	          y: 0,
 	          ease: Expo.easeOut,
@@ -52110,7 +52110,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      tl.add(this.hideBtn($btn));
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 0,
 	          y: -10,
 	          ease: Expo.easeOut
@@ -52466,6 +52466,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    _this.$btn = $btn;
 	    _this.$contents = $contents;
+	
+	    _this.isLock = false;
+	
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
@@ -52518,7 +52521,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      .add(this.renderer.show(function (e) {
 	        _this2.$contents.addClass("is-active");
 	        return _this2.closeBtn.show();
-	      }));
+	      })).add(function () {
+	        _this2.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "showBtn",
@@ -52537,7 +52542,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      //hide
 	      .add(this.renderer.hide(function (e) {
 	        return _this3.closeBtn.hide();
-	      }));
+	      })).add(function () {
+	        _this3.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "onResize",
@@ -52553,9 +52560,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
 	      this.$btn.on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.show();
 	      });
 	      this.$contents.find(".menu-close").on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.hide();
 	      });
 	    }
@@ -53423,10 +53434,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      tl
 	
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
-	        scale: 1.1,
+	      .to(this.$ele.find("img"), 1.2, {
+	        scale: 1.05,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.8, {
 	        opacity: 0.5,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -53439,10 +53450,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var tl = new TimelineMax();
 	      tl
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
+	      .to(this.$ele.find("img"), 1.2, {
 	        scale: 1,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.6, {
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -53743,6 +53754,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	        // bg line
 	        .add(function () {
+	          //scrollを解除
+	          $(".id_top").removeClass("fixed");
 	          _this2.flag.bg.show();
 	        }, 0.2 + 3.8 + 1.2)
 	        // dom
@@ -53751,7 +53764,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	          // frame数を抑える
 	          TweenMax.to(_this2.flag, 2.0, {
-	            fr: 8,
+	            fr: 5,
 	            ease: Power2.easeInOut
 	          });
 	        }, 0.2 + 3.8 + 0.9).add(function () {
@@ -54152,6 +54165,14 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    key: "init",
 	    value: function init() {
 	      this.frame = 0;
+	      this.pixcels = 2;
+	
+	      // clearTimeout(this.Timer);
+	      // this.Timer = setTimeout(() => {
+	      //   TweenMax.to(this, 1.0, {
+	      //     pixcels: 1.4,
+	      //   });
+	      // }, 8000);
 	    }
 	  }, {
 	    key: "setEvent",
@@ -54261,9 +54282,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var w = this.$dom.width();
 	      var h = window.innerHeight;
 	      this.setCameraByPixel(isFirst);
-	      this.renderer.setPixelRatio(window.devicePixelRatio);
+	      this.renderer.setPixelRatio(this.pixcels);
 	      this.renderer.setSize(w, h);
-	      this.composer.setPixelRatio(window.devicePixelRatio);
+	      this.composer.setPixelRatio(this.pixcels);
 	      this.composer.setSize(w, h);
 	    }
 	  }, {
@@ -54354,18 +54375,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
-	        // console.log(count);
-	        // for (var i = 0; i < l; i++) {
-	        //   if (i % 3 == 2 && i != 2) {
 	
-	        //     points[i] += p * 0.5;
-	
-	        //     obj.geometry.attributes.position.needsUpdate = true;
-	        //     // const n = noise.perlin2(i, time);
-	        //     // const p = this.sin(this.TIME * -1, i) * n;
-	
-	        //   }
-	        // }
 	        for (var i = 0; i < count; i++) {
 	          if (i == count - 1) {
 	            var n = noise.perlin2(obj.ss, time * 0.3);
@@ -55113,10 +55123,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      var time = Date.now() / 5000 + Math.random() / 300 * 2 - 1 / 300;
-	      // noise.seed(time);
-	      // console.log(this.lines);
-	
 	      // update line
 	      this.lines.forEach(function (line, index) {
 	        // const time = (index + 1) * 0.0001;

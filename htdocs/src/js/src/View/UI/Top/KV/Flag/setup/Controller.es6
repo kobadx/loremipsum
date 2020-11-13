@@ -16,6 +16,14 @@ export default class ClassName extends Base {
 
   init() {
     this.frame = 0;
+    this.pixcels = 2;
+
+    // clearTimeout(this.Timer);
+    // this.Timer = setTimeout(() => {
+    //   TweenMax.to(this, 1.0, {
+    //     pixcels: 1.4,
+    //   });
+    // }, 8000);
   }
   setEvent() {
     super.__setUpdateFlag(false);
@@ -122,9 +130,9 @@ export default class ClassName extends Base {
     const w = this.$dom.width();
     const h = window.innerHeight;
     this.setCameraByPixel(isFirst);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(this.pixcels);
     this.renderer.setSize(w, h);
-    this.composer.setPixelRatio(window.devicePixelRatio);
+    this.composer.setPixelRatio(this.pixcels);
     this.composer.setSize(w, h);
   }
 

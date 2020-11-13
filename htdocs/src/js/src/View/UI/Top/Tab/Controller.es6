@@ -16,7 +16,7 @@ export default class Controller extends Base {
       activeBtnbg: "#fff",
       activeBtnColor: "#2e2f30",
       nonActiveBtnBg: "#000ba3",
-      nonActiveBtnColor: "#fff"
+      nonActiveBtnColor: "#fff",
     };
     this.setup();
     this.setEvents();
@@ -26,15 +26,15 @@ export default class Controller extends Base {
     this.onResize();
 
     this.$ele.find(".tabbtn.is-active .base_bg").css({
-      "background-color": this.color.activeBtnbg
+      "background-color": this.color.activeBtnbg,
     });
     this.$ele.find(".tabbtn.is-active span").css({
-      color: this.color.activeBtnColor
+      color: this.color.activeBtnColor,
     });
 
     this.$ele.find(".tabContents.is-active .tabContentsItem").css({
       opacity: 1,
-      transform: "translateY(0px)"
+      transform: "translateY(0px)",
     });
 
     this.$ele.find(".tabbtn").each((i, e) => {
@@ -58,10 +58,10 @@ export default class Controller extends Base {
     this.tl = new TimelineMax();
     this.tl
       //hide
-      .add(this.hide($prevContents, $prevBtn))
-      .add(this.showBtn($nextBtn), 0)
+      .add(this.hide($prevContents, $prevBtn), 0.0)
+      .add(this.showBtn($nextBtn), 0.0)
       //show
-      .add(this.show($nextContents, $nextBtn));
+      .add(this.show($nextContents, $nextBtn), 0.4);
   }
 
   killTL() {
@@ -76,14 +76,14 @@ export default class Controller extends Base {
     $contents.find(".tabContentsItem").each((i, item) => {
       tl.to(
         item,
-        0.5,
+        0.8,
         {
           opacity: 1,
           y: 0,
           ease: Expo.easeOut,
           startAt: {
-            y: 10
-          }
+            y: 10,
+          },
         },
         i * 0.03
       );
@@ -99,14 +99,14 @@ export default class Controller extends Base {
       .to($btn.find(".base_bg"), 0.5, {
         "background-color": this.color.activeBtnbg,
 
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       })
       .to(
         $btn.find("span"),
         0.5,
         {
           color: this.color.activeBtnColor,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0
       );
@@ -120,13 +120,13 @@ export default class Controller extends Base {
       .to($btn.find(".base_bg"), 0.5, {
         "background-color": this.color.nonActiveBtnBg,
 
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       })
       .to(
         $btn.find("span"),
         0.5,
         {
-          color: this.color.nonActiveBtnColor
+          color: this.color.nonActiveBtnColor,
         },
         0
       );
@@ -140,11 +140,11 @@ export default class Controller extends Base {
     $contents.find(".tabContentsItem").each((i, item) => {
       tl.to(
         item,
-        0.5,
+        0.8,
         {
           opacity: 0,
           y: -10,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         i * 0.03
       );
@@ -156,7 +156,7 @@ export default class Controller extends Base {
   setEvents() {
     super.setEvents();
 
-    this.$ele.find(".tabbtn").on("click", e => {
+    this.$ele.find(".tabbtn").on("click", (e) => {
       const $target = $(e.currentTarget);
       if ($target.hasClass("is-active")) return;
 
@@ -167,7 +167,7 @@ export default class Controller extends Base {
         $prevContents: $prevContents,
         $prevBtn: $prevBtn,
         $nextBtn: $target,
-        $nextContents: this.$ele.find(".tabContents").eq(index)
+        $nextContents: this.$ele.find(".tabContents").eq(index),
       });
     });
 

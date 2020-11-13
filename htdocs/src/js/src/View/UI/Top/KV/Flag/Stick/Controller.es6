@@ -37,18 +37,7 @@ export default class Controller {
       // console.log(obj.geometry.attributes.position);
       const l = points.length;
       var count = obj.geometry.attributes.position.count;
-      // console.log(count);
-      // for (var i = 0; i < l; i++) {
-      //   if (i % 3 == 2 && i != 2) {
 
-      //     points[i] += p * 0.5;
-
-      //     obj.geometry.attributes.position.needsUpdate = true;
-      //     // const n = noise.perlin2(i, time);
-      //     // const p = this.sin(this.TIME * -1, i) * n;
-
-      //   }
-      // }
       for (var i = 0; i < count; i++) {
         if (i == count - 1) {
           const n = noise.perlin2(obj.ss, time * 0.3);
