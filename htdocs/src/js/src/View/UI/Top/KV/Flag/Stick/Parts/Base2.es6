@@ -127,6 +127,8 @@ function tube(_v, _v2, material) {
       );
       const line = new THREE.Line(_geometry2, material);
       line.name = "chobiline";
+      line.defY = v4.y;
+      line.ss = Math.random() * 10000;
       obj.add(line);
     }
   }

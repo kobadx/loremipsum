@@ -29,16 +29,16 @@ export default class Controller extends Base {
     tl
 
       //img
-      .to(this.$ele.find("img"), 1.75, {
-        scale: 1.1,
-        ease: Expo.easeOut
+      .to(this.$ele.find("img"), 1.2, {
+        scale: 1.05,
+        ease: Expo.easeOut,
       })
       .to(
         this.$ele.find(".text"),
-        1,
+        0.8,
         {
           opacity: 0.5,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0
       );
@@ -50,16 +50,16 @@ export default class Controller extends Base {
     const tl = new TimelineMax();
     tl
       //img
-      .to(this.$ele.find("img"), 1.75, {
+      .to(this.$ele.find("img"), 1.2, {
         scale: 1,
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       })
       .to(
         this.$ele.find(".text"),
-        1,
+        0.6,
         {
           opacity: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0
       );

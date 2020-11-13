@@ -6,7 +6,7 @@ export default class Controller {
     //height,i,offset,offset_x
     this.posi = posi;
     this.config = config;
-    this.NUM = 200;
+    this.NUM = 100;
     this.TIME = 0;
     this.fixDist = 1;
     this.color = 0x0047e9;
@@ -44,7 +44,7 @@ export default class Controller {
     this.vec = [];
     this.points = [];
     for (let i = 0; i < this.config.num; i++) {
-      var x = this.posi[0].x + i * (10 / 1.4);
+      var x = this.posi[0].x + i * (10 / 1.3);
       var y = this.posi[0].y + this.sin(0, i);
       var z = this.posi[0].z;
 

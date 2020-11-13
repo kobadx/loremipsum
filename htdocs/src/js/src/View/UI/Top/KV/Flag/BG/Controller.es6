@@ -64,6 +64,7 @@ export default class Controller {
     const h = $(".canvas").height();
     const num = this.obj.children.length * 0.5;
     this.obj.children.forEach((children, index) => {
+      // 色濃く
       tl.to(
         children.material,
         0.25,
@@ -71,17 +72,19 @@ export default class Controller {
           opacity: 0.05,
           ease: Expo.easeIn
         },
-        Math.abs(index - num) * 0.02
+        0 * 0.02
       );
+      // 色薄く
       tl.to(
         children.material,
-        1,
+        0.7,
         {
           opacity: 0.005,
           ease: Expo.easeOut
         },
-        Math.abs(index - num) * 0.02 + 0.25
+        0 * 0.02 + 0.25
       );
+      // 伸びる
       tl.to(
         children.material.uniforms.dashOffset,
         2,
@@ -89,7 +92,7 @@ export default class Controller {
           value: -2,
           ease: Expo.easeOut
         },
-        Math.abs(index - num) * 0.02 + 0.05
+        0 * 0.02 + 0.05
       );
     });
 
@@ -154,6 +157,16 @@ export default class Controller {
     this.moveLine(w, l, h);
     if (num > this.num) {
       for (let i = 0; i < num - this.num; i++) {
+        const material = new MeshLineMaterial({
+          color: new THREE.Color(0x9f9f9f),
+          lineWidth: this.bp >= w ? 2 : 1,
+          opacity: 0.005,
+          transparent: true,
+          dashOffset: -2,
+          dashArray: 2 * h,
+          dashRatio: 0.99
+        });
+        const point = [];
         const _w = -w * 0.5;
         const index = this.num + i;
         const mesh = this.getObj({

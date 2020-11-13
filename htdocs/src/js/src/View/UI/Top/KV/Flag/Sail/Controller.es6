@@ -42,7 +42,7 @@ export default class Controller {
         height: this.param.height,
         i: this.param.speed,
         offset: this.param["細かさ"],
-        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.4,
+        num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.3,
       });
       this.obj.add(line.obj);
       this.lines.push(line);
@@ -74,10 +74,6 @@ export default class Controller {
   }
 
   update() {
-    const time = Date.now() / 5000 + (Math.random() / 300) * 2 - 1 / 300;
-    // noise.seed(time);
-    // console.log(this.lines);
-
     // update line
     this.lines.forEach((line, index) => {
       // const time = (index + 1) * 0.0001;

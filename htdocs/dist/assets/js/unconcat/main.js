@@ -5013,9 +5013,9 @@
 	      this.tl = new TimelineMax();
 	      this.tl
 	      //hide
-	      .add(this.hide($prevContents, $prevBtn)).add(this.showBtn($nextBtn), 0)
+	      .add(this.hide($prevContents, $prevBtn), 0.0).add(this.showBtn($nextBtn), 0.0)
 	      //show
-	      .add(this.show($nextContents, $nextBtn));
+	      .add(this.show($nextContents, $nextBtn), 0.4);
 	    }
 	  }, {
 	    key: "killTL",
@@ -5030,7 +5030,7 @@
 	
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 1,
 	          y: 0,
 	          ease: Expo.easeOut,
@@ -5080,7 +5080,7 @@
 	      tl.add(this.hideBtn($btn));
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 0,
 	          y: -10,
 	          ease: Expo.easeOut
@@ -5436,6 +5436,9 @@
 	
 	    _this.$btn = $btn;
 	    _this.$contents = $contents;
+	
+	    _this.isLock = false;
+	
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
@@ -5488,7 +5491,9 @@
 	      .add(this.renderer.show(function (e) {
 	        _this2.$contents.addClass("is-active");
 	        return _this2.closeBtn.show();
-	      }));
+	      })).add(function () {
+	        _this2.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "showBtn",
@@ -5507,7 +5512,9 @@
 	      //hide
 	      .add(this.renderer.hide(function (e) {
 	        return _this3.closeBtn.hide();
-	      }));
+	      })).add(function () {
+	        _this3.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "onResize",
@@ -5523,9 +5530,13 @@
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
 	      this.$btn.on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.show();
 	      });
 	      this.$contents.find(".menu-close").on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.hide();
 	      });
 	    }
@@ -6308,7 +6319,7 @@
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
 	
-	      this.target.style.transform = "translate(0, " + -this.renderedStyles.previous + "px)";
+	      this.target.style.transform = "translate3d(0, " + -this.renderedStyles.previous + "px, 0)";
 	    }
 	  }, {
 	    key: "setEvents",
@@ -6393,10 +6404,10 @@
 	      tl
 	
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
-	        scale: 1.1,
+	      .to(this.$ele.find("img"), 1.2, {
+	        scale: 1.05,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.8, {
 	        opacity: 0.5,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -6409,10 +6420,10 @@
 	      var tl = new TimelineMax();
 	      tl
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
+	      .to(this.$ele.find("img"), 1.2, {
 	        scale: 1,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.6, {
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -6720,6 +6731,12 @@
 	        // dom
 	        .add(function () {
 	          _this2.dom.show(menuBtnShow);
+	
+	          // frame数を抑える
+	          TweenMax.to(_this2.flag, 2.0, {
+	            fr: 5,
+	            ease: Power2.easeInOut
+	          });
 	        }, 0.2 + 3.8 + 0.9).add(function () {
 	          resolve();
 	        }, 0.2 + 6.0);
@@ -6887,7 +6904,7 @@
 	
 	      this.mouseMove = true;
 	
-	      this.speed = 0.015;
+	      this.speed = 0.04;
 	
 	      this.disY = 0;
 	      this.dis = 0;
@@ -6895,6 +6912,8 @@
 	      this.tar = 0;
 	      this.st = 0;
 	      this.tarSt = 0;
+	
+	      this.fr = 1;
 	
 	      this.$f = $(".footer");
 	
@@ -6959,7 +6978,7 @@
 	
 	      // move Y
 	      // positionを正しい位置に
-	      var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
+	      var tarY = this.$canvas.width() <= this.bp ? 300 : 320;
 	      TweenMax.to(this, 1.5, {
 	        defY: -window.innerHeight * 0.5 + tarY,
 	        ease: Power2.easeInOut,
@@ -6976,7 +6995,7 @@
 	    key: "update",
 	    value: function update() {
 	      this.frame++;
-	      if (this.frame % 1 == 0) {
+	      if (this.frame % Math.floor(this.fr) == 0) {
 	        // update
 	        this.bg.update({
 	          posi: this.setup.camera.position.z,
@@ -6984,28 +7003,26 @@
 	        });
 	        this.stick.update();
 	        this.sail.update();
-	
-	        // マウス インタラクション
-	        this.prevMosePosi = {
-	          x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
-	          y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
-	        };
-	        this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.15;
-	        this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight * 0.15;
-	
-	        // return;
 	      }
 	
-	      this.setup.render();
+	      // マウス インタラクション
+	      this.prevMosePosi = {
+	        x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
+	        y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
+	      };
+	      this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.15;
+	      this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight * 0.15;
 	
 	      // 一番下にいったときにfooterまでいかないように
-	      // this.dis += (this.disY - this.dis) * 0.05;
-	      // this.obj.position.y = this.defY - this.dis;
-	      this.tar += (this.defY - this.tar) * 0.12;
-	      this.obj.position.y = this.tar;
+	      this.dis += (this.disY - this.dis) * 0.12;
+	      this.obj.position.y = this.defY - this.dis;
+	      // this.tar += (this.defY - this.tar) * 0.08;
+	      // this.obj.position.y = this.tar;
 	
-	      this.tarSt += (this.st - this.tarSt) * 0.6;
-	      this.wrap.position.y = this.tarSt;
+	      // this.tarSt += (this.st - this.tarSt) * 0.4;
+	      // this.wrap.position.y = this.tarSt;
+	
+	      this.setup.render();
 	    }
 	  }, {
 	    key: "onResize",
@@ -7019,7 +7036,7 @@
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = -29 * 4 * this.per;
+	        this.obj.position.x = -35 * 4 * this.per;
 	
 	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
 	
@@ -7028,7 +7045,7 @@
 	      } else {
 	        // this.obj.position.x = this.baseW * 0.5 - 540;
 	        this.obj.scale.set(this.per, this.per, this.per);
-	        this.obj.position.x = -540 * this.per;
+	        this.obj.position.x = -390 * this.per;
 	      }
 	
 	      // this.obj.updateMatrixWorld();
@@ -7055,23 +7072,22 @@
 	      });
 	
 	      // // 一番下にいったときにfooterまでいかないように
-	      // $(window).on("scroll", (e) => {
-	      //   const st = $(window).scrollTop();
-	
-	      //   const ftop = this.$f.offset().top - window.innerHeight;
-	
-	      //   var dis = ftop - st;
-	      //   if (dis > 0) this.disY = 0;
-	      //   else this.disY = dis - 100;
-	      // });
 	      $(window).on("scroll", function (e) {
 	        var st = $(window).scrollTop();
-	        _this2.st = st;
-	        var ftop = _this2.$f.offset().top - window.innerHeight;
-	        if (st > ftop - 150) st = ftop - 150;
 	
-	        _this2.defY = -st + -window.innerHeight * 0.5 + 375;
+	        var ftop = _this2.$f.offset().top - window.innerHeight;
+	
+	        var dis = ftop - st;
+	        if (dis > 0) _this2.disY = 0;else _this2.disY = dis - 100;
 	      });
+	      // $(window).on("scroll", (e) => {
+	      //   var st = $(window).scrollTop();
+	      //   this.st = st;
+	      //   var ftop = this.$f.offset().top - window.innerHeight;
+	      //   if (st > ftop - 150) st = ftop - 150;
+	
+	      //   this.defY = -st + -window.innerHeight * 0.5 + 375;
+	      // });
 	    }
 	  }]);
 	
@@ -7131,6 +7147,14 @@
 	    key: "init",
 	    value: function init() {
 	      this.frame = 0;
+	      this.pixcels = 2;
+	
+	      // clearTimeout(this.Timer);
+	      // this.Timer = setTimeout(() => {
+	      //   TweenMax.to(this, 1.0, {
+	      //     pixcels: 1.4,
+	      //   });
+	      // }, 8000);
 	    }
 	  }, {
 	    key: "setEvent",
@@ -7149,7 +7173,7 @@
 	  }, {
 	    key: "initCamera",
 	    value: function initCamera() {
-	      this.camera = new THREE.PerspectiveCamera(45, this.$dom.width() / this.$dom.height(), 1, 20000);
+	      this.camera = new THREE.PerspectiveCamera(45, this.$dom.width() / this.$dom.height(), 1, 10000);
 	      this.setCameraByPixel();
 	    }
 	  }, {
@@ -7164,7 +7188,7 @@
 	      var vpHeight = this.h;
 	      var z = vpHeight / (2 * Math.tan(vFOV / 2));
 	      this.defz = z * 1;
-	      this.z = isFirst ? z * 0.27 : z * 1.1;
+	      this.z = isFirst ? z * 0.5 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
@@ -7240,9 +7264,9 @@
 	      var w = this.$dom.width();
 	      var h = window.innerHeight;
 	      this.setCameraByPixel(isFirst);
-	      this.renderer.setPixelRatio(window.devicePixelRatio);
+	      this.renderer.setPixelRatio(this.pixcels);
 	      this.renderer.setSize(w, h);
-	      this.composer.setPixelRatio(window.devicePixelRatio);
+	      this.composer.setPixelRatio(this.pixcels);
 	      this.composer.setSize(w, h);
 	    }
 	  }, {
@@ -7324,41 +7348,27 @@
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      var time = Date.now() / 5000;
+	      var _this2 = this;
+	
+	      var time = Date.now() / 10000;
 	      ++this.TIME;
 	      this.chobisens.forEach(function (obj) {
 	        var points = obj.geometry.attributes.position.array;
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
-	        // console.log(count);
-	        // for (var i = 0; i < l; i++) {
-	        //   if (i % 3 == 2 && i != 2) {
 	
-	        //     points[i] += p * 0.5;
+	        for (var i = 0; i < count; i++) {
+	          if (i == count - 1) {
+	            var n = noise.perlin2(obj.ss, time * 0.3);
+	            var p = Math.sin(obj.ss + _this2.TIME * 0.07) * n * 10;
 	
-	        //     obj.geometry.attributes.position.needsUpdate = true;
-	        //     // const n = noise.perlin2(i, time);
-	        //     // const p = this.sin(this.TIME * -1, i) * n;
+	            points[i * 3 + 1] = obj.defY + p;
 	
-	        //   }
-	        // }
-	        // for (var i = 0; i < count; i++) {
-	        //   if (i == count - 1) {
-	        //     const n = noise.perlin2(i, time);
-	        //     const p = this.sin(this.TIME * -1, i) * n;
-	
-	        //     points[i + 1] = p;
-	
-	        //     obj.geometry.attributes.position.needsUpdate = true;
-	        //   }
-	        // }
+	            obj.geometry.attributes.position.needsUpdate = true;
+	          }
+	        }
 	      });
-	    }
-	  }, {
-	    key: "sin",
-	    value: function sin(t, i) {
-	      return 2 * Math.sin((t * 3 + i) / 20);
 	    }
 	  }, {
 	    key: "show",
@@ -7376,12 +7386,12 @@
 	  }, {
 	    key: "getMesh",
 	    value: function getMesh(obj) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var arr = [];
 	      obj.children.forEach(function (children) {
 	        if (children.type == "Group") {
-	          arr.push.apply(arr, _toConsumableArray(_this2.getMesh(children)));
+	          arr.push.apply(arr, _toConsumableArray(_this3.getMesh(children)));
 	        } else {
 	          arr.push(children);
 	        }
@@ -7551,6 +7561,8 @@
 	      _geometry2.addAttribute("position", new THREE.BufferAttribute(new Float32Array(_points), 3));
 	      var line = new THREE.Line(_geometry2, material);
 	      line.name = "chobiline";
+	      line.defY = v4.y;
+	      line.ss = Math.random() * 10000;
 	      obj.add(line);
 	    }
 	  }
@@ -8073,7 +8085,7 @@
 	          height: this.param.height,
 	          i: this.param.speed,
 	          offset: this.param["細かさ"],
-	          num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.4
+	          num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.3
 	        });
 	        this.obj.add(line.obj);
 	        this.lines.push(line);
@@ -8093,10 +8105,6 @@
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      var time = Date.now() / 5000 + Math.random() / 300 * 2 - 1 / 300;
-	      // noise.seed(time);
-	      // console.log(this.lines);
-	
 	      // update line
 	      this.lines.forEach(function (line, index) {
 	        // const time = (index + 1) * 0.0001;
@@ -8180,7 +8188,7 @@
 	    //height,i,offset,offset_x
 	    this.posi = posi;
 	    this.config = config;
-	    this.NUM = 200;
+	    this.NUM = 100;
 	    this.TIME = 0;
 	    this.fixDist = 1;
 	    this.color = 0x0047e9;
@@ -8220,7 +8228,7 @@
 	      this.vec = [];
 	      this.points = [];
 	      for (var i = 0; i < this.config.num; i++) {
-	        var x = this.posi[0].x + i * (10 / 1.4);
+	        var x = this.posi[0].x + i * (10 / 1.3);
 	        var y = this.posi[0].y + this.sin(0, i);
 	        var z = this.posi[0].z;
 	
@@ -8686,18 +8694,21 @@
 	      var h = $(".canvas").height();
 	      var num = this.obj.children.length * 0.5;
 	      this.obj.children.forEach(function (children, index) {
+	        // 色濃く
 	        tl.to(children.material, 0.25, {
 	          opacity: 0.05,
 	          ease: Expo.easeIn
-	        }, Math.abs(index - num) * 0.02);
-	        tl.to(children.material, 1, {
+	        }, 0 * 0.02);
+	        // 色薄く
+	        tl.to(children.material, 0.7, {
 	          opacity: 0.005,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.25);
+	        }, 0 * 0.02 + 0.25);
+	        // 伸びる
 	        tl.to(children.material.uniforms.dashOffset, 2, {
 	          value: -2,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.05);
+	        }, 0 * 0.02 + 0.05);
 	      });
 	
 	      tl.add(function (e) {

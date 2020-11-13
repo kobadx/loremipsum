@@ -30,40 +30,25 @@ export default class Controller {
   }
 
   update() {
-    const time = Date.now() / 5000;
+    const time = Date.now() / 10000;
     ++this.TIME;
     this.chobisens.forEach((obj) => {
       const points = obj.geometry.attributes.position.array;
       // console.log(obj.geometry.attributes.position);
       const l = points.length;
       var count = obj.geometry.attributes.position.count;
-      // console.log(count);
-      // for (var i = 0; i < l; i++) {
-      //   if (i % 3 == 2 && i != 2) {
 
-      //     points[i] += p * 0.5;
+      for (var i = 0; i < count; i++) {
+        if (i == count - 1) {
+          const n = noise.perlin2(obj.ss, time * 0.3);
+          const p = Math.sin(obj.ss + this.TIME * 0.07) * n * 10;
 
-      //     obj.geometry.attributes.position.needsUpdate = true;
-      //     // const n = noise.perlin2(i, time);
-      //     // const p = this.sin(this.TIME * -1, i) * n;
+          points[i * 3 + 1] = obj.defY + p;
 
-      //   }
-      // }
-      // for (var i = 0; i < count; i++) {
-      //   if (i == count - 1) {
-      //     const n = noise.perlin2(i, time);
-      //     const p = this.sin(this.TIME * -1, i) * n;
-
-      //     points[i + 1] = p;
-
-      //     obj.geometry.attributes.position.needsUpdate = true;
-      //   }
-      // }
+          obj.geometry.attributes.position.needsUpdate = true;
+        }
+      }
     });
-  }
-
-  sin(t, i) {
-    return 2 * Math.sin((t * 3 + i) / 20);
   }
 
   show() {
