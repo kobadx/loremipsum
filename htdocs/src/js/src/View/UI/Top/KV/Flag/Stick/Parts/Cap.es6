@@ -37,7 +37,7 @@ function curve(posi1, posi2, color) {
     .add(v)
     .add(new THREE.Vector3(-10, 3, 0));
   const _curve = new THREE.QuadraticBezierCurve3(posi1, v2, v);
-  const arr = _curve.getPoints(50);
+  const arr = _curve.getPoints(30);
   for (var u = 0; u < arr.length; u++) {
     points.push(arr[u].x, arr[u].y, arr[u].z);
   }
@@ -51,7 +51,7 @@ function curve(posi1, posi2, color) {
 
   const v4 = posi2.clone().add(new THREE.Vector3(0, -3, 0));
   const _curve2 = new THREE.QuadraticBezierCurve3(v, v3, v4);
-  const arr2 = _curve2.getPoints(50);
+  const arr2 = _curve2.getPoints(30);
   for (var u = 0; u < arr2.length; u++) {
     points.push(arr2[u].x, arr2[u].y, arr2[u].z);
   }
@@ -61,7 +61,7 @@ function curve(posi1, posi2, color) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   geometry.addAttribute(
     "position",
@@ -95,7 +95,7 @@ function curve2(posi, r, color) {
     .add(v3)
     .add(new THREE.Vector3(2, 6, 0));
   const c = new THREE.QuadraticBezierCurve3(v1, p, v3);
-  const arr = c.getPoints(50);
+  const arr = c.getPoints(30);
   for (var u = 0; u < arr.length; u++) {
     points.push(arr[u].x, arr[u].y, arr[u].z);
   }
@@ -108,7 +108,7 @@ function curve2(posi, r, color) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   geometry.addAttribute(
     "position",

@@ -3805,13 +3805,20 @@ a:active
 .canvasWrap
 {
     position: fixed;
-    top: -50px;
+    top: 0;
     left: 0;
 
     width: 100%;
-    height: calc(100vh + 100px);
+    height: 100vh;
 
     pointer-events: none;
+}
+
+.isDeviceSP .canvasWrap
+{
+    top: -55px;
+
+    height: calc(100vh + 110px);
 }
 
 .canvasWrap.absolute
