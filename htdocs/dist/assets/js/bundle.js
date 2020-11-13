@@ -54284,11 +54284,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        対象の明るさ: 2,
 	        グローの半径: 0.4
 	      };
-<<<<<<< HEAD
-	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(this.$dom.width(), this.$dom.height()), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
-=======
 	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
->>>>>>> 5b6ee55dc7f1a0f46eb1dc1ab760c7226df8ec5e
 	      this.effectBloom.threshold = param["しきい値"];
 	      this.effectBloom.strength = param["対象の明るさ"];
 	      this.effectBloom.radius = param["グローの半径"];
