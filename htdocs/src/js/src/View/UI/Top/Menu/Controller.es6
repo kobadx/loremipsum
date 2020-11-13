@@ -45,7 +45,7 @@ export default class Controller extends Base {
     for (var i = 0; i < l; i++) {
       const span = $("<span></span>");
       span.css({
-        left: i * length,
+        left: i * length
       });
       this.$contents.find(".bg").append(span);
     }
@@ -60,7 +60,7 @@ export default class Controller extends Base {
     tl
       //show
       .add(
-        this.renderer.show((e) => {
+        this.renderer.show(e => {
           this.$contents.addClass("is-active");
           return this.closeBtn.show();
         })
@@ -81,7 +81,7 @@ export default class Controller extends Base {
 
       //hide
       .add(
-        this.renderer.hide((e) => {
+        this.renderer.hide(e => {
           return this.closeBtn.hide();
         })
       )
@@ -98,12 +98,12 @@ export default class Controller extends Base {
   setEvents() {
     super.setEvents();
 
-    this.$btn.on("click", (e) => {
+    this.$btn.on("click", e => {
       if (this.isLock) return;
       this.isLock = true;
       this.show();
     });
-    this.$contents.find(".menu-close").on("click", (e) => {
+    this.$contents.find(".menu-close").on("click", e => {
       if (this.isLock) return;
       this.isLock = true;
       this.hide();

@@ -119,8 +119,9 @@
   right: 0;
   z-index: 101;
 
+  overflow: hidden;
   width: 82.8%;
-  display: none;
+  // display: ;
   pointer-events: none;
 
   & > .bg {
@@ -131,6 +132,8 @@
     top: 0;
     left: 0;
     opacity: 0;
+    overflow: hidden;
+    backface-visibility: hidden;
     span {
       width: 1px;
       height: 100%;
@@ -139,7 +142,7 @@
       left: 0;
       background-color: #f3f3f3;
       display: block;
-      transform: scaleY(0);
+      transform: scaleY(0) translate3d(0, 0, 0);
       transform-origin: top;
     }
   }
@@ -163,7 +166,7 @@
   cursor: pointer;
   top: 44px;
   right: 65px;
-
+  backface-visibility: hidden;
   @media only screen and (max-width: $bp01) {
     width: 50px;
     right: 25px;
@@ -195,7 +198,7 @@
     top: 0;
     span {
       transform-origin: left;
-      transform: translateX(8px) rotate(30deg) scaleX(0);
+      transform: translateX(8px) rotate(30deg) scaleX(0) translateZ(0);
     }
   }
 
@@ -203,7 +206,7 @@
     bottom: 0;
     span {
       transform-origin: left;
-      transform: translateX(8px) rotate(-30deg) scaleX(0);
+      transform: translateX(8px) rotate(-30deg) scaleX(0) translateZ(0);
     }
   }
 }
@@ -215,7 +218,7 @@
   bottom: 0;
   right: 0;
   opacity: 0;
-  transform: translateX(10px);
+  transform: translateX(10px) translateZ(0);
 }
 
 .menu-block {
@@ -224,6 +227,7 @@
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
+  transform: translateZ(10);
   // z-index: 2;
   @media only screen and (max-width: $bp01) {
     display: block;
@@ -237,7 +241,7 @@
 .menu-item {
   margin-bottom: 30px;
   opacity: 0;
-  transform: translateX(10px);
+  transform: translateX(10px) translateZ(10px);
 
   @media only screen and (max-width: $bp01) {
     margin-bottom: 15px;

@@ -21,13 +21,14 @@ import KV from "./KV/Controller.es6";
 import Cookie from "./Cookie/Controller.es6";
 
 import Header from "./Header/Controller.es6";
+const UAParser = require("ua-parser-js");
 
 export default class Controller extends Base {
   constructor() {
     super();
-
+    this.w = window.innerWidth;
     this.isUEv = true;
-
+    this.result = UAParser();
     this.setup();
     this.setEvents();
     this.onResize();
@@ -61,14 +62,14 @@ export default class Controller extends Base {
     // menu
     this.menu = new Menu({
       $btn: $(".header-menu-btn"),
-      $contents: $(".menu"),
+      $contents: $(".menu")
     });
 
     // parallax box
     $(".parallax,.parallax2,.parallax3").each((i, e) => {
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
-        max: e.dataset.max - 0,
+        max: e.dataset.max - 0
       });
     });
     // parallax img
@@ -79,7 +80,7 @@ export default class Controller extends Base {
 
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
-        max: e.dataset.max - 0,
+        max: e.dataset.max - 0
       });
     });
 
@@ -98,11 +99,11 @@ export default class Controller extends Base {
 
   show() {
     this.kv
-      .timeline((e) => {
+      .timeline(e => {
         this.scrollBtn.show();
         return this.menu.showBtn();
       })
-      .then((e) => {
+      .then(e => {
         this.cookie.show();
       });
   }
@@ -110,18 +111,30 @@ export default class Controller extends Base {
   timeline() {}
 
   update() {
-    window.updates.map((update) => {
+    window.updates.map(update => {
       update.cb();
     });
   }
 
-  onResize() {
-    document.body.style.setProperty("--h", window.innerHeight + "px");
+  onResize(e) {
+    if (!e) {
+      document.body.style.setProperty("--h", window.innerHeight + "px");
+    } else {
+      if (
+        this.result.device.type != "mobile" &&
+        this.result.device.type != "tablet" &&
+        this.w == window.innerWidth
+      ) {
+        document.body.style.setProperty("--h", window.innerHeight + "px");
+        this.w = window.innerWidth;
+      }
+    }
   }
 
   setEvents() {
     super.setEvents();
 
-    $(window).on("resize", this.onResize.bind(this));
+    // $(window).on("resize", this.onResize.bind(this));
+    $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
   }
 }
