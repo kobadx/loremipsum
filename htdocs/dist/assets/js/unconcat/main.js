@@ -6921,6 +6921,7 @@
 	      // add scene
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
+	      scene.add(this.bg.lightObj);
 	      this.wrap.add(this.obj);
 	      scene.add(this.wrap);
 	      scene.background = new THREE.Color(0x00076d);
@@ -8613,6 +8614,7 @@
 	    key: "setup",
 	    value: function setup() {
 	      this.obj = new THREE.Group();
+	      this.lightObj = new THREE.Group();
 	      this.bp = 768;
 	      var w = $(".canvas").width();
 	      this.w = w;
@@ -8621,34 +8623,64 @@
 	      var l = this.bp >= w ? 55 : 140;
 	      this.num = Math.ceil(w / l);
 	      this.obj.position.x = (w - this.num * l) * 0.5;
+	      this.lightObj.position.x = (w - this.num * l) * 0.5;
 	      this.obj.position.z = -2;
+	      this.lightObj.position.z = -2;
 	      // this.obj.position.;
 	
 	      for (var i = 0; i < this.num; i++) {
-	        var material = new MeshLineMaterial({
-	          color: new THREE.Color(0x9f9f9f),
-	          lineWidth: this.bp >= w ? 2 : 1,
-	          opacity: 1,
-	          transparent: true,
-	          dashOffset: 0,
-	          dashArray: 2 * h,
-	          dashRatio: 0.99
+	        var mesh = this.getObj({
+	          index: i,
+	          width: w,
+	          height: h,
+	          length: l
 	        });
-	        var point = [];
-	        var _w = -w * 0.5;
-	
-	        point.push(_w + i * l, h * 0.5, -1);
-	        point.push(_w + i * l, -h * 0.5, -1);
-	        var line = new MeshLine();
-	        line.setGeometry(point);
-	        var mesh = new THREE.Mesh(line.geometry, material);
-	
+	        var mesh2 = this.getObj({
+	          index: i,
+	          width: w,
+	          height: h,
+	          length: l
+	        });
 	        this.obj.add(mesh);
+	        this.lightObj.add(mesh2);
 	      }
+	    }
+	  }, {
+	    key: "getObj",
+	    value: function getObj(_ref) {
+	      var index = _ref.index,
+	          width = _ref.width,
+	          height = _ref.height,
+	          length = _ref.length,
+	          _ref$opacity = _ref.opacity,
+	          opacity = _ref$opacity === undefined ? 1 : _ref$opacity,
+	          _ref$dashOffset = _ref.dashOffset,
+	          dashOffset = _ref$dashOffset === undefined ? 0 : _ref$dashOffset;
+	
+	      var material = new MeshLineMaterial({
+	        color: new THREE.Color(0x9f9f9f),
+	        lineWidth: this.bp >= width ? 2 : 1,
+	        opacity: opacity,
+	        transparent: true,
+	        dashOffset: dashOffset,
+	        dashArray: 2 * height,
+	        dashRatio: 0.99
+	      });
+	      var point = [];
+	      var _w = -width * 0.5;
+	
+	      point.push(_w + index * length, height * 0.5, -1);
+	      point.push(_w + index * length, -height * 0.5, -1);
+	      var line = new MeshLine();
+	      line.setGeometry(point);
+	      var mesh = new THREE.Mesh(line.geometry, material);
+	      return mesh;
 	    }
 	  }, {
 	    key: "show",
 	    value: function show() {
+	      var _this = this;
+	
 	      console.log("show");
 	      var tl = new TimelineMax();
 	      var h = $(".canvas").height();
@@ -8667,7 +8699,46 @@
 	          ease: Expo.easeOut
 	        }, Math.abs(index - num) * 0.02 + 0.05);
 	      });
+	
+	      tl.add(function (e) {
+	        _this.timeline();
+	      });
 	      return tl;
+	    }
+	  }, {
+	    key: "timeline",
+	    value: function timeline() {
+	      var _this2 = this;
+	
+	      var l = this.lightObj.children.length;
+	      var index = Math.floor(Math.random() * l);
+	      var d = Math.random() * 2 + 3;
+	      var target = this.lightObj.children[index];
+	      var tl = new TimelineMax();
+	      console.log(target);
+	      tl
+	      //opacity
+	      .to(target.material, 1.2, {
+	        opacity: 0.1,
+	        ease: Expo.easeOut
+	      }, d);
+	
+	      //線をひく
+	      tl.to(target.material.uniforms.dashOffset, 0.75, {
+	        value: -2,
+	        ease: Expo.easeOut
+	      }, d).to(target.position, 0.75, {
+	        y: -window.innerHeight * 1.1,
+	        ease: Expo.easeOut
+	      }, d + 0.2);
+	
+	      //loop
+	      tl.add(function (e) {
+	        target.material.uniforms.dashOffset.value = 0;
+	        target.material.opacity = 1;
+	        target.position.y = 0;
+	        _this2.timeline();
+	      }, "+= 1");
 	    }
 	  }, {
 	    key: "resize",
@@ -8679,24 +8750,25 @@
 	      this.moveLine(w, l, h);
 	      if (num > this.num) {
 	        for (var i = 0; i < num - this.num; i++) {
-	          var material = new MeshLineMaterial({
-	            color: new THREE.Color(0x9f9f9f),
-	            lineWidth: this.bp >= w ? 2 : 1,
-	            opacity: 0.005,
-	            transparent: true,
-	            dashOffset: -2,
-	            dashArray: 2 * h,
-	            dashRatio: 0.99
-	          });
-	          var point = [];
 	          var _w = -w * 0.5;
 	          var index = this.num + i;
-	          point.push(_w + index * l, h * 0.5, -1);
-	          point.push(_w + index * l, -h * 0.5, -1);
-	          var line = new MeshLine();
-	          line.setGeometry(point);
-	          var mesh = new THREE.Mesh(line.geometry, material);
+	          var mesh = this.getObj({
+	            index: index,
+	            width: w,
+	            height: h,
+	            length: l,
+	            dashOffset: -2,
+	            opacity: 0.005
+	          });
+	          var mesh2 = this.getObj({
+	            index: index,
+	            width: w,
+	            height: h,
+	            length: l
+	          });
+	
 	          this.obj.add(mesh);
+	          this.lightObj.add(mesh2);
 	        }
 	        this.num = num;
 	      }
@@ -8718,14 +8790,29 @@
 	        obj.material.lineWidth = this.bp >= w ? 2 : 1;
 	        // const geometry =
 	      }
+	
+	      for (var _i = 0; _i < cl; _i++) {
+	        var _obj = this.lightObj.children[_i];
+	        _obj.geometry.dispose();
+	        var _point = [];
+	        var _w2 = -w * 0.5;
+	        _point.push(_w2 + _i * l, h * 0.5, -1);
+	        _point.push(_w2 + _i * l, -h * 0.5, -1);
+	        var _line = new MeshLine();
+	        _line.setGeometry(_point);
+	        _obj.geometry = _line.geometry;
+	        _obj.material.lineWidth = this.bp >= w ? 2 : 1;
+	        // const geometry =
+	      }
 	    }
 	  }, {
 	    key: "update",
-	    value: function update(_ref) {
-	      var posi = _ref.posi,
-	          depth = _ref.depth;
+	    value: function update(_ref2) {
+	      var posi = _ref2.posi,
+	          depth = _ref2.depth;
 	
 	      this.obj.position.z = posi - depth;
+	      this.lightObj.position.z = posi - depth;
 	    }
 	  }]);
 	

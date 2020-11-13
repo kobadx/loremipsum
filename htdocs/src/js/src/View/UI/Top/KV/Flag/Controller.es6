@@ -69,6 +69,7 @@ export default class Controller extends Base {
     // add scene
     const scene = new THREE.Scene();
     scene.add(this.bg.obj);
+    scene.add(this.bg.lightObj);
     this.wrap.add(this.obj);
     scene.add(this.wrap);
     scene.background = new THREE.Color(0x00076d);
