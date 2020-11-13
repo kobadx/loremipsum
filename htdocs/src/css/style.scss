@@ -29,10 +29,10 @@
 .canvasWrap {
   width: 100%;
   // padding-top: (950/1280) * 100%;
-  height: 100vh;
+  height: calc(100vh + 100px);
   // height: var(--h);
   position: fixed;
-  top: 0;
+  top: -50px;
   left: 0;
   pointer-events: none;
   // height: 0;
