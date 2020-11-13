@@ -42,12 +42,14 @@ export default class Controller extends Base {
     // layout
     const posi = [
       new THREE.Vector3(
-        -this.baseW * 0.5 + 100,
+        // -this.baseW * 0.5 + 100,
+        0,
         this.$canvas.height() * 0.5,
         0
       ),
       new THREE.Vector3(
-        -this.baseW * 0.5 - 25,
+        // -this.baseW * 0.5 - 25,
+        -125,
         this.$canvas.height() * 0.5 - 800,
         0
       ),
@@ -104,7 +106,7 @@ export default class Controller extends Base {
 
     // move Y
     // positionを正しい位置に
-    var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
+    var tarY = this.$canvas.width() <= this.bp ? 300 : 320;
     TweenMax.to(this, 1.5, {
       defY: -window.innerHeight * 0.5 + tarY,
       ease: Power2.easeInOut,
@@ -170,12 +172,19 @@ export default class Controller extends Base {
     if (this.$canvas.width() <= this.bp) this.baseW = 375;
     this.per = this.$canvas.width() / this.baseW;
     if (this.$canvas.width() <= this.bp) {
-      this.obj.position.x = -29 * 4 * this.per;
+      this.obj.position.x = -35 * 4 * this.per;
+
       this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+
+      // this.obj.position.x = ;
+      //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
     } else {
-      this.obj.position.x = this.baseW * 0.5 - 540;
+      // this.obj.position.x = this.baseW * 0.5 - 540;
       this.obj.scale.set(this.per, this.per, this.per);
+      this.obj.position.x = -390 * this.per;
     }
+
+    // this.obj.updateMatrixWorld();
   }
 
   setEvent() {

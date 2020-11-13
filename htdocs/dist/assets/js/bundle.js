@@ -53948,7 +53948,11 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.$f = $(".footer");
 	
 	      // layout
-	      var posi = [new THREE.Vector3(-this.baseW * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-this.baseW * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
+	      var posi = [new THREE.Vector3(
+	      // -this.baseW * 0.5 + 100,
+	      0, this.$canvas.height() * 0.5, 0), new THREE.Vector3(
+	      // -this.baseW * 0.5 - 25,
+	      -125, this.$canvas.height() * 0.5 - 800, 0)];
 	
 	      // objects
 	      this.bg = new _Controller10.default();
@@ -54003,7 +54007,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      // move Y
 	      // positionを正しい位置に
-	      var tarY = this.$canvas.width() <= this.bp ? 300 : 375;
+	      var tarY = this.$canvas.width() <= this.bp ? 300 : 320;
 	      TweenMax.to(this, 1.5, {
 	        defY: -window.innerHeight * 0.5 + tarY,
 	        ease: Power2.easeInOut,
@@ -54061,12 +54065,19 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = -29 * 4 * this.per;
+	        this.obj.position.x = -35 * 4 * this.per;
+	
 	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+	
+	        // this.obj.position.x = ;
+	        //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
 	      } else {
-	        this.obj.position.x = this.baseW * 0.5 - 540;
+	        // this.obj.position.x = this.baseW * 0.5 - 540;
 	        this.obj.scale.set(this.per, this.per, this.per);
+	        this.obj.position.x = -390 * this.per;
 	      }
+	
+	      // this.obj.updateMatrixWorld();
 	    }
 	  }, {
 	    key: "setEvent",
@@ -54206,7 +54217,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var vpHeight = this.h;
 	      var z = vpHeight / (2 * Math.tan(vFOV / 2));
 	      this.defz = z * 1;
-	      this.z = isFirst ? z * 0.27 : z * 1.1;
+	      this.z = isFirst ? z * 0.5 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
@@ -55642,6 +55653,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.obj = new THREE.Group();
 	      this.bp = 768;
 	      var w = $(".canvas").width();
+	      this.w = w;
 	      var h = $(".canvas").height();
 	      //lごとに罫線
 	      var l = this.bp >= w ? 55 : 140;
@@ -55680,31 +55692,73 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var h = $(".canvas").height();
 	      var num = this.obj.children.length * 0.5;
 	      this.obj.children.forEach(function (children, index) {
+	        // 色濃く
 	        tl.to(children.material, 0.25, {
 	          opacity: 0.05,
 	          ease: Expo.easeIn
-	        }, Math.abs(index - num) * 0.02);
-	        tl.to(children.material, 1, {
+	        }, 0 * 0.02);
+	        // 色薄く
+	        tl.to(children.material, 0.7, {
 	          opacity: 0.005,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.25);
+	        }, 0 * 0.02 + 0.25);
+	        // 伸びる
 	        tl.to(children.material.uniforms.dashOffset, 2, {
 	          value: -2,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.05);
+	        }, 0 * 0.02 + 0.05);
 	      });
 	      return tl;
 	    }
 	  }, {
 	    key: "resize",
 	    value: function resize() {
-	      this.obj.children = [];
-	      this.setup();
-	      // console.log(this.obj);
-	      this.obj.children.forEach(function (children) {
-	        children.material.opacity = 0.005;
-	        children.material.uniforms.dashOffset.value = -2;
-	      });
+	      var w = $(".canvas").width();
+	      var l = this.bp >= w ? 55 : 140;
+	      var num = Math.ceil(w / l);
+	      var h = $(".canvas").height();
+	      this.moveLine(w, l, h);
+	      if (num > this.num) {
+	        for (var i = 0; i < num - this.num; i++) {
+	          var material = new MeshLineMaterial({
+	            color: new THREE.Color(0x9f9f9f),
+	            lineWidth: this.bp >= w ? 2 : 1,
+	            opacity: 0.005,
+	            transparent: true,
+	            dashOffset: -2,
+	            dashArray: 2 * h,
+	            dashRatio: 0.99
+	          });
+	          var point = [];
+	          var _w = -w * 0.5;
+	          var index = this.num + i;
+	          point.push(_w + index * l, h * 0.5, -1);
+	          point.push(_w + index * l, -h * 0.5, -1);
+	          var line = new MeshLine();
+	          line.setGeometry(point);
+	          var mesh = new THREE.Mesh(line.geometry, material);
+	          this.obj.add(mesh);
+	        }
+	        this.num = num;
+	      }
+	    }
+	  }, {
+	    key: "moveLine",
+	    value: function moveLine(w, l, h) {
+	      var cl = this.obj.children.length;
+	      for (var i = 0; i < cl; i++) {
+	        var obj = this.obj.children[i];
+	        obj.geometry.dispose();
+	        var point = [];
+	        var _w = -w * 0.5;
+	        point.push(_w + i * l, h * 0.5, -1);
+	        point.push(_w + i * l, -h * 0.5, -1);
+	        var line = new MeshLine();
+	        line.setGeometry(point);
+	        obj.geometry = line.geometry;
+	        obj.material.lineWidth = this.bp >= w ? 2 : 1;
+	        // const geometry =
+	      }
 	    }
 	  }, {
 	    key: "update",
