@@ -8615,6 +8615,7 @@
 	      this.obj = new THREE.Group();
 	      this.bp = 768;
 	      var w = $(".canvas").width();
+	      this.w = w;
 	      var h = $(".canvas").height();
 	      //lごとに罫線
 	      var l = this.bp >= w ? 55 : 140;
@@ -8671,13 +8672,52 @@
 	  }, {
 	    key: "resize",
 	    value: function resize() {
-	      this.obj.children = [];
-	      this.setup();
-	      // console.log(this.obj);
-	      this.obj.children.forEach(function (children) {
-	        children.material.opacity = 0.005;
-	        children.material.uniforms.dashOffset.value = -2;
-	      });
+	      var w = $(".canvas").width();
+	      var l = this.bp >= w ? 55 : 140;
+	      var num = Math.ceil(w / l);
+	      var h = $(".canvas").height();
+	      this.moveLine(w, l, h);
+	      if (num > this.num) {
+	        for (var i = 0; i < num - this.num; i++) {
+	          var material = new MeshLineMaterial({
+	            color: new THREE.Color(0x9f9f9f),
+	            lineWidth: this.bp >= w ? 2 : 1,
+	            opacity: 0.005,
+	            transparent: true,
+	            dashOffset: -2,
+	            dashArray: 2 * h,
+	            dashRatio: 0.99
+	          });
+	          var point = [];
+	          var _w = -w * 0.5;
+	          var index = this.num + i;
+	          point.push(_w + index * l, h * 0.5, -1);
+	          point.push(_w + index * l, -h * 0.5, -1);
+	          var line = new MeshLine();
+	          line.setGeometry(point);
+	          var mesh = new THREE.Mesh(line.geometry, material);
+	          this.obj.add(mesh);
+	        }
+	        this.num = num;
+	      }
+	    }
+	  }, {
+	    key: "moveLine",
+	    value: function moveLine(w, l, h) {
+	      var cl = this.obj.children.length;
+	      for (var i = 0; i < cl; i++) {
+	        var obj = this.obj.children[i];
+	        obj.geometry.dispose();
+	        var point = [];
+	        var _w = -w * 0.5;
+	        point.push(_w + i * l, h * 0.5, -1);
+	        point.push(_w + i * l, -h * 0.5, -1);
+	        var line = new MeshLine();
+	        line.setGeometry(point);
+	        obj.geometry = line.geometry;
+	        obj.material.lineWidth = this.bp >= w ? 2 : 1;
+	        // const geometry =
+	      }
 	    }
 	  }, {
 	    key: "update",
