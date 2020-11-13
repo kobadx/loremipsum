@@ -101,8 +101,8 @@ export default class Controller extends Base {
                 onStart: () => {
                   // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
                   // this.flag.setup.effectBloom.threshold = 0.14;
-                  this.flag.setup.effectBloom.strength = 2;
-                  this.flag.setup.effectBloom.radius = 0.3;
+                  this.flag.setup.effectBloom.strength = 3;
+                  this.flag.setup.effectBloom.radius = 0.6;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
                     1.3,
                     4.0
@@ -125,7 +125,7 @@ export default class Controller extends Base {
 
           // frame数を抑える
           TweenMax.to(this.flag, 2.0, {
-            fr: 5,
+            fr: 4,
             ease: Power2.easeInOut,
           });
         }, 0.2 + 3.8 + 0.9)

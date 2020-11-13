@@ -53758,8 +53758,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	            onStart: function onStart() {
 	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
 	              // this.flag.setup.effectBloom.threshold = 0.14;
-	              _this2.flag.setup.effectBloom.strength = 2;
-	              _this2.flag.setup.effectBloom.radius = 0.3;
+	              _this2.flag.setup.effectBloom.strength = 3;
+	              _this2.flag.setup.effectBloom.radius = 0.6;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
 	            }
 	          }, 0.8 + 0.05);
@@ -53777,7 +53777,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	          // frame数を抑える
 	          TweenMax.to(_this2.flag, 2.0, {
-	            fr: 5,
+	            fr: 4,
 	            ease: Power2.easeInOut
 	          });
 	        }, 0.2 + 3.8 + 0.9).add(function () {
@@ -54191,7 +54191,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    key: "init",
 	    value: function init() {
 	      this.frame = 0;
-	      this.pixcels = 2;
+	      this.pixcels = 1.8;
 	
 	      // clearTimeout(this.Timer);
 	      // this.Timer = setTimeout(() => {
@@ -54246,7 +54246,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _this2 = this;
 	
 	      this.renderer = new THREE.WebGLRenderer({
-	        antialias: true,
+	        antialias: false,
 	        alpha: true
 	      });
 	      var v = {
@@ -54282,9 +54282,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // 対象の明るさ: 1.9,
 	        // グローの半径: 0.36,
 	        対象の明るさ: 2,
-	        グローの半径: 0.3
+	        グローの半径: 0.4
 	      };
+<<<<<<< HEAD
 	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(this.$dom.width(), this.$dom.height()), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
+=======
+	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
+>>>>>>> 5b6ee55dc7f1a0f46eb1dc1ab760c7226df8ec5e
 	      this.effectBloom.threshold = param["しきい値"];
 	      this.effectBloom.strength = param["対象の明るさ"];
 	      this.effectBloom.radius = param["グローの半径"];
@@ -55261,6 +55265,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    this.yureY = 1;
 	    this.yureZ = 1;
 	
+	    // this.fr = Math.floor(Math.random() * 2 + 1);
+	    // this.frame = 0;
+	
 	    this.setup();
 	    this.setEvents();
 	  }
@@ -55433,14 +55440,17 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "update",
 	    value: function update(index) {
+	      // this.frame++;
+	      // if (this.frame % this.fr !== 0) return;
+	
 	      this.noiseTime += 0.005;
 	      this.noiseTime2 -= 0.002;
 	
-	      // update
-	      for (var _i = 0; _i < this.config.num; _i++) {
-	        var nd = this.nodes[_i];
+	      for (var i = 0; i < this.config.num; i++) {
+	        // update
+	        var nd = this.nodes[i];
 	
-	        var rate = this.clamp(_i / (this.config.num - 1), 0, 1.0);
+	        var rate = this.clamp(i / (this.config.num - 1), 0, 1.0);
 	        var val = this.outQuart(rate) * this.config.num;
 	
 	        // 揺れ
@@ -55451,28 +55461,16 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        var y = this.lerp(nd.defy2, nd.y, this.t);
 	        var z = this.lerp(nd.defz, nd.z, this.t);
 	
-	        this.curve.points[_i].y = y;
-	        this.curve.points[_i].z = z;
-	      }
+	        this.curve.points[i].y = y;
+	        this.curve.points[i].z = z;
 	
-	      // draw
-	      // for (let i = 0; i < this.config.num; i++) {
-	      //   var y = this.nodes[i].y;
-	      //   var z = this.nodes[i].z;
-	
-	      //   this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
-	      //   this.obj.geometry.attributes.position.array[i * 3 + 2] = z;
-	      // }
-	
-	      // this.obj.geometry.attributes.position.array = [];
-	
-	      for (var i = 0; i < this.config.num; i++) {
+	        // 線伸びる処理
 	        var s = this.s;
 	        var e = this.e * (i / this.config.num);
 	        var t = this.clamp(s + e, 0.0, 1.0);
-	
 	        var v = this.curve.getPoint(t);
 	
+	        // draw
 	        this.obj.geometry.attributes.position.array[i * 3 + 0] = v.x;
 	        this.obj.geometry.attributes.position.array[i * 3 + 1] = v.y;
 	        this.obj.geometry.attributes.position.array[i * 3 + 2] = v.z;

@@ -35,6 +35,9 @@ export default class Controller {
     this.yureY = 1;
     this.yureZ = 1;
 
+    // this.fr = Math.floor(Math.random() * 2 + 1);
+    // this.frame = 0;
+
     this.setup();
     this.setEvents();
   }
@@ -206,11 +209,14 @@ export default class Controller {
   // }
 
   update(index) {
+    // this.frame++;
+    // if (this.frame % this.fr !== 0) return;
+
     this.noiseTime += 0.005;
     this.noiseTime2 -= 0.002;
 
-    // update
     for (let i = 0; i < this.config.num; i++) {
+      // update
       var nd = this.nodes[i];
 
       var rate = this.clamp(i / (this.config.num - 1), 0, 1.0);
@@ -236,26 +242,14 @@ export default class Controller {
 
       this.curve.points[i].y = y;
       this.curve.points[i].z = z;
-    }
 
-    // draw
-    // for (let i = 0; i < this.config.num; i++) {
-    //   var y = this.nodes[i].y;
-    //   var z = this.nodes[i].z;
-
-    //   this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
-    //   this.obj.geometry.attributes.position.array[i * 3 + 2] = z;
-    // }
-
-    // this.obj.geometry.attributes.position.array = [];
-
-    for (var i = 0; i < this.config.num; i++) {
+      // 線伸びる処理
       var s = this.s;
       var e = this.e * (i / this.config.num);
       var t = this.clamp(s + e, 0.0, 1.0);
-
       var v = this.curve.getPoint(t);
 
+      // draw
       this.obj.geometry.attributes.position.array[i * 3 + 0] = v.x;
       this.obj.geometry.attributes.position.array[i * 3 + 1] = v.y;
       this.obj.geometry.attributes.position.array[i * 3 + 2] = v.z;

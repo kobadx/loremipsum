@@ -16,7 +16,7 @@ export default class ClassName extends Base {
 
   init() {
     this.frame = 0;
-    this.pixcels = 2;
+    this.pixcels = 1.8;
 
     // clearTimeout(this.Timer);
     // this.Timer = setTimeout(() => {
@@ -64,7 +64,7 @@ export default class ClassName extends Base {
 
   initRender() {
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: false,
       alpha: true
     });
     const v = {
@@ -97,10 +97,10 @@ export default class ClassName extends Base {
       // 対象の明るさ: 1.9,
       // グローの半径: 0.36,
       対象の明るさ: 2,
-      グローの半径: 0.3
+      グローの半径: 0.4
     };
     this.effectBloom = new THREE.UnrealBloomPass(
-      new THREE.Vector2(this.$dom.width(), this.$dom.height()),
+      new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0),
       0.01,
       1.07,
       0.85,
