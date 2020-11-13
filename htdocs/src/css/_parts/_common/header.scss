@@ -357,6 +357,9 @@
   background: url(/assets/img/common/icon_search.png) no-repeat 28px center;
   background-size: 17px auto;
   outline: none;
+  appearance: none;
+  border-radius: 0;
+  font-size: 1.4rem;
   @include placeholder() {
     color: rgba(17, 17, 18, 0.5);
   }

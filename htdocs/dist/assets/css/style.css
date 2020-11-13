@@ -1401,16 +1401,23 @@ img
 
 .menu-search-input
 {
+    font-size: 1.4rem;
+
     box-sizing: border-box;
     width: 320px;
     height: 64px;
     padding: 18px 18px 18px 60px;
 
     border: none;
+    border-radius: 0;
     outline: none;
     background: url(/assets/img/common/icon_search.png) no-repeat 28px center;
     background-color: #eeeff2;
     background-size: 17px auto;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
 }
 
 .menu-search-input:placeholder-shown
