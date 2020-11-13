@@ -13,10 +13,10 @@ export default class Controller {
 
   setup() {}
 
-  show(btnshow = (e) => {}) {
+  show(btnshow = e => {}) {
     const tl = new TimelineMax();
     this.$contents.css({
-      display: "block",
+      display: "block"
     });
 
     tl
@@ -30,9 +30,9 @@ export default class Controller {
           z: 1,
           startAt: {
             x: 200,
-            opacity: 0,
+            opacity: 0
           },
-          ease: Expo.easeOut,
+          ease: Expo.easeOut
         },
         0.0
       )
@@ -47,7 +47,7 @@ export default class Controller {
               0.2,
               {
                 "background-color": "rgb(200,200,200)",
-                ease: Expo.easeOut,
+                ease: Expo.easeOut
               },
               i * 0.05
             )
@@ -57,7 +57,7 @@ export default class Controller {
               0.5,
               {
                 "background-color": "rgb(243,243,243)",
-                ease: Expo.easeOut,
+                ease: Expo.easeOut
               },
               i * 0.05 + 0.2
             )
@@ -68,9 +68,9 @@ export default class Controller {
               {
                 scaleY: 1,
                 startAt: {
-                  scaleY: 0,
+                  scaleY: 0
                 },
-                ease: Expo.easeOut,
+                ease: Expo.easeOut
               },
               i * 0.05
             );
@@ -84,10 +84,11 @@ export default class Controller {
             x: 0,
             opacity: 1,
             ease: Expo.easeOut,
+            z: 1,
             startAt: {
-              x: 20,
+              x: 20
             },
-            delay: i * 0.045,
+            delay: i * 0.045
           });
         });
       }, 0.3)
@@ -99,10 +100,11 @@ export default class Controller {
             x: 0,
             opacity: 1,
             ease: Expo.easeOut,
+            z: 1,
             startAt: {
-              x: 10,
+              x: 10
             },
-            delay: i * 0.06,
+            delay: i * 0.06
           });
         });
       }, 0.3 + 0.2)
@@ -114,8 +116,8 @@ export default class Controller {
           x: 0,
           ease: Expo.easeOut,
           startAt: {
-            x: 10,
-          },
+            x: 10
+          }
         });
       }, 0.3 + 0.4);
 
@@ -123,7 +125,7 @@ export default class Controller {
     return tl;
   }
 
-  hide(btnhide = (e) => {}) {
+  hide(btnhide = e => {}) {
     const tl = new TimelineMax();
 
     // item
@@ -132,7 +134,7 @@ export default class Controller {
         x: 0,
         opacity: 0,
         ease: Expo.easeOut,
-        delay: i * 0.01,
+        delay: i * 0.01
       });
     });
 
@@ -142,7 +144,7 @@ export default class Controller {
         x: 0,
         opacity: 0,
         ease: Expo.easeOut,
-        delay: i * 0.02,
+        delay: i * 0.02
       });
     });
 
@@ -154,7 +156,7 @@ export default class Controller {
         {
           opacity: 0,
           x: 0,
-          ease: Expo.easeOut,
+          ease: Expo.easeOut
         },
         0.0
       );
@@ -209,9 +211,9 @@ export default class Controller {
           ease: Power2.easeIn,
           onComplete: () => {
             this.$contents.css({
-              display: "none",
+              display: "none"
             });
-          },
+          }
         },
         0.0
       );

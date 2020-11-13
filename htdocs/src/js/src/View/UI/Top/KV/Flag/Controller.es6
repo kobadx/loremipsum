@@ -7,7 +7,7 @@ import * as dat from "dat.gui";
 const MathUtils = {
   map: (x, a, b, c, d) => ((x - a) * (d - c)) / (b - a) + c,
   lerp: (a, b, n) => (1 - n) * a + n * b,
-  clamp: (val, min, max) => Math.max(Math.min(val, max), min),
+  clamp: (val, min, max) => Math.max(Math.min(val, max), min)
 };
 export default class Controller extends Base {
   constructor() {
@@ -52,7 +52,7 @@ export default class Controller extends Base {
         -125,
         this.$canvas.height() * 0.5 - 800,
         0
-      ),
+      )
     ];
 
     // objects
@@ -80,11 +80,11 @@ export default class Controller extends Base {
 
     this.mousePosi = {
       x: 0,
-      y: 0,
+      y: 0
     };
     this.prevMosePosi = {
       x: 0,
-      y: 0,
+      y: 0
     };
     // this.update();
 
@@ -111,7 +111,7 @@ export default class Controller extends Base {
     TweenMax.to(this, 1.5, {
       defY: -window.innerHeight * 0.5 + tarY,
       ease: Power2.easeInOut,
-      delay: 2.0,
+      delay: 2.0
     });
 
     // TweenMax.to(this.obj.position, 1.5, {
@@ -127,7 +127,7 @@ export default class Controller extends Base {
       // update
       this.bg.update({
         posi: this.setup.camera.position.z,
-        depth: this.setup.defz,
+        depth: this.setup.defz
       });
       this.stick.update();
       this.sail.update();
@@ -144,7 +144,7 @@ export default class Controller extends Base {
         Math.floor(
           MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) *
             100
-        ) / 100,
+        ) / 100
     };
     this.obj.rotation.y =
       ((this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth) *
@@ -193,9 +193,10 @@ export default class Controller extends Base {
 
     // resize
     $(window).on("resize", this.onResize.bind(this, false));
+    // $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
 
     // マウスの揺れ
-    $(window).on("mousemove", (e) => {
+    $(window).on("mousemove", e => {
       if (this.mouseMove) {
         this.mousePosi.x = e.clientX;
         this.mousePosi.y = e.clientY;
@@ -206,7 +207,7 @@ export default class Controller extends Base {
     });
 
     // // 一番下にいったときにfooterまでいかないように
-    $(window).on("scroll", (e) => {
+    $(window).on("scroll", e => {
       const st = $(window).scrollTop();
 
       const ftop = this.$f.offset().top - window.innerHeight;
