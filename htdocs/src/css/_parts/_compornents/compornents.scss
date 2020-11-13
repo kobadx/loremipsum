@@ -271,6 +271,9 @@ body.no-select {
   left: 0;
   width: 100%;
   z-index: 100;
+  opacity: 0;
+
+  display: none;
 }
 
 .cookie-inner {
@@ -331,4 +334,17 @@ body.no-select {
 .section {
   position: relative;
   z-index: 2;
+}
+
+/* --------------------------------------------------------------------------------
+*
+*   parallax
+*
+-------------------------------------------------------------------------------- */
+.parallaxOh {
+  overflow: hidden;
+}
+
+canvas {
+  opacity: 0;
 }

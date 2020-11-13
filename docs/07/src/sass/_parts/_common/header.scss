@@ -1,0 +1,118 @@
+/* --------------------------------------------------------------------------------
+*
+*   header
+*
+-------------------------------------------------------------------------------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header-inner {
+  padding: 55px 60px 0 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media only screen and (max-width: $bp01) {
+    padding: 30px 24px 0;
+  }
+}
+
+.header-logo {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.header-logo-link {
+  display: block;
+  width: 109px;
+  height: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 150%;
+  background: url(/assets/img/common/logo.png) no-repeat 0;
+  background-size: 109px auto;
+
+  @media only screen and (max-width: $bp01) {
+    width: 85px;
+    height: 25px;
+    background-size: 85px auto;
+  }
+
+  .is-blue & {
+    background-image: url(/assets/img/common/logo_blue.png);
+  }
+}
+
+.header-logo-img {
+  width: 109px;
+  height: auto;
+}
+
+.header-menu-btn {
+  display: block;
+  width: 62px;
+  height: 35px;
+  position: relative;
+  cursor: pointer;
+  // transform: translateY(-10px);
+
+  @media only screen and (max-width: $bp01) {
+    width: 44px;
+    height: 25px;
+  }
+}
+
+.header-menu-btn-line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  position: absolute;
+  transform-origin: right;
+  transform: scaleX(0);
+  .is-blue & {
+    background-color: #000ba3;
+  }
+
+  &:nth-child(1) {
+    top: 0;
+    left: 0;
+  }
+
+  &:nth-child(2) {
+    top: 10px;
+    left: 0;
+
+    @media only screen and (max-width: $bp01) {
+      top: 7px;
+    }
+  }
+}
+
+.header-menu-btn-text {
+  color: #fff;
+  font-size: 1.1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: block;
+  transform: translateX(10px);
+  opacity: 0;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 0.82rem;
+  }
+
+  .is-blue & {
+    color: #000ba3;
+  }
+}
+
+.menu {
+  display: none;
+}

@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+/* --------------------------------------------------------------------------------
+*
+*   index-recruit, index-news
+*
+-------------------------------------------------------------------------------- */
+.index-column {
+  position: relative;
+  margin-bottom: 140px;
+
+  .bg {
+    position: absolute;
+    width: 82%;
+    height: 106%;
+    background-color: rgba(0, 0, 0, 0.2);
+    right: 0;
+    top: -60px;
+  }
+}
+
+.index-column-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 20px;
+
+  @media only screen and (max-width: $bp01) {
+    display: block;
+  }
+}
+
+.index-recruit {
+  width: 46.4%;
+  flex: 0 0 46.4%;
+
+  @media only screen and (max-width: $bp01) {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+}
+
+.index-recruit-inner {
+}
+
+.index-recruit-img {
+  @media only screen and (max-width: $bp01) {
+    margin-bottom: 40px;
+  }
+}
+
+.index-recruit-img-item {
+  width: 100%;
+  height: auto;
+}
+
+.index-news {
+  width: 46.4%;
+  flex: 0 0 46.4%;
+
+  @media only screen and (max-width: $bp01) {
+    width: 100%;
+  }
+}
+
+.index-news-inner {
+}
+
+.index-news-list {
+  height: 262px;
+  overflow: auto;
+
+  @media only screen and (max-width: $bp01) {
+    height: 225px;
+    margin-bottom: 35px;
+  }
+}
+
+.index-news-item {
+  padding: 10px 0;
+  border-bottom: solid 1px #fff;
+}
+
+.index-news-head {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.index-news-date {
+  color: #fff;
+  font-size: 1.05rem;
+  margin-right: 15px;
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.1rem;
+  }
+}
+
+.index-news-text {
+  color: #fff;
+  font-size: 1.6rem;
+  position: relative;
+  display: block;
+
+  .arrow {
+    display: block;
+    position: absolute;
+    background: url(/assets/img/common/arrow_r_wht.png) no-repeat 0;
+    background-size: 52px auto;
+    width: 52px;
+    height: 8px;
+    right: 0;
+    bottom: 5px;
+  }
+
+  @media only screen and (max-width: $bp01) {
+    font-size: 1.25rem;
+  }
+}

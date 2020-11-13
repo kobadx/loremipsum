@@ -51665,6 +51665,14 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	var _Controller16 = _interopRequireDefault(_Controller15);
 	
+	var _Controller17 = __webpack_require__(61);
+	
+	var _Controller18 = _interopRequireDefault(_Controller17);
+	
+	var _Controller19 = __webpack_require__(62);
+	
+	var _Controller20 = _interopRequireDefault(_Controller19);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51677,6 +51685,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	//
 	//--------------------------------------------------
 	
+	var UAParser = __webpack_require__(63);
+	
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
 	
@@ -51685,6 +51695,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	
+	    _this.w = window.innerWidth;
+	    _this.isUEv = true;
+	    _this.result = UAParser();
 	    _this.setup();
 	    _this.setEvents();
 	    _this.onResize();
@@ -51696,39 +51709,63 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
+	      // hover btn
 	      $(".btn-primary").each(function (i, e) {
 	        new _Controller2.default(e);
 	      });
-	
-	      new _Controller4.default($(".tabWrap"));
-	
+	      // hover footer
 	      $(".footer-link").each(function (i, e) {
 	        new _Controller6.default(e);
 	      });
+	      // hover menu lang
 	      $(".menu-lang-link").each(function (i, e) {
 	        new _Controller6.default(e);
 	      });
+	      $(".HoverImg").each(function (i, e) {
+	        new _Controller12.default(e);
+	      });
 	
+	      //whitebgクラスがついてる要素がheaderとかぶったら、色を変える
+	      new _Controller20.default($(".header"), ".whitebg");
+	
+	      // tab
+	      new _Controller4.default($(".tabWrap"));
+	
+	      // menu
 	      this.menu = new _Controller8.default({
 	        $btn: $(".header-menu-btn"),
 	        $contents: $(".menu")
 	      });
-	      $(".parallax,.parallax2").each(function (i, e) {
+	
+	      // parallax box
+	      $(".parallax,.parallax2,.parallax3").each(function (i, e) {
+	        new _Controller10.default($(e), {
+	          ease: e.dataset.ease - 0,
+	          max: e.dataset.max - 0
+	        });
+	      });
+	      // parallax img
+	      $(".parallaxImg").each(function (i, e) {
+	        var val = 0.05 + (Math.random() - 0.5) * 0.07;
+	        var max = 200 + (Math.random() - 0.5) * 100;
+	        $(e).attr("data-ease", val);
+	
 	        new _Controller10.default($(e), {
 	          ease: e.dataset.ease - 0,
 	          max: e.dataset.max - 0
 	        });
 	      });
 	
-	      $(".HoverImg").each(function (i, e) {
-	        new _Controller12.default(e);
-	      });
-	
+	      // scroll 示唆
 	      this.scrollBtn = new _Controller14.default($(".scroll-btn"));
-	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "onU", this).call(this);
 	
+	      // KV
 	      this.kv = new _Controller16.default();
 	
+	      // cookie
+	      this.cookie = new _Controller18.default();
+	
+	      // opening
 	      this.show();
 	    }
 	  }, {
@@ -51739,6 +51776,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.kv.timeline(function (e) {
 	        _this2.scrollBtn.show();
 	        return _this2.menu.showBtn();
+	      }).then(function (e) {
+	        _this2.cookie.show();
 	      });
 	    }
 	  }, {
@@ -51753,17 +51792,23 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    }
 	  }, {
 	    key: "onResize",
-	    value: function onResize() {
-	      console.log("resize");
-	
-	      document.body.style.setProperty("--h", window.innerHeight + "px");
+	    value: function onResize(e) {
+	      if (!e) {
+	        document.body.style.setProperty("--h", window.innerHeight + "px");
+	      } else {
+	        if (this.result.device.type != "mobile" && this.result.device.type != "tablet" && this.w == window.innerWidth) {
+	          document.body.style.setProperty("--h", window.innerHeight + "px");
+	          this.w = window.innerWidth;
+	        }
+	      }
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
-	      $(window).on("resize", this.onResize.bind(this));
+	      // $(window).on("resize", this.onResize.bind(this));
+	      $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
 	    }
 	  }]);
 	
@@ -52009,9 +52054,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.tl = new TimelineMax();
 	      this.tl
 	      //hide
-	      .add(this.hide($prevContents, $prevBtn)).add(this.showBtn($nextBtn), 0)
+	      .add(this.hide($prevContents, $prevBtn), 0.0).add(this.showBtn($nextBtn), 0.0)
 	      //show
-	      .add(this.show($nextContents, $nextBtn));
+	      .add(this.show($nextContents, $nextBtn), 0.4);
 	    }
 	  }, {
 	    key: "killTL",
@@ -52026,7 +52071,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 1,
 	          y: 0,
 	          ease: Expo.easeOut,
@@ -52076,7 +52121,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      tl.add(this.hideBtn($btn));
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
-	        tl.to(item, 0.5, {
+	        tl.to(item, 0.8, {
 	          opacity: 0,
 	          y: -10,
 	          ease: Expo.easeOut
@@ -52432,6 +52477,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    _this.$btn = $btn;
 	    _this.$contents = $contents;
+	
+	    _this.isLock = false;
+	
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
@@ -52442,7 +52490,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    value: function setup() {
 	      this.setBG();
 	      this.$contents.find(".menu-item").each(function (i, e) {
-	        new _Controller2.default(e);
+	        new _Controller2.default(e, i);
 	      });
 	
 	      this.closeBtn = new _Controller4.default(this.$contents.find(".menu-close"));
@@ -52484,7 +52532,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      .add(this.renderer.show(function (e) {
 	        _this2.$contents.addClass("is-active");
 	        return _this2.closeBtn.show();
-	      }));
+	      })).add(function () {
+	        _this2.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "showBtn",
@@ -52503,7 +52553,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      //hide
 	      .add(this.renderer.hide(function (e) {
 	        return _this3.closeBtn.hide();
-	      }));
+	      })).add(function () {
+	        _this3.isLock = false;
+	      }, 1.0);
 	    }
 	  }, {
 	    key: "onResize",
@@ -52519,9 +52571,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
 	      this.$btn.on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.show();
 	      });
 	      this.$contents.find(".menu-close").on("click", function (e) {
+	        if (_this4.isLock) return;
+	        _this4.isLock = true;
 	        _this4.hide();
 	      });
 	    }
@@ -52598,63 +52654,50 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      var tl = new TimelineMax();
-	      var offset = 66;
-	      tl
+	      this.tlShow = new TimelineMax();
+	      this.tlShow
 	      //show svg
-	      .fromTo(this.$ele.find("polyline"), 0.75, {
+	      .fromTo(this.$ele.find("polyline"), 0.9, {
 	        drawSVG: "100% 100%"
 	      }, {
 	        drawSVG: "0% 100%",
 	        ease: Expo.easeOut
-	      })
+	      }, 0.0)
 	      //x
-	      .to(this.$ele.find("p"), 0.75, {
-	        x: this.$ele.find("svg").width() + 20,
+	      .to(this.$ele.find("p"), 0.7, {
+	        x: this.$ele.find("svg").width() + 10,
+	        z: 1,
 	        ease: Expo.easeOut
-	      }, 0);
-	
-	      return tl;
+	      }, 0.0);
 	    }
 	  }, {
 	    key: "hide",
 	    value: function hide(progress) {
-	      var tl = new TimelineMax();
-	      var offset = 66;
-	      var t = 0.75 - 0.75 * progress;
-	      tl
-	      //progress x
-	
+	      this.tlHide = new TimelineMax();
+	      this.tlHide
 	      //hide svg
-	      .to(this.$ele.find("polyline"), 0.75, {
+	      .to(this.$ele.find("polyline"), 0.6, {
 	        drawSVG: "100% 100%",
 	        ease: Expo.easeOut
-	      }, 0)
+	      }, 0.0)
 	      //x
 	      .to(this.$ele.find("p"), 0.75, {
 	        x: 0,
+	        z: 1,
 	        ease: Expo.easeOut
-	      }, 0.1);
-	
-	      return tl;
+	      }, 0.0);
 	    }
 	  }, {
 	    key: "onEnter",
 	    value: function onEnter() {
-	      // console.log(this.tl);
-	      // this.tl.kill();
-	      if (this.tl) this.tl.kill();
-	      this.tl = new TimelineMax();
-	
-	      this.tl.add(this.show());
+	      if (this.tlHide) this.tlHide.kill();
+	      this.show();
 	    }
 	  }, {
 	    key: "onLeave",
 	    value: function onLeave() {
-	      var progress = this.tl.progress();
-	      this.tl.kill();
-	      this.tl = new TimelineMax();
-	      this.tl.add(this.hide(progress));
+	      if (this.tlShow) this.tlShow.kill();
+	      this.hide();
 	    }
 	  }, {
 	    key: "setEvents",
@@ -53016,114 +53059,190 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "show",
 	    value: function show() {
+	      var _this = this;
+	
 	      var btnshow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
 	      var tl = new TimelineMax();
 	      this.$contents.css({
 	        display: "block"
 	      });
-	      tl.to(this.$contents.find(".bg"), 0.25, {
-	        opacity: 1,
-	        ease: Expo.easeOut
-	      }, 0);
-	      this.$contents.find(".bg span").each(function (i, e) {
-	        tl.to(e, 0.2, {
-	          "background-color": "rgb(200,200,200)",
-	          ease: Expo.easeOut
-	        }, i * 0.05);
-	        tl.to(e, 0.5, {
-	          "background-color": "rgb(243,243,243)",
-	          ease: Expo.easeOut
-	        }, i * 0.05 + 0.2);
-	        tl.to(e, 0.75, {
-	          scaleY: 1,
-	          ease: Expo.easeOut
-	        }, i * 0.05);
-	      });
-	      this.$contents.find(".menu-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: 0,
-	          opacity: 1,
-	          ease: Expo.easeOut,
-	          startAt: {
-	            x: 10
-	          }
-	        }, i * 0.05);
-	      });
-	      this.$contents.find(".menu-lang-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: 0,
-	          opacity: 1,
-	          ease: Expo.easeOut,
-	          startAt: {
-	            x: 10
-	          }
-	        }, i * 0.1 + 0.5);
-	      });
-	      tl.to(this.$contents.find(".menu-search"), 1, {
+	
+	      tl
+	      // bg
+	      .to(this.$contents.find(".bg"), 0.8, {
 	        opacity: 1,
 	        x: 0,
-	        ease: Expo.easeOut,
+	        z: 1,
 	        startAt: {
-	          x: 10
-	        }
-	      }, 0.6);
-	      tl.add(btnshow(), 0.7);
+	          x: 200,
+	          opacity: 0
+	        },
+	        ease: Expo.easeOut
+	      }, 0.0)
+	
+	      // bg line
+	      .add(function () {
+	        _this.$contents.find(".bg span").each(function (i, e) {
+	          tl
+	          // color 濃く
+	          .to(e, 0.2, {
+	            "background-color": "rgb(200,200,200)",
+	            ease: Expo.easeOut
+	          }, i * 0.05)
+	          // color 薄く
+	          .to(e, 0.5, {
+	            "background-color": "rgb(243,243,243)",
+	            ease: Expo.easeOut
+	          }, i * 0.05 + 0.2)
+	          // 線伸ばす
+	          .to(e, 0.75, {
+	            scaleY: 1,
+	            startAt: {
+	              scaleY: 0
+	            },
+	            ease: Expo.easeOut
+	          }, i * 0.05);
+	        });
+	      }, 0.0)
+	
+	      // item
+	      .add(function () {
+	        _this.$contents.find(".menu-item").each(function (i, e) {
+	          TweenMax.to(e, 0.7, {
+	            x: 0,
+	            opacity: 1,
+	            ease: Expo.easeOut,
+	            z: 1,
+	            startAt: {
+	              x: 20
+	            },
+	            delay: i * 0.045
+	          });
+	        });
+	      }, 0.3)
+	
+	      // lang item
+	      .add(function () {
+	        _this.$contents.find(".menu-lang-item").each(function (i, e) {
+	          TweenMax.to(e, 1.0, {
+	            x: 0,
+	            opacity: 1,
+	            ease: Expo.easeOut,
+	            z: 1,
+	            startAt: {
+	              x: 10
+	            },
+	            delay: i * 0.06
+	          });
+	        });
+	      }, 0.3 + 0.2)
+	
+	      // search
+	      .add(function () {
+	        TweenMax.to(_this.$contents.find(".menu-search"), 1.0, {
+	          opacity: 1,
+	          x: 0,
+	          ease: Expo.easeOut,
+	          startAt: {
+	            x: 10
+	          }
+	        });
+	      }, 0.3 + 0.4);
+	
+	      tl.add(btnshow(), 0.7); // ?
 	      return tl;
 	    }
 	  }, {
 	    key: "hide",
 	    value: function hide() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var btnhide = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
 	      var tl = new TimelineMax();
 	
+	      // item
 	      this.$contents.find(".menu-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: -10,
+	        TweenMax.to(e, 0.7, {
+	          x: 0,
 	          opacity: 0,
-	          ease: Expo.easeOut
-	        }, i * 0.05);
+	          ease: Expo.easeOut,
+	          delay: i * 0.01
+	        });
 	      });
+	
+	      // lang item
 	      this.$contents.find(".menu-lang-item").each(function (i, e) {
-	        tl.to(e, 1, {
-	          x: -10,
+	        TweenMax.to(e, 0.7, {
+	          x: 0,
 	          opacity: 0,
-	          ease: Expo.easeOut
-	        }, i * 0.1);
+	          ease: Expo.easeOut,
+	          delay: i * 0.02
+	        });
 	      });
-	      tl.to(this.$contents.find(".menu-search"), 1, {
+	
+	      tl
+	      // search
+	      .to(this.$contents.find(".menu-search"), 0.7, {
 	        opacity: 0,
-	        ease: Expo.easeOut,
-	        x: -10
-	      }, 0);
-	      tl.add(btnhide(), 0);
-	      this.$contents.find(".bg span").each(function (i, e) {
-	        var index = _this.$contents.find(".bg span").length - i - 1;
-	        tl.to(e, 0.2, {
-	          "background-color": "rgb(200,200,200)",
-	          ease: Expo.easeOut
-	        }, index * 0.05);
-	        tl.to(e, 0.5, {
-	          "background-color": "rgb(243,243,243)",
-	          ease: Expo.easeOut
-	        }, index * 0.05 + 0.2);
-	        tl.to(e, 0.75, {
-	          scaleY: 0,
-	          ease: Expo.easeOut
-	        }, index * 0.05);
-	      });
-	      tl.to(this.$contents.find(".bg"), 0.25, {
+	        x: 0,
+	        ease: Expo.easeOut
+	      }, 0.0);
+	
+	      // bg line
+	      // this.$contents.find(".bg span").each((i, e) => {
+	      //   const index = this.$contents.find(".bg span").length - i - 1;
+	      //   tl
+	      //     // color 濃く
+	      //     .to(
+	      //       e,
+	      //       0.2,
+	      //       {
+	      //         "background-color": "rgb(200,200,200)",
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05
+	      //     );
+	      //   tl
+	      //     // color 薄く
+	      //     .to(
+	      //       e,
+	      //       0.5,
+	      //       {
+	      //         "background-color": "rgb(243,243,243)",
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05 + 0.2
+	      //     );
+	      //   tl
+	      //     // 線伸ばす
+	      //     .to(
+	      //       e,
+	      //       0.75,
+	      //       {
+	      //         scaleY: 0,
+	      //         ease: Expo.easeOut,
+	      //       },
+	      //       index * 0.05
+	      //     );
+	      // });
+	
+	      tl
+	      // bg
+	      .to(this.$contents.find(".bg"), 0.4, {
 	        opacity: 0,
-	        ease: Expo.easeOut,
+	        x: 100,
+	        z: 1,
+	        ease: Power2.easeIn,
 	        onComplete: function onComplete() {
-	          _this.$contents.css({
+	          _this2.$contents.css({
 	            display: "none"
 	          });
 	        }
-	      }, 1);
+	      }, 0.0);
+	
+	      tl.add(btnhide(), 0); // ?
 	      return tl;
 	    }
 	  }]);
@@ -53183,6 +53302,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	
+	    _this.isUEv = true;
+	
 	    _this.$ele = $ele;
 	    _this.ease = ease;
 	    _this.max = max;
@@ -53213,7 +53334,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        }
 	      };
 	      this.reset();
-	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "onU", this).call(this);
 	    }
 	  }, {
 	    key: "scroll",
@@ -53242,12 +53362,14 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
 	
-	      this.target.style.transform = "translate(0, " + -this.renderedStyles.previous + "px)";
+	      this.target.style.transform = "translate3d(0, " + -this.renderedStyles.previous + "px, 0)";
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this3 = this;
+	
+	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	
 	      $(window).on("scroll", function (e) {
 	        _this3.scroll();
@@ -53325,10 +53447,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      tl
 	
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
-	        scale: 1.1,
+	      .to(this.$ele.find("img"), 1.2, {
+	        scale: 1.05,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.8, {
 	        opacity: 0.5,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -53341,10 +53463,10 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var tl = new TimelineMax();
 	      tl
 	      //img
-	      .to(this.$ele.find("img"), 1.75, {
+	      .to(this.$ele.find("img"), 1.2, {
 	        scale: 1,
 	        ease: Expo.easeOut
-	      }).to(this.$ele.find(".text"), 1, {
+	      }).to(this.$ele.find(".text"), 0.6, {
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0);
@@ -53556,6 +53678,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.name = "UIController";
 	      this.flag = new _Controller4.default();
 	      this.dom = new _Controller6.default();
+	      this.$c = $("canvas");
 	    }
 	  }, {
 	    key: "timeline",
@@ -53564,81 +53687,103 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	      var menuBtnShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
 	
-	      var tl = new TimelineMax({ delay: 0.0 });
-	
-	      tl
-	
-	      // ------------------------------------------------------------
-	      // canvas
-	      // ------------------------------------------------------------
-	
-	      // draw line
-	      // 広がる
-	      //   y,z
-	      .add(function () {
-	        _this2.flag.show();
-	      }, 1.0)
-	
-	      // effectを強める
-	      .add(function () {
-	        TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
-	          strength: 6,
-	          ease: Power2.easeInOut
-	        });
-	        // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
-	        //   radius: 3,
-	        //   ease: Power2.easeInOut,
-	        // });
-	      }, 1.0 + 1.5)
-	
-	      // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
-	      //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
-	      //     1frame強めの → this.frameか？
-	      //     3frame弱めでrandomなのを2、3回？
-	
-	      //   composerに入れる → soyフォルダに書いてるか？
-	      .add(function () {
-	        // camera
-	        var tl = new TimelineMax();
+	      return new Promise(function (resolve, reject) {
+	        var tl = new TimelineMax({ delay: 0.0 });
 	
 	        tl
-	        // ゆっくり引く
-	        .to(_this2.flag.setup.camera.position, 2.0, {
-	          z: _this2.flag.setup.defz,
-	          ease: Expo.easeInOut
-	        }, 0.0)
-	        // パッと引く
-	        .to(_this2.flag.setup.camera.position, 0.01, {
-	          z: _this2.flag.setup.defz * 0.85,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // this.flag.setup.effectBloom.threshold = 0.03;
-	            _this2.flag.setup.effectBloom.strength = 10;
-	            _this2.flag.setup.effectBloom.radius = 3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
-	          }
-	        }, 0.8)
-	        // 再度ゆっくり
-	        .to(_this2.flag.setup.camera.position, 4.5, {
-	          z: _this2.flag.setup.defz * 1,
-	          ease: Expo.easeOut,
-	          onStart: function onStart() {
-	            // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
-	            // this.flag.setup.effectBloom.threshold = 0.14;
-	            _this2.flag.setup.effectBloom.strength = 2;
-	            _this2.flag.setup.effectBloom.radius = 0.3;
-	            _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
-	          }
-	        }, 0.8 + 0.05);
-	      }, 4.0)
 	
-	      // ------------------------------------------------------------
-	      // dom
-	      // ------------------------------------------------------------
-	      .add(function () {
-	        _this2.dom.show(menuBtnShow);
-	        _this2.flag.bg.show();
-	      }, 4.0 + 0.9);
+	        // ------------------------------------------------------------
+	        // canvas
+	        // ------------------------------------------------------------
+	        // canvasをop1に
+	        .add(function () {
+	          TweenMax.to(_this2.$c, 2.0, {
+	            opacity: 1,
+	            ease: Power2.easeInOut
+	          });
+	        }, 0.0)
+	
+	        // draw line
+	        // 広がる
+	        //   y,z
+	        .add(function () {
+	          _this2.flag.show();
+	        }, 0.2)
+	
+	        // effectを強める
+	        .add(function () {
+	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
+	            strength: 6,
+	            ease: Power2.easeInOut
+	          });
+	          // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
+	          //   radius: 3,
+	          //   ease: Power2.easeInOut,
+	          // });
+	        }, 0.2 + 1.5)
+	
+	        // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
+	        //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
+	        //     1frame強めの → this.frameか？
+	        //     3frame弱めでrandomなのを2、3回？
+	
+	        //   composerに入れる → soyフォルダに書いてるか？
+	        .add(function () {
+	          // camera
+	          var tl = new TimelineMax();
+	
+	          tl
+	          // ゆっくり引く
+	          .to(_this2.flag.setup.camera.position, 2.0, {
+	            z: _this2.flag.setup.defz,
+	            ease: Expo.easeInOut
+	          }, 0.0)
+	          // パッと引く
+	          .to(_this2.flag.setup.camera.position, 0.01, {
+	            z: _this2.flag.setup.defz * 0.85,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              _this2.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+	              _this2.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+	              // this.flag.setup.effectBloom.threshold = 0.03;
+	              _this2.flag.setup.effectBloom.strength = 10;
+	              _this2.flag.setup.effectBloom.radius = 3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
+	            }
+	          }, 0.8)
+	          // 再度ゆっくり
+	          .to(_this2.flag.setup.camera.position, 4.5, {
+	            z: _this2.flag.setup.defz * 1.1,
+	            ease: Expo.easeOut,
+	            onStart: function onStart() {
+	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
+	              // this.flag.setup.effectBloom.threshold = 0.14;
+	              _this2.flag.setup.effectBloom.strength = 3;
+	              _this2.flag.setup.effectBloom.radius = 0.6;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
+	            }
+	          }, 0.8 + 0.05);
+	        }, 0.2 + 3.8)
+	
+	        // bg line
+	        .add(function () {
+	          //scrollを解除
+	          $(".id_top").removeClass("fixed");
+	          _this2.flag.bg.show();
+	        }, 0.2 + 3.8 + 1.2)
+	        // dom
+	        .add(function () {
+	          _this2.dom.show(menuBtnShow);
+	
+	          // frame数を抑える
+	          TweenMax.to(_this2.flag, 2.0, {
+	            fr: 4,
+	            ease: Power2.easeInOut
+	          });
+	        }, 0.2 + 3.8 + 0.9).add(function () {
+	          resolve();
+	        }, 0.2 + 6.0);
+	      });
 	    }
 	  }, {
 	    key: "setEvent",
@@ -53795,40 +53940,52 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      window.dat = new dat.GUI();
 	      this.$canvas = $(".canvas");
 	      this.bp = 768;
-	      this.per = this.$canvas.width() / 1280;
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.per > 1) this.per = 1;
 	
-	      this.speed = 0.1;
+	      this.mouseMove = true;
+	
+	      this.speed = 0.04;
+	
+	      this.disY = 0;
+	      this.dis = 0;
+	      this.defY = 0;
+	      this.tar = 0;
+	      this.st = 0;
+	      this.tarSt = 0;
+	
+	      this.fr = 1;
+	
+	      this.$f = $(".footer");
 	
 	      // layout
-	      var posi = [new THREE.Vector3(-window.innerWidth * 0.5 + 100, this.$canvas.height() * 0.5, 0), new THREE.Vector3(-window.innerWidth * 0.5 - 25, this.$canvas.height() * 0.5 - 800, 0)];
+	      var posi = [new THREE.Vector3(
+	      // -this.baseW * 0.5 + 100,
+	      0, this.$canvas.height() * 0.5, 0), new THREE.Vector3(
+	      // -this.baseW * 0.5 - 25,
+	      -125, this.$canvas.height() * 0.5 - 800, 0)];
 	
 	      // objects
 	      this.bg = new _Controller10.default();
 	      this.stick = new _Controller6.default(posi, 10);
 	      this.sail = new _Controller8.default(posi, 10);
 	
+	      this.wrap = new THREE.Group();
 	      this.obj = new THREE.Group();
 	
 	      this.obj.add(this.stick.obj);
 	      this.obj.add(this.sail.obj);
 	
-	      // layout
-	
-	      this.obj.position.x = window.innerWidth * 0.5 - 585;
-	
-	      this.obj.position.y = -window.innerHeight * 0.5 + 375;
-	
-	      if (this.$canvas.width() <= this.bp) {
-	        this.obj.position.x = window.innerWidth * 0.5 - 300;
-	        this.obj.scale.set(this.per + 0.05, this.per + 0.05, this.per + 0.05);
-	      }
 	      // this.obj.position.z = -1000
 	
 	      // add scene
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
-	      scene.add(this.obj);
+	      scene.add(this.bg.lightObj);
+	      this.wrap.add(this.obj);
+	      scene.add(this.wrap);
 	      scene.background = new THREE.Color(0x00076d);
 	      this.setup = new _Controller4.default(this.$canvas, this.obj, scene);
 	      // this.setup.scene.add();
@@ -53842,38 +53999,15 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        y: 0
 	      };
 	      // this.update();
-	    }
-	  }, {
-	    key: "setEvent",
-	    value: function setEvent() {
-	      var _this2 = this;
 	
-	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
-	      $(window).on("resize", function (e) {
-	        _this2.setup.onWindowResize();
-	        _this2.bg.resize();
-	        if (_this2.$canvas.width() <= _this2.bp) {
-	          var per = _this2.$canvas.width() / 1280;
-	          _this2.obj.scale.set(per + 0.05, per + 0.05, per + 0.05);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 300;
-	        } else {
-	          _this2.obj.scale.set(1, 1, 1);
-	          _this2.obj.position.x = window.innerWidth * 0.5 - 585;
-	        }
-	      });
-	      var interaction = window.dat.addFolder("interaction");
-	      this.mouseMove = false;
-	      interaction.add(this, "mouseMove");
+	      // layout
+	      this.defY = 0;
+	      this.obj.position.y = this.defY;
 	
-	      $(window).on("mousemove", function (e) {
-	        if (_this2.mouseMove) {
-	          _this2.mousePosi.x = e.pageX;
-	          _this2.mousePosi.y = e.pageY;
-	        } else {
-	          _this2.mousePosi.x = 0;
-	          _this2.mousePosi.y = 0;
-	        }
-	      });
+	      // resize
+	      this.onResize(true);
+	
+	      this.frame = 0;
 	    }
 	  }, {
 	    key: "reset",
@@ -53884,26 +54018,120 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.sail.show();
 	      this.stick.show();
 	      // this.bg.show();
+	
+	      // move Y
+	      // positionを正しい位置に
+	      var tarY = this.$canvas.width() <= this.bp ? 300 : 320;
+	      TweenMax.to(this, 1.5, {
+	        defY: -window.innerHeight * 0.5 + tarY,
+	        ease: Power2.easeInOut,
+	        delay: 2.0
+	      });
+	
+	      // TweenMax.to(this.obj.position, 1.5, {
+	      //   y: -window.innerHeight * 0.5 + 375,
+	      //   ease: Power2.easeInOut,
+	      //   delay: 2.0,
+	      // });
 	    }
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      // update
-	      this.bg.update({
-	        posi: this.setup.camera.position.z,
-	        depth: this.setup.defz
-	      });
-	      this.stick.update();
-	      this.sail.update();
-	      this.setup.render();
+	      this.frame++;
+	      if (this.frame % Math.floor(this.fr) == 0) {
+	        // update
+	        this.bg.update({
+	          posi: this.setup.camera.position.z,
+	          depth: this.setup.defz
+	        });
+	        this.stick.update();
+	        this.sail.update();
+	      }
 	
 	      // マウス インタラクション
 	      this.prevMosePosi = {
 	        x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
 	        y: Math.floor(MathUtils.lerp(this.prevMosePosi.y, this.mousePosi.y, this.speed) * 100) / 100
 	      };
-	      this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.3;
-	      this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.5) / window.innerHeight * 0.3;
+	      this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.15;
+	      this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight * 0.15;
+	
+	      // 一番下にいったときにfooterまでいかないように
+	      this.dis += (this.disY - this.dis) * 0.12;
+	      this.obj.position.y = this.defY - this.dis;
+	      // this.tar += (this.defY - this.tar) * 0.08;
+	      // this.obj.position.y = this.tar;
+	
+	      // this.tarSt += (this.st - this.tarSt) * 0.4;
+	      // this.wrap.position.y = this.tarSt;
+	
+	      this.setup.render();
+	    }
+	  }, {
+	    key: "onResize",
+	    value: function onResize() {
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	
+	      this.setup.onWindowResize(isFirst);
+	      this.bg.resize();
+	
+	      this.baseW = 1424;
+	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
+	      this.per = this.$canvas.width() / this.baseW;
+	      if (this.$canvas.width() <= this.bp) {
+	        this.obj.position.x = -35 * 4 * this.per;
+	
+	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
+	
+	        // this.obj.position.x = ;
+	        //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
+	      } else {
+	        // this.obj.position.x = this.baseW * 0.5 - 540;
+	        this.obj.scale.set(this.per, this.per, this.per);
+	        this.obj.position.x = -390 * this.per;
+	      }
+	
+	      // this.obj.updateMatrixWorld();
+	    }
+	  }, {
+	    key: "setEvent",
+	    value: function setEvent() {
+	      var _this2 = this;
+	
+	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
+	
+	      // resize
+	      $(window).on("resize", this.onResize.bind(this, false));
+	      // $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
+	
+	      // マウスの揺れ
+	      $(window).on("mousemove", function (e) {
+	        if (_this2.mouseMove) {
+	          _this2.mousePosi.x = e.clientX;
+	          _this2.mousePosi.y = e.clientY;
+	        } else {
+	          _this2.mousePosi.x = 0;
+	          _this2.mousePosi.y = 0;
+	        }
+	      });
+	
+	      // // 一番下にいったときにfooterまでいかないように
+	      $(window).on("scroll", function (e) {
+	        var st = $(window).scrollTop();
+	
+	        var ftop = _this2.$f.offset().top - window.innerHeight;
+	
+	        var dis = ftop - st;
+	        if (dis > 0) _this2.disY = 0;else _this2.disY = dis - 100;
+	      });
+	      // $(window).on("scroll", (e) => {
+	      //   var st = $(window).scrollTop();
+	      //   this.st = st;
+	      //   var ftop = this.$f.offset().top - window.innerHeight;
+	      //   if (st > ftop - 150) st = ftop - 150;
+	
+	      //   this.defY = -st + -window.innerHeight * 0.5 + 375;
+	      // });
 	    }
 	  }]);
 	
@@ -53961,7 +54189,17 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	  _createClass(ClassName, [{
 	    key: "init",
-	    value: function init() {}
+	    value: function init() {
+	      this.frame = 0;
+	      this.pixcels = 1.8;
+	
+	      // clearTimeout(this.Timer);
+	      // this.Timer = setTimeout(() => {
+	      //   TweenMax.to(this, 1.0, {
+	      //     pixcels: 1.4,
+	      //   });
+	      // }, 8000);
+	    }
 	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
@@ -53979,13 +54217,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "initCamera",
 	    value: function initCamera() {
-	      this.camera = new THREE.PerspectiveCamera(45, this.$dom.width() / this.$dom.height(), 1, 20000);
+	      this.camera = new THREE.PerspectiveCamera(45, this.$dom.width() / this.$dom.height(), 1, 10000);
 	      this.setCameraByPixel();
 	    }
 	  }, {
 	    key: "setCameraByPixel",
 	    value: function setCameraByPixel() {
-	      var isRisize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 	
 	      this.w = this.$dom.width();
 	      this.h = this.$dom.height();
@@ -53994,7 +54232,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var vpHeight = this.h;
 	      var z = vpHeight / (2 * Math.tan(vFOV / 2));
 	      this.defz = z * 1;
-	      this.z = isRisize ? z : z * 0.27;
+	      this.z = isFirst ? z * 0.5 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
@@ -54008,7 +54246,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _this2 = this;
 	
 	      this.renderer = new THREE.WebGLRenderer({
-	        antialias: true,
+	        antialias: false,
 	        alpha: true
 	      });
 	      var v = {
@@ -54044,9 +54282,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // 対象の明るさ: 1.9,
 	        // グローの半径: 0.36,
 	        対象の明るさ: 2,
-	        グローの半径: 0.3
+	        グローの半径: 0.4
 	      };
-	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
+	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
 	      this.effectBloom.threshold = param["しきい値"];
 	      this.effectBloom.strength = param["対象の明るさ"];
 	      this.effectBloom.radius = param["グローの半径"];
@@ -54063,27 +54301,31 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
 	      this.composer.addPass(toScreen);
-	      this.onWindowResize(true);
 	    }
 	  }, {
 	    key: "onWindowResize",
-	    value: function onWindowResize(isInit) {
+	    value: function onWindowResize(isFirst) {
 	      var w = this.$dom.width();
 	      var h = this.$dom.height();
-	      this.renderer.setPixelRatio(window.devicePixelRatio);
+	      this.setCameraByPixel(isFirst);
+	      this.renderer.setPixelRatio(this.pixcels);
 	      this.renderer.setSize(w, h);
+	      this.composer.setPixelRatio(this.pixcels);
 	      this.composer.setSize(w, h);
-	      this.composer.setPixelRatio(window.devicePixelRatio);
-	      this.setCameraByPixel(!isInit);
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
 	      // this.renderer.render(this.objScene, this.camera);
+	
 	      this.composer.render();
+	      // if (this.frame % 2 == 0) this.composer.render();
+	
 	      if (this.is_autoRender) {
 	        requestAnimationFrame(this.render.bind(this));
 	      }
+	
+	      this.frame++;
 	    }
 	  }]);
 	
@@ -54152,26 +54394,25 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    value: function update() {
 	      var _this2 = this;
 	
-	      var time = Date.now() / 5000;
+	      var time = Date.now() / 10000;
 	      ++this.TIME;
 	      this.chobisens.forEach(function (obj) {
 	        var points = obj.geometry.attributes.position.array;
+	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
-	        for (var i = 0; i < l; i++) {
-	          if (i % 3 == 2 && i != 2) {
-	            obj.geometry.attributes.position.needsUpdate = true;
-	            var n = noise.perlin2(i, time);
-	            var p = _this2.sin(_this2.TIME * -1, i) * n;
+	        var count = obj.geometry.attributes.position.count;
 	
-	            points[i] += p * 0.5;
+	        for (var i = 0; i < count; i++) {
+	          if (i == count - 1) {
+	            var n = noise.perlin2(obj.ss, time * 0.3);
+	            var p = Math.sin(obj.ss + _this2.TIME * 0.07) * n * 10;
+	
+	            points[i * 3 + 1] = obj.defY + p;
+	
+	            obj.geometry.attributes.position.needsUpdate = true;
 	          }
 	        }
 	      });
-	    }
-	  }, {
-	    key: "sin",
-	    value: function sin(t, i) {
-	      return 2 * Math.sin((t * 3 + i) / 20);
 	    }
 	  }, {
 	    key: "show",
@@ -54351,13 +54592,21 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var _v5 = v4.clone().sub(v1);
 	
 	      var l = _v5.length();
-	      for (var u = 0; u < 5; u++) {
-	        var p = _v5.clone().multiplyScalar(u / 5).add(v1);
-	        _points.push(p.x, p.y, p.z);
-	      }
+	      _points.push(v1.x, v1.y, v1.z);
+	      _points.push(v4.x, v4.y, v4.z);
+	      // for (var u = 0; u < 2; u++) {
+	      //   const p = _v5
+	      //     .clone()
+	      //     .multiplyScalar(u / 2)
+	      //     .add(v1);
+	      //   _points.push(p.x, p.y, p.z);
+	      // }
+	      console.log(_points, "chobi");
 	      _geometry2.addAttribute("position", new THREE.BufferAttribute(new Float32Array(_points), 3));
 	      var line = new THREE.Line(_geometry2, material);
 	      line.name = "chobiline";
+	      line.defY = v4.y;
+	      line.ss = Math.random() * 10000;
 	      obj.add(line);
 	    }
 	  }
@@ -54853,6 +55102,8 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	    // this.NUM = 1;
 	
+	    console.log(this.NUM);
+	
 	    this.param = {
 	      height: 50,
 	      speed: 3,
@@ -54878,7 +55129,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	          height: this.param.height,
 	          i: this.param.speed,
 	          offset: this.param["細かさ"],
-	          num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.4
+	          num: (100 - Math.abs(this.NUM * 0.5 - i) * 4.3) * 1.3
 	        });
 	        this.obj.add(line.obj);
 	        this.lines.push(line);
@@ -54898,19 +55149,15 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "update",
 	    value: function update() {
-	      var time = Date.now() / 5000 + Math.random() / 300 * 2 - 1 / 300;
-	      // noise.seed(time);
-	      // console.log(this.lines);
-	
 	      // update line
 	      this.lines.forEach(function (line, index) {
 	        // const time = (index + 1) * 0.0001;
 	
 	        // noise
-	        var i = index / window.noiseparam.wave;
-	        var n = noise.perlin2(i, time) * 10;
+	        // const i = index / window.noiseparam.wave;
+	        // let n = noise.perlin2(i, time) * 10;
 	        // n = Math.abs(n) > 5 ? n * 0.8 : n;
-	        line.update(n, index);
+	        line.update(index);
 	      });
 	    }
 	  }, {
@@ -54937,44 +55184,13 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        // positionを正しい位置に
 	        TweenMax.to(_this.obj.position, 3.0, {
 	          y: -35,
-	          ease: Power2.easeInOut
+	          ease: Expo.easeInOut
 	        });
 	      }, 1.5);
 	    }
 	  }, {
 	    key: "setEvents",
-	    value: function setEvents() {
-	      var _this2 = this;
-	
-	      // param
-	
-	      var _dat = dat.addFolder("flag");
-	      _dat.add(this.param, "height", 0, 500).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.height = i + e;
-	        });
-	      });
-	      _dat.add(this.param, "speed", 0, 10, 0.1).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.i = e;
-	        });
-	      });
-	      _dat.add(this.param, "細かさ", 0, 1000).onChange(function (e) {
-	        _this2.lines.forEach(function (line, i) {
-	          line.config.offset = e;
-	        });
-	      });
-	
-	      var noisedat = dat.addFolder("noise");
-	      window.noiseparam = {
-	        line: 2,
-	        wave: 70
-	        // wave2: 70
-	      };
-	      noisedat.add(window.noiseparam, "line", 0, 2);
-	      noisedat.add(window.noiseparam, "wave", 0, this.lines.length * 4);
-	      // noisedat.add(window.noiseparam, "wave2", 1, );
-	    }
+	    value: function setEvents() {}
 	  }, {
 	    key: "verticalLength",
 	    get: function get() {
@@ -55016,7 +55232,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    //height,i,offset,offset_x
 	    this.posi = posi;
 	    this.config = config;
-	    this.NUM = 200;
+	    this.NUM = 100;
 	    this.TIME = 0;
 	    this.fixDist = 1;
 	    this.color = 0x0047e9;
@@ -55041,7 +55257,15 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      vy: 0
 	    };
 	
+	    this.ookisa = 1;
+	    this.yureY = 1;
+	    this.yureZ = 1;
+	
+	    // this.fr = Math.floor(Math.random() * 2 + 1);
+	    // this.frame = 0;
+	
 	    this.setup();
+	    this.setEvents();
 	  }
 	
 	  _createClass(Controller, [{
@@ -55051,7 +55275,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      this.vec = [];
 	      this.points = [];
 	      for (var i = 0; i < this.config.num; i++) {
-	        var x = this.posi[0].x + i * (10 / 1.4);
+	        var x = this.posi[0].x + i * (10 / 1.3);
 	        var y = this.posi[0].y + this.sin(0, i);
 	        var z = this.posi[0].z;
 	
@@ -55211,45 +55435,38 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	
 	  }, {
 	    key: "update",
-	    value: function update() {
-	      var n = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-	      var index = arguments[1];
+	    value: function update(index) {
+	      // this.frame++;
+	      // if (this.frame % this.fr !== 0) return;
 	
 	      this.noiseTime += 0.005;
 	      this.noiseTime2 -= 0.002;
 	
-	      // update
-	      for (var _i = 0; _i < this.config.num; _i++) {
-	        var nd = this.nodes[_i];
+	      for (var i = 0; i < this.config.num; i++) {
+	        // update
+	        var nd = this.nodes[i];
 	
-	        nd.y = nd.defy + noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15;
-	        nd.z = nd.defz + Math.sin(nd.x * 0.008 - this.noiseTime * 3) * _i * 2 + noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * _i * 3.0;
+	        var rate = this.clamp(i / (this.config.num - 1), 0, 1.0);
+	        var val = this.outQuart(rate) * this.config.num;
 	
+	        // 揺れ
+	        nd.y = nd.defy + noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15 * this.yureY;
+	        nd.z = nd.defz + Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 * this.ookisa + noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * val * 2.0 * this.yureZ;
+	
+	        // spread motion用
 	        var y = this.lerp(nd.defy2, nd.y, this.t);
 	        var z = this.lerp(nd.defz, nd.z, this.t);
 	
-	        this.curve.points[_i].y = y;
-	        this.curve.points[_i].z = z;
-	      }
+	        this.curve.points[i].y = y;
+	        this.curve.points[i].z = z;
 	
-	      // draw
-	      // for (let i = 0; i < this.config.num; i++) {
-	      //   var y = this.nodes[i].y;
-	      //   var z = this.nodes[i].z;
-	
-	      //   this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
-	      //   this.obj.geometry.attributes.position.array[i * 3 + 2] = z;
-	      // }
-	
-	      // this.obj.geometry.attributes.position.array = [];
-	
-	      for (var i = 0; i < this.config.num; i++) {
+	        // 線伸びる処理
 	        var s = this.s;
 	        var e = this.e * (i / this.config.num);
 	        var t = this.clamp(s + e, 0.0, 1.0);
-	
 	        var v = this.curve.getPoint(t);
 	
+	        // draw
 	        this.obj.geometry.attributes.position.array[i * 3 + 0] = v.x;
 	        this.obj.geometry.attributes.position.array[i * 3 + 1] = v.y;
 	        this.obj.geometry.attributes.position.array[i * 3 + 2] = v.z;
@@ -55347,6 +55564,25 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      val = val > 1 ? 1 : val;
 	      return val01 + (val02 - val01) * val;
 	    }
+	  }, {
+	    key: "outExpo",
+	    value: function outExpo(t) {
+	      if (t == 1.0) return 1;else return -Math.pow(2, -10 * t) + 1;
+	    }
+	  }, {
+	    key: "outQuart",
+	    value: function outQuart(t) {
+	      --t;
+	      return 1.0 - t * t * t * t;
+	    }
+	  }, {
+	    key: "inExpo",
+	    value: function inExpo(t) {
+	      if (t == 0) return 0;else return Math.pow(2, 10 * (t - 1));
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {}
 	  }]);
 	
 	  return Controller;
@@ -55424,37 +55660,67 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    key: "setup",
 	    value: function setup() {
 	      this.obj = new THREE.Group();
+	      this.lightObj = new THREE.Group();
 	      this.bp = 768;
 	      var w = $(".canvas").width();
+	      this.w = w;
 	      var h = $(".canvas").height();
 	      //lごとに罫線
 	      var l = this.bp >= w ? 55 : 140;
 	      this.num = Math.ceil(w / l);
 	      this.obj.position.x = (w - this.num * l) * 0.5;
+	      this.lightObj.position.x = (w - this.num * l) * 0.5;
 	      this.obj.position.z = -2;
+	      this.lightObj.position.z = -2;
 	      // this.obj.position.;
 	
 	      for (var i = 0; i < this.num; i++) {
-	        var material = new MeshLineMaterial({
-	          color: new THREE.Color(0x9f9f9f),
-	          lineWidth: this.bp >= w ? 2 : 1,
-	          opacity: 1,
-	          transparent: true,
-	          dashOffset: 0,
-	          dashArray: 2 * h,
-	          dashRatio: 0.99
+	        var mesh = this.getObj({
+	          index: i,
+	          width: w,
+	          height: h,
+	          length: l
 	        });
-	        var point = [];
-	        var _w = -w * 0.5;
-	
-	        point.push(_w + i * l, h * 0.5, -1);
-	        point.push(_w + i * l, -h * 0.5, -1);
-	        var line = new MeshLine();
-	        line.setGeometry(point);
-	        var mesh = new THREE.Mesh(line.geometry, material);
-	
+	        var mesh2 = this.getObj({
+	          index: i,
+	          width: w,
+	          height: h,
+	          length: l
+	        });
 	        this.obj.add(mesh);
+	        this.lightObj.add(mesh2);
 	      }
+	    }
+	  }, {
+	    key: "getObj",
+	    value: function getObj(_ref) {
+	      var index = _ref.index,
+	          width = _ref.width,
+	          height = _ref.height,
+	          length = _ref.length,
+	          _ref$opacity = _ref.opacity,
+	          opacity = _ref$opacity === undefined ? 1 : _ref$opacity,
+	          _ref$dashOffset = _ref.dashOffset,
+	          dashOffset = _ref$dashOffset === undefined ? 0 : _ref$dashOffset;
+	
+	      var material = new MeshLineMaterial({
+	        color: new THREE.Color(0x9f9f9f),
+	        lineWidth: this.bp >= width ? 2 : 1,
+	        opacity: opacity,
+	        transparent: true,
+	        dashOffset: dashOffset,
+	        dashArray: 2 * height,
+	        dashRatio: 0.99
+	      });
+	      var point = [];
+	      var _w = -width * 0.5;
+	
+	      point.push(_w + index * length, height * 0.5, -1);
+	      point.push(_w + index * length, -height * 0.5, -1);
+	      var line = new MeshLine();
+	      line.setGeometry(point);
+	      var mesh = new THREE.Mesh(line.geometry, material);
+	      return mesh;
 	    }
 	  }, {
 	    key: "show",
@@ -55464,39 +55730,146 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      var h = $(".canvas").height();
 	      var num = this.obj.children.length * 0.5;
 	      this.obj.children.forEach(function (children, index) {
+	        // 色濃く
 	        tl.to(children.material, 0.25, {
 	          opacity: 0.05,
 	          ease: Expo.easeIn
-	        }, Math.abs(index - num) * 0.02);
-	        tl.to(children.material, 1, {
+	        }, 0 * 0.02);
+	        // 色薄く
+	        tl.to(children.material, 0.7, {
 	          opacity: 0.005,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.25);
+	        }, 0 * 0.02 + 0.25);
+	        // 伸びる
 	        tl.to(children.material.uniforms.dashOffset, 2, {
 	          value: -2,
 	          ease: Expo.easeOut
-	        }, Math.abs(index - num) * 0.02 + 0.05);
+	        }, 0 * 0.02 + 0.05);
+	      });
+	
+	      tl.add(function (e) {
+	        // this.timeline();
 	      });
 	      return tl;
 	    }
 	  }, {
+	    key: "timeline",
+	    value: function timeline() {
+	      var _this = this;
+	
+	      var l = this.lightObj.children.length;
+	      var index = Math.floor(Math.random() * l);
+	      var d = Math.random() * 2 + 3;
+	      var target = this.lightObj.children[index];
+	      var tl = new TimelineMax();
+	      console.log(target);
+	      tl
+	      //opacity
+	      .to(target.material, 1.2, {
+	        opacity: 0.1,
+	        ease: Expo.easeOut
+	      }, d);
+	
+	      //線をひく
+	      tl.to(target.material.uniforms.dashOffset, 0.75, {
+	        value: -2,
+	        ease: Expo.easeOut
+	      }, d).to(target.position, 0.75, {
+	        y: -window.innerHeight * 1.1,
+	        ease: Expo.easeOut
+	      }, d + 0.2);
+	
+	      //loop
+	      tl.add(function (e) {
+	        target.material.uniforms.dashOffset.value = 0;
+	        target.material.opacity = 1;
+	        target.position.y = 0;
+	        _this.timeline();
+	      }, "+= 1");
+	    }
+	  }, {
 	    key: "resize",
 	    value: function resize() {
-	      this.obj.children = [];
-	      this.setup();
-	      console.log(this.obj);
-	      this.obj.children.forEach(function (children) {
-	        children.material.opacity = 0.005;
-	        children.material.uniforms.dashOffset.value = -2;
-	      });
+	      var w = $(".canvas").width();
+	      var l = this.bp >= w ? 55 : 140;
+	      var num = Math.ceil(w / l);
+	      var h = $(".canvas").height();
+	      this.moveLine(w, l, h);
+	      if (num > this.num) {
+	        for (var i = 0; i < num - this.num; i++) {
+	          var material = new MeshLineMaterial({
+	            color: new THREE.Color(0x9f9f9f),
+	            lineWidth: this.bp >= w ? 2 : 1,
+	            opacity: 0.005,
+	            transparent: true,
+	            dashOffset: -2,
+	            dashArray: 2 * h,
+	            dashRatio: 0.99
+	          });
+	          var point = [];
+	          var _w = -w * 0.5;
+	          var index = this.num + i;
+	          var mesh = this.getObj({
+	            index: index,
+	            width: w,
+	            height: h,
+	            length: l,
+	            dashOffset: -2,
+	            opacity: 0.005
+	          });
+	          var mesh2 = this.getObj({
+	            index: index,
+	            width: w,
+	            height: h,
+	            length: l
+	          });
+	
+	          this.obj.add(mesh);
+	          this.lightObj.add(mesh2);
+	        }
+	        this.num = num;
+	      }
+	    }
+	  }, {
+	    key: "moveLine",
+	    value: function moveLine(w, l, h) {
+	      var cl = this.obj.children.length;
+	      for (var i = 0; i < cl; i++) {
+	        var obj = this.obj.children[i];
+	        obj.geometry.dispose();
+	        var point = [];
+	        var _w = -w * 0.5;
+	        point.push(_w + i * l, h * 0.5, -1);
+	        point.push(_w + i * l, -h * 0.5, -1);
+	        var line = new MeshLine();
+	        line.setGeometry(point);
+	        obj.geometry = line.geometry;
+	        obj.material.lineWidth = this.bp >= w ? 2 : 1;
+	        // const geometry =
+	      }
+	
+	      for (var _i = 0; _i < cl; _i++) {
+	        var _obj = this.lightObj.children[_i];
+	        _obj.geometry.dispose();
+	        var _point = [];
+	        var _w2 = -w * 0.5;
+	        _point.push(_w2 + _i * l, h * 0.5, -1);
+	        _point.push(_w2 + _i * l, -h * 0.5, -1);
+	        var _line = new MeshLine();
+	        _line.setGeometry(_point);
+	        _obj.geometry = _line.geometry;
+	        _obj.material.lineWidth = this.bp >= w ? 2 : 1;
+	        // const geometry =
+	      }
 	    }
 	  }, {
 	    key: "update",
-	    value: function update(_ref) {
-	      var posi = _ref.posi,
-	          depth = _ref.depth;
+	    value: function update(_ref2) {
+	      var posi = _ref2.posi,
+	          depth = _ref2.depth;
 	
 	      this.obj.position.z = posi - depth;
+	      this.lightObj.position.z = posi - depth;
 	    }
 	  }]);
 	
@@ -58138,9 +58511,9 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        opacity: 1,
 	        y: 0,
 	        ease: Expo.easeOut
-	      }, 1.5)
+	      }, 0.7)
 	      // btn
-	      .add(menuBtnShow(), 1.5);
+	      .add(menuBtnShow(), 0.7);
 	    }
 	  }, {
 	    key: "update",
@@ -58148,32 +58521,29 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "canvasStop",
 	    value: function canvasStop(st) {
-	      // if (!$("body").hasClass("isIE")) return;
-	      var ftop = $(".footer").offset().top - window.innerHeight;
-	      if (ftop <= st) {
-	        $(".canvasWrap").css({
-	          bottom: this.ft
-	        });
-	
-	        $(".canvasWrap").addClass("absolute");
-	      } else {
-	        $(".canvasWrap").removeClass("absolute");
-	        $(".canvasWrap").css({
-	          bottom: ""
-	        });
-	      }
+	      // // if (!$("body").hasClass("isIE")) return;
+	      // const ftop = $(".footer").offset().top - window.innerHeight;
+	      // if (ftop <= st) {
+	      //   $(".canvasWrap").css({
+	      //     bottom: this.ft,
+	      //   });
+	      //   $(".canvasWrap").addClass("absolute");
+	      // } else {
+	      //   $(".canvasWrap").removeClass("absolute");
+	      //   $(".canvasWrap").css({
+	      //     bottom: "",
+	      //   });
+	      // }
 	    }
 	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
-	      var _this2 = this;
-	
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, false);
 	
-	      $(window).on("scroll", function (e) {
-	        var st = $(window).scrollTop();
-	        _this2.canvasStop(st);
-	      });
+	      // $(window).on("scroll", (e) => {
+	      //   const st = $(window).scrollTop();
+	      //   this.canvasStop(st);
+	      // });
 	    }
 	  }, {
 	    key: "reset",
@@ -58184,6 +58554,1236 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	}(_Controller2.default);
 	
 	exports.default = Controller;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Controller = function () {
+	  function Controller() {
+	    _classCallCheck(this, Controller);
+	
+	    this.setEvents();
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "show",
+	    value: function show() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 1,
+	        ease: Expo.easeOut
+	      });
+	    }
+	  }, {
+	    key: "hide",
+	    value: function hide() {
+	      var tl = new TimelineMax();
+	      tl.to(".cookie", 0.5, {
+	        opacity: 0,
+	        ease: Expo.easeOut,
+	        onComplete: function onComplete() {
+	          $(".cookie").remove();
+	        }
+	      });
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {
+	      var _this = this;
+	
+	      $(".cookie .btn").on("click", function (e) {
+	        _this.hide();
+	        return false;
+	      });
+	    }
+	  }]);
+	
+	  return Controller;
+	}();
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+	
+	var _Base2 = __webpack_require__(15);
+	
+	var _Base3 = _interopRequireDefault(_Base2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
+	//
+	//  Controller
+	//
+	//--------------------------------------------------
+	
+	var Controller = function (_Base) {
+	  _inherits(Controller, _Base);
+	
+	  function Controller($ele, targetClass) {
+	    _classCallCheck(this, Controller);
+	
+	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
+	
+	    _this.$ele = $ele;
+	    _this.targetClass = targetClass;
+	    _this.setup();
+	    _this.setEvents();
+	    return _this;
+	  }
+	
+	  _createClass(Controller, [{
+	    key: "setup",
+	    value: function setup() {
+	      this.bp = 1364;
+	      this.scroll();
+	    }
+	  }, {
+	    key: "scroll",
+	    value: function scroll() {
+	      if (this.bp <= window.innerWidth) return;
+	      var st = $(window).scrollTop();
+	      var headerHeight = this.$ele.height();
+	      var isWhite = false;
+	      $(this.targetClass).each(function (i, e) {
+	        var t = $(e).offset().top;
+	        var h = $(e).outerHeight();
+	        if (t - st < headerHeight && t + h - st > headerHeight) {
+	          isWhite = true;
+	        }
+	      });
+	      this.$ele.toggleClass("is-blue", isWhite);
+	    }
+	  }, {
+	    key: "setEvents",
+	    value: function setEvents() {
+	      var _this2 = this;
+	
+	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
+	
+	      $(window).on("scroll", function (e) {
+	        _this2.scroll();
+	      });
+	    }
+	  }]);
+	
+	  return Controller;
+	}(_Base3.default);
+	
+	exports.default = Controller;
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/**
+	 * UAParser.js v0.7.17
+	 * Lightweight JavaScript-based User-Agent string parser
+	 * https://github.com/faisalman/ua-parser-js
+	 *
+	 * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
+	 * Dual licensed under GPLv2 & MIT
+	 */
+	
+	(function (window, undefined) {
+	
+	    'use strict';
+	
+	    //////////////
+	    // Constants
+	    /////////////
+	
+	
+	    var LIBVERSION  = '0.7.17',
+	        EMPTY       = '',
+	        UNKNOWN     = '?',
+	        FUNC_TYPE   = 'function',
+	        UNDEF_TYPE  = 'undefined',
+	        OBJ_TYPE    = 'object',
+	        STR_TYPE    = 'string',
+	        MAJOR       = 'major', // deprecated
+	        MODEL       = 'model',
+	        NAME        = 'name',
+	        TYPE        = 'type',
+	        VENDOR      = 'vendor',
+	        VERSION     = 'version',
+	        ARCHITECTURE= 'architecture',
+	        CONSOLE     = 'console',
+	        MOBILE      = 'mobile',
+	        TABLET      = 'tablet',
+	        SMARTTV     = 'smarttv',
+	        WEARABLE    = 'wearable',
+	        EMBEDDED    = 'embedded';
+	
+	
+	    ///////////
+	    // Helper
+	    //////////
+	
+	
+	    var util = {
+	        extend : function (regexes, extensions) {
+	            var margedRegexes = {};
+	            for (var i in regexes) {
+	                if (extensions[i] && extensions[i].length % 2 === 0) {
+	                    margedRegexes[i] = extensions[i].concat(regexes[i]);
+	                } else {
+	                    margedRegexes[i] = regexes[i];
+	                }
+	            }
+	            return margedRegexes;
+	        },
+	        has : function (str1, str2) {
+	          if (typeof str1 === "string") {
+	            return str2.toLowerCase().indexOf(str1.toLowerCase()) !== -1;
+	          } else {
+	            return false;
+	          }
+	        },
+	        lowerize : function (str) {
+	            return str.toLowerCase();
+	        },
+	        major : function (version) {
+	            return typeof(version) === STR_TYPE ? version.replace(/[^\d\.]/g,'').split(".")[0] : undefined;
+	        },
+	        trim : function (str) {
+	          return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	        }
+	    };
+	
+	
+	    ///////////////
+	    // Map helper
+	    //////////////
+	
+	
+	    var mapper = {
+	
+	        rgx : function (ua, arrays) {
+	
+	            //var result = {},
+	            var i = 0, j, k, p, q, matches, match;//, args = arguments;
+	
+	            /*// construct object barebones
+	            for (p = 0; p < args[1].length; p++) {
+	                q = args[1][p];
+	                result[typeof q === OBJ_TYPE ? q[0] : q] = undefined;
+	            }*/
+	
+	            // loop through all regexes maps
+	            while (i < arrays.length && !matches) {
+	
+	                var regex = arrays[i],       // even sequence (0,2,4,..)
+	                    props = arrays[i + 1];   // odd sequence (1,3,5,..)
+	                j = k = 0;
+	
+	                // try matching uastring with regexes
+	                while (j < regex.length && !matches) {
+	
+	                    matches = regex[j++].exec(ua);
+	
+	                    if (!!matches) {
+	                        for (p = 0; p < props.length; p++) {
+	                            match = matches[++k];
+	                            q = props[p];
+	                            // check if given property is actually array
+	                            if (typeof q === OBJ_TYPE && q.length > 0) {
+	                                if (q.length == 2) {
+	                                    if (typeof q[1] == FUNC_TYPE) {
+	                                        // assign modified match
+	                                        this[q[0]] = q[1].call(this, match);
+	                                    } else {
+	                                        // assign given value, ignore regex match
+	                                        this[q[0]] = q[1];
+	                                    }
+	                                } else if (q.length == 3) {
+	                                    // check whether function or regex
+	                                    if (typeof q[1] === FUNC_TYPE && !(q[1].exec && q[1].test)) {
+	                                        // call function (usually string mapper)
+	                                        this[q[0]] = match ? q[1].call(this, match, q[2]) : undefined;
+	                                    } else {
+	                                        // sanitize match using given regex
+	                                        this[q[0]] = match ? match.replace(q[1], q[2]) : undefined;
+	                                    }
+	                                } else if (q.length == 4) {
+	                                        this[q[0]] = match ? q[3].call(this, match.replace(q[1], q[2])) : undefined;
+	                                }
+	                            } else {
+	                                this[q] = match ? match : undefined;
+	                            }
+	                        }
+	                    }
+	                }
+	                i += 2;
+	            }
+	            // console.log(this);
+	            //return this;
+	        },
+	
+	        str : function (str, map) {
+	
+	            for (var i in map) {
+	                // check if array
+	                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
+	                    for (var j = 0; j < map[i].length; j++) {
+	                        if (util.has(map[i][j], str)) {
+	                            return (i === UNKNOWN) ? undefined : i;
+	                        }
+	                    }
+	                } else if (util.has(map[i], str)) {
+	                    return (i === UNKNOWN) ? undefined : i;
+	                }
+	            }
+	            return str;
+	        }
+	    };
+	
+	
+	    ///////////////
+	    // String map
+	    //////////////
+	
+	
+	    var maps = {
+	
+	        browser : {
+	            oldsafari : {
+	                version : {
+	                    '1.0'   : '/8',
+	                    '1.2'   : '/1',
+	                    '1.3'   : '/3',
+	                    '2.0'   : '/412',
+	                    '2.0.2' : '/416',
+	                    '2.0.3' : '/417',
+	                    '2.0.4' : '/419',
+	                    '?'     : '/'
+	                }
+	            }
+	        },
+	
+	        device : {
+	            amazon : {
+	                model : {
+	                    'Fire Phone' : ['SD', 'KF']
+	                }
+	            },
+	            sprint : {
+	                model : {
+	                    'Evo Shift 4G' : '7373KT'
+	                },
+	                vendor : {
+	                    'HTC'       : 'APA',
+	                    'Sprint'    : 'Sprint'
+	                }
+	            }
+	        },
+	
+	        os : {
+	            windows : {
+	                version : {
+	                    'ME'        : '4.90',
+	                    'NT 3.11'   : 'NT3.51',
+	                    'NT 4.0'    : 'NT4.0',
+	                    '2000'      : 'NT 5.0',
+	                    'XP'        : ['NT 5.1', 'NT 5.2'],
+	                    'Vista'     : 'NT 6.0',
+	                    '7'         : 'NT 6.1',
+	                    '8'         : 'NT 6.2',
+	                    '8.1'       : 'NT 6.3',
+	                    '10'        : ['NT 6.4', 'NT 10.0'],
+	                    'RT'        : 'ARM'
+	                }
+	            }
+	        }
+	    };
+	
+	
+	    //////////////
+	    // Regex map
+	    /////////////
+	
+	
+	    var regexes = {
+	
+	        browser : [[
+	
+	            // Presto based
+	            /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
+	            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
+	            /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
+	            /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
+	            ], [NAME, VERSION], [
+	
+	            /(opios)[\/\s]+([\w\.]+)/i                                          // Opera mini on iphone >= 8.0
+	            ], [[NAME, 'Opera Mini'], VERSION], [
+	
+	            /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
+	            ], [[NAME, 'Opera'], VERSION], [
+	
+	            // Mixed
+	            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+	            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
+	                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
+	
+	            // Trident based
+	            /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
+	                                                                                // Avant/IEMobile/SlimBrowser/Baidu
+	            /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
+	
+	            // Webkit/KHTML based
+	            /(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
+	            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser)\/([\w\.-]+)/i
+	                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser
+	            ], [NAME, VERSION], [
+	
+	            /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
+	            ], [[NAME, 'IE'], VERSION], [
+	
+	            /(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
+	            ], [NAME, VERSION], [
+	
+	            /(yabrowser)\/([\w\.]+)/i                                           // Yandex
+	            ], [[NAME, 'Yandex'], VERSION], [
+	
+	            /(puffin)\/([\w\.]+)/i                                              // Puffin
+	            ], [[NAME, 'Puffin'], VERSION], [
+	
+	            /((?:[\s\/])uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i
+	                                                                                // UCBrowser
+	            ], [[NAME, 'UCBrowser'], VERSION], [
+	
+	            /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
+	            ], [[NAME, /_/g, ' '], VERSION], [
+	
+	            /(micromessenger)\/([\w\.]+)/i                                      // WeChat
+	            ], [[NAME, 'WeChat'], VERSION], [
+	
+	            /(QQ)\/([\d\.]+)/i                                                  // QQ, aka ShouQ
+	            ], [NAME, VERSION], [
+	
+	            /m?(qqbrowser)[\/\s]?([\w\.]+)/i                                    // QQBrowser
+	            ], [NAME, VERSION], [
+	
+	            /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
+	            ], [VERSION, [NAME, 'MIUI Browser']], [
+	
+	            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android
+	            ], [VERSION, [NAME, 'Facebook']], [
+	
+	            /headlesschrome(?:\/([\w\.]+)|\s)/i                                 // Chrome Headless
+	            ], [VERSION, [NAME, 'Chrome Headless']], [
+	
+	            /\swv\).+(chrome)\/([\w\.]+)/i                                      // Chrome WebView
+	            ], [[NAME, /(.+)/, '$1 WebView'], VERSION], [
+	
+	            /((?:oculus|samsung)browser)\/([\w\.]+)/i
+	            ], [[NAME, /(.+(?:g|us))(.+)/, '$1 $2'], VERSION], [                // Oculus / Samsung Browser
+	
+	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
+	            ], [VERSION, [NAME, 'Android Browser']], [
+	
+	            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i
+	                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
+	            ], [NAME, VERSION], [
+	
+	            /(dolfin)\/([\w\.]+)/i                                              // Dolphin
+	            ], [[NAME, 'Dolphin'], VERSION], [
+	
+	            /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
+	            ], [[NAME, 'Chrome'], VERSION], [
+	
+	            /(coast)\/([\w\.]+)/i                                               // Opera Coast
+	            ], [[NAME, 'Opera Coast'], VERSION], [
+	
+	            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
+	            ], [VERSION, [NAME, 'Firefox']], [
+	
+	            /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
+	            ], [VERSION, [NAME, 'Mobile Safari']], [
+	
+	            /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
+	            ], [VERSION, NAME], [
+	
+	            /webkit.+?(gsa)\/([\w\.]+).+?(mobile\s?safari|safari)(\/[\w\.]+)/i  // Google Search Appliance on iOS
+	            ], [[NAME, 'GSA'], VERSION], [
+	
+	            /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
+	            ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
+	
+	            /(konqueror)\/([\w\.]+)/i,                                          // Konqueror
+	            /(webkit|khtml)\/([\w\.]+)/i
+	            ], [NAME, VERSION], [
+	
+	            // Gecko based
+	            /(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
+	            ], [[NAME, 'Netscape'], VERSION], [
+	            /(swiftfox)/i,                                                      // Swiftfox
+	            /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
+	                                                                                // IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
+	            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
+	                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
+	            /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
+	
+	            // Other
+	            /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
+	                                                                                // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf/Sleipnir
+	            /(links)\s\(([\w\.]+)/i,                                            // Links
+	            /(gobrowser)\/?([\w\.]+)*/i,                                        // GoBrowser
+	            /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
+	            /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
+	            ], [NAME, VERSION]
+	
+	            /* /////////////////////
+	            // Media players BEGIN
+	            ////////////////////////
+	
+	            , [
+	
+	            /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
+	            /(coremedia) v((\d+)[\w\._]+)/i
+	            ], [NAME, VERSION], [
+	
+	            /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
+	            ], [NAME, VERSION], [
+	
+	            /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
+	            ], [NAME, VERSION], [
+	
+	            /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
+	                                                                                // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
+	                                                                                // NSPlayer/PSP-InternetRadioPlayer/Videos
+	            /(clementine|music player daemon)\s((\d+)[\w\.-]+)/i,               // Clementine/MPD
+	            /(lg player|nexplayer)\s((\d+)[\d\.]+)/i,
+	            /player\/(nexplayer|lg player)\s((\d+)[\w\.-]+)/i                   // NexPlayer/LG Player
+	            ], [NAME, VERSION], [
+	            /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
+	            ], [NAME, VERSION], [
+	
+	            /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
+	            ], [[NAME, 'Flip Player'], VERSION], [
+	
+	            /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
+	                                                                                // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
+	            ], [NAME], [
+	
+	            /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
+	                                                                                // Gstreamer
+	            ], [NAME, VERSION], [
+	
+	            /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
+	            /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
+	                                                                                // Java/urllib/requests/wget/cURL
+	            /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
+	            ], [NAME, VERSION], [
+	
+	            /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
+	            ], [[NAME, /_/g, ' '], VERSION], [
+	
+	            /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
+	                                                                                // MPlayer SVN
+	            ], [NAME, VERSION], [
+	
+	            /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
+	            ], [NAME, VERSION], [
+	
+	            /(mplayer)/i,                                                       // MPlayer (no other info)
+	            /(yourmuze)/i,                                                      // YourMuze
+	            /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
+	            ], [NAME], [
+	
+	            /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
+	            ], [NAME, VERSION], [
+	
+	            /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
+	            ], [NAME, VERSION], [
+	
+	            /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
+	            ], [NAME, VERSION], [
+	
+	            /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
+	            /(winamp)\s((\d+)[\w\.-]+)/i,
+	            /(winamp)mpeg\/((\d+)[\w\.-]+)/i
+	            ], [NAME, VERSION], [
+	
+	            /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
+	                                                                                // inlight radio
+	            ], [NAME], [
+	
+	            /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
+	                                                                                // QuickTime/RealMedia/RadioApp/RadioClientApplication/
+	                                                                                // SoundTap/Totem/Stagefright/Streamium
+	            ], [NAME, VERSION], [
+	
+	            /(smp)((\d+)[\d\.]+)/i                                              // SMP
+	            ], [NAME, VERSION], [
+	
+	            /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
+	            /(vlc)\/((\d+)[\w\.-]+)/i,
+	            /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
+	            /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
+	            /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
+	            ], [NAME, VERSION], [
+	
+	            /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
+	            /(windows-media-player)\/((\d+)[\w\.-]+)/i
+	            ], [[NAME, /-/g, ' '], VERSION], [
+	
+	            /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
+	                                                                                // Windows Media Server
+	            ], [VERSION, [NAME, 'Windows']], [
+	
+	            /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
+	            ], [NAME, VERSION], [
+	
+	            /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
+	            /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
+	            ], [[NAME, 'rad.io'], VERSION]
+	
+	            //////////////////////
+	            // Media players END
+	            ////////////////////*/
+	
+	        ],
+	
+	        cpu : [[
+	
+	            /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i                     // AMD64
+	            ], [[ARCHITECTURE, 'amd64']], [
+	
+	            /(ia32(?=;))/i                                                      // IA32 (quicktime)
+	            ], [[ARCHITECTURE, util.lowerize]], [
+	
+	            /((?:i[346]|x)86)[;\)]/i                                            // IA32
+	            ], [[ARCHITECTURE, 'ia32']], [
+	
+	            // PocketPC mistakenly identified as PowerPC
+	            /windows\s(ce|mobile);\sppc;/i
+	            ], [[ARCHITECTURE, 'arm']], [
+	
+	            /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i                           // PowerPC
+	            ], [[ARCHITECTURE, /ower/, '', util.lowerize]], [
+	
+	            /(sun4\w)[;\)]/i                                                    // SPARC
+	            ], [[ARCHITECTURE, 'sparc']], [
+	
+	            /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+;))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
+	                                                                                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
+	            ], [[ARCHITECTURE, util.lowerize]]
+	        ],
+	
+	        device : [[
+	
+	            /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
+	            ], [MODEL, VENDOR, [TYPE, TABLET]], [
+	
+	            /applecoremedia\/[\w\.]+ \((ipad)/                                  // iPad
+	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, TABLET]], [
+	
+	            /(apple\s{0,1}tv)/i                                                 // Apple TV
+	            ], [[MODEL, 'Apple TV'], [VENDOR, 'Apple']], [
+	
+	            /(archos)\s(gamepad2?)/i,                                           // Archos
+	            /(hp).+(touchpad)/i,                                                // HP TouchPad
+	            /(hp).+(tablet)/i,                                                  // HP Tablet
+	            /(kindle)\/([\w\.]+)/i,                                             // Kindle
+	            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
+	            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
+	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	
+	            /(kf[A-z]+)\sbuild\/[\w\.]+.*silk\//i                               // Kindle Fire HD
+	            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
+	            /(sd|kf)[0349hijorstuw]+\sbuild\/[\w\.]+.*silk\//i                  // Fire Phone
+	            ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
+	
+	            /\((ip[honed|\s\w*]+);.+(apple)/i                                   // iPod/iPhone
+	            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
+	            /\((ip[honed|\s\w*]+);/i                                            // iPod/iPhone
+	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, MOBILE]], [
+	
+	            /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
+	            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]+)*/i,
+	                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Meizu/Motorola/Polytron
+	            /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
+	            /(asus)-?(\w+)/i                                                    // Asus
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	            /\(bb10;\s(\w+)/i                                                   // BlackBerry 10
+	            ], [MODEL, [VENDOR, 'BlackBerry'], [TYPE, MOBILE]], [
+	                                                                                // Asus Tablets
+	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone)/i
+	            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
+	
+	            /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
+	            /(sony)?(?:sgp.+)\sbuild\//i
+	            ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Tablet'], [TYPE, TABLET]], [
+	            /android.+\s([c-g]\d{4}|so[-l]\w+)\sbuild\//i
+	            ], [MODEL, [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+	
+	            /\s(ouya)\s/i,                                                      // Ouya
+	            /(nintendo)\s([wids3u]+)/i                                          // Nintendo
+	            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
+	
+	            /android.+;\s(shield)\sbuild/i                                      // Nvidia
+	            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, CONSOLE]], [
+	
+	            /(playstation\s[34portablevi]+)/i                                   // Playstation
+	            ], [MODEL, [VENDOR, 'Sony'], [TYPE, CONSOLE]], [
+	
+	            /(sprint\s(\w+))/i                                                  // Sprint Phones
+	            ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
+	
+	            /(lenovo)\s?(S(?:5000|6000)+(?:[-][\w+]))/i                         // Lenovo tablets
+	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	
+	            /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
+	            /(zte)-(\w+)*/i,                                                    // ZTE
+	            /(alcatel|geeksphone|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
+	                                                                                // Alcatel/GeeksPhone/Lenovo/Nexian/Panasonic/Sony
+	            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
+	
+	            /(nexus\s9)/i                                                       // HTC Nexus 9
+	            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
+	
+	            /d\/huawei([\w\s-]+)[;\)]/i,
+	            /(nexus\s6p)/i                                                      // Huawei
+	            ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
+	
+	            /(microsoft);\s(lumia[\s\w]+)/i                                     // Microsoft Lumia
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	
+	            /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
+	            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
+	            /(kin\.[onetw]{3})/i                                                // Microsoft Kin
+	            ], [[MODEL, /\./g, ' '], [VENDOR, 'Microsoft'], [TYPE, MOBILE]], [
+	
+	                                                                                // Motorola
+	            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
+	            /mot[\s-]?(\w+)*/i,
+	            /(XT\d{3,4}) build\//i,
+	            /(nexus\s6)/i
+	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
+	            /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
+	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
+	
+	            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i            // HbbTV devices
+	            ], [[VENDOR, util.trim], [MODEL, util.trim], [TYPE, SMARTTV]], [
+	
+	            /hbbtv.+maple;(\d+)/i
+	            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, 'Samsung'], [TYPE, SMARTTV]], [
+	
+	            /\(dtv[\);].+(aquos)/i                                              // Sharp
+	            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
+	
+	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
+	            /((SM-T\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
+	            /smart-tv.+(samsung)/i
+	            ], [VENDOR, [TYPE, SMARTTV], MODEL], [
+	            /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-\w[\w\d]+))/i,
+	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+	            /sec-((sgh\w+))/i
+	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
+	
+	            /sie-(\w+)*/i                                                       // Siemens
+	            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
+	
+	            /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
+	            /(nokia)[\s_-]?([\w-]+)*/i
+	            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
+	
+	            /android\s3\.[\s\w;-]{10}(a\d{3})/i                                 // Acer
+	            ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
+	
+	            /android.+([vl]k\-?\d{3})\s+build/i                                 // LG Tablet
+	            ], [MODEL, [VENDOR, 'LG'], [TYPE, TABLET]], [
+	            /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i                     // LG Tablet
+	            ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
+	            /(lg) netcast\.tv/i                                                 // LG SmartTV
+	            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+	            /(nexus\s[45])/i,                                                   // LG
+	            /lg[e;\s\/-]+(\w+)*/i,
+	            /android.+lg(\-?[\d\w]+)\s+build/i
+	            ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
+	
+	            /android.+(ideatab[a-z0-9\-\s]+)/i                                  // Lenovo
+	            ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
+	
+	            /linux;.+((jolla));/i                                               // Jolla
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	
+	            /((pebble))app\/[\d\.]+\s/i                                         // Pebble
+	            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
+	
+	            /android.+;\s(oppo)\s?([\w\s]+)\sbuild/i                            // OPPO
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	
+	            /crkey/i                                                            // Google Chromecast
+	            ], [[MODEL, 'Chromecast'], [VENDOR, 'Google']], [
+	
+	            /android.+;\s(glass)\s\d/i                                          // Google Glass
+	            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
+	
+	            /android.+;\s(pixel c)\s/i                                          // Google Pixel C
+	            ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
+	
+	            /android.+;\s(pixel xl|pixel)\s/i                                   // Google Pixel
+	            ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
+	
+	            /android.+(\w+)\s+build\/hm\1/i,                                    // Xiaomi Hongmi 'numeric' models
+	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
+	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d\w)?)\s+build/i,    // Xiaomi Mi
+	            /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+)?)\s+build/i      // Redmi Phones
+	            ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
+	            /android.+(mi[\s\-_]*(?:pad)?(?:[\s_]*[\w\s]+)?)\s+build/i          // Mi Pad tablets
+	            ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
+	            /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu Tablet
+	            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, TABLET]], [
+	
+	            /android.+a000(1)\s+build/i                                         // OnePlus
+	            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
+	
+	            /android.+[;\/]\s*(RCT[\d\w]+)\s+build/i                            // RCA Tablets
+	            ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Venue[\d\s]*)\s+build/i                          // Dell Venue Tablets
+	            ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Q[T|M][\d\w]+)\s+build/i                         // Verizon Tablet
+	            ], [MODEL, [VENDOR, 'Verizon'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s+(Barnes[&\s]+Noble\s+|BN[RT])(V?.*)\s+build/i     // Barnes & Noble Tablet
+	            ], [[VENDOR, 'Barnes & Noble'], MODEL, [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s+(TM\d{3}.*\b)\s+build/i                           // Barnes & Noble Tablet
+	            ], [MODEL, [VENDOR, 'NuVision'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(zte)?.+(k\d{2})\s+build/i                        // ZTE K Series Tablet
+	            ], [[VENDOR, 'ZTE'], MODEL, [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(gen\d{3})\s+build.*49h/i                         // Swiss GEN Mobile
+	            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, MOBILE]], [
+	
+	            /android.+[;\/]\s*(zur\d{3})\s+build/i                              // Swiss ZUR Tablet
+	            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*((Zeki)?TB.*\b)\s+build/i                         // Zeki Tablets
+	            ], [MODEL, [VENDOR, 'Zeki'], [TYPE, TABLET]], [
+	
+	            /(android).+[;\/]\s+([YR]\d{2}x?.*)\s+build/i,
+	            /android.+[;\/]\s+(Dragon[\-\s]+Touch\s+|DT)(.+)\s+build/i          // Dragon Touch Tablet
+	            ], [[VENDOR, 'Dragon Touch'], MODEL, [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(NS-?.+)\s+build/i                                // Insignia Tablets
+	            ], [MODEL, [VENDOR, 'Insignia'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*((NX|Next)-?.+)\s+build/i                         // NextBook Tablets
+	            ], [MODEL, [VENDOR, 'NextBook'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Xtreme\_?)?(V(1[045]|2[015]|30|40|60|7[05]|90))\s+build/i
+	            ], [[VENDOR, 'Voice'], MODEL, [TYPE, MOBILE]], [                    // Voice Xtreme Phones
+	
+	            /android.+[;\/]\s*(LVTEL\-?)?(V1[12])\s+build/i                     // LvTel Phones
+	            ], [[VENDOR, 'LvTel'], MODEL, [TYPE, MOBILE]], [
+	
+	            /android.+[;\/]\s*(V(100MD|700NA|7011|917G).*\b)\s+build/i          // Envizen Tablets
+	            ], [MODEL, [VENDOR, 'Envizen'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(.*\b)\s+build/i             // Le Pan Tablets
+	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Trio[\s\-]*.*)\s+build/i                         // MachSpeed Tablets
+	            ], [MODEL, [VENDOR, 'MachSpeed'], [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*(Trinity)[\-\s]*(T\d{3})\s+build/i                // Trinity Tablets
+	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	
+	            /android.+[;\/]\s*TU_(1491)\s+build/i                               // Rotor Tablets
+	            ], [MODEL, [VENDOR, 'Rotor'], [TYPE, TABLET]], [
+	
+	            /android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
+	            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
+	
+	            /android.+(Gigaset)[\s\-]+(Q.+)\s+build/i                           // Gigaset Tablets
+	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
+	
+	            /\s(tablet|tab)[;\/]/i,                                             // Unidentifiable Tablet
+	            /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
+	            ], [[TYPE, util.lowerize], VENDOR, MODEL], [
+	
+	            /(android.+)[;\/].+build/i                                          // Generic Android Device
+	            ], [MODEL, [VENDOR, 'Generic']]
+	
+	
+	        /*//////////////////////////
+	            // TODO: move to string map
+	            ////////////////////////////
+	
+	            /(C6603)/i                                                          // Sony Xperia Z C6603
+	            ], [[MODEL, 'Xperia Z C6603'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+	            /(C6903)/i                                                          // Sony Xperia Z 1
+	            ], [[MODEL, 'Xperia Z 1'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
+	
+	            /(SM-G900[F|H])/i                                                   // Samsung Galaxy S5
+	            ], [[MODEL, 'Galaxy S5'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+	            /(SM-G7102)/i                                                       // Samsung Galaxy Grand 2
+	            ], [[MODEL, 'Galaxy Grand 2'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+	            /(SM-G530H)/i                                                       // Samsung Galaxy Grand Prime
+	            ], [[MODEL, 'Galaxy Grand Prime'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+	            /(SM-G313HZ)/i                                                      // Samsung Galaxy V
+	            ], [[MODEL, 'Galaxy V'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+	            /(SM-T805)/i                                                        // Samsung Galaxy Tab S 10.5
+	            ], [[MODEL, 'Galaxy Tab S 10.5'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
+	            /(SM-G800F)/i                                                       // Samsung Galaxy S5 Mini
+	            ], [[MODEL, 'Galaxy S5 Mini'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
+	            /(SM-T311)/i                                                        // Samsung Galaxy Tab 3 8.0
+	            ], [[MODEL, 'Galaxy Tab 3 8.0'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
+	
+	            /(T3C)/i                                                            // Advan Vandroid T3C
+	            ], [MODEL, [VENDOR, 'Advan'], [TYPE, TABLET]], [
+	            /(ADVAN T1J\+)/i                                                    // Advan Vandroid T1J+
+	            ], [[MODEL, 'Vandroid T1J+'], [VENDOR, 'Advan'], [TYPE, TABLET]], [
+	            /(ADVAN S4A)/i                                                      // Advan Vandroid S4A
+	            ], [[MODEL, 'Vandroid S4A'], [VENDOR, 'Advan'], [TYPE, MOBILE]], [
+	
+	            /(V972M)/i                                                          // ZTE V972M
+	            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, MOBILE]], [
+	
+	            /(i-mobile)\s(IQ\s[\d\.]+)/i                                        // i-mobile IQ
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	            /(IQ6.3)/i                                                          // i-mobile IQ IQ 6.3
+	            ], [[MODEL, 'IQ 6.3'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
+	            /(i-mobile)\s(i-style\s[\d\.]+)/i                                   // i-mobile i-STYLE
+	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
+	            /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
+	            ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
+	
+	            /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
+	            ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
+	
+	            /////////////
+	            // END TODO
+	            ///////////*/
+	
+	        ],
+	
+	        engine : [[
+	
+	            /windows.+\sedge\/([\w\.]+)/i                                       // EdgeHTML
+	            ], [VERSION, [NAME, 'EdgeHTML']], [
+	
+	            /(presto)\/([\w\.]+)/i,                                             // Presto
+	            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,     // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
+	            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
+	            /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
+	            ], [NAME, VERSION], [
+	
+	            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
+	            ], [VERSION, NAME]
+	        ],
+	
+	        os : [[
+	
+	            // Windows based
+	            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
+	            ], [NAME, VERSION], [
+	            /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
+	            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s]+\w)*/i,                  // Windows Phone
+	            /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
+	            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
+	            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
+	            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
+	
+	            // Mobile/Embedded OS
+	            /\((bb)(10);/i                                                      // BlackBerry 10
+	            ], [[NAME, 'BlackBerry'], VERSION], [
+	            /(blackberry)\w*\/?([\w\.]+)*/i,                                    // Blackberry
+	            /(tizen)[\/\s]([\w\.]+)/i,                                          // Tizen
+	            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]+)*/i,
+	                                                                                // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki
+	            /linux;.+(sailfish);/i                                              // Sailfish OS
+	            ], [NAME, VERSION], [
+	            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i                 // Symbian
+	            ], [[NAME, 'Symbian'], VERSION], [
+	            /\((series40);/i                                                    // Series 40
+	            ], [NAME], [
+	            /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
+	            ], [[NAME, 'Firefox OS'], VERSION], [
+	
+	            // Console
+	            /(nintendo|playstation)\s([wids34portablevu]+)/i,                   // Nintendo/Playstation
+	
+	            // GNU/Linux based
+	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
+	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
+	            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]+)*/i,
+	                                                                                // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
+	                                                                                // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
+	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
+	            /(gnu)\s?([\w\.]+)*/i                                               // GNU
+	            ], [NAME, VERSION], [
+	
+	            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
+	            ], [[NAME, 'Chromium OS'], VERSION],[
+	
+	            // Solaris
+	            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
+	            ], [[NAME, 'Solaris'], VERSION], [
+	
+	            // BSD based
+	            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
+	            ], [NAME, VERSION],[
+	
+	            /(haiku)\s(\w+)/i                                                  // Haiku
+	            ], [NAME, VERSION],[
+	
+	            /cfnetwork\/.+darwin/i,
+	            /ip[honead]+(?:.*os\s([\w]+)\slike\smac|;\sopera)/i                 // iOS
+	            ], [[VERSION, /_/g, '.'], [NAME, 'iOS']], [
+	
+	            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,
+	            /(macintosh|mac(?=_powerpc)\s)/i                                    // Mac OS
+	            ], [[NAME, 'Mac OS'], [VERSION, /_/g, '.']], [
+	
+	            // Other
+	            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
+	            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
+	            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
+	                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
+	            /(unix)\s?([\w\.]+)*/i                                              // UNIX
+	            ], [NAME, VERSION]
+	        ]
+	    };
+	
+	
+	    /////////////////
+	    // Constructor
+	    ////////////////
+	    /*
+	    var Browser = function (name, version) {
+	        this[NAME] = name;
+	        this[VERSION] = version;
+	    };
+	    var CPU = function (arch) {
+	        this[ARCHITECTURE] = arch;
+	    };
+	    var Device = function (vendor, model, type) {
+	        this[VENDOR] = vendor;
+	        this[MODEL] = model;
+	        this[TYPE] = type;
+	    };
+	    var Engine = Browser;
+	    var OS = Browser;
+	    */
+	    var UAParser = function (uastring, extensions) {
+	
+	        if (typeof uastring === 'object') {
+	            extensions = uastring;
+	            uastring = undefined;
+	        }
+	
+	        if (!(this instanceof UAParser)) {
+	            return new UAParser(uastring, extensions).getResult();
+	        }
+	
+	        var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
+	        var rgxmap = extensions ? util.extend(regexes, extensions) : regexes;
+	        //var browser = new Browser();
+	        //var cpu = new CPU();
+	        //var device = new Device();
+	        //var engine = new Engine();
+	        //var os = new OS();
+	
+	        this.getBrowser = function () {
+	            var browser = { name: undefined, version: undefined };
+	            mapper.rgx.call(browser, ua, rgxmap.browser);
+	            browser.major = util.major(browser.version); // deprecated
+	            return browser;
+	        };
+	        this.getCPU = function () {
+	            var cpu = { architecture: undefined };
+	            mapper.rgx.call(cpu, ua, rgxmap.cpu);
+	            return cpu;
+	        };
+	        this.getDevice = function () {
+	            var device = { vendor: undefined, model: undefined, type: undefined };
+	            mapper.rgx.call(device, ua, rgxmap.device);
+	            return device;
+	        };
+	        this.getEngine = function () {
+	            var engine = { name: undefined, version: undefined };
+	            mapper.rgx.call(engine, ua, rgxmap.engine);
+	            return engine;
+	        };
+	        this.getOS = function () {
+	            var os = { name: undefined, version: undefined };
+	            mapper.rgx.call(os, ua, rgxmap.os);
+	            return os;
+	        };
+	        this.getResult = function () {
+	            return {
+	                ua      : this.getUA(),
+	                browser : this.getBrowser(),
+	                engine  : this.getEngine(),
+	                os      : this.getOS(),
+	                device  : this.getDevice(),
+	                cpu     : this.getCPU()
+	            };
+	        };
+	        this.getUA = function () {
+	            return ua;
+	        };
+	        this.setUA = function (uastring) {
+	            ua = uastring;
+	            //browser = new Browser();
+	            //cpu = new CPU();
+	            //device = new Device();
+	            //engine = new Engine();
+	            //os = new OS();
+	            return this;
+	        };
+	        return this;
+	    };
+	
+	    UAParser.VERSION = LIBVERSION;
+	    UAParser.BROWSER = {
+	        NAME    : NAME,
+	        MAJOR   : MAJOR, // deprecated
+	        VERSION : VERSION
+	    };
+	    UAParser.CPU = {
+	        ARCHITECTURE : ARCHITECTURE
+	    };
+	    UAParser.DEVICE = {
+	        MODEL   : MODEL,
+	        VENDOR  : VENDOR,
+	        TYPE    : TYPE,
+	        CONSOLE : CONSOLE,
+	        MOBILE  : MOBILE,
+	        SMARTTV : SMARTTV,
+	        TABLET  : TABLET,
+	        WEARABLE: WEARABLE,
+	        EMBEDDED: EMBEDDED
+	    };
+	    UAParser.ENGINE = {
+	        NAME    : NAME,
+	        VERSION : VERSION
+	    };
+	    UAParser.OS = {
+	        NAME    : NAME,
+	        VERSION : VERSION
+	    };
+	    //UAParser.Utils = util;
+	
+	    ///////////
+	    // Export
+	    //////////
+	
+	
+	    // check js environment
+	    if (typeof(exports) !== UNDEF_TYPE) {
+	        // nodejs env
+	        if (typeof module !== UNDEF_TYPE && module.exports) {
+	            exports = module.exports = UAParser;
+	        }
+	        // TODO: test!!!!!!!!
+	        /*
+	        if (require && require.main === module && process) {
+	            // cli
+	            var jsonize = function (arr) {
+	                var res = [];
+	                for (var i in arr) {
+	                    res.push(new UAParser(arr[i]).getResult());
+	                }
+	                process.stdout.write(JSON.stringify(res, null, 2) + '\n');
+	            };
+	            if (process.stdin.isTTY) {
+	                // via args
+	                jsonize(process.argv.slice(2));
+	            } else {
+	                // via pipe
+	                var str = '';
+	                process.stdin.on('readable', function() {
+	                    var read = process.stdin.read();
+	                    if (read !== null) {
+	                        str += read;
+	                    }
+	                });
+	                process.stdin.on('end', function () {
+	                    jsonize(str.replace(/\n$/, '').split('\n'));
+	                });
+	            }
+	        }
+	        */
+	        exports.UAParser = UAParser;
+	    } else {
+	        // requirejs env (optional)
+	        if ("function" === FUNC_TYPE && __webpack_require__(64)) {
+	            !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	                return UAParser;
+	            }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        } else if (window) {
+	            // browser env
+	            window.UAParser = UAParser;
+	        }
+	    }
+	
+	    // jQuery/Zepto specific (optional)
+	    // Note:
+	    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
+	    //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
+	    //   and we should catch that.
+	    var $ = window && (window.jQuery || window.Zepto);
+	    if (typeof $ !== UNDEF_TYPE) {
+	        var parser = new UAParser();
+	        $.ua = parser.getResult();
+	        $.ua.get = function () {
+	            return parser.getUA();
+	        };
+	        $.ua.set = function (uastring) {
+	            parser.setUA(uastring);
+	            var result = parser.getResult();
+	            for (var prop in result) {
+	                $.ua[prop] = result[prop];
+	            }
+	        };
+	    }
+	
+	})(typeof window === 'object' ? window : this);
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ })
 /******/ ]);

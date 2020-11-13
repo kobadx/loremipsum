@@ -18,15 +18,21 @@
 #wrapper.id_top {
   position: relative;
   @import "./_page/top/**/*.scss";
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }
 
 .canvasWrap {
   width: 100%;
   // padding-top: (950/1280) * 100%;
-  height: 100vh;
-  height: var(--h);
+  height: calc(100vh + 100px);
+  // height: var(--h);
   position: fixed;
-  top: 0;
+  top: -50px;
   left: 0;
   pointer-events: none;
   // height: 0;

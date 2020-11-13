@@ -43,8 +43,8 @@ export default class ClassName extends Base {
     var vpHeight = this.h;
     var z = vpHeight / (2 * Math.tan(vFOV / 2));
     this.defz = z * 1;
-    // this.z = z * 0.27;
-    this.z = z * 1;
+    this.z = z * 0.27;
+    // this.z = z * 1;
     this.camera.position.set(0, 0, this.z);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -59,14 +59,14 @@ export default class ClassName extends Base {
       alpha: true,
     });
     const v = {
-      画面の明るさ: 1.3,
+      強さ1: 1.3,
     };
 
     // this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.toneMappingExposure = Math.pow(v["画面の明るさ"], 4.0);
-    this._dat = dat.addFolder("glow");
+    this.renderer.toneMappingExposure = Math.pow(v["強さ1"], 4.0);
+    this._dat = dat.addFolder("グロー");
     // console.log(Math.pow(v.p, 4.0));
-    this._dat.add(v, "画面の明るさ", 0.1, 2).onChange((e) => {
+    this._dat.add(v, "強さ1", 0.1, 2).onChange((e) => {
       this.renderer.toneMappingExposure = Math.pow(e, 4.0);
       // console.log(Math.pow(e, 4.0));
     });
@@ -87,7 +87,7 @@ export default class ClassName extends Base {
       しきい値: 0.139,
       // 対象の明るさ: 1.9,
       // グローの半径: 0.36,
-      対象の明るさ: 2,
+      強さ2: 2,
       グローの半径: 0.3,
     };
     this.effectBloom = new THREE.UnrealBloomPass(
@@ -103,12 +103,12 @@ export default class ClassName extends Base {
       this.camera
     );
     this.effectBloom.threshold = param["しきい値"];
-    this.effectBloom.strength = param["対象の明るさ"];
+    this.effectBloom.strength = param["強さ2"];
     this.effectBloom.radius = param["グローの半径"];
-    this._dat.add(param, "しきい値", 0, 1).onChange((e) => {
-      this.effectBloom.threshold = e;
-    });
-    this._dat.add(param, "対象の明るさ", 0, 3).onChange((e) => {
+    // this._dat.add(param, "しきい値", 0, 1).onChange((e) => {
+    //   this.effectBloom.threshold = e;
+    // });
+    this._dat.add(param, "強さ2", 0, 3).onChange((e) => {
       this.effectBloom.strength = e;
     });
     this._dat.add(param, "グローの半径", 0, 1).onChange((e) => {

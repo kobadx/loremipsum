@@ -16,6 +16,9 @@ export default class Controller extends Base {
     super();
     this.$btn = $btn;
     this.$contents = $contents;
+
+    this.isLock = false;
+
     this.setup();
     this.setEvents();
   }
@@ -23,7 +26,7 @@ export default class Controller extends Base {
   setup() {
     this.setBG();
     this.$contents.find(".menu-item").each((i, e) => {
-      new HoverArrow(e);
+      new HoverArrow(e, i);
     });
 
     this.closeBtn = new CloseBtn(this.$contents.find(".menu-close"));
@@ -61,7 +64,10 @@ export default class Controller extends Base {
           this.$contents.addClass("is-active");
           return this.closeBtn.show();
         })
-      );
+      )
+      .add(() => {
+        this.isLock = false;
+      }, 1.0);
   }
 
   showBtn() {
@@ -78,7 +84,10 @@ export default class Controller extends Base {
         this.renderer.hide(e => {
           return this.closeBtn.hide();
         })
-      );
+      )
+      .add(() => {
+        this.isLock = false;
+      }, 1.0);
   }
 
   onResize() {
@@ -90,9 +99,13 @@ export default class Controller extends Base {
     super.setEvents();
 
     this.$btn.on("click", e => {
+      if (this.isLock) return;
+      this.isLock = true;
       this.show();
     });
     this.$contents.find(".menu-close").on("click", e => {
+      if (this.isLock) return;
+      this.isLock = true;
       this.hide();
     });
   }

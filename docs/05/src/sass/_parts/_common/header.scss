@@ -9,7 +9,6 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  // opacity: 0;
 }
 
 .header-inner {
@@ -25,6 +24,7 @@
 
 .header-logo {
   opacity: 0;
+  transform: translateY(-10px);
 }
 
 .header-logo-link {
@@ -59,8 +59,7 @@
   height: 35px;
   position: relative;
   cursor: pointer;
-
-  opacity: 0;
+  // transform: translateY(-10px);
 
   @media only screen and (max-width: $bp01) {
     width: 44px;
@@ -74,7 +73,8 @@
   height: 1px;
   background-color: #fff;
   position: absolute;
-
+  transform-origin: right;
+  transform: scaleX(0);
   .is-blue & {
     background-color: #000ba3;
   }
@@ -100,6 +100,9 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  display: block;
+  transform: translateX(10px);
+  opacity: 0;
 
   @media only screen and (max-width: $bp01) {
     font-size: 0.82rem;

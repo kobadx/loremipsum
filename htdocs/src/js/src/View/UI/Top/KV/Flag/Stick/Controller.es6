@@ -22,7 +22,7 @@ export default class Controller {
     this.obj.add(this.base2);
     this.obj.add(this.cap);
     this.chobisens = [];
-    this.getMesh(this.obj).map(obj => {
+    this.getMesh(this.obj).map((obj) => {
       if (obj.name == "chobiline") this.chobisens.push(obj);
     });
 
@@ -30,25 +30,25 @@ export default class Controller {
   }
 
   update() {
-    const time = Date.now() / 5000;
+    const time = Date.now() / 10000;
     ++this.TIME;
-    this.chobisens.forEach(obj => {
+    this.chobisens.forEach((obj) => {
       const points = obj.geometry.attributes.position.array;
+      // console.log(obj.geometry.attributes.position);
       const l = points.length;
-      for (var i = 0; i < l; i++) {
-        if (i % 3 == 2 && i != 2) {
-          obj.geometry.attributes.position.needsUpdate = true;
-          const n = noise.perlin2(i, time);
-          const p = this.sin(this.TIME * -1, i) * n;
+      var count = obj.geometry.attributes.position.count;
 
-          points[i] += p * 0.5;
+      for (var i = 0; i < count; i++) {
+        if (i == count - 1) {
+          const n = noise.perlin2(obj.ss, time * 0.3);
+          const p = Math.sin(obj.ss + this.TIME * 0.07) * n * 10;
+
+          points[i * 3 + 1] = obj.defY + p;
+
+          obj.geometry.attributes.position.needsUpdate = true;
         }
       }
     });
-  }
-
-  sin(t, i) {
-    return 2 * Math.sin((t * 3 + i) / 20);
   }
 
   show() {
@@ -59,7 +59,7 @@ export default class Controller {
         1,
         {
           opacity: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         index * 0
       );
@@ -70,7 +70,7 @@ export default class Controller {
 
   getMesh(obj) {
     const arr = [];
-    obj.children.forEach(children => {
+    obj.children.forEach((children) => {
       if (children.type == "Group") {
         arr.push(...this.getMesh(children));
       } else {

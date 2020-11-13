@@ -1,6 +1,7 @@
 import Base from "./Base/Controller.es6";
 import Flag from "./Flag/Controller.es6";
 import Dom from "./Dom/Controller.es6";
+import Menu from "./Menu/Controller.es6";
 export default class Controller extends Base {
   constructor() {
     super();
@@ -10,6 +11,10 @@ export default class Controller extends Base {
     this.name = "UIController";
     this.flag = new Flag();
     this.dom = new Dom();
+    this.menu = new Menu({
+      $btn: $(".header-menu-btn"),
+      $contents: $(".menu")
+    });
     this.timeline();
   }
 
@@ -31,7 +36,7 @@ export default class Controller extends Base {
       .add(() => {
         TweenMax.to(this.flag.setup.effectBloom, 2.0, {
           strength: 6,
-          ease: Power2.easeInOut,
+          ease: Power2.easeInOut
         });
         // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
         //   radius: 3,
@@ -56,7 +61,7 @@ export default class Controller extends Base {
             2.0,
             {
               z: this.flag.setup.defz,
-              ease: Expo.easeInOut,
+              ease: Expo.easeInOut
             },
             0.0
           )
@@ -75,7 +80,7 @@ export default class Controller extends Base {
                   1.5,
                   4.0
                 );
-              },
+              }
             },
             0.8
           )
@@ -84,7 +89,7 @@ export default class Controller extends Base {
             this.flag.setup.camera.position,
             4.5,
             {
-              z: this.flag.setup.defz * 1,
+              z: this.flag.setup.defz * 1.1,
               ease: Expo.easeOut,
               onStart: () => {
                 // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
@@ -95,7 +100,7 @@ export default class Controller extends Base {
                   1.3,
                   4.0
                 );
-              },
+              }
             },
             0.8 + 0.05
           );
@@ -104,7 +109,7 @@ export default class Controller extends Base {
       // dom
       // ------------------------------------------------------------
       .add(() => {
-        this.dom.show();
+        this.dom.show(e => this.menu.showBtn());
       }, 4.0 + 0.9);
   }
 

@@ -18,10 +18,17 @@ import ScrollBtn from "./ScrollBtn/Controller.es6";
 
 import KV from "./KV/Controller.es6";
 
+import Cookie from "./Cookie/Controller.es6";
+
+import Header from "./Header/Controller.es6";
+const UAParser = require("ua-parser-js");
+
 export default class Controller extends Base {
   constructor() {
     super();
-
+    this.w = window.innerWidth;
+    this.isUEv = true;
+    this.result = UAParser();
     this.setup();
     this.setEvents();
     this.onResize();
@@ -30,47 +37,75 @@ export default class Controller extends Base {
   }
 
   setup() {
+    // hover btn
     $(".btn-primary").each((i, e) => {
       new Hover(e);
     });
-
-    new Tab($(".tabWrap"));
-
+    // hover footer
     $(".footer-link").each((i, e) => {
       new HoverText(e);
     });
+    // hover menu lang
     $(".menu-lang-link").each((i, e) => {
       new HoverText(e);
     });
+    $(".HoverImg").each((i, e) => {
+      new HoverImg(e);
+    });
 
+    //whitebgクラスがついてる要素がheaderとかぶったら、色を変える
+    new Header($(".header"), ".whitebg");
+
+    // tab
+    new Tab($(".tabWrap"));
+
+    // menu
     this.menu = new Menu({
       $btn: $(".header-menu-btn"),
       $contents: $(".menu")
     });
-    $(".parallax,.parallax2").each((i, e) => {
+
+    // parallax box
+    $(".parallax,.parallax2,.parallax3").each((i, e) => {
+      new Parallax($(e), {
+        ease: e.dataset.ease - 0,
+        max: e.dataset.max - 0
+      });
+    });
+    // parallax img
+    $(".parallaxImg").each((i, e) => {
+      var val = 0.05 + (Math.random() - 0.5) * 0.07;
+      var max = 200 + (Math.random() - 0.5) * 100;
+      $(e).attr("data-ease", val);
+
       new Parallax($(e), {
         ease: e.dataset.ease - 0,
         max: e.dataset.max - 0
       });
     });
 
-    $(".HoverImg").each((i, e) => {
-      new HoverImg(e);
-    });
-
+    // scroll 示唆
     this.scrollBtn = new ScrollBtn($(".scroll-btn"));
-    super.onU();
 
+    // KV
     this.kv = new KV();
 
+    // cookie
+    this.cookie = new Cookie();
+
+    // opening
     this.show();
   }
 
   show() {
-    this.kv.timeline(e => {
-      this.scrollBtn.show();
-      return this.menu.showBtn();
-    });
+    this.kv
+      .timeline(e => {
+        this.scrollBtn.show();
+        return this.menu.showBtn();
+      })
+      .then(e => {
+        this.cookie.show();
+      });
   }
 
   timeline() {}
@@ -81,15 +116,25 @@ export default class Controller extends Base {
     });
   }
 
-  onResize() {
-    console.log("resize");
-
-    document.body.style.setProperty("--h", window.innerHeight + "px");
+  onResize(e) {
+    if (!e) {
+      document.body.style.setProperty("--h", window.innerHeight + "px");
+    } else {
+      if (
+        this.result.device.type != "mobile" &&
+        this.result.device.type != "tablet" &&
+        this.w == window.innerWidth
+      ) {
+        document.body.style.setProperty("--h", window.innerHeight + "px");
+        this.w = window.innerWidth;
+      }
+    }
   }
 
   setEvents() {
     super.setEvents();
 
-    $(window).on("resize", this.onResize.bind(this));
+    // $(window).on("resize", this.onResize.bind(this));
+    $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
   }
 }

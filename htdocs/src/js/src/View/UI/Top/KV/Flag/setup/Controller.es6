@@ -14,7 +14,17 @@ export default class ClassName extends Base {
     this.render();
   }
 
-  init() {}
+  init() {
+    this.frame = 0;
+    this.pixcels = 1.8;
+
+    // clearTimeout(this.Timer);
+    // this.Timer = setTimeout(() => {
+    //   TweenMax.to(this, 1.0, {
+    //     pixcels: 1.4,
+    //   });
+    // }, 8000);
+  }
   setEvent() {
     super.__setUpdateFlag(false);
   }
@@ -30,12 +40,12 @@ export default class ClassName extends Base {
       45,
       this.$dom.width() / this.$dom.height(),
       1,
-      20000
+      10000
     );
     this.setCameraByPixel();
   }
 
-  setCameraByPixel(isRisize = false) {
+  setCameraByPixel(isFirst = false) {
     this.w = this.$dom.width();
     this.h = this.$dom.height();
     var fov = 45;
@@ -43,7 +53,7 @@ export default class ClassName extends Base {
     var vpHeight = this.h;
     var z = vpHeight / (2 * Math.tan(vFOV / 2));
     this.defz = z * 1;
-    this.z = isRisize ? z : z * 0.27;
+    this.z = isFirst ? z * 0.5 : z * 1.1;
     this.camera.position.set(0, 0, this.z);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -54,7 +64,7 @@ export default class ClassName extends Base {
 
   initRender() {
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: false,
       alpha: true
     });
     const v = {
@@ -87,13 +97,10 @@ export default class ClassName extends Base {
       // 対象の明るさ: 1.9,
       // グローの半径: 0.36,
       対象の明るさ: 2,
-      グローの半径: 0.3
+      グローの半径: 0.4
     };
     this.effectBloom = new THREE.UnrealBloomPass(
-      new THREE.Vector2(
-        window.innerWidth * window.devicePixelRatio,
-        window.innerHeight * window.devicePixelRatio
-      ),
+      new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0),
       0.01,
       1.07,
       0.85,
@@ -117,24 +124,28 @@ export default class ClassName extends Base {
     const toScreen = new THREE.ShaderPass(THREE.CopyShader);
     toScreen.renderToScreen = true;
     this.composer.addPass(toScreen);
-    this.onWindowResize(true);
   }
 
-  onWindowResize(isInit) {
+  onWindowResize(isFirst) {
     const w = this.$dom.width();
     const h = this.$dom.height();
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.setCameraByPixel(isFirst);
+    this.renderer.setPixelRatio(this.pixcels);
     this.renderer.setSize(w, h);
+    this.composer.setPixelRatio(this.pixcels);
     this.composer.setSize(w, h);
-    this.composer.setPixelRatio(window.devicePixelRatio);
-    this.setCameraByPixel(!isInit);
   }
 
   render() {
     // this.renderer.render(this.objScene, this.camera);
+
     this.composer.render();
+    // if (this.frame % 2 == 0) this.composer.render();
+
     if (this.is_autoRender) {
       requestAnimationFrame(this.render.bind(this));
     }
+
+    this.frame++;
   }
 }
