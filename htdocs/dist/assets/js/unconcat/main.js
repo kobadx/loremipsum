@@ -6978,7 +6978,7 @@
 	
 	      // move Y
 	      // positionを正しい位置に
-	      var tarY = this.$canvas.width() <= this.bp ? 300 : 320;
+	      var tarY = this.$canvas.width() <= this.bp ? 325 : 320;
 	      TweenMax.to(this, 1.5, {
 	        defY: -window.innerHeight * 0.5 + tarY,
 	        ease: Power2.easeInOut,
@@ -8681,8 +8681,6 @@
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      var _this = this;
-	
 	      console.log("show");
 	      var tl = new TimelineMax();
 	      var h = $(".canvas").height();
@@ -8706,14 +8704,14 @@
 	      });
 	
 	      tl.add(function (e) {
-	        _this.timeline();
+	        // this.timeline();
 	      });
 	      return tl;
 	    }
 	  }, {
 	    key: "timeline",
 	    value: function timeline() {
-	      var _this2 = this;
+	      var _this = this;
 	
 	      var l = this.lightObj.children.length;
 	      var index = Math.floor(Math.random() * l);
@@ -8742,7 +8740,7 @@
 	        target.material.uniforms.dashOffset.value = 0;
 	        target.material.opacity = 1;
 	        target.position.y = 0;
-	        _this2.timeline();
+	        _this.timeline();
 	      }, "+= 1");
 	    }
 	  }, {

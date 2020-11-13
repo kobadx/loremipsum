@@ -24,13 +24,13 @@ export default class Controller {
         index: i,
         width: w,
         height: h,
-        length: l
+        length: l,
       });
       const mesh2 = this.getObj({
         index: i,
         width: w,
         height: h,
-        length: l
+        length: l,
       });
       this.obj.add(mesh);
       this.lightObj.add(mesh2);
@@ -45,7 +45,7 @@ export default class Controller {
       transparent: true,
       dashOffset: dashOffset,
       dashArray: 2 * height,
-      dashRatio: 0.99
+      dashRatio: 0.99,
     });
     const point = [];
     const _w = -width * 0.5;
@@ -70,7 +70,7 @@ export default class Controller {
         0.25,
         {
           opacity: 0.05,
-          ease: Expo.easeIn
+          ease: Expo.easeIn,
         },
         0 * 0.02
       );
@@ -80,7 +80,7 @@ export default class Controller {
         0.7,
         {
           opacity: 0.005,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0 * 0.02 + 0.25
       );
@@ -90,14 +90,14 @@ export default class Controller {
         2,
         {
           value: -2,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0 * 0.02 + 0.05
       );
     });
 
-    tl.add(e => {
-      this.timeline();
+    tl.add((e) => {
+      // this.timeline();
     });
     return tl;
   }
@@ -116,7 +116,7 @@ export default class Controller {
         1.2,
         {
           opacity: 0.1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         d
       );
@@ -127,7 +127,7 @@ export default class Controller {
       0.75,
       {
         value: -2,
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       },
       d
     ).to(
@@ -135,13 +135,13 @@ export default class Controller {
       0.75,
       {
         y: -window.innerHeight * 1.1,
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       },
       d + 0.2
     );
 
     //loop
-    tl.add(e => {
+    tl.add((e) => {
       target.material.uniforms.dashOffset.value = 0;
       target.material.opacity = 1;
       target.position.y = 0;
@@ -164,7 +164,7 @@ export default class Controller {
           transparent: true,
           dashOffset: -2,
           dashArray: 2 * h,
-          dashRatio: 0.99
+          dashRatio: 0.99,
         });
         const point = [];
         const _w = -w * 0.5;
@@ -175,13 +175,13 @@ export default class Controller {
           height: h,
           length: l,
           dashOffset: -2,
-          opacity: 0.005
+          opacity: 0.005,
         });
         const mesh2 = this.getObj({
           index: index,
           width: w,
           height: h,
-          length: l
+          length: l,
         });
 
         this.obj.add(mesh);
