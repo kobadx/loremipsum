@@ -156,11 +156,11 @@ export default class Controller extends Base {
     // 一番下にいったときにfooterまでいかないように
     this.dis += (this.disY - this.dis) * 0.12;
     this.obj.position.y = this.defY - this.dis;
-    // this.tar += (this.defY - this.tar) * 0.08;
-    // this.obj.position.y = this.tar;
-
-    // this.tarSt += (this.st - this.tarSt) * 0.4;
-    // this.wrap.position.y = this.tarSt;
+    if (document.body.classList.contains(".isDeviceSP")) {
+      const diff = window.innerHeight - $(window).height();
+      document.getElementsByClassName("canvasWrap")[0].style.top =
+        diff * 0.5 - 57 + "px";
+    }
 
     this.setup.render();
   }

@@ -29,14 +29,16 @@
 .canvasWrap {
   width: 100%;
   // padding-top: (950/1280) * 100%;
-  height: calc(100vh + 100px);
-  // height: var(--h);
+  height: 100vh;
+  top: 0;
   position: fixed;
-  top: -50px;
+
   left: 0;
   pointer-events: none;
-  // height: 0;
-  // background-color: #00076d;
+  .isDeviceSP & {
+    height: calc(100vh + #{57px * 2});
+    top: -57px;
+  }
   &.absolute {
     position: absolute;
     top: auto;

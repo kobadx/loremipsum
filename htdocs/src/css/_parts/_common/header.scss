@@ -118,13 +118,20 @@
   top: 0;
   right: 0;
   z-index: 101;
-
   width: 572px;
   height: 100vh;
   overflow: auto;
   display: none;
   pointer-events: none;
-
+  & > .overlay {
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 6, 87, 0.5);
+    opacity: 0;
+  }
   & > .bg {
     background-color: #fff;
     width: 572px;

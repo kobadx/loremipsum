@@ -1,4 +1,5 @@
 import Base from "../../Base/Controller.es6";
+import RGBShift from "./RGBShift/Controller.es6";
 export default class ClassName extends Base {
   constructor($dom, obj, scene) {
     super();
@@ -100,7 +101,7 @@ export default class ClassName extends Base {
       グローの半径: 0.4
     };
     this.effectBloom = new THREE.UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth * 1.0, window.innerHeight * 1.0),
+      new THREE.Vector2(this.$dom.width() * 1.0, this.$dom.height() * 1.0),
       0.01,
       1.07,
       0.85,
@@ -120,7 +121,11 @@ export default class ClassName extends Base {
     this._dat.add(param, "グローの半径", 0, 1).onChange(e => {
       this.effectBloom.radius = e;
     });
+
+    this.rgbshift = new RGBShift();
+    this.composer.addPass(this.rgbshift.shaderPass);
     this.composer.addPass(this.effectBloom);
+
     const toScreen = new THREE.ShaderPass(THREE.CopyShader);
     toScreen.renderToScreen = true;
     this.composer.addPass(toScreen);

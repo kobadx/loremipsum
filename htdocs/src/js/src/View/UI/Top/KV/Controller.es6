@@ -13,7 +13,7 @@ export default class Controller extends Base {
     this.$c = $("canvas");
   }
 
-  timeline(menuBtnShow = (e) => {}) {
+  timeline(menuBtnShow = e => {}) {
     return new Promise((resolve, reject) => {
       var tl = new TimelineMax({ delay: 0.0 });
 
@@ -26,7 +26,7 @@ export default class Controller extends Base {
         .add(() => {
           TweenMax.to(this.$c, 2.0, {
             opacity: 1,
-            ease: Power2.easeInOut,
+            ease: Power2.easeInOut
           });
         }, 0.0)
 
@@ -41,7 +41,7 @@ export default class Controller extends Base {
         .add(() => {
           TweenMax.to(this.flag.setup.effectBloom, 2.0, {
             strength: 6,
-            ease: Power2.easeInOut,
+            ease: Power2.easeInOut
           });
           // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
           //   radius: 3,
@@ -66,7 +66,7 @@ export default class Controller extends Base {
               2.0,
               {
                 z: this.flag.setup.defz,
-                ease: Expo.easeInOut,
+                ease: Expo.easeInOut
               },
               0.0
             )
@@ -81,13 +81,16 @@ export default class Controller extends Base {
                   this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                   this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                   // this.flag.setup.effectBloom.threshold = 0.03;
+
+                  //rgb shift show
+                  this.flag.setup.rgbshift.show();
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
                     1.5,
                     4.0
                   );
-                },
+                }
               },
               0.8
             )
@@ -107,7 +110,7 @@ export default class Controller extends Base {
                     1.3,
                     4.0
                   );
-                },
+                }
               },
               0.8 + 0.05
             );
@@ -126,7 +129,7 @@ export default class Controller extends Base {
           // frame数を抑える
           TweenMax.to(this.flag, 2.0, {
             fr: 4,
-            ease: Power2.easeInOut,
+            ease: Power2.easeInOut
           });
         }, 0.2 + 3.8 + 0.9)
         .add(() => {

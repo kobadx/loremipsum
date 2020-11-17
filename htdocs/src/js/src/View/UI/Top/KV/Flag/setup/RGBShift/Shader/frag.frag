@@ -35,9 +35,11 @@ void main() {
   float t = n2 * slideWidth;
 
   // vec4 color = texture2D(tDiffuse, vUv + vec2(s * t, 0.0));
-  float c_r = texture2D(tDiffuse, vUv + vec2(s * t * 2.0, 0.0)).r;
-  float c_g = texture2D(tDiffuse, vUv + vec2(s * t * 3.5, 0.0)).g;
-  float c_b = texture2D(tDiffuse, vUv + vec2(s * t * 5.2, 0.0)).b;
+  float c_r = texture2D(tDiffuse, vUv + vec2(s * t * 1.3, 0.0)).r;
+  // float c_g = texture2D(tDiffuse, vUv + vec2(s * t * 2.0, 0.0)).g;
+  // float c_b = texture2D(tDiffuse, vUv + vec2(s * t * 1.2, 0.0)).b;
+  float c_g = texture2D(tDiffuse, vUv + vec2(s * t * 4.3, 0.0)).g;
+  float c_b = texture2D(tDiffuse, vUv + vec2(s * t * -0.2, 0.0)).b;
   
   gl_FragColor = vec4(c_r,c_g,c_b,1.0);
 }

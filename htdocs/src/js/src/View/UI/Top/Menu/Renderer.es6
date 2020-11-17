@@ -36,6 +36,15 @@ export default class Controller {
         },
         0.0
       )
+      .to(
+        this.$contents.find(".overlay"),
+        0.8,
+        {
+          opacity: 1,
+          ease: Expo.easeOut
+        },
+        0.0
+      )
 
       // bg line
       .add(() => {
@@ -214,6 +223,15 @@ export default class Controller {
               display: "none"
             });
           }
+        },
+        0.0
+      )
+      .to(
+        this.$contents.find(".overlay"),
+        0.4,
+        {
+          opacity: 0,
+          ease: Expo.easeOut
         },
         0.0
       );
