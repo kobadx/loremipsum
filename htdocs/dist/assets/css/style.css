@@ -1041,7 +1041,7 @@ img
     top: 0;
     right: 0;
 
-    overflow: hidden;
+    display: none;
 
     width: 82.8%;
 
@@ -1054,16 +1054,16 @@ img
     top: 0;
     left: 0;
 
-    overflow: hidden;
-
     width: 100%;
     height: 100%;
+
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
 
     opacity: 0;
     background-color: #fff;
 
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+    will-change: transform;
 }
 
 .menu > .bg span
@@ -1077,8 +1077,9 @@ img
     width: 1px;
     height: 100%;
 
-    -webkit-transform: scaleY(0) translate3d(0, 0, 0);
-            transform: scaleY(0) translate3d(0, 0, 0);
+    -webkit-transform: scaleY(0);
+        -ms-transform: scaleY(0);
+            transform: scaleY(0);
     -webkit-transform-origin: top;
         -ms-transform-origin: top;
             transform-origin: top;
@@ -1115,9 +1116,8 @@ img
     height: 51px;
 
     cursor: pointer;
-
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 1px);
+            transform: translate3d(0, 0, 1px);
 }
 
 @media only screen and (max-width: 768px)
@@ -1173,8 +1173,9 @@ img
 
 .menu-close-line:nth-child(1) span
 {
-    -webkit-transform: translateX(8px) rotate(30deg) scaleX(0) translateZ(0);
-            transform: translateX(8px) rotate(30deg) scaleX(0) translateZ(0);
+    -webkit-transform: translateX(8px) rotate(30deg) scaleX(0);
+        -ms-transform: translateX(8px) rotate(30deg) scaleX(0);
+            transform: translateX(8px) rotate(30deg) scaleX(0);
     -webkit-transform-origin: left;
         -ms-transform-origin: left;
             transform-origin: left;
@@ -1187,8 +1188,9 @@ img
 
 .menu-close-line:nth-child(2) span
 {
-    -webkit-transform: translateX(8px) rotate(-30deg) scaleX(0) translateZ(0);
-            transform: translateX(8px) rotate(-30deg) scaleX(0) translateZ(0);
+    -webkit-transform: translateX(8px) rotate(-30deg) scaleX(0);
+        -ms-transform: translateX(8px) rotate(-30deg) scaleX(0);
+            transform: translateX(8px) rotate(-30deg) scaleX(0);
     -webkit-transform-origin: left;
         -ms-transform-origin: left;
             transform-origin: left;
@@ -1202,8 +1204,9 @@ img
     right: 0;
     bottom: 0;
 
-    -webkit-transform: translateX(10px) translateZ(0);
-            transform: translateX(10px) translateZ(0);
+    -webkit-transform: translateX(10px);
+        -ms-transform: translateX(10px);
+            transform: translateX(10px);
 
     opacity: 0;
     color: #2e2f30;
@@ -1218,9 +1221,6 @@ img
     display:         flex;
 
     padding: 80px 80px 110px 140px;
-
-    -webkit-transform: translateZ(10);
-            transform: translateZ(10);
 
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -1244,10 +1244,12 @@ img
 {
     margin-bottom: 30px;
 
-    -webkit-transform: translateX(10px) translateZ(10px);
-            transform: translateX(10px) translateZ(10px);
+    -webkit-transform: translate3d(0, 0, 1px);
+            transform: translate3d(0, 0, 1px);
 
     opacity: 0;
+
+    will-change: transform;
 }
 
 @media only screen and (max-width: 768px)
@@ -1307,6 +1309,9 @@ img
     display:         flex;
 
     margin-bottom: 40px;
+
+    -webkit-transform: translate3d(0, 0, 1px);
+            transform: translate3d(0, 0, 1px);
 
     -webkit-justify-content: flex-end;
     -ms-flex-pack: end;
@@ -1384,9 +1389,8 @@ img
 
 .menu-search
 {
-    -webkit-transform: translateX(10px);
-        -ms-transform: translateX(10px);
-            transform: translateX(10px);
+    -webkit-transform: translate3d(10px, 0, 1px);
+            transform: translate3d(10px, 0, 1px);
 
     opacity: 0;
 }
@@ -1407,16 +1411,23 @@ img
 
 .menu-search-input
 {
+    font-size: 1.4rem;
+
     box-sizing: border-box;
     width: 320px;
     height: 64px;
     padding: 18px 18px 18px 60px;
 
     border: none;
+    border-radius: 0;
     outline: none;
     background: url(/assets/img/common/icon_search.png) no-repeat 28px center;
     background-color: #eeeff2;
     background-size: 17px auto;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
 }
 
 .menu-search-input:placeholder-shown
@@ -2280,7 +2291,7 @@ body.no-select
 .cookie
 {
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     bottom: 0;
     left: 0;
 
@@ -2313,7 +2324,7 @@ body.no-select
     {
         display: block;
 
-        padding: 15px 0;
+        padding: 20px 0 30px;
     }
 }
 
@@ -2333,9 +2344,9 @@ body.no-select
 {
     .cookie-text
     {
-        font-size: 1.1rem;
+        font-size: 1.0rem;
 
-        padding: 0 15px;
+        padding: 0 20px;
     }
 }
 
@@ -2355,13 +2366,17 @@ body.no-select
         display: -webkit-flex;
         display: -ms-flexbox;
         display:         flex;
+                flex-direction: row-reverse;
 
         margin: 0 auto;
-        margin-top: 15px;
+        margin-top: 20px;
+        padding: 0 20px;
 
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-                justify-content: center;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+                justify-content: flex-start;
+        -webkit-flex-direction: row-reverse;
+            -ms-flex-direction: row-reverse;
     }
 }
 
@@ -2379,13 +2394,15 @@ body.no-select
 {
     .cookie-btn-area .btn
     {
-        font-size: 1.2rem;
+        font-size: 1.12rem;
 
+        width: 91px;
+        height: 24px;
         margin: 0 5px;
 
-        -webkit-flex: 0 0 46%;
-            -ms-flex: 0 0 46%;
-                flex: 0 0 46%;
+        -webkit-flex: 0 0 91px;
+            -ms-flex: 0 0 91px;
+                flex: 0 0 91px;
     }
 }
 
@@ -3423,7 +3440,7 @@ a:active
     display: -ms-flexbox;
     display:         flex;
 
-    height: 64px;
+    height: 65px;
 
     cursor: pointer;
 
@@ -3449,6 +3466,7 @@ a:active
 
 #wrapper.id_top .index-solution-contents
 {
+    margin-top: -1px;
     padding-bottom: 70px;
 
     background-color: #fff;
@@ -3807,6 +3825,13 @@ a:active
     height: 100vh;
 
     pointer-events: none;
+}
+
+.isDeviceSP .canvasWrap
+{
+    top: -55px;
+
+    height: calc(100vh + 110px);
 }
 
 .canvasWrap.absolute

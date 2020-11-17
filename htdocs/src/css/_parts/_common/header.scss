@@ -119,9 +119,8 @@
   right: 0;
   z-index: 101;
 
-  overflow: hidden;
   width: 82.8%;
-  // display: ;
+  display: none;
   pointer-events: none;
 
   & > .bg {
@@ -132,8 +131,8 @@
     top: 0;
     left: 0;
     opacity: 0;
-    overflow: hidden;
-    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
     span {
       width: 1px;
       height: 100%;
@@ -142,7 +141,7 @@
       left: 0;
       background-color: #f3f3f3;
       display: block;
-      transform: scaleY(0) translate3d(0, 0, 0);
+      transform: scaleY(0);
       transform-origin: top;
     }
   }
@@ -166,7 +165,7 @@
   cursor: pointer;
   top: 44px;
   right: 65px;
-  backface-visibility: hidden;
+  transform: translate3d(0, 0, 1px);
   @media only screen and (max-width: $bp01) {
     width: 50px;
     right: 25px;
@@ -198,7 +197,7 @@
     top: 0;
     span {
       transform-origin: left;
-      transform: translateX(8px) rotate(30deg) scaleX(0) translateZ(0);
+      transform: translateX(8px) rotate(30deg) scaleX(0);
     }
   }
 
@@ -206,7 +205,7 @@
     bottom: 0;
     span {
       transform-origin: left;
-      transform: translateX(8px) rotate(-30deg) scaleX(0) translateZ(0);
+      transform: translateX(8px) rotate(-30deg) scaleX(0);
     }
   }
 }
@@ -218,7 +217,7 @@
   bottom: 0;
   right: 0;
   opacity: 0;
-  transform: translateX(10px) translateZ(0);
+  transform: translateX(10px);
 }
 
 .menu-block {
@@ -227,7 +226,6 @@
   justify-content: space-between;
   align-items: flex-end;
   position: relative;
-  transform: translateZ(10);
   // z-index: 2;
   @media only screen and (max-width: $bp01) {
     display: block;
@@ -241,8 +239,8 @@
 .menu-item {
   margin-bottom: 30px;
   opacity: 0;
-  transform: translateX(10px) translateZ(10px);
-
+  transform: translate3d(0, 0, 1px);
+  will-change: transform;
   @media only screen and (max-width: $bp01) {
     margin-bottom: 15px;
   }
@@ -302,7 +300,7 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 40px;
-
+  transform: translate3d(0, 0, 1px);
   @media only screen and (max-width: $bp01) {
     margin-top: 25px;
     margin-bottom: 15px;
@@ -314,6 +312,7 @@
   margin-left: 65px;
   opacity: 0;
   transform: translateX(10px);
+
   @media only screen and (max-width: $bp01) {
     margin: 0 0 0 30px;
   }
@@ -343,7 +342,7 @@
 
 .menu-search {
   opacity: 0;
-  transform: translateX(10px);
+  transform: translate3d(10px, 0, 1px);
 
   @media only screen and (max-width: $bp01) {
     display: flex;
@@ -361,6 +360,9 @@
   background: url(/assets/img/common/icon_search.png) no-repeat 28px center;
   background-size: 17px auto;
   outline: none;
+  appearance: none;
+  border-radius: 0;
+  font-size: 1.4rem;
   @include placeholder() {
     color: rgba(17, 17, 18, 0.5);
   }

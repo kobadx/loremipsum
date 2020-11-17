@@ -68,7 +68,7 @@ function pole(posi, color, v) {
   const material = new THREE.LineBasicMaterial({
     color: color,
     opacity: 0,
-    transparent: true,
+    transparent: true
   });
   geometry.addAttribute(
     "position",
@@ -92,7 +92,7 @@ function tube(_v, _v2, material) {
         : v1.clone().sub(new THREE.Vector3(2.5, -2.5, 0));
     const v3 = v1.clone().sub(new THREE.Vector3(5, 0, 0));
     const _curve = new THREE.QuadraticBezierCurve3(v1, v2, v3);
-    const arr = _curve.getPoints(50);
+    const arr = _curve.getPoints(10);
     for (var u = 0; u < arr.length; u++) {
       points.push(arr[u].x, arr[u].y, arr[u].z);
     }
@@ -151,7 +151,7 @@ function curve2(posi, posi2, color, v) {
     _v.add(new THREE.Vector3(10, 10, 0)),
     posi2
   );
-  const arr = _curve.getPoints(50);
+  const arr = _curve.getPoints(10);
   for (var i = 0; i < arr.length; i++) {
     points.push(arr[i].x, arr[i].y, arr[i].z);
   }
@@ -165,7 +165,7 @@ function curve2(posi, posi2, color, v) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   return new THREE.Line(geometry, material);
 }
@@ -185,7 +185,7 @@ function curve(posi, posi2, color, v) {
     posi2.add(new THREE.Vector3(2, 2, 0)),
     posi2
   );
-  const arr = _curve.getPoints(50);
+  const arr = _curve.getPoints(10);
   for (var i = 0; i < arr.length; i++) {
     points.push(arr[i].x, arr[i].y, arr[i].z);
   }
@@ -199,7 +199,7 @@ function curve(posi, posi2, color, v) {
     color: color,
     opacity: 0,
     transparent: true,
-    depthTest: false,
+    depthTest: false
   });
   return new THREE.Line(geometry, material);
 }
