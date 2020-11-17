@@ -156,11 +156,11 @@ export default class Controller extends Base {
     // 一番下にいったときにfooterまでいかないように
     this.dis += (this.disY - this.dis) * 0.12;
     this.obj.position.y = this.defY - this.dis;
-
-    const diff = window.innerHeight - $(window).height();
-    document.getElementsByClassName("canvasWrap")[0].style.top =
-      diff * 0.5 - 57 + "px";
-    console.log(diff);
+    if (document.body.classList.contains(".isDeviceSP")) {
+      const diff = window.innerHeight - $(window).height();
+      document.getElementsByClassName("canvasWrap")[0].style.top =
+        diff * 0.5 - 57 + "px";
+    }
 
     this.setup.render();
   }
