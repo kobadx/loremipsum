@@ -108,5 +108,9 @@ export default class Controller extends Base {
       this.isLock = true;
       this.hide();
     });
+    this.$contents.find(".overlay").on("click", e => {
+      if (this.isLock) return;
+      this.hide();
+    });
   }
 }

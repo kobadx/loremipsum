@@ -7,10 +7,6 @@ import Debugger from "_MyLibs/Util/Debugger.es6";
 // Util
 import Util from "Util/Controller.es6";
 
-// model
-import LoadMgr from "View/UI/_Loading/Basic/Controller.es6";
-import ResourceMgr from "Model/Resource/ResourceMgr.es6";
-
 // events
 import UpdateMgr from "_MyLibs/View/Events/EventMgr/UpdateMgr.es6";
 import ResizeMgr from "_MyLibs/View/Events/EventMgr/ResizeMgr.es6";
