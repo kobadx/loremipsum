@@ -273,7 +273,7 @@ body.no-select {
   z-index: 100;
   opacity: 0;
 
-  display: none;
+  // display: none;
 }
 
 .cookie-inner {
@@ -296,7 +296,7 @@ body.no-select {
   line-height: 1.2;
 
   @media only screen and (max-width: $bp01) {
-    font-size: 1.0rem;
+    font-size: 1rem;
     padding: 0 20px;
   }
 }

@@ -1044,8 +1044,22 @@ img
     display: none;
 
     width: 82.8%;
+    height: 100%;
 
     pointer-events: none;
+}
+
+.menu > .overlay
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100%;
+
+    opacity: 0;
+    background-color: rgba(0, 6, 87, .5);
 }
 
 .menu > .bg
@@ -2295,8 +2309,6 @@ body.no-select
     bottom: 0;
     left: 0;
 
-    display: none;
-
     width: 100%;
 
     opacity: 0;
@@ -2344,7 +2356,7 @@ body.no-select
 {
     .cookie-text
     {
-        font-size: 1.0rem;
+        font-size: 1rem;
 
         padding: 0 20px;
     }
@@ -3829,9 +3841,9 @@ a:active
 
 .isDeviceSP .canvasWrap
 {
-    top: -55px;
+    top: -57px;
 
-    height: calc(100vh + 110px);
+    height: calc(100vh + 114px);
 }
 
 .canvasWrap.absolute
