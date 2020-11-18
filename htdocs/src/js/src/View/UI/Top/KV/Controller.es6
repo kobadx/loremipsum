@@ -133,11 +133,14 @@ export default class Controller extends Base {
                     //rgb shift show
                     .add(() => {
                       this.flag.sail.setColor(true);
-                      this.flag.setup.rgbshift.show(0.07, 5);
+                      this.flag.setup.rgbshift.show(0.03, 5);
 
-                      this.flag.setup.effectBloom.strength = 10;
+                      var strength = 1;
+                      if (gb.r.w <= 768) strength = 0.5;
+
+                      this.flag.setup.effectBloom.strength = 10 * strength;
                       this.flag.setup.effectBloom.radius = 0.5;
-                    }, 0.05 + 0.0)
+                    }, 0.02 + 0.0)
                     //rgb shift hide
 
                     .add(() => {
@@ -146,43 +149,43 @@ export default class Controller extends Base {
 
                       this.flag.setup.effectBloom.strength = 3;
                       this.flag.setup.effectBloom.radius = 0.6;
-                    }, 0.05 + 0.05)
+                    }, 0.02 + 0.1);
 
-                    //rgb shift show
-                    .add(() => {
-                      this.flag.sail.setColor(true);
-                      this.flag.setup.rgbshift.show(0.02, 2);
+                  // //rgb shift show
+                  // .add(() => {
+                  //   this.flag.sail.setColor(true);
+                  //   this.flag.setup.rgbshift.show(0.02, 2);
 
-                      this.flag.setup.effectBloom.strength = 6;
-                      this.flag.setup.effectBloom.radius = 0.5;
-                    }, 0.05 + 0.1 + 0.0)
-                    //rgb shift hide
+                  //   this.flag.setup.effectBloom.strength = 6;
+                  //   this.flag.setup.effectBloom.radius = 0.5;
+                  // }, 0.05 + 0.1 + 0.0)
+                  // //rgb shift hide
 
-                    .add(() => {
-                      this.flag.sail.setColor(false);
-                      this.flag.setup.rgbshift.hide();
+                  // .add(() => {
+                  //   this.flag.sail.setColor(false);
+                  //   this.flag.setup.rgbshift.hide();
 
-                      this.flag.setup.effectBloom.strength = 3;
-                      this.flag.setup.effectBloom.radius = 0.6;
-                    }, 0.05 + 0.1 + 0.05)
+                  //   this.flag.setup.effectBloom.strength = 3;
+                  //   this.flag.setup.effectBloom.radius = 0.6;
+                  // }, 0.05 + 0.1 + 0.05);
 
-                    //rgb shift show
-                    .add(() => {
-                      this.flag.sail.setColor(true);
-                      this.flag.setup.rgbshift.show(0.02, 2);
+                  // //rgb shift show
+                  // .add(() => {
+                  //   this.flag.sail.setColor(true);
+                  //   this.flag.setup.rgbshift.show(0.02, 2);
 
-                      this.flag.setup.effectBloom.strength = 6;
-                      this.flag.setup.effectBloom.radius = 0.5;
-                    }, 0.05 + 0.1 + 0.1 + 0.0)
-                    //rgb shift hide
+                  //   this.flag.setup.effectBloom.strength = 6;
+                  //   this.flag.setup.effectBloom.radius = 0.5;
+                  // }, 0.05 + 0.1 + 0.1 + 0.0)
+                  // //rgb shift hide
 
-                    .add(() => {
-                      this.flag.sail.setColor(false);
-                      this.flag.setup.rgbshift.hide();
+                  // .add(() => {
+                  //   this.flag.sail.setColor(false);
+                  //   this.flag.setup.rgbshift.hide();
 
-                      this.flag.setup.effectBloom.strength = 3;
-                      this.flag.setup.effectBloom.radius = 0.6;
-                    }, 0.05 + 0.1 + 0.1 + 0.05);
+                  //   this.flag.setup.effectBloom.strength = 3;
+                  //   this.flag.setup.effectBloom.radius = 0.6;
+                  // }, 0.05 + 0.1 + 0.1 + 0.05);
 
                   this.flag.setup.effectBloom.strength = 3;
                   this.flag.setup.effectBloom.radius = 0.6;
@@ -194,14 +197,14 @@ export default class Controller extends Base {
               },
               0.8 + 0.05
             );
-        }, 0.2 + 3.8)
+        }, -0.3 + 3.8)
 
         // bg line
         .add(() => {
           //scrollを解除
           $(".id_top").removeClass("fixed");
           this.flag.bg.show();
-        }, 0.2 + 3.8 + 1.2)
+        }, -0.3 + 3.8 + 1.2)
         // dom
         .add(() => {
           this.dom.show(menuBtnShow);
@@ -211,10 +214,10 @@ export default class Controller extends Base {
             fr: 4,
             ease: Power2.easeInOut,
           });
-        }, 0.2 + 3.8 + 0.9)
+        }, -0.3 + 3.8 + 0.9)
         .add(() => {
           resolve();
-        }, 0.2 + 6.0);
+        }, -0.3 + 6.0);
     });
   }
 

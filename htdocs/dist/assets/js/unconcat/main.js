@@ -6003,11 +6003,14 @@
 	              //rgb shift show
 	              .add(function () {
 	                _this2.flag.sail.setColor(true);
-	                _this2.flag.setup.rgbshift.show(0.07, 5);
+	                _this2.flag.setup.rgbshift.show(0.03, 5);
 	
-	                _this2.flag.setup.effectBloom.strength = 10;
+	                var strength = 1;
+	                if (gb.r.w <= 768) strength = 0.5;
+	
+	                _this2.flag.setup.effectBloom.strength = 10 * strength;
 	                _this2.flag.setup.effectBloom.radius = 0.5;
-	              }, 0.05 + 0.0)
+	              }, 0.02 + 0.0)
 	              //rgb shift hide
 	
 	              .add(function () {
@@ -6016,57 +6019,57 @@
 	
 	                _this2.flag.setup.effectBloom.strength = 3;
 	                _this2.flag.setup.effectBloom.radius = 0.6;
-	              }, 0.05 + 0.05)
+	              }, 0.02 + 0.1);
 	
-	              //rgb shift show
-	              .add(function () {
-	                _this2.flag.sail.setColor(true);
-	                _this2.flag.setup.rgbshift.show(0.02, 2);
+	              // //rgb shift show
+	              // .add(() => {
+	              //   this.flag.sail.setColor(true);
+	              //   this.flag.setup.rgbshift.show(0.02, 2);
 	
-	                _this2.flag.setup.effectBloom.strength = 6;
-	                _this2.flag.setup.effectBloom.radius = 0.5;
-	              }, 0.05 + 0.1 + 0.0)
-	              //rgb shift hide
+	              //   this.flag.setup.effectBloom.strength = 6;
+	              //   this.flag.setup.effectBloom.radius = 0.5;
+	              // }, 0.05 + 0.1 + 0.0)
+	              // //rgb shift hide
 	
-	              .add(function () {
-	                _this2.flag.sail.setColor(false);
-	                _this2.flag.setup.rgbshift.hide();
+	              // .add(() => {
+	              //   this.flag.sail.setColor(false);
+	              //   this.flag.setup.rgbshift.hide();
 	
-	                _this2.flag.setup.effectBloom.strength = 3;
-	                _this2.flag.setup.effectBloom.radius = 0.6;
-	              }, 0.05 + 0.1 + 0.05)
+	              //   this.flag.setup.effectBloom.strength = 3;
+	              //   this.flag.setup.effectBloom.radius = 0.6;
+	              // }, 0.05 + 0.1 + 0.05);
 	
-	              //rgb shift show
-	              .add(function () {
-	                _this2.flag.sail.setColor(true);
-	                _this2.flag.setup.rgbshift.show(0.02, 2);
+	              // //rgb shift show
+	              // .add(() => {
+	              //   this.flag.sail.setColor(true);
+	              //   this.flag.setup.rgbshift.show(0.02, 2);
 	
-	                _this2.flag.setup.effectBloom.strength = 6;
-	                _this2.flag.setup.effectBloom.radius = 0.5;
-	              }, 0.05 + 0.1 + 0.1 + 0.0)
-	              //rgb shift hide
+	              //   this.flag.setup.effectBloom.strength = 6;
+	              //   this.flag.setup.effectBloom.radius = 0.5;
+	              // }, 0.05 + 0.1 + 0.1 + 0.0)
+	              // //rgb shift hide
 	
-	              .add(function () {
-	                _this2.flag.sail.setColor(false);
-	                _this2.flag.setup.rgbshift.hide();
+	              // .add(() => {
+	              //   this.flag.sail.setColor(false);
+	              //   this.flag.setup.rgbshift.hide();
 	
-	                _this2.flag.setup.effectBloom.strength = 3;
-	                _this2.flag.setup.effectBloom.radius = 0.6;
-	              }, 0.05 + 0.1 + 0.1 + 0.05);
+	              //   this.flag.setup.effectBloom.strength = 3;
+	              //   this.flag.setup.effectBloom.radius = 0.6;
+	              // }, 0.05 + 0.1 + 0.1 + 0.05);
 	
 	              _this2.flag.setup.effectBloom.strength = 3;
 	              _this2.flag.setup.effectBloom.radius = 0.6;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
 	            }
 	          }, 0.8 + 0.05);
-	        }, 0.2 + 3.8)
+	        }, -0.3 + 3.8)
 	
 	        // bg line
 	        .add(function () {
 	          //scrollを解除
 	          $(".id_top").removeClass("fixed");
 	          _this2.flag.bg.show();
-	        }, 0.2 + 3.8 + 1.2)
+	        }, -0.3 + 3.8 + 1.2)
 	        // dom
 	        .add(function () {
 	          _this2.dom.show(menuBtnShow);
@@ -6076,9 +6079,9 @@
 	            fr: 4,
 	            ease: Power2.easeInOut
 	          });
-	        }, 0.2 + 3.8 + 0.9).add(function () {
+	        }, -0.3 + 3.8 + 0.9).add(function () {
 	          resolve();
-	        }, 0.2 + 6.0);
+	        }, -0.3 + 6.0);
 	      });
 	    }
 	  }, {
@@ -6771,7 +6774,7 @@
 	      var s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 	
 	      var strength = 1;
-	      if (gb.r.w <= 768) strength = 0.5;
+	      if (gb.r.w <= 768) strength = 0.8;
 	
 	      this.s = s * strength;
 	      this.onU();

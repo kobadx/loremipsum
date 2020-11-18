@@ -141,7 +141,7 @@ export default class Controller extends Base {
 
   show(v, s = 1) {
     var strength = 1;
-    if (gb.r.w <= 768) strength = 0.5;
+    if (gb.r.w <= 768) strength = 0.8;
 
     this.s = s * strength;
     this.onU();
