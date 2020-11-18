@@ -132,7 +132,6 @@
 .section-head-lead {
   color: #00a2ff;
   font-size: 1.4rem;
-  @extend .font-futura-rd;
 
   @media only screen and (max-width: $bp01) {
     font-size: 1rem;
@@ -147,6 +146,21 @@
 
   @media only screen and (max-width: $bp01) {
     font-size: 1.87rem;
+  }
+}
+
+.section-head-lead-img {
+  @media only screen and (max-width: $bp01) {
+    height: 8px;
+    width: auto;
+
+    &.is-casestudy {
+      height: 14px;
+    }
+
+    &.is-contact {
+      height: 14px;
+    }
   }
 }
 

@@ -5,20 +5,6 @@
 /* --------------------------------------------------------------------------------
 *   text / font
 -------------------------------------------------------------------------------- */
-@font-face
-{
-    font-family: 'Futura Now Headline Md';
-
-    src: url('/assets//fonts/Monotype - Futura Now Headline Md.otf');
-}
-
-@font-face
-{
-    font-family: 'Futura Now Headline Rd';
-
-    src: url('/assets//fonts/Monotype - Futura Now Headline Rg.otf');
-}
-
 #loading .loadingPercent
 {
     font-family: 'Ubuntu', sans-serif;
@@ -265,18 +251,6 @@
 *   font
 *
 -------------------------------------------------------------------------------- */
-.font-futura-md
-{
-    font-family: 'Futura Now Headline Md', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', Meiryo, 'メイリオ', Arial, sans-serif;
-    font-weight: normal;
-}
-
-.font-futura-rd,
-.section-head-lead
-{
-    font-family: 'Futura Now Headline Rd', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', Meiryo, 'メイリオ', Arial, sans-serif;
-}
-
 .captalize
 {
     text-transform: capitalize;
@@ -1042,9 +1016,15 @@ img
     right: 0;
 
     display: none;
+    overflow: auto;
 
+<<<<<<< HEAD
+    width: 572px;
+    height: 100vh;
+=======
     width: 82.8%;
     height: 100%;
+>>>>>>> ee8a8c3a4f5d9d523bd482f0a9698aceb5327109
 
     pointer-events: none;
 }
@@ -1064,11 +1044,11 @@ img
 
 .menu > .bg
 {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
 
-    width: 100%;
+    width: 572px;
     height: 100%;
 
     -webkit-transform: translate3d(0, 0, 0);
@@ -1230,18 +1210,7 @@ img
 {
     position: relative;
 
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display:         flex;
-
-    padding: 80px 80px 110px 140px;
-
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-align-items: flex-end;
-    -ms-flex-align: end;
-            align-items: flex-end;
+    padding: 80px 70px 50px 70px;
 }
 
 @media only screen and (max-width: 768px)
@@ -1256,7 +1225,7 @@ img
 
 .menu-item
 {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 
     -webkit-transform: translate3d(0, 0, 1px);
             transform: translate3d(0, 0, 1px);
@@ -1282,7 +1251,7 @@ img
 .menu-link,
 .menu-link:visited
 {
-    font-size: 2.1rem;
+    font-size: 1.6rem;
 
     position: relative;
 
@@ -1314,6 +1283,11 @@ img
 .menu-link:visited svg polyline
 {
     stroke: currentColor;
+}
+
+.menu-util
+{
+    margin-top: 40px;
 }
 
 .menu-lang
@@ -1428,7 +1402,7 @@ img
     font-size: 1.4rem;
 
     box-sizing: border-box;
-    width: 320px;
+    width: 100%;
     height: 64px;
     padding: 18px 18px 18px 60px;
 
@@ -2165,6 +2139,23 @@ body
     }
 }
 
+@media only screen and (max-width: 768px)
+{
+    .section-head-lead-img
+    {
+        width: auto;
+        height: 8px;
+    }
+    .section-head-lead-img.is-casestudy
+    {
+        height: 14px;
+    }
+    .section-head-lead-img.is-contact
+    {
+        height: 14px;
+    }
+}
+
 /* --------------------------------------------------------------------------------
 *
 *   category
@@ -2865,7 +2856,7 @@ a:active
 {
     font-size: 1.83rem;
 
-    letter-spacing: .1em;
+    letter-spacing: .3em;
 
     opacity: 0;
     color: #fff;
@@ -2930,6 +2921,14 @@ a:active
     color: rgba(255, 255, 255, 0);
 
     -webkit-text-stroke: 1px #fff;
+}
+
+@media only screen and (max-width: 768px)
+{
+    #wrapper.id_top .index-kv-title-img
+    {
+        width: 95%;
+    }
 }
 
 #wrapper.id_top .scroll-btn
