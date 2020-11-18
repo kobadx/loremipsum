@@ -42,7 +42,7 @@ export default class Controller extends Base {
         // effectを強める
         .add(() => {
           TweenMax.to(this.flag.setup.effectBloom, 2.0, {
-            strength: 1,
+            strength: 5,
             ease: Power2.easeInOut,
           });
           // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
@@ -72,6 +72,24 @@ export default class Controller extends Base {
               },
               0.0
             )
+            .add(() => {
+              // var tl = new TimelineMax({});
+              // tl
+              //   //rgb shift show
+              //   .add(() => {
+              //     this.flag.sail.setColor(true);
+              //     this.flag.setup.rgbshift.show(0.12);
+              //     this.flag.setup.effectBloom.strength = 10;
+              //     this.flag.setup.effectBloom.radius = 0.5;
+              //   }, 0.0 + 0.0)
+              //   //rgb shift hide
+              //   .add(() => {
+              //     this.flag.sail.setColor(false);
+              //     this.flag.setup.rgbshift.hide();
+              //     this.flag.setup.effectBloom.strength = 3;
+              //     this.flag.setup.effectBloom.radius = 0.6;
+              //   }, 0.0 + 0.05);
+            }, 0.75)
             // パッと引く
             .to(
               this.flag.setup.camera.position,
@@ -88,10 +106,6 @@ export default class Controller extends Base {
                     this.flag.defY = -window.innerHeight * 0.5 + 310; // yを正しい位置に
                     this.flag.tar = -window.innerHeight * 0.5 + 310; // yを正しい位置に
                   }
-
-                  //rgb shift show
-                  this.flag.sail.setColor(true);
-                  this.flag.setup.rgbshift.show();
 
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
@@ -111,12 +125,62 @@ export default class Controller extends Base {
                 z: this.flag.setup.defz * 0.95,
                 ease: Expo.easeOut,
                 onStart: () => {
-                  // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
-                  // this.flag.setup.effectBloom.threshold = 0.14;
+                  var tl = new TimelineMax({ repeat: 0, repeatDelay: 2.0 });
 
-                  //rgb shift hide
-                  // this.flag.sail.setColor(false);
-                  // this.flag.setup.rgbshift.hide();
+                  tl
+                    //rgb shift show
+                    .add(() => {
+                      this.flag.sail.setColor(true);
+                      this.flag.setup.rgbshift.show(0.03, 5);
+
+                      this.flag.setup.effectBloom.strength = 10;
+                      this.flag.setup.effectBloom.radius = 0.5;
+                    }, 0.0 + 0.0)
+                    //rgb shift hide
+
+                    .add(() => {
+                      this.flag.sail.setColor(false);
+                      this.flag.setup.rgbshift.hide();
+
+                      this.flag.setup.effectBloom.strength = 3;
+                      this.flag.setup.effectBloom.radius = 0.6;
+                    }, 0.0 + 0.05)
+
+                    //rgb shift show
+                    .add(() => {
+                      this.flag.sail.setColor(true);
+                      this.flag.setup.rgbshift.show(0.03, 2);
+
+                      this.flag.setup.effectBloom.strength = 6;
+                      this.flag.setup.effectBloom.radius = 0.5;
+                    }, 0.0 + 0.1 + 0.0)
+                    //rgb shift hide
+
+                    .add(() => {
+                      this.flag.sail.setColor(false);
+                      this.flag.setup.rgbshift.hide();
+
+                      this.flag.setup.effectBloom.strength = 3;
+                      this.flag.setup.effectBloom.radius = 0.6;
+                    }, 0.0 + 0.1 + 0.05);
+
+                  // //rgb shift show
+                  // .add(() => {
+                  //   this.flag.sail.setColor(true);
+                  //   this.flag.setup.rgbshift.show(0.05);
+
+                  //   this.flag.setup.effectBloom.strength = 6;
+                  //   this.flag.setup.effectBloom.radius = 0.5;
+                  // }, 0.0 + 0.1 + 0.1 + 0.0)
+                  // //rgb shift hide
+
+                  // .add(() => {
+                  //   this.flag.sail.setColor(false);
+                  //   this.flag.setup.rgbshift.hide();
+
+                  //   this.flag.setup.effectBloom.strength = 3;
+                  //   this.flag.setup.effectBloom.radius = 0.6;
+                  // }, 0.0 + 0.1 + 0.1 + 0.05);
 
                   this.flag.setup.effectBloom.strength = 3;
                   this.flag.setup.effectBloom.radius = 0.6;

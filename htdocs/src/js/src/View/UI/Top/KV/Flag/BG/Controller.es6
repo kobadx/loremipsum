@@ -15,8 +15,8 @@ export default class Controller {
     this.num = Math.ceil(w / l);
     this.obj.position.x = (w - this.num * l) * 0.5;
     this.lightObj.position.x = (w - this.num * l) * 0.5;
-    this.obj.position.z = -2;
-    this.lightObj.position.z = -2;
+    this.obj.position.z = -10;
+    this.lightObj.position.z = -10;
     // this.obj.position.;
 
     for (let i = 0; i < this.num; i++) {
@@ -31,6 +31,7 @@ export default class Controller {
         width: w,
         height: h,
         length: l,
+        opacity: 0.15,
       });
       this.obj.add(mesh);
       this.lightObj.add(mesh2);
@@ -97,7 +98,7 @@ export default class Controller {
     });
 
     tl.add((e) => {
-      // this.timeline();
+      this.timeline();
     });
     return tl;
   }
@@ -105,48 +106,50 @@ export default class Controller {
   timeline() {
     const l = this.lightObj.children.length;
     const index = Math.floor(Math.random() * l);
-    const d = Math.random() * 2 + 3;
+    const d = 0;
     const target = this.lightObj.children[index];
     const tl = new TimelineMax();
-    console.log(target);
     tl
       //opacity
       .to(
         target.material,
-        1.2,
+        0.75,
         {
-          opacity: 0.1,
+          opacity: 0.02,
           ease: Expo.easeOut,
         },
         d
       );
 
-    //線をひく
-    tl.to(
-      target.material.uniforms.dashOffset,
-      0.75,
-      {
-        value: -2,
-        ease: Expo.easeOut,
-      },
-      d
-    ).to(
-      target.position,
-      0.75,
-      {
-        y: -window.innerHeight * 1.1,
-        ease: Expo.easeOut,
-      },
-      d + 0.2
-    );
+    tl
+      //線をひく
+      .to(
+        target.material.uniforms.dashOffset,
+        0.75,
+        {
+          value: -1,
+          ease: Expo.easeOut,
+        },
+        d
+      )
+      //線をひく
+      .to(
+        target.position,
+        0.75,
+        {
+          y: -window.innerHeight * 1.1,
+          ease: Expo.easeOut,
+        },
+        d + 0.05 + Math.random() * 0.2
+      );
 
     //loop
     tl.add((e) => {
       target.material.uniforms.dashOffset.value = 0;
-      target.material.opacity = 1;
+      target.material.opacity = 0.15;
       target.position.y = 0;
       this.timeline();
-    }, "+= 1");
+    }, "+=" + 1.5);
   }
 
   resize() {

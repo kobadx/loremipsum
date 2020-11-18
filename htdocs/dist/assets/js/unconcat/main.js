@@ -5931,7 +5931,7 @@
 	        // effectを強める
 	        .add(function () {
 	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
-	            strength: 1,
+	            strength: 5,
 	            ease: Power2.easeInOut
 	          });
 	          // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
@@ -5955,7 +5955,24 @@
 	          .to(_this2.flag.setup.camera.position, 2.0, {
 	            z: _this2.flag.setup.defz,
 	            ease: Expo.easeInOut
-	          }, 0.0)
+	          }, 0.0).add(function () {
+	            // var tl = new TimelineMax({});
+	            // tl
+	            //   //rgb shift show
+	            //   .add(() => {
+	            //     this.flag.sail.setColor(true);
+	            //     this.flag.setup.rgbshift.show(0.12);
+	            //     this.flag.setup.effectBloom.strength = 10;
+	            //     this.flag.setup.effectBloom.radius = 0.5;
+	            //   }, 0.0 + 0.0)
+	            //   //rgb shift hide
+	            //   .add(() => {
+	            //     this.flag.sail.setColor(false);
+	            //     this.flag.setup.rgbshift.hide();
+	            //     this.flag.setup.effectBloom.strength = 3;
+	            //     this.flag.setup.effectBloom.radius = 0.6;
+	            //   }, 0.0 + 0.05);
+	          }, 0.75)
 	          // パッと引く
 	          .to(_this2.flag.setup.camera.position, 0.01, {
 	            z: _this2.flag.setup.defz * 0.85,
@@ -5970,10 +5987,6 @@
 	                _this2.flag.tar = -window.innerHeight * 0.5 + 310; // yを正しい位置に
 	              }
 	
-	              //rgb shift show
-	              _this2.flag.sail.setColor(true);
-	              _this2.flag.setup.rgbshift.show();
-	
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
@@ -5984,12 +5997,62 @@
 	            z: _this2.flag.setup.defz * 0.95,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
-	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
-	              // this.flag.setup.effectBloom.threshold = 0.14;
+	              var tl = new TimelineMax({ repeat: 0, repeatDelay: 2.0 });
 	
+	              tl
+	              //rgb shift show
+	              .add(function () {
+	                _this2.flag.sail.setColor(true);
+	                _this2.flag.setup.rgbshift.show(0.03, 5);
+	
+	                _this2.flag.setup.effectBloom.strength = 10;
+	                _this2.flag.setup.effectBloom.radius = 0.5;
+	              }, 0.0 + 0.0)
 	              //rgb shift hide
-	              // this.flag.sail.setColor(false);
-	              // this.flag.setup.rgbshift.hide();
+	
+	              .add(function () {
+	                _this2.flag.sail.setColor(false);
+	                _this2.flag.setup.rgbshift.hide();
+	
+	                _this2.flag.setup.effectBloom.strength = 3;
+	                _this2.flag.setup.effectBloom.radius = 0.6;
+	              }, 0.0 + 0.05)
+	
+	              //rgb shift show
+	              .add(function () {
+	                _this2.flag.sail.setColor(true);
+	                _this2.flag.setup.rgbshift.show(0.03, 2);
+	
+	                _this2.flag.setup.effectBloom.strength = 6;
+	                _this2.flag.setup.effectBloom.radius = 0.5;
+	              }, 0.0 + 0.1 + 0.0)
+	              //rgb shift hide
+	
+	              .add(function () {
+	                _this2.flag.sail.setColor(false);
+	                _this2.flag.setup.rgbshift.hide();
+	
+	                _this2.flag.setup.effectBloom.strength = 3;
+	                _this2.flag.setup.effectBloom.radius = 0.6;
+	              }, 0.0 + 0.1 + 0.05);
+	
+	              // //rgb shift show
+	              // .add(() => {
+	              //   this.flag.sail.setColor(true);
+	              //   this.flag.setup.rgbshift.show(0.05);
+	
+	              //   this.flag.setup.effectBloom.strength = 6;
+	              //   this.flag.setup.effectBloom.radius = 0.5;
+	              // }, 0.0 + 0.1 + 0.1 + 0.0)
+	              // //rgb shift hide
+	
+	              // .add(() => {
+	              //   this.flag.sail.setColor(false);
+	              //   this.flag.setup.rgbshift.hide();
+	
+	              //   this.flag.setup.effectBloom.strength = 3;
+	              //   this.flag.setup.effectBloom.radius = 0.6;
+	              // }, 0.0 + 0.1 + 0.1 + 0.05);
 	
 	              _this2.flag.setup.effectBloom.strength = 3;
 	              _this2.flag.setup.effectBloom.radius = 0.6;
@@ -6427,7 +6490,7 @@
 	    key: "init",
 	    value: function init() {
 	      this.frame = 0;
-	      this.pixcels = 1.8;
+	      this.pixcels = 2;
 	
 	      // clearTimeout(this.Timer);
 	      // this.Timer = setTimeout(() => {
@@ -6513,12 +6576,13 @@
 	      this.composer = new THREE.EffectComposer(this.renderer);
 	      var renderPass = new THREE.RenderPass(this.objScene, this.camera);
 	      this.composer.addPass(renderPass);
+	
 	      var param = {
 	        しきい値: 0.139,
 	        // 対象の明るさ: 1.9,
 	        // グローの半径: 0.36,
-	        対象の明るさ: 1,
-	        グローの半径: 0.03
+	        対象の明るさ: 2,
+	        グローの半径: 0.08
 	      };
 	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(this.$dom.width() * 1.0, this.$dom.height() * 1.0), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
 	      this.effectBloom.threshold = param["しきい値"];
@@ -6535,8 +6599,8 @@
 	      });
 	
 	      this.rgbshift = new _Controller4.default();
-	      this.composer.addPass(this.rgbshift.shaderPass);
 	      this.composer.addPass(this.effectBloom);
+	      this.composer.addPass(this.rgbshift.shaderPass);
 	
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
@@ -6586,6 +6650,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	var _Base2 = __webpack_require__(15);
+	
+	var _Base3 = _interopRequireDefault(_Base2);
+	
 	var _frag = __webpack_require__(43);
 	
 	var _frag2 = _interopRequireDefault(_frag);
@@ -6598,11 +6666,19 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Controller = function () {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Controller = function (_Base) {
+	  _inherits(Controller, _Base);
+	
 	  function Controller() {
 	    _classCallCheck(this, Controller);
 	
-	    this.shaderPass = new THREE.ShaderPass({
+	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
+	
+	    _this.shaderPass = new THREE.ShaderPass({
 	      uniforms: {
 	        tDiffuse: {
 	          value: null,
@@ -6611,22 +6687,98 @@
 	        offset: {
 	          value: 0.0,
 	          type: "f"
+	        },
+	        rotate: {
+	          value: new THREE.Vector2(0, 0),
+	          type: "v2"
+	        },
+	
+	        seed: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        distortion_x: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        distortion_y: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        seed_x: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        seed_y: {
+	          value: 0.0,
+	          type: "f"
+	        },
+	        col_s: {
+	          value: 0.05,
+	          type: "f"
+	        },
+	        tDisp: {
+	          value: null
 	        }
 	      },
 	      vertexShader: _vert2.default,
 	      fragmentShader: _frag2.default
 	    });
+	
+	    _this.s = 1;
+	
+	    _this.shaderPass.uniforms["tDisp"].value = _this.generateHeightmap(20);
+	
+	    // this.isUEv = true;
+	
+	    _this.setup();
+	    _this.setEvents();
+	    return _this;
 	  }
 	
 	  _createClass(Controller, [{
+	    key: "update",
+	    value: function update() {
+	      this.shaderPass.uniforms["seed"].value = 0.5; //default seeding
+	      // this.shaderPass.uniforms["distortion_x"].value = THREE.Math.randFloat(0, 1);
+	      // this.shaderPass.uniforms["distortion_y"].value = THREE.Math.randFloat(0, 1);
+	      this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
+	      this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
+	
+	      // console.log(
+	      //   this.shaderPass.uniforms["seed_x"].value,
+	      //   this.shaderPass.uniforms["seed_y"].value
+	      // );
+	    }
+	  }, {
 	    key: "show",
-	    value: function show() {
+	    value: function show(v) {
+	      var s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+	
+	      this.s = s;
+	      this.onU();
+	
+	      this.shaderPass.uniforms.tDiffuse.value.wrapS = THREE.MirroredRepeatWrapping;
+	      this.shaderPass.uniforms.tDiffuse.value.wrapT = THREE.MirroredRepeatWrapping;
+	
+	      var rotateX = Math.random() * Math.PI * 2;
+	      var rotateY = Math.random() * Math.PI * 2;
+	
+	      console.log(rotateX, rotateY);
+	
+	      var rotates = [{ x: 4.534725472242586, y: 1.9779006645015587 }, { x: 4.145211998776186, y: 4.500798660131272 }, { x: 2.7464663514791408, y: 4.590382318407328 }, { x: 0.08328790724654228, y: 0.841139124249118 }, { x: 1.7587981681678089, y: 1.137486829022558 }];
+	
+	      var index = Math.floor(Math.random() * rotates.length);
+	
 	      var tl = new TimelineMax();
 	      var uniforms = this.shaderPass.uniforms;
 	      tl
 	      //start
 	      .set(uniforms.offset, {
-	        value: 0.02
+	        value: v
+	      }, 0.0).set(uniforms.rotate.value, {
+	        x: rotates[index].x,
+	        y: rotates[index].y
 	      }, 0.0);
 	    }
 	  }, {
@@ -6640,12 +6792,42 @@
 	        value: 0.0
 	      }, 0.0);
 	
-	      return tl;
+	      this.offU();
+	
+	      this.shaderPass.uniforms["seed"].value = 0;
+	      this.shaderPass.uniforms["seed_x"].value = 0;
+	      this.shaderPass.uniforms["seed_y"].value = 0;
+	    }
+	  }, {
+	    key: "generateHeightmap",
+	    value: function generateHeightmap(dt_size) {
+	      // block noise
+	      var data_arr = new Float32Array(dt_size * dt_size * 3);
+	      var length = dt_size * dt_size;
+	
+	      for (var i = 0; i < length; i++) {
+	        var val = THREE.Math.randFloat(0, 1);
+	        data_arr[i * 3 + 0] = val;
+	        data_arr[i * 3 + 1] = val;
+	        data_arr[i * 3 + 2] = val;
+	      }
+	
+	      var texture = new THREE.DataTexture(data_arr, dt_size, dt_size, THREE.RGBFormat, THREE.FloatType);
+	      texture.needsUpdate = true;
+	      return texture;
+	
+	      // // texture
+	      // var textures = [];
+	      // var loader = new THREE.TextureLoader();
+	      // for ( var i = 0; i < 6; i ++ ) textures[ i ] = loader.load( './assets/resource/tex/transition' + ( i + 1 ) + '.png' );
+	
+	      // // return texture;
+	      // return textures[3];
 	    }
 	  }]);
 	
 	  return Controller;
-	}();
+	}(_Base3.default);
 	
 	exports.default = Controller;
 
@@ -6653,7 +6835,7 @@
 /* 43 */
 /***/ (function(module, exports) {
 
-	module.exports = "#define GLSLIFY 1\nuniform sampler2D tDiffuse;\n\n\nuniform float offset;\n\n\nconst float PI  = 3.141592653589793;\n\nfloat rnd(vec2 n){\n    float a = 0.129898;\n    float b = 0.78233;\n    float c = 437.585453;\n    float dt= dot(n ,vec2(a, b));\n    float sn= mod(dt, 3.14);\n    return fract(sin(sn) * c);\n}\n\nvarying vec2 vUv;\nvoid main() {\n  \n  // float v_1 = floor((gl_FragCoord.y) / blockSize) * blockSize;\n  // float v_2 = floor((gl_FragCoord.y) / blockSize * .5) * blockSize * .5;\n  // float v_3 = floor((gl_FragCoord.y) / blockSize * .2) * blockSize * .2;\n  // float v_4 = floor((gl_FragCoord.y) / blockSize * .7) * blockSize * .7;\n  // float v1 = mix(v_1,v_2,rnd(vec2(time)));\n  // float v2 = mix(v_3,v_4,rnd(vec2(time)));\n  // // vec2 c = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);\n  // // float l = 0.1 / length(c) * ;\n  // float n1 = rnd(vec2(mix(v1,v2,rnd(vec2(time))), time * 0.1));\n  // float s = step(n1, threshold);\n  // float n2 = rnd(vec2(time)) * 2.0 - 1.0;\n  // float t = n2 * slideWidth;\n\n  // vec4 color = texture2D(tDiffuse, vUv + vec2(s * t, 0.0));\n  // float c_r = texture2D(tDiffuse, vUv + vec2(1.3, 0.0)).r;\n  // // float c_g = texture2D(tDiffuse, vUv + vec2(2.0, 0.0)).g;\n  // // float c_b = texture2D(tDiffuse, vUv + vec2(1.2, 0.0)).b;\n  // float c_g = texture2D(tDiffuse, vUv + vec2(4.3, 0.0)).g;\n  // float c_b = texture2D(tDiffuse, vUv + vec2(-0.2, 0.0)).b;\n\n  vec2 offset2 = offset * vec2( cos(1.0), sin(1.0));\n  vec4 color = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cr = texture2D(tDiffuse, vUv + offset2) * 1.0;\n  vec4 cg = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cb = texture2D(tDiffuse, vUv - offset2) * 1.0;\n  gl_FragColor = vec4(cr.r * 1.0, cg.g * 1.0, cb.b * 1.0, color.a);\n  \n  // gl_FragColor = vec4(c_r,c_g,c_b,1.0);\n}\n"
+	module.exports = "#define GLSLIFY 1\nuniform sampler2D tDiffuse;\nuniform sampler2D tDisp;\n\n\nuniform float offset;\nuniform vec2 rotate;\n\nuniform float seed;\nuniform float seed_x;\nuniform float seed_y;\nuniform float distortion_x;\nuniform float distortion_y;\nuniform float col_s;\n\n\n\nconst float PI  = 3.141592653589793;\n\nfloat rnd(vec2 n){\n    float a = 0.129898;\n    float b = 0.78233;\n    float c = 437.585453;\n    float dt= dot(n ,vec2(a, b));\n    float sn= mod(dt, 3.14);\n    return fract(sin(sn) * c);\n}\n\nvarying vec2 vUv;\nvoid main() {\n  \n  vec2 p = vUv;\n\n  // distortion line\n  // if(p.y<distortion_x+col_s && p.y>distortion_x-col_s*seed) {\n  //  if(seed_x>0.){\n  //    p.y = 1. - (p.y + distortion_y);\n  //  }\n  //  else {\n  //    p.y = distortion_y;\n  //  }\n  // }\n  // if(p.x<distortion_y+col_s && p.x>distortion_y-col_s*seed) {\n  //  if(seed_y>0.){\n  //    p.x=distortion_x;\n  //  }\n  //  else {\n  //    p.x = 1. - (p.x + distortion_x);\n  //  }\n  // }\n  // gl_FragColor = texture2D(tDiffuse, p); // distortion line onl\n\n  // block noise\n  // vec4 normal = texture2D (tDisp, p * seed * seed);\n  vec4 normal = texture2D (tDiffuse, p);\n  p.x += seed_x * (seed/0.2);\n  p.y += seed_y * (seed/0.2);\n  // gl_FragColor = texture2D(tDiffuse, p); // block noise onl\n\n  vec2 offset2 = offset * vec2( cos(rotate.x), sin(rotate.x));\n  vec4 color = texture2D(tDiffuse, p) * 1.0;\n  vec4 cr = texture2D(tDiffuse, p + offset2) * 1.0;\n  vec4 cg = texture2D(tDiffuse, p) * 1.0;\n  vec4 cb = texture2D(tDiffuse, p - offset2) * 1.0;\n  gl_FragColor = vec4(cr.r * 1.0, cg.g * 1.0, cb.b * 1.0, color.a);\n}\n"
 
 /***/ }),
 /* 44 */
@@ -8010,8 +8192,8 @@
 	      this.num = Math.ceil(w / l);
 	      this.obj.position.x = (w - this.num * l) * 0.5;
 	      this.lightObj.position.x = (w - this.num * l) * 0.5;
-	      this.obj.position.z = -2;
-	      this.lightObj.position.z = -2;
+	      this.obj.position.z = -10;
+	      this.lightObj.position.z = -10;
 	      // this.obj.position.;
 	
 	      for (var i = 0; i < this.num; i++) {
@@ -8025,7 +8207,8 @@
 	          index: i,
 	          width: w,
 	          height: h,
-	          length: l
+	          length: l,
+	          opacity: 0.15
 	        });
 	        this.obj.add(mesh);
 	        this.lightObj.add(mesh2);
@@ -8065,6 +8248,8 @@
 	  }, {
 	    key: "show",
 	    value: function show() {
+	      var _this = this;
+	
 	      console.log("show");
 	      var tl = new TimelineMax();
 	      var h = $(".canvas").height();
@@ -8088,44 +8273,46 @@
 	      });
 	
 	      tl.add(function (e) {
-	        // this.timeline();
+	        _this.timeline();
 	      });
 	      return tl;
 	    }
 	  }, {
 	    key: "timeline",
 	    value: function timeline() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var l = this.lightObj.children.length;
 	      var index = Math.floor(Math.random() * l);
-	      var d = Math.random() * 2 + 3;
+	      var d = 0;
 	      var target = this.lightObj.children[index];
 	      var tl = new TimelineMax();
-	      console.log(target);
 	      tl
 	      //opacity
-	      .to(target.material, 1.2, {
-	        opacity: 0.1,
+	      .to(target.material, 0.75, {
+	        opacity: 0.02,
 	        ease: Expo.easeOut
 	      }, d);
 	
+	      tl
 	      //線をひく
-	      tl.to(target.material.uniforms.dashOffset, 0.75, {
-	        value: -2,
+	      .to(target.material.uniforms.dashOffset, 0.75, {
+	        value: -1,
 	        ease: Expo.easeOut
-	      }, d).to(target.position, 0.75, {
+	      }, d)
+	      //線をひく
+	      .to(target.position, 0.75, {
 	        y: -window.innerHeight * 1.1,
 	        ease: Expo.easeOut
-	      }, d + 0.2);
+	      }, d + 0.05 + Math.random() * 0.2);
 	
 	      //loop
 	      tl.add(function (e) {
 	        target.material.uniforms.dashOffset.value = 0;
-	        target.material.opacity = 1;
+	        target.material.opacity = 0.15;
 	        target.position.y = 0;
-	        _this.timeline();
-	      }, "+= 1");
+	        _this2.timeline();
+	      }, "+=" + 1.5);
 	    }
 	  }, {
 	    key: "resize",

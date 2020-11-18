@@ -17,7 +17,7 @@ export default class ClassName extends Base {
 
   init() {
     this.frame = 0;
-    this.pixcels = 1.8;
+    this.pixcels = 2;
 
     // clearTimeout(this.Timer);
     // this.Timer = setTimeout(() => {
@@ -93,12 +93,13 @@ export default class ClassName extends Base {
     this.composer = new THREE.EffectComposer(this.renderer);
     const renderPass = new THREE.RenderPass(this.objScene, this.camera);
     this.composer.addPass(renderPass);
+
     const param = {
       しきい値: 0.139,
       // 対象の明るさ: 1.9,
       // グローの半径: 0.36,
-      対象の明るさ: 1,
-      グローの半径: 0.03,
+      対象の明るさ: 2,
+      グローの半径: 0.08,
     };
     this.effectBloom = new THREE.UnrealBloomPass(
       new THREE.Vector2(this.$dom.width() * 1.0, this.$dom.height() * 1.0),
@@ -123,8 +124,8 @@ export default class ClassName extends Base {
     });
 
     this.rgbshift = new RGBShift();
-    this.composer.addPass(this.rgbshift.shaderPass);
     this.composer.addPass(this.effectBloom);
+    this.composer.addPass(this.rgbshift.shaderPass);
 
     const toScreen = new THREE.ShaderPass(THREE.CopyShader);
     toScreen.renderToScreen = true;
