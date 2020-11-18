@@ -111,5 +111,17 @@ export default class Controller {
       }, 1.5);
   }
 
+  setColor(isWhite) {
+    var c1 = new THREE.Color("#ffffff");
+    var c2 = new THREE.Color("#0047e9");
+
+    if (isWhite) var c = c1;
+    else var c = c2;
+
+    this.lines.forEach((line, index) => {
+      line.obj.material.color = c;
+    });
+  }
+
   setEvents() {}
 }

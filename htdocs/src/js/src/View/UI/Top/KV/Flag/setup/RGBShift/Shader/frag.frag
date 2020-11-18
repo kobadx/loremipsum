@@ -1,10 +1,7 @@
 uniform sampler2D tDiffuse;
 
 
-uniform float blockSize;
-uniform float threshold;
-uniform float time;
-uniform float slideWidth;
+uniform float offset;
 
 
 const float PI  = 3.141592653589793;
@@ -41,12 +38,12 @@ void main() {
   // float c_g = texture2D(tDiffuse, vUv + vec2(4.3, 0.0)).g;
   // float c_b = texture2D(tDiffuse, vUv + vec2(-0.2, 0.0)).b;
 
-  vec2 offset = 0.01 * vec2( cos(1.0), sin(1.0));
+  vec2 offset2 = offset * vec2( cos(1.0), sin(1.0));
   vec4 color = texture2D(tDiffuse, vUv) * 1.0;
-  vec4 cr = texture2D(tDiffuse, vUv + offset) * 1.0;
+  vec4 cr = texture2D(tDiffuse, vUv + offset2) * 1.0;
   vec4 cg = texture2D(tDiffuse, vUv) * 1.0;
-  vec4 cb = texture2D(tDiffuse, vUv - offset) * 1.0;
-  gl_FragColor = vec4(cr.r * 1.2, cg.g * 1.2, cb.b * 1.2, color.a);
+  vec4 cb = texture2D(tDiffuse, vUv - offset2) * 1.0;
+  gl_FragColor = vec4(cr.r * 1.0, cg.g * 1.0, cb.b * 1.0, color.a);
   
   // gl_FragColor = vec4(c_r,c_g,c_b,1.0);
 }

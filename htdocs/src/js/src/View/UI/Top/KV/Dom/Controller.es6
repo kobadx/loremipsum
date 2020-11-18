@@ -82,6 +82,16 @@ export default class Controller extends Base {
         },
         0.2
       )
+      // $titL op
+      .to(
+        $titL,
+        0.9,
+        {
+          opacity: 0,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
 
       // logo
       .to(

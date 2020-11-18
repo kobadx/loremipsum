@@ -5931,7 +5931,7 @@
 	        // effectを強める
 	        .add(function () {
 	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
-	            strength: 6,
+	            strength: 1,
 	            ease: Power2.easeInOut
 	          });
 	          // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
@@ -5971,7 +5971,9 @@
 	              }
 	
 	              //rgb shift show
-	              // this.flag.setup.rgbshift.show();
+	              _this2.flag.sail.setColor(true);
+	              _this2.flag.setup.rgbshift.show();
+	
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
@@ -5984,6 +5986,11 @@
 	            onStart: function onStart() {
 	              // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
 	              // this.flag.setup.effectBloom.threshold = 0.14;
+	
+	              //rgb shift hide
+	              // this.flag.sail.setColor(false);
+	              // this.flag.setup.rgbshift.hide();
+	
 	              _this2.flag.setup.effectBloom.strength = 3;
 	              _this2.flag.setup.effectBloom.radius = 0.6;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
@@ -6510,8 +6517,8 @@
 	        しきい値: 0.139,
 	        // 対象の明るさ: 1.9,
 	        // グローの半径: 0.36,
-	        対象の明るさ: 2,
-	        グローの半径: 0.4
+	        対象の明るさ: 1,
+	        グローの半径: 0.03
 	      };
 	      this.effectBloom = new THREE.UnrealBloomPass(new THREE.Vector2(this.$dom.width() * 1.0, this.$dom.height() * 1.0), 0.01, 1.07, 0.85, this.obj, this.scene, this.camera);
 	      this.effectBloom.threshold = param["しきい値"];
@@ -6601,19 +6608,7 @@
 	          value: null,
 	          type: "t"
 	        },
-	        time: {
-	          value: 1.0,
-	          type: "f"
-	        },
-	        blockSize: {
-	          value: 100.0,
-	          type: "f"
-	        },
-	        threshold: {
-	          value: 2.0,
-	          type: "f"
-	        },
-	        slideWidth: {
+	        offset: {
 	          value: 0.0,
 	          type: "f"
 	        }
@@ -6629,25 +6624,22 @@
 	      var tl = new TimelineMax();
 	      var uniforms = this.shaderPass.uniforms;
 	      tl
-	      // .to(uniforms.s)
-	      .to(uniforms.time, 0.25, {
-	        value: 1,
-	        ease: Expo.easeOut
-	      }).to(uniforms.slideWidth, 0.2, {
-	        value: 1,
-	        ease: Expo.easeOut
-	      }, 0).set(uniforms.threshold, {
-	        value: 0.4
-	      }, 0)
+	      //start
+	      .set(uniforms.offset, {
+	        value: 0.02
+	      }, 0.0);
+	    }
+	  }, {
+	    key: "hide",
+	    value: function hide() {
+	      var tl = new TimelineMax();
+	      var uniforms = this.shaderPass.uniforms;
+	      tl
+	      //start
+	      .set(uniforms.offset, {
+	        value: 0.0
+	      }, 0.0);
 	
-	      //end
-	      .to(uniforms.threshold, 0.25, {
-	        value: 0,
-	        ease: Expo.easeOut
-	      }, 0.25).to(uniforms.slideWidth, 0.05, {
-	        value: 0,
-	        ease: Expo.easeOut
-	      }, 0.2);
 	      return tl;
 	    }
 	  }]);
@@ -6661,7 +6653,7 @@
 /* 43 */
 /***/ (function(module, exports) {
 
-	module.exports = "#define GLSLIFY 1\nuniform sampler2D tDiffuse;\n\n\nuniform float blockSize;\nuniform float threshold;\nuniform float time;\nuniform float slideWidth;\n\n\nconst float PI  = 3.141592653589793;\n\nfloat rnd(vec2 n){\n    float a = 0.129898;\n    float b = 0.78233;\n    float c = 437.585453;\n    float dt= dot(n ,vec2(a, b));\n    float sn= mod(dt, 3.14);\n    return fract(sin(sn) * c);\n}\n\nvarying vec2 vUv;\nvoid main() {\n  \n  // float v_1 = floor((gl_FragCoord.y) / blockSize) * blockSize;\n  // float v_2 = floor((gl_FragCoord.y) / blockSize * .5) * blockSize * .5;\n  // float v_3 = floor((gl_FragCoord.y) / blockSize * .2) * blockSize * .2;\n  // float v_4 = floor((gl_FragCoord.y) / blockSize * .7) * blockSize * .7;\n  // float v1 = mix(v_1,v_2,rnd(vec2(time)));\n  // float v2 = mix(v_3,v_4,rnd(vec2(time)));\n  // // vec2 c = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);\n  // // float l = 0.1 / length(c) * ;\n  // float n1 = rnd(vec2(mix(v1,v2,rnd(vec2(time))), time * 0.1));\n  // float s = step(n1, threshold);\n  // float n2 = rnd(vec2(time)) * 2.0 - 1.0;\n  // float t = n2 * slideWidth;\n\n  // vec4 color = texture2D(tDiffuse, vUv + vec2(s * t, 0.0));\n  // float c_r = texture2D(tDiffuse, vUv + vec2(1.3, 0.0)).r;\n  // // float c_g = texture2D(tDiffuse, vUv + vec2(2.0, 0.0)).g;\n  // // float c_b = texture2D(tDiffuse, vUv + vec2(1.2, 0.0)).b;\n  // float c_g = texture2D(tDiffuse, vUv + vec2(4.3, 0.0)).g;\n  // float c_b = texture2D(tDiffuse, vUv + vec2(-0.2, 0.0)).b;\n\n  vec2 offset = 0.01 * vec2( cos(1.0), sin(1.0));\n  vec4 color = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cr = texture2D(tDiffuse, vUv + offset) * 1.0;\n  vec4 cg = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cb = texture2D(tDiffuse, vUv - offset) * 1.0;\n  gl_FragColor = vec4(cr.r * 1.2, cg.g * 1.2, cb.b * 1.2, color.a);\n  \n  // gl_FragColor = vec4(c_r,c_g,c_b,1.0);\n}\n"
+	module.exports = "#define GLSLIFY 1\nuniform sampler2D tDiffuse;\n\n\nuniform float offset;\n\n\nconst float PI  = 3.141592653589793;\n\nfloat rnd(vec2 n){\n    float a = 0.129898;\n    float b = 0.78233;\n    float c = 437.585453;\n    float dt= dot(n ,vec2(a, b));\n    float sn= mod(dt, 3.14);\n    return fract(sin(sn) * c);\n}\n\nvarying vec2 vUv;\nvoid main() {\n  \n  // float v_1 = floor((gl_FragCoord.y) / blockSize) * blockSize;\n  // float v_2 = floor((gl_FragCoord.y) / blockSize * .5) * blockSize * .5;\n  // float v_3 = floor((gl_FragCoord.y) / blockSize * .2) * blockSize * .2;\n  // float v_4 = floor((gl_FragCoord.y) / blockSize * .7) * blockSize * .7;\n  // float v1 = mix(v_1,v_2,rnd(vec2(time)));\n  // float v2 = mix(v_3,v_4,rnd(vec2(time)));\n  // // vec2 c = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);\n  // // float l = 0.1 / length(c) * ;\n  // float n1 = rnd(vec2(mix(v1,v2,rnd(vec2(time))), time * 0.1));\n  // float s = step(n1, threshold);\n  // float n2 = rnd(vec2(time)) * 2.0 - 1.0;\n  // float t = n2 * slideWidth;\n\n  // vec4 color = texture2D(tDiffuse, vUv + vec2(s * t, 0.0));\n  // float c_r = texture2D(tDiffuse, vUv + vec2(1.3, 0.0)).r;\n  // // float c_g = texture2D(tDiffuse, vUv + vec2(2.0, 0.0)).g;\n  // // float c_b = texture2D(tDiffuse, vUv + vec2(1.2, 0.0)).b;\n  // float c_g = texture2D(tDiffuse, vUv + vec2(4.3, 0.0)).g;\n  // float c_b = texture2D(tDiffuse, vUv + vec2(-0.2, 0.0)).b;\n\n  vec2 offset2 = offset * vec2( cos(1.0), sin(1.0));\n  vec4 color = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cr = texture2D(tDiffuse, vUv + offset2) * 1.0;\n  vec4 cg = texture2D(tDiffuse, vUv) * 1.0;\n  vec4 cb = texture2D(tDiffuse, vUv - offset2) * 1.0;\n  gl_FragColor = vec4(cr.r * 1.0, cg.g * 1.0, cb.b * 1.0, color.a);\n  \n  // gl_FragColor = vec4(c_r,c_g,c_b,1.0);\n}\n"
 
 /***/ }),
 /* 44 */
@@ -7524,6 +7516,18 @@
 	      }, 1.5);
 	    }
 	  }, {
+	    key: "setColor",
+	    value: function setColor(isWhite) {
+	      var c1 = new THREE.Color("#ffffff");
+	      var c2 = new THREE.Color("#0047e9");
+	
+	      if (isWhite) var c = c1;else var c = c2;
+	
+	      this.lines.forEach(function (line, index) {
+	        line.obj.material.color = c;
+	      });
+	    }
+	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {}
 	  }, {
@@ -7570,8 +7574,8 @@
 	    this.NUM = 100;
 	    this.TIME = 0;
 	    this.fixDist = 1;
-	    // this.color = 0x0047e9;
-	    this.color = 0xffffff;
+	    this.color = 0x0047e9;
+	    // this.color = 0xffffff;
 	
 	    this.noiseOffset0 = this.random(-100000, 100000);
 	    this.noiseOffset1 = this.random(-100000, 100000);
@@ -10840,6 +10844,11 @@
 	        x: 0,
 	        opacity: 1,
 	        ease: Expo.easeOut
+	      }, 0.2)
+	      // $titL op
+	      .to($titL, 0.9, {
+	        opacity: 0,
+	        ease: Power2.easeInOut
 	      }, 0.2)
 	
 	      // logo

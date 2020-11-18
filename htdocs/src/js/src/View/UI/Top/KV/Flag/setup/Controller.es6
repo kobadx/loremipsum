@@ -97,8 +97,8 @@ export default class ClassName extends Base {
       しきい値: 0.139,
       // 対象の明るさ: 1.9,
       // グローの半径: 0.36,
-      対象の明るさ: 2,
-      グローの半径: 0.4,
+      対象の明るさ: 1,
+      グローの半径: 0.03,
     };
     this.effectBloom = new THREE.UnrealBloomPass(
       new THREE.Vector2(this.$dom.width() * 1.0, this.$dom.height() * 1.0),

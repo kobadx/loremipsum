@@ -9,8 +9,8 @@ export default class Controller {
     this.NUM = 100;
     this.TIME = 0;
     this.fixDist = 1;
-    // this.color = 0x0047e9;
-    this.color = 0xffffff;
+    this.color = 0x0047e9;
+    // this.color = 0xffffff;
 
     this.noiseOffset0 = this.random(-100000, 100000);
     this.noiseOffset1 = this.random(-100000, 100000);

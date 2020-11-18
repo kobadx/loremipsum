@@ -42,7 +42,7 @@ export default class Controller extends Base {
         // effectを強める
         .add(() => {
           TweenMax.to(this.flag.setup.effectBloom, 2.0, {
-            strength: 6,
+            strength: 1,
             ease: Power2.easeInOut,
           });
           // TweenMax.to(this.flag.setup.effectBloom, 1.5, {
@@ -90,7 +90,9 @@ export default class Controller extends Base {
                   }
 
                   //rgb shift show
-                  // this.flag.setup.rgbshift.show();
+                  this.flag.sail.setColor(true);
+                  this.flag.setup.rgbshift.show();
+
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
@@ -111,6 +113,11 @@ export default class Controller extends Base {
                 onStart: () => {
                   // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);
                   // this.flag.setup.effectBloom.threshold = 0.14;
+
+                  //rgb shift hide
+                  // this.flag.sail.setColor(false);
+                  // this.flag.setup.rgbshift.hide();
+
                   this.flag.setup.effectBloom.strength = 3;
                   this.flag.setup.effectBloom.radius = 0.6;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
