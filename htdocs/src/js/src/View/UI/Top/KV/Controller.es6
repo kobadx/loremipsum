@@ -11,6 +11,8 @@ export default class Controller extends Base {
     this.flag = new Flag();
     this.dom = new Dom();
     this.$c = $("canvas");
+
+    this.bp = 768;
   }
 
   timeline(menuBtnShow = (e) => {}) {
@@ -78,12 +80,17 @@ export default class Controller extends Base {
                 z: this.flag.setup.defz * 0.85,
                 ease: Expo.easeOut,
                 onStart: () => {
-                  this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
-                  this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
-                  // this.flag.setup.effectBloom.threshold = 0.03;
+                  // spだったらlayout調整
+                  if (gb.r.w <= this.bp) {
+                    this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+                    this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
+                  } else {
+                    this.flag.defY = -window.innerHeight * 0.5 + 310; // yを正しい位置に
+                    this.flag.tar = -window.innerHeight * 0.5 + 310; // yを正しい位置に
+                  }
 
                   //rgb shift show
-                  this.flag.setup.rgbshift.show();
+                  // this.flag.setup.rgbshift.show();
                   this.flag.setup.effectBloom.strength = 10;
                   this.flag.setup.effectBloom.radius = 3;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
@@ -99,7 +106,7 @@ export default class Controller extends Base {
               this.flag.setup.camera.position,
               4.5,
               {
-                z: this.flag.setup.defz * 1.0,
+                z: this.flag.setup.defz * 0.95,
                 ease: Expo.easeOut,
                 onStart: () => {
                   // TweenMax.killTWeensOf(this.flag.setup.effectBloom.strength);

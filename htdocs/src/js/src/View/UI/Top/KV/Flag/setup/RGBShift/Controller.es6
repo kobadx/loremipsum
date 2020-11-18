@@ -6,27 +6,27 @@ export default class Controller {
       uniforms: {
         tDiffuse: {
           value: null,
-          type: "t"
+          type: "t",
         },
         time: {
-          value: 0.0,
-          type: "f"
+          value: 1.0,
+          type: "f",
         },
         blockSize: {
           value: 100.0,
-          type: "f"
+          type: "f",
         },
         threshold: {
-          value: 0.0,
-          type: "f"
+          value: 2.0,
+          type: "f",
         },
         slideWidth: {
           value: 0.0,
-          type: "f"
-        }
+          type: "f",
+        },
       },
       vertexShader: vert,
-      fragmentShader: frag
+      fragmentShader: frag,
     });
   }
 
@@ -37,21 +37,21 @@ export default class Controller {
       // .to(uniforms.s)
       .to(uniforms.time, 0.25, {
         value: 1,
-        ease: Expo.easeOut
+        ease: Expo.easeOut,
       })
       .to(
         uniforms.slideWidth,
         0.2,
         {
           value: 1,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0
       )
       .set(
         uniforms.threshold,
         {
-          value: 0.4
+          value: 0.4,
         },
         0
       )
@@ -62,7 +62,7 @@ export default class Controller {
         0.25,
         {
           value: 0,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.25
       )
@@ -71,7 +71,7 @@ export default class Controller {
         0.05,
         {
           value: 0,
-          ease: Expo.easeOut
+          ease: Expo.easeOut,
         },
         0.2
       );
