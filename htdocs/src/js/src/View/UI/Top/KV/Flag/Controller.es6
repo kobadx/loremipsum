@@ -107,9 +107,12 @@ export default class Controller extends Base {
 
     // move Y
     // positionを正しい位置に
-    var tarY = this.$canvas.width() <= this.bp ? 325 : 315;
+    var tarY =
+      this.$canvas.width() <= this.bp
+        ? -window.innerHeight * 0.5 + 325
+        : this.per * (-window.innerHeight * 0.5 + 315);
     TweenMax.to(this, 1.5, {
-      defY: -window.innerHeight * 0.5 + tarY,
+      defY: tarY,
       ease: Power2.easeInOut,
       delay: 2.0,
     });

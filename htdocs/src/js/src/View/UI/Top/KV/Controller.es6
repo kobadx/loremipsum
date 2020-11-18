@@ -103,8 +103,10 @@ export default class Controller extends Base {
                     this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                     this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                   } else {
-                    this.flag.defY = -window.innerHeight * 0.5 + 310; // yを正しい位置に
-                    this.flag.tar = -window.innerHeight * 0.5 + 310; // yを正しい位置に
+                    this.flag.defY =
+                      this.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
+                    this.flag.tar =
+                      this.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
                   }
 
                   this.flag.setup.effectBloom.strength = 10;
@@ -131,7 +133,7 @@ export default class Controller extends Base {
                     //rgb shift show
                     .add(() => {
                       this.flag.sail.setColor(true);
-                      this.flag.setup.rgbshift.show(0.03, 5);
+                      this.flag.setup.rgbshift.show(0.03, 7);
 
                       this.flag.setup.effectBloom.strength = 10;
                       this.flag.setup.effectBloom.radius = 0.5;
