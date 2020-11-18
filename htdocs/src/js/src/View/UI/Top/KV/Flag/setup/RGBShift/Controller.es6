@@ -115,20 +115,20 @@ export default class Controller extends Base {
 
   update() {
     this.shaderPass.uniforms["seed"].value = 0.5; //default seeding
-    this.shaderPass.uniforms["seed_x"].value = this.rs[this.indexs.rs][
-      this.index
-    ].x;
-    this.shaderPass.uniforms["seed_y"].value = this.rs[this.indexs.rs][
-      this.index
-    ].y;
-    // this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(
-    //   -0.005 * this.s,
-    //   0.005 * this.s
-    // );
-    // this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(
-    //   -0.005 * this.s,
-    //   0.005 * this.s
-    // );
+    // this.shaderPass.uniforms["seed_x"].value = this.rs[this.indexs.rs][
+    //   this.index
+    // ].x;
+    // this.shaderPass.uniforms["seed_y"].value = this.rs[this.indexs.rs][
+    //   this.index
+    // ].y;
+    this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(
+      -0.005 * this.s,
+      0.005 * this.s
+    );
+    this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(
+      -0.005 * this.s,
+      0.005 * this.s
+    );
 
     console.log(
       this.shaderPass.uniforms["seed_x"].value,
@@ -140,7 +140,10 @@ export default class Controller extends Base {
   }
 
   show(v, s = 1) {
-    this.s = s;
+    var strength = 1;
+    if (gb.r.w <= 768) strength = 0.5;
+
+    this.s = s * strength;
     this.onU();
 
     this.shaderPass.uniforms.tDiffuse.value.wrapS =
@@ -159,8 +162,8 @@ export default class Controller extends Base {
       { x: 1.7587981681678089, y: 1.137486829022558 },
     ];
 
-    // var index = Math.floor(Math.random() * rotates.length);
-    var index = this.rots[this.indexs.rot][this.indexRot];
+    var index = Math.floor(Math.random() * rotates.length);
+    // var index = this.rots[this.indexs.rot][this.indexRot];
     console.log("index:", index);
     this.indexRot++;
 
@@ -171,7 +174,7 @@ export default class Controller extends Base {
       .set(
         uniforms.offset,
         {
-          value: v,
+          value: v * strength,
         },
         0.0
       )

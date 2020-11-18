@@ -6003,11 +6003,11 @@
 	              //rgb shift show
 	              .add(function () {
 	                _this2.flag.sail.setColor(true);
-	                _this2.flag.setup.rgbshift.show(0.03, 7);
+	                _this2.flag.setup.rgbshift.show(0.07, 5);
 	
 	                _this2.flag.setup.effectBloom.strength = 10;
 	                _this2.flag.setup.effectBloom.radius = 0.5;
-	              }, 0.0 + 0.0)
+	              }, 0.05 + 0.0)
 	              //rgb shift hide
 	
 	              .add(function () {
@@ -6016,16 +6016,16 @@
 	
 	                _this2.flag.setup.effectBloom.strength = 3;
 	                _this2.flag.setup.effectBloom.radius = 0.6;
-	              }, 0.0 + 0.05)
+	              }, 0.05 + 0.05)
 	
 	              //rgb shift show
 	              .add(function () {
 	                _this2.flag.sail.setColor(true);
-	                _this2.flag.setup.rgbshift.show(0.03, 2);
+	                _this2.flag.setup.rgbshift.show(0.02, 2);
 	
 	                _this2.flag.setup.effectBloom.strength = 6;
 	                _this2.flag.setup.effectBloom.radius = 0.5;
-	              }, 0.0 + 0.1 + 0.0)
+	              }, 0.05 + 0.1 + 0.0)
 	              //rgb shift hide
 	
 	              .add(function () {
@@ -6034,25 +6034,25 @@
 	
 	                _this2.flag.setup.effectBloom.strength = 3;
 	                _this2.flag.setup.effectBloom.radius = 0.6;
-	              }, 0.0 + 0.1 + 0.05);
+	              }, 0.05 + 0.1 + 0.05)
 	
-	              // //rgb shift show
-	              // .add(() => {
-	              //   this.flag.sail.setColor(true);
-	              //   this.flag.setup.rgbshift.show(0.05);
+	              //rgb shift show
+	              .add(function () {
+	                _this2.flag.sail.setColor(true);
+	                _this2.flag.setup.rgbshift.show(0.02, 2);
 	
-	              //   this.flag.setup.effectBloom.strength = 6;
-	              //   this.flag.setup.effectBloom.radius = 0.5;
-	              // }, 0.0 + 0.1 + 0.1 + 0.0)
-	              // //rgb shift hide
+	                _this2.flag.setup.effectBloom.strength = 6;
+	                _this2.flag.setup.effectBloom.radius = 0.5;
+	              }, 0.05 + 0.1 + 0.1 + 0.0)
+	              //rgb shift hide
 	
-	              // .add(() => {
-	              //   this.flag.sail.setColor(false);
-	              //   this.flag.setup.rgbshift.hide();
+	              .add(function () {
+	                _this2.flag.sail.setColor(false);
+	                _this2.flag.setup.rgbshift.hide();
 	
-	              //   this.flag.setup.effectBloom.strength = 3;
-	              //   this.flag.setup.effectBloom.radius = 0.6;
-	              // }, 0.0 + 0.1 + 0.1 + 0.05);
+	                _this2.flag.setup.effectBloom.strength = 3;
+	                _this2.flag.setup.effectBloom.radius = 0.6;
+	              }, 0.05 + 0.1 + 0.1 + 0.05);
 	
 	              _this2.flag.setup.effectBloom.strength = 3;
 	              _this2.flag.setup.effectBloom.radius = 0.6;
@@ -6751,16 +6751,14 @@
 	    key: "update",
 	    value: function update() {
 	      this.shaderPass.uniforms["seed"].value = 0.5; //default seeding
-	      this.shaderPass.uniforms["seed_x"].value = this.rs[this.indexs.rs][this.index].x;
-	      this.shaderPass.uniforms["seed_y"].value = this.rs[this.indexs.rs][this.index].y;
-	      // this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(
-	      //   -0.005 * this.s,
-	      //   0.005 * this.s
-	      // );
-	      // this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(
-	      //   -0.005 * this.s,
-	      //   0.005 * this.s
-	      // );
+	      // this.shaderPass.uniforms["seed_x"].value = this.rs[this.indexs.rs][
+	      //   this.index
+	      // ].x;
+	      // this.shaderPass.uniforms["seed_y"].value = this.rs[this.indexs.rs][
+	      //   this.index
+	      // ].y;
+	      this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
+	      this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
 	
 	      console.log(this.shaderPass.uniforms["seed_x"].value, this.shaderPass.uniforms["seed_y"].value);
 	
@@ -6772,7 +6770,10 @@
 	    value: function show(v) {
 	      var s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 	
-	      this.s = s;
+	      var strength = 1;
+	      if (gb.r.w <= 768) strength = 0.5;
+	
+	      this.s = s * strength;
 	      this.onU();
 	
 	      this.shaderPass.uniforms.tDiffuse.value.wrapS = THREE.MirroredRepeatWrapping;
@@ -6783,8 +6784,8 @@
 	
 	      var rotates = [{ x: 4.534725472242586, y: 1.9779006645015587 }, { x: 4.145211998776186, y: 4.500798660131272 }, { x: 2.7464663514791408, y: 4.590382318407328 }, { x: 0.08328790724654228, y: 0.841139124249118 }, { x: 1.7587981681678089, y: 1.137486829022558 }];
 	
-	      // var index = Math.floor(Math.random() * rotates.length);
-	      var index = this.rots[this.indexs.rot][this.indexRot];
+	      var index = Math.floor(Math.random() * rotates.length);
+	      // var index = this.rots[this.indexs.rot][this.indexRot];
 	      console.log("index:", index);
 	      this.indexRot++;
 	
@@ -6793,7 +6794,7 @@
 	      tl
 	      //start
 	      .set(uniforms.offset, {
-	        value: v
+	        value: v * strength
 	      }, 0.0).set(uniforms.rotate.value, {
 	        x: rotates[index].x,
 	        y: rotates[index].y
