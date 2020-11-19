@@ -37,15 +37,14 @@ export default class Controller extends Base {
 
   setBG() {
     const isSp = window.innerWidth <= 768;
-    console.log(isSp);
-    const w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+    const w = isSp ? window.innerWidth : 572;
     const length = isSp ? 54 : 140;
     const l = Math.ceil(w / length) + 1;
-    // const m = (w - (l - 1) * length) * 0.5;
+    const m = (w - (l - 1) * length) * 0.5 + length;
     for (var i = 0; i < l; i++) {
       const span = $("<span></span>");
       span.css({
-        left: i * length
+        left: i * length + m
       });
       this.$contents.find(".bg").append(span);
     }
@@ -57,6 +56,7 @@ export default class Controller extends Base {
 
   show() {
     const tl = new TimelineMax();
+    this.isShow = true;
     tl
       //show
       .add(
@@ -77,6 +77,7 @@ export default class Controller extends Base {
   hide() {
     const tl = new TimelineMax();
     this.$contents.removeClass("is-active");
+    this.isShow = false;
     tl
 
       //hide
@@ -93,6 +94,13 @@ export default class Controller extends Base {
   onResize() {
     this.$contents.find(".bg span").remove();
     this.setBG();
+    if (this.isShow) {
+      TweenMax.set(this.$contents.find(".bg span"), {
+        scaleY: 1,
+        "background-color": "rgb(243,243,243)"
+      });
+    }
+    console.log("resize");
   }
 
   setEvents() {
@@ -112,5 +120,7 @@ export default class Controller extends Base {
       if (this.isLock) return;
       this.hide();
     });
+
+    $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
   }
 }

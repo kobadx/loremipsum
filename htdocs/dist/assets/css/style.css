@@ -1055,6 +1055,14 @@ img
     will-change: transform;
 }
 
+@media only screen and (max-width: 768px)
+{
+    .menu > .bg
+    {
+        width: 100%;
+    }
+}
+
 .menu > .bg span
 {
     position: absolute;

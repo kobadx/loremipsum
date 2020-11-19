@@ -4708,15 +4708,14 @@
 	    key: "setBG",
 	    value: function setBG() {
 	      var isSp = window.innerWidth <= 768;
-	      console.log(isSp);
-	      var w = isSp ? window.innerWidth : window.innerWidth * 0.828;
+	      var w = isSp ? window.innerWidth : 572;
 	      var length = isSp ? 54 : 140;
 	      var l = Math.ceil(w / length) + 1;
-	      // const m = (w - (l - 1) * length) * 0.5;
+	      var m = (w - (l - 1) * length) * 0.5 + length;
 	      for (var i = 0; i < l; i++) {
 	        var span = $("<span></span>");
 	        span.css({
-	          left: i * length
+	          left: i * length + m
 	        });
 	        this.$contents.find(".bg").append(span);
 	      }
@@ -4733,6 +4732,7 @@
 	      var _this2 = this;
 	
 	      var tl = new TimelineMax();
+	      this.isShow = true;
 	      tl
 	      //show
 	      .add(this.renderer.show(function (e) {
@@ -4754,6 +4754,7 @@
 	
 	      var tl = new TimelineMax();
 	      this.$contents.removeClass("is-active");
+	      this.isShow = false;
 	      tl
 	
 	      //hide
@@ -4768,6 +4769,13 @@
 	    value: function onResize() {
 	      this.$contents.find(".bg span").remove();
 	      this.setBG();
+	      if (this.isShow) {
+	        TweenMax.set(this.$contents.find(".bg span"), {
+	          scaleY: 1,
+	          "background-color": "rgb(243,243,243)"
+	        });
+	      }
+	      console.log("resize");
 	    }
 	  }, {
 	    key: "setEvents",
@@ -4790,6 +4798,8 @@
 	        if (_this4.isLock) return;
 	        _this4.hide();
 	      });
+	
+	      $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
 	    }
 	  }]);
 	
