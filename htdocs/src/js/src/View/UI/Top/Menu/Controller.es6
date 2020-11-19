@@ -38,7 +38,7 @@ export default class Controller extends Base {
   setBG() {
     const isSp = window.innerWidth <= 768;
     const w = isSp ? window.innerWidth : 572;
-    const length = isSp ? 54 : 140;
+    const length = isSp ? 55 : 140;
     const l = Math.ceil(w / length) + 1;
     const m = (w - (l - 1) * length) * 0.5 + length;
     for (var i = 0; i < l; i++) {

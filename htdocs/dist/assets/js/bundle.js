@@ -51739,7 +51739,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	    value: function setBG() {
 	      var isSp = window.innerWidth <= 768;
 	      var w = isSp ? window.innerWidth : 572;
-	      var length = isSp ? 54 : 140;
+	      var length = isSp ? 55 : 140;
 	      var l = Math.ceil(w / length) + 1;
 	      var m = (w - (l - 1) * length) * 0.5 + length;
 	      for (var i = 0; i < l; i++) {
