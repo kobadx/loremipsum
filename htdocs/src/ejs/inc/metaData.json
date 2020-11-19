@@ -9,8 +9,8 @@
     },
     // for meta (ejs)
     "common": {
-        "tit": "",
-        "des": "",
+        "tit": "pactera",
+        "des": "demodemo",
         "img": "",
         "keyword": "",
         "fb": {
