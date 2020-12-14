@@ -198,13 +198,14 @@ export default class Controller extends Base {
           value: 0.0,
         },
         0.0
-      );
+      )
+      .add(() => {
+        this.shaderPass.uniforms["seed"].value = 0;
+        this.shaderPass.uniforms["seed_x"].value = 0;
+        this.shaderPass.uniforms["seed_y"].value = 0;
+      }, 0.02);
 
     this.offU();
-
-    this.shaderPass.uniforms["seed"].value = 0;
-    this.shaderPass.uniforms["seed_x"].value = 0;
-    this.shaderPass.uniforms["seed_y"].value = 0;
   }
 
   generateHeightmap(dt_size) {

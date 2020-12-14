@@ -103,8 +103,8 @@ export default class Controller {
           line.spread();
         });
 
-        // positionを正しい位置に
-        TweenMax.to(this.obj.position, 3.0, {
+        // positionを正しい位置に;
+        TweenMax.to(this.obj.position, 2.5, {
           y: -35,
           ease: Expo.easeInOut,
         });

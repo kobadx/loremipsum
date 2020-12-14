@@ -95,18 +95,20 @@ export default class Controller extends Base {
               this.flag.setup.camera.position,
               0.01,
               {
-                z: this.flag.setup.defz * 0.85,
+                z: this.flag.setup.defz * 0.75,
                 ease: Expo.easeOut,
                 onStart: () => {
+                  // TweenMax.killTweensOf(this.flag.defY);
+                  // TweenMax.killTweensOf(this.flag.tar);
                   // spだったらlayout調整
                   if (gb.r.w <= this.bp) {
                     this.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                     this.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
                   } else {
                     this.flag.defY =
-                      this.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
+                      this.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
                     this.flag.tar =
-                      this.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
+                      this.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
                   }
 
                   this.flag.setup.effectBloom.strength = 10;
@@ -124,7 +126,7 @@ export default class Controller extends Base {
               this.flag.setup.camera.position,
               4.5,
               {
-                z: this.flag.setup.defz * 0.95,
+                z: this.flag.setup.defz * 0.85,
                 ease: Expo.easeOut,
                 onStart: () => {
                   var tl = new TimelineMax({ repeat: 0, repeatDelay: 2.0 });
@@ -187,10 +189,16 @@ export default class Controller extends Base {
                   //   this.flag.setup.effectBloom.radius = 0.6;
                   // }, 0.05 + 0.1 + 0.1 + 0.05);
 
-                  this.flag.setup.effectBloom.strength = 3;
-                  this.flag.setup.effectBloom.radius = 0.6;
+                  // this.flag.setup.effectBloom.strength = 3;
+                  // this.flag.setup.effectBloom.radius = 0.6;
+                  // this.flag.setup.renderer.toneMappingExposure = Math.pow(
+                  //   1.3,
+                  //   4.0
+                  // );
+                  this.flag.setup.effectBloom.strength = 0.6;
+                  this.flag.setup.effectBloom.radius = 0.3;
                   this.flag.setup.renderer.toneMappingExposure = Math.pow(
-                    1.3,
+                    1.7,
                     4.0
                   );
                 },
@@ -211,7 +219,8 @@ export default class Controller extends Base {
 
           // frame数を抑える
           TweenMax.to(this.flag, 2.0, {
-            fr: 4,
+            // fr: 4,
+            fr: 1,
             ease: Power2.easeInOut,
           });
         }, -0.3 + 3.8 + 0.9)

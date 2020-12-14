@@ -5985,16 +5985,18 @@
 	          }, 0.75)
 	          // パッと引く
 	          .to(_this2.flag.setup.camera.position, 0.01, {
-	            z: _this2.flag.setup.defz * 0.85,
+	            z: _this2.flag.setup.defz * 0.75,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
+	              // TweenMax.killTweensOf(this.flag.defY);
+	              // TweenMax.killTweensOf(this.flag.tar);
 	              // spだったらlayout調整
 	              if (gb.r.w <= _this2.bp) {
 	                _this2.flag.defY = -window.innerHeight * 0.5 + 375; // yを正しい位置に
 	                _this2.flag.tar = -window.innerHeight * 0.5 + 375; // yを正しい位置に
 	              } else {
-	                _this2.flag.defY = _this2.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
-	                _this2.flag.tar = _this2.flag.per * (-window.innerHeight * 0.5 + 310); // yを正しい位置に
+	                _this2.flag.defY = _this2.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
+	                _this2.flag.tar = _this2.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
 	              }
 	
 	              _this2.flag.setup.effectBloom.strength = 10;
@@ -6004,7 +6006,7 @@
 	          }, 0.8)
 	          // 再度ゆっくり
 	          .to(_this2.flag.setup.camera.position, 4.5, {
-	            z: _this2.flag.setup.defz * 0.95,
+	            z: _this2.flag.setup.defz * 0.85,
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
 	              var tl = new TimelineMax({ repeat: 0, repeatDelay: 2.0 });
@@ -6067,9 +6069,15 @@
 	              //   this.flag.setup.effectBloom.radius = 0.6;
 	              // }, 0.05 + 0.1 + 0.1 + 0.05);
 	
-	              _this2.flag.setup.effectBloom.strength = 3;
-	              _this2.flag.setup.effectBloom.radius = 0.6;
-	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
+	              // this.flag.setup.effectBloom.strength = 3;
+	              // this.flag.setup.effectBloom.radius = 0.6;
+	              // this.flag.setup.renderer.toneMappingExposure = Math.pow(
+	              //   1.3,
+	              //   4.0
+	              // );
+	              _this2.flag.setup.effectBloom.strength = 0.6;
+	              _this2.flag.setup.effectBloom.radius = 0.3;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.7, 4.0);
 	            }
 	          }, 0.8 + 0.05);
 	        }, -0.3 + 3.8)
@@ -6086,7 +6094,8 @@
 	
 	          // frame数を抑える
 	          TweenMax.to(_this2.flag, 2.0, {
-	            fr: 4,
+	            // fr: 4,
+	            fr: 1,
 	            ease: Power2.easeInOut
 	          });
 	        }, -0.3 + 3.8 + 0.9).add(function () {
@@ -6331,10 +6340,10 @@
 	      // move Y
 	      // positionを正しい位置に
 	      var tarY = this.$canvas.width() <= this.bp ? -window.innerHeight * 0.5 + 325 : this.per * (-window.innerHeight * 0.5 + 315);
-	      TweenMax.to(this, 1.5, {
+	      TweenMax.to(this, 2.5, {
 	        defY: tarY,
-	        ease: Power2.easeInOut,
-	        delay: 2.0
+	        ease: Expo.easeInOut,
+	        delay: 1.5
 	      });
 	
 	      // TweenMax.to(this.obj.position, 1.5, {
@@ -6816,19 +6825,21 @@
 	  }, {
 	    key: "hide",
 	    value: function hide() {
+	      var _this2 = this;
+	
 	      var tl = new TimelineMax();
 	      var uniforms = this.shaderPass.uniforms;
 	      tl
 	      //start
 	      .set(uniforms.offset, {
 	        value: 0.0
-	      }, 0.0);
+	      }, 0.0).add(function () {
+	        _this2.shaderPass.uniforms["seed"].value = 0;
+	        _this2.shaderPass.uniforms["seed_x"].value = 0;
+	        _this2.shaderPass.uniforms["seed_y"].value = 0;
+	      }, 0.02);
 	
 	      this.offU();
-	
-	      this.shaderPass.uniforms["seed"].value = 0;
-	      this.shaderPass.uniforms["seed_x"].value = 0;
-	      this.shaderPass.uniforms["seed_y"].value = 0;
 	    }
 	  }, {
 	    key: "generateHeightmap",
@@ -7722,8 +7733,8 @@
 	          line.spread();
 	        });
 	
-	        // positionを正しい位置に
-	        TweenMax.to(_this.obj.position, 3.0, {
+	        // positionを正しい位置に;
+	        TweenMax.to(_this.obj.position, 2.5, {
 	          y: -35,
 	          ease: Expo.easeInOut
 	        });
@@ -7811,9 +7822,9 @@
 	      vy: 0
 	    };
 	
-	    this.ookisa = 1;
-	    this.yureY = 1;
-	    this.yureZ = 1;
+	    this.ookisa = 1.37;
+	    this.yureY = 2;
+	    this.yureZ = 0.71;
 	
 	    // this.fr = Math.floor(Math.random() * 2 + 1);
 	    // this.frame = 0;
@@ -8046,7 +8057,7 @@
 	    key: "spread",
 	    value: function spread() {
 	      var tl = new TimelineMax({ repeat: 0, yoyo: false });
-	      var dur = 3.0;
+	      var dur = 2.5;
 	
 	      tl
 	      // end

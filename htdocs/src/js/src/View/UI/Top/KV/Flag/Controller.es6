@@ -111,10 +111,10 @@ export default class Controller extends Base {
       this.$canvas.width() <= this.bp
         ? -window.innerHeight * 0.5 + 325
         : this.per * (-window.innerHeight * 0.5 + 315);
-    TweenMax.to(this, 1.5, {
+    TweenMax.to(this, 2.5, {
       defY: tarY,
-      ease: Power2.easeInOut,
-      delay: 2.0,
+      ease: Expo.easeInOut,
+      delay: 1.5,
     });
 
     // TweenMax.to(this.obj.position, 1.5, {

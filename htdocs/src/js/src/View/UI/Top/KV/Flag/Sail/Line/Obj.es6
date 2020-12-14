@@ -32,9 +32,9 @@ export default class Controller {
       vy: 0,
     };
 
-    this.ookisa = 1;
-    this.yureY = 1;
-    this.yureZ = 1;
+    this.ookisa = 1.37;
+    this.yureY = 2;
+    this.yureZ = 0.71;
 
     // this.fr = Math.floor(Math.random() * 2 + 1);
     // this.frame = 0;
@@ -279,7 +279,7 @@ export default class Controller {
 
   spread() {
     var tl = new TimelineMax({ repeat: 0, yoyo: false });
-    var dur = 3.0;
+    var dur = 2.5;
 
     tl
       // end
