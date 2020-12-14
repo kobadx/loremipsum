@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -45,87 +45,87 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // setting
-	
-	
+
+
 	// Util
-	
-	
+
+
 	// events
-	
+
 	// import UpdateList from '_MyLibs/View/Events/EventMgr/UpdateList.es6';
 	// import ResizeList from '_MyLibs/View/Events/EventMgr/ResizeList.es6';
-	
+
 	// import MouseList from '_MyLibs/View/Events/EventMgr/MouseList.es6';
-	
+
 	// view
-	
-	
+
+
 	var _Conf = __webpack_require__(1);
-	
+
 	var _Conf2 = _interopRequireDefault(_Conf);
-	
+
 	var _Util = __webpack_require__(2);
-	
+
 	var _Util2 = _interopRequireDefault(_Util);
-	
+
 	var _Func = __webpack_require__(11);
-	
+
 	var _Func2 = _interopRequireDefault(_Func);
-	
+
 	var _Debugger = __webpack_require__(12);
-	
+
 	var _Debugger2 = _interopRequireDefault(_Debugger);
-	
+
 	var _Controller = __webpack_require__(13);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _UpdateMgr = __webpack_require__(17);
-	
+
 	var _UpdateMgr2 = _interopRequireDefault(_UpdateMgr);
-	
+
 	var _ResizeMgr = __webpack_require__(18);
-	
+
 	var _ResizeMgr2 = _interopRequireDefault(_ResizeMgr);
-	
+
 	var _ScrollMgr = __webpack_require__(19);
-	
+
 	var _ScrollMgr2 = _interopRequireDefault(_ScrollMgr);
-	
+
 	var _MouseMgr = __webpack_require__(20);
-	
+
 	var _MouseMgr2 = _interopRequireDefault(_MouseMgr);
-	
+
 	var _ScrollList = __webpack_require__(21);
-	
+
 	var _ScrollList2 = _interopRequireDefault(_ScrollList);
-	
+
 	var _JudgeEnvironment = __webpack_require__(14);
-	
+
 	var _JudgeEnvironment2 = _interopRequireDefault(_JudgeEnvironment);
-	
+
 	var _View = __webpack_require__(22);
-	
+
 	var _View2 = _interopRequireDefault(_View);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Common = function () {
 	  function Common() {
 	    _classCallCheck(this, Common);
-	
+
 	    this.onImmediate();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Common, [{
 	    key: "onImmediate",
 	    value: function onImmediate() {
@@ -136,17 +136,17 @@
 	      // ------------------------------------------------------------
 	      // setting
 	      gb.conf = new _Conf2.default();
-	
+
 	      // util
 	      gb.d = new _Debugger2.default();
 	      gb.u = new _Util2.default();
 	      gb.f = new _Func2.default();
-	
+
 	      new _JudgeEnvironment2.default();
-	
+
 	      if (gb.conf.isUpdateMgr) gb.up = new _UpdateMgr2.default();
 	      if (gb.conf.isResizeMgr) gb.r = new _ResizeMgr2.default();
-	
+
 	      window.updates = [];
 	      this.onReady();
 	    }
@@ -178,24 +178,24 @@
 	      $(window).on("load", this.onLoad.bind(this));
 	    }
 	  }]);
-	
+
 	  return Common;
 	}();
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Main
 	//
 	// ------------------------------------------------------------
-	
-	
+
+
 	exports.default = Common;
 	(function () {
 	  // // globalオブジェクト
 	  if (window.gb === undefined) window.gb = {};
-	
+
 	  gb.common = new Common();
-	
+
 	  if (gb.up) gb.up.loop(); //全体のループスタート
 	})();
 
@@ -204,28 +204,28 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Config
 	//
 	// ------------------------------------------------------------
-	
+
 	var Conf = function Conf() {
 	  _classCallCheck(this, Conf);
-	
+
 	  // ------------------------------------------------------------
 	  //  本番フラグ
 	  // ------------------------------------------------------------
 	  this.RELEASE = true;
 	  // this.RELEASE = false;
-	
+
 	  // ------------------------------------------------------------
 	  //  フラグ関連
 	  // ------------------------------------------------------------
@@ -237,13 +237,13 @@
 	  this.OPENING = false;
 	  this.EFFECT = false;
 	  this.INERTIA = false;
-	
+
 	  // Event
 	  this.isUpdateMgr = true;
 	  this.isResizeMgr = true;
 	  this.isScrollMgr = true;
 	  this.isMouseMgr = true;
-	
+
 	  if (this.RELEASE) {
 	    this.LOG = false;
 	    this.PARAM = false;
@@ -253,7 +253,7 @@
 	    this.EFFECT = false;
 	    this.INERTIA = false;
 	  }
-	
+
 	  // ------------------------------------------------------------
 	  //  basic width height
 	  // ------------------------------------------------------------
@@ -264,7 +264,7 @@
 	  this.vH = window.innerHeight;
 	  this.vSPW = window.innerWidth;
 	  this.vSPH = window.innerHeight;
-	
+
 	  // target size
 	  this.DefW = 1300;
 	  this.DefH = 850;
@@ -272,7 +272,7 @@
 	  this.H = 750;
 	  this.SPW = 375;
 	  this.SPH = 667;
-	
+
 	  // ------------------------------------------------------------
 	  //  ブレイクポイント
 	  // ------------------------------------------------------------
@@ -280,59 +280,59 @@
 	  this.bp01 = 768;
 	  this.bp02 = 1080;
 	  this.bp03 = 1280;
-	
+
 	  // ------------------------------------------------------------
 	  //  レティナ対応
 	  // ------------------------------------------------------------
 	  this.isRetina = window.devicePixelRatio && window.devicePixelRatio > 1 ? true : false;
-	
+
 	  // ------------------------------------------------------------
 	  //
 	  //  resource
 	  //
 	  // ------------------------------------------------------------
-	
+
 	  // ------------------------------------------------------------
 	  //  API
 	  // ------------------------------------------------------------
 	  // this.APIData = APIData();
 	  this.APIURL = './setting.xml';
-	
+
 	  // ------------------------------------------------------------
 	  //  URL
 	  // ------------------------------------------------------------
 	  // this.URLData = URLData();
-	
+
 	  // ------------------------------------------------------------
 	  //  sound data
 	  // ------------------------------------------------------------
 	  // this.soundData = SoundData();
-	
+
 	  // ------------------------------------------------------------
 	  //  video
 	  // ------------------------------------------------------------
 	  // this.videoData = videoData();
-	
+
 	  // ------------------------------------------------------------
 	  //  img
 	  // ------------------------------------------------------------
 	  // this.imgData = imgData();
-	
+
 	  // ------------------------------------------------------------
 	  //  web font loaded
 	  // ------------------------------------------------------------
 	  // this.webFontLoaded = false;
-	
+
 	  // ------------------------------------------------------------
 	  //
 	  //  Ohter
 	  //
 	  // ------------------------------------------------------------
 	  this.isFirst = true;
-	
+
 	  this.isSound = true;
 	};
-	
+
 	exports.default = Conf;
 
 /***/ }),
@@ -340,54 +340,54 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _Array = __webpack_require__(3);
-	
+
 	var _Array2 = _interopRequireDefault(_Array);
-	
+
 	var _Color = __webpack_require__(4);
-	
+
 	var _Color2 = _interopRequireDefault(_Color);
-	
+
 	var _DateClass = __webpack_require__(5);
-	
+
 	var _DateClass2 = _interopRequireDefault(_DateClass);
-	
+
 	var _Device = __webpack_require__(6);
-	
+
 	var _Device2 = _interopRequireDefault(_Device);
-	
+
 	var _Math = __webpack_require__(7);
-	
+
 	var _Math2 = _interopRequireDefault(_Math);
-	
+
 	var _Other = __webpack_require__(8);
-	
+
 	var _Other2 = _interopRequireDefault(_Other);
-	
+
 	var _String = __webpack_require__(9);
-	
+
 	var _String2 = _interopRequireDefault(_String);
-	
+
 	var _Url = __webpack_require__(10);
-	
+
 	var _Url2 = _interopRequireDefault(_Url);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // ------------------------------------------------------------
 	//
 	//  Util
 	//
 	// ------------------------------------------------------------
-	
+
 	var Util = function Util() {
 	  _classCallCheck(this, Util);
-	
+
 	  this.a = new _Array2.default();
 	  this.c = new _Color2.default();
 	  this.d = new _DateClass2.default();
@@ -397,7 +397,7 @@
 	  this.s = new _String2.default();
 	  this.u = new _Url2.default();
 	};
-	
+
 	exports.default = Util;
 
 /***/ }),
@@ -405,55 +405,55 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Array
 	//
 	// ------------------------------------------------------------
-	
+
 	var Array = function () {
 	  function Array() {
 	    _classCallCheck(this, Array);
 	  }
-	
+
 	  // ------------------------------------------------------------
 	  //
 	  //  Array
 	  //
 	  // ------------------------------------------------------------
-	
+
 	  // 配列内のランダムな値をひとつ取得
 	  // -----------------------------------
 	  // @arr : 配列
 	  // return : 配列内の値
 	  // -----------------------------------
-	
-	
+
+
 	  _createClass(Array, [{
 	    key: "arrRand",
 	    value: function arrRand(arr) {
-	
+
 	      return arr[gb.u.m.randomInt(0, arr.length - 1)];
 	    }
-	
+
 	    // 配列をランダムに並べ替え
 	    // -----------------------------------
 	    // @arr : 配列(Array)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "shuffle",
 	    value: function shuffle(ary) {
-	
+
 	      var arr = [];
 	      arr = ary.slice();
 	      var i = arr.length;
@@ -465,32 +465,32 @@
 	      }
 	      return arr;
 	    }
-	
+
 	    // ランダムな数値を作る
-	
+
 	  }, {
 	    key: "randomArr",
 	    value: function randomArr(len) {
-	
+
 	      var arr = [];
-	
+
 	      for (var i = 0; i < len; i++) {
 	        arr.push(i);
 	      }arr = this.shuffle(arr);
-	
+
 	      return arr;
 	    }
-	
+
 	    // nullを削除した配列を返す
 	    // -----------------------------------
 	    // @arr : 配列(Array)
 	    // return : null削除した配列(Array)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "sliceNull",
 	    value: function sliceNull(arr) {
-	
+
 	      var i, l, len1, newArr, val;
 	      newArr = [];
 	      for (i = l = 0, len1 = arr.length; l < len1; i = ++l) {
@@ -501,14 +501,14 @@
 	      }
 	      return newArr;
 	    }
-	
+
 	    // 配列内のパラメータを比較してソート
 	    // -----------------------------------
 	    // @arr : 配列(Array)
 	    // @para : パラメーター名
 	    // @desc : 降順かどうか(boolean) デフォルトは昇順
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "sort",
 	    value: function sort(arr, para, desc) {
@@ -537,10 +537,10 @@
 	      return returnKey;
 	    }
 	  }]);
-	
+
 	  return Array;
 	}();
-	
+
 	exports.default = Array;
 
 /***/ }),
@@ -548,26 +548,26 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Color
 	//
 	// ------------------------------------------------------------
-	
+
 	var Color = function () {
 	    function Color() {
 	        _classCallCheck(this, Color);
 	    }
-	
+
 	    // rgbからHEX(16進数)カラー取得
 	    // -----------------------------------
 	    // @r : 0~255
@@ -575,8 +575,8 @@
 	    // @b : 0~255
 	    // return : ex "#FFFFFF"
 	    // -----------------------------------
-	
-	
+
+
 	    _createClass(Color, [{
 	        key: "getHexColor",
 	        value: function getHexColor(r, g, b) {
@@ -584,22 +584,22 @@
 	            str = (r << 16 | g << 8 | b).toString(16);
 	            return "#" + new Array(7 - str.length).join("0") + str;
 	        }
-	
+
 	        // rgbからhslへ
-	
+
 	    }, {
 	        key: "rgbToHsl",
 	        value: function rgbToHsl(r, g, b) {
 	            r /= 255;
 	            g /= 255;
 	            b /= 255;
-	
+
 	            var max = Math.max(r, g, b);
 	            var min = Math.min(r, g, b);
 	            var h, s, l;
-	
+
 	            l = (max + min) / 2;
-	
+
 	            if (max === min) {
 	                h = s = 0;
 	            } else {
@@ -614,20 +614,20 @@
 	                }
 	                s = l <= 0.5 ? d / (max + min) : d / (2 - max - min);
 	            }
-	
+
 	            return [h, s * 100, l * 100];
 	        }
-	
+
 	        // hslからrgbへ
-	
+
 	    }, {
 	        key: "hslToRgb",
 	        value: function hslToRgb(h, s, l) {
 	            s /= 100;
 	            l /= 100;
-	
+
 	            var r, g, b;
-	
+
 	            if (s === 0) {
 	                r = g = b = l * 255;
 	            } else {
@@ -637,14 +637,14 @@
 	                g = Math.round(hueToRgb(v1, v2, h) * 255);
 	                b = Math.round(hueToRgb(v1, v2, h - 120) * 255);
 	            }
-	
+
 	            return [r, g, b];
 	        }
 	    }]);
-	
+
 	    return Color;
 	}();
-	
+
 	exports.default = Color;
 
 /***/ }),
@@ -652,77 +652,77 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  DateClass
 	//
 	// ------------------------------------------------------------
-	
+
 	var DateClass = function () {
 	  function DateClass() {
 	    _classCallCheck(this, DateClass);
-	
+
 	    this.startTime = null;
 	    this.elapsedTime = null;
 	    this.now = new Date();
 	  }
-	
+
 	  _createClass(DateClass, [{
 	    key: "getNow",
 	    value: function getNow() {
-	
+
 	      this.now = new Date();
 	    }
 	  }, {
 	    key: "start",
 	    value: function start() {
-	
+
 	      this.now = new Date();
 	      this.startTime = this.now.getTime();
 	    }
 	  }, {
 	    key: "elapsed",
 	    value: function elapsed() {
-	
+
 	      this.now = new Date();
 	      return this.elapsedTime = this.now.getTime() - this.startTime;
 	    }
 	  }, {
 	    key: "m",
 	    value: function m() {
-	
+
 	      this.elapsed();
 	      return Math.floor(this.elapsedTime + 100 / 60);
 	    }
 	  }, {
 	    key: "s",
 	    value: function s() {
-	
+
 	      this.elapsed();
 	      return Math.floor(this.elapsedTime / 1000);
 	    }
 	  }, {
 	    key: "ms",
 	    value: function ms() {
-	
+
 	      this.elapsed();
 	      return this.elapsedTime;
 	    }
 	  }, {
 	    key: "time",
 	    value: function time() {
-	
+
 	      this.getNow();
-	
+
 	      this.hour = this.now.getHours(); // 時
 	      this.minute = this.now.getMinutes(); // 分
 	      this.second = this.now.getSeconds();
@@ -730,50 +730,50 @@
 	  }, {
 	    key: "date",
 	    value: function date() {
-	
+
 	      return this.now.getDate();
 	    }
 	  }, {
 	    key: "months",
 	    value: function months() {
-	
+
 	      var monthdays = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-	
+
 	      return this.now.getMonth() + 1;
 	    }
 	  }, {
 	    key: "year",
 	    value: function year() {
-	
+
 	      return this.now.getFullYear();
 	    }
 	  }, {
 	    key: "day",
 	    value: function day() {
-	
+
 	      // 曜日 (日本語)
 	      var weekDayJP = ["日", "月", "火", "水", "木", "金", "土"];
 	      var wDJ = weekDayJP[this.now.getDay()];
-	
+
 	      // 曜日 (英語)
 	      var weekDayEN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 	      var wDE = weekDayEN[this.now.getDay()];
 	    }
-	
+
 	    // 数日後のDateオブジェクト取得
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "afterDay",
 	    value: function afterDay(date, num) {
-	
+
 	      return new Date(date.getTime() + Number(num) * 24 * 60 * 60 * 1000);
 	    }
 	  }]);
-	
+
 	  return DateClass;
 	}();
-	
+
 	exports.default = DateClass;
 
 /***/ }),
@@ -781,158 +781,158 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Device
 	//
 	// ------------------------------------------------------------
-	
+
 	var Device = function () {
 	  function Device() {
 	    _classCallCheck(this, Device);
-	
+
 	    this.ua = window.navigator.userAgent.toLowerCase(); //useragent
 	    this.appV = window.navigator.appVersion.toLowerCase(); //appVersion
 	    this.isRes = null;
 	    this.isResSP = null; // responsive sp
 	    this.isResPC = null; // responsive pc
-	
+
 	    this.isPC = null;
 	    this.isSP = null;
 	    this.isTAB = null;
 	    this.isMB = null;
 	    this.isIE = false;
-	
+
 	    this.isSetSPSize = false;
 	  }
-	
+
 	  // ------------------------------------------------------------
 	  //
 	  //  device
 	  //
 	  // ------------------------------------------------------------
-	
+
 	  _createClass(Device, [{
 	    key: "isDeviceSP",
 	    value: function isDeviceSP() {
-	
+
 	      var media = ["iphone", "ipod", "ipad", "android", "dream", "cupcake", "blackberry9500", "blackberry9530", "blackberry9520", "blackberry9550", "blackberry9800", "webos", "incognito", "webmate"];
 	      var pattern = new RegExp(media.join("|"), "i");
-	
+
 	      var b = pattern.test(this.ua);
 	      if (b) $('body').addClass('isDeviceSP');
-	
+
 	      this.isSP = b;
 	    }
 	  }, {
 	    key: "isDeviceTAB",
 	    value: function isDeviceTAB() {
-	
+
 	      var b = this.ua.indexOf("windows") != -1 && this.ua.indexOf("touch") != -1 || this.ua.indexOf("ipad") != -1 || this.ua.indexOf("android") != -1 && this.ua.indexOf("mobile") == -1 || this.ua.indexOf("firefox") != -1 && this.ua.indexOf("tablet") != -1 || this.ua.indexOf("kindle") != -1 || this.ua.indexOf("silk") != -1 || this.ua.indexOf("playbook") != -1;
 	      if (b) $('body').addClass('isDeviceTAB');
-	
+
 	      this.isTAB = b;
 	    }
 	  }, {
 	    key: "isDeviceMB",
 	    value: function isDeviceMB() {
-	
+
 	      var b = this.ua.indexOf("windows") != -1 && this.ua.indexOf("phone") != -1 || this.ua.indexOf("iphone") != -1 || this.ua.indexOf("ipod") != -1 || this.ua.indexOf("android") != -1 && this.ua.indexOf("mobile") != -1 || this.ua.indexOf("firefox") != -1 && this.ua.indexOf("mobile") != -1 || this.ua.indexOf("blackberry") != -1;
 	      if (b) $('body').addClass('isDeviceMB');
-	
+
 	      this.isMB = b;
 	    }
 	  }, {
 	    key: "isDevicePC",
 	    value: function isDevicePC() {
-	
+
 	      if (!(this.isSP || this.isTAB || this.isMB)) {
-	
+
 	        $('body').addClass('isDevicePC');
 	        this.isPC = true;
 	        return;
 	      }
-	
+
 	      this.isPC = false;
 	    }
 	  }, {
 	    key: "setEventString",
 	    value: function setEventString() {
-	
+
 	      this.eClick = this.isTab || this.isSP ? 'touchstart' : 'click';
 	      this.eStart = this.isTab || this.isSP ? 'touchstart' : 'mousedown';
 	      this.eEnd = this.isTab || this.isSP ? 'touchend' : 'mouseup';
 	      this.eMove = this.isTab || this.isSP ? 'touchmove' : 'mousemove';
-	
+
 	      this.eEnter = this.isTab || this.isSP ? 'touchstart' : 'mouseenter';
 	      this.eLeave = this.isTab || this.isSP ? 'touchend' : 'mouseleave';
 	      this.eOver = this.isTab || this.isSP ? 'touchstart' : 'mouseover';
 	      this.eOut = this.isTab || this.isSP ? 'touchend' : 'mouseout';
-	
+
 	      this.eWheel = this.isTab || this.isSP ? 'touchmove' : 'mousewheel';
 	      this.eScroll = this.isTab || this.isSP ? 'touchmove' : 'scroll';
 	    }
-	
+
 	    // スマフォ判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isSmt",
 	    value: function isSmt() {
-	
+
 	      return navigator.userAgent.indexOf('iPad') > 0 || navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('iPod') > 0 || navigator.userAgent.indexOf('Android') > 0;
 	    }
-	
+
 	    // タブレット端末かどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isTablet",
 	    value: function isTablet() {
-	
+
 	      return this.isIpad() || this.isAndroid() && navigator.userAgent.indexOf('Mobile') === -1;
 	    }
-	
+
 	    // iPad判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIpad",
 	    value: function isIpad() {
-	
+
 	      return navigator.userAgent.indexOf('iPad') > 0;
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  OS
 	    //
 	    // ------------------------------------------------------------
-	
+
 	    // Android判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isAndroid",
 	    value: function isAndroid() {
-	
+
 	      var u;
 	      u = navigator.userAgent;
 	      return u.indexOf('BlackBerry') > 0 || u.indexOf('Android') > 0 || u.indexOf('Windows Phone') > 0;
@@ -943,57 +943,57 @@
 	      var pattern = new RegExp("iphone", "i");
 	      return pattern.test(this.ua);
 	    }
-	
+
 	    // iOS判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIos",
 	    value: function isIos() {
-	
+
 	      return navigator.userAgent.indexOf('iPad') > 0 || navigator.userAgent.indexOf('iPhone') > 0 || navigator.userAgent.indexOf('iPod') > 0;
 	    }
-	
+
 	    // PS3判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isPs3",
 	    value: function isPs3() {
-	
+
 	      var u;
 	      u = navigator.userAgent;
 	      return u.indexOf('PLAYSTATION 3') > 0;
 	    }
-	
+
 	    // VITA判定
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isVita",
 	    value: function isVita() {
-	
+
 	      var u;
 	      u = navigator.userAgent;
 	      return u.indexOf('PlayStation Vita') > 0;
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  browser
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: "isBrowserCheck",
 	    value: function isBrowserCheck() {
-	
+
 	      this.isIEVersion();
 	      this.isEdge();
 	      this.isChrome();
@@ -1003,121 +1003,121 @@
 	      this.isIOSNotSfari();
 	      this.isAPPBrowser();
 	    }
-	
+
 	    // IEかどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIe",
 	    value: function isIe() {
-	
+
 	      var ua;
 	      ua = window.navigator.userAgent.toLowerCase();
 	      return ua.indexOf('msie') !== -1 || ua.indexOf('trident/7') !== -1;
 	    }
-	
+
 	    // WINかどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isWin",
 	    value: function isWin() {
-	
+
 	      return navigator.platform.indexOf("Win") !== -1;
 	    }
-	
+
 	    // googleChromeかどうか pcのみ
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isChrome",
 	    value: function isChrome() {
-	
+
 	      if (this.ua.indexOf('chrome') !== -1) {
-	
+
 	        $('body').addClass('isChorme');
 	        return true;
 	      } else {
-	
+
 	        return false;
 	      }
 	    }
-	
+
 	    // FireFoxかどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isFF",
 	    value: function isFF() {
-	
+
 	      if (this.ua.indexOf('firefox') !== -1) {
-	
+
 	        $('body').addClass('isFF');
 	        return true;
 	      } else {
-	
+
 	        return false;
 	      }
 	    }
 	  }, {
 	    key: "isSafari",
 	    value: function isSafari() {
-	
+
 	      if (!this.isChrome() && this.ua.indexOf("lunascape") == -1) {
-	
+
 	        var pattern = new RegExp("safari", "i");
 	        if (pattern.test(this.ua)) {
-	
+
 	          $('body').addClass('isSafari');
 	          return true;
 	        } else {
-	
+
 	          return false;
 	        }
 	      } else {
-	
+
 	        return false;
 	      }
 	    }
 	  }, {
 	    key: "isOpera",
 	    value: function isOpera() {
-	
+
 	      var pattern = new RegExp("opera", "i");
 	      if (pattern.test(this.ua)) {
-	
+
 	        $('body').addClass('isOpera');
 	        return true;
 	      } else {
-	
+
 	        return false;
 	      }
 	    }
-	
+
 	    // iOSのsafari以外かどうか spでsafariかsafariでないか(chromeかandroidの標準ブラウザか)を判定したい場合はこちらを使う
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIOSNotSfari",
 	    value: function isIOSNotSfari() {
-	
+
 	      if (this.isIos() && this.ua.indexOf('safari') === -1 || this.isIos() && this.ua.indexOf('crios') > 0 || this.isIos() && this.ua.indexOf('gsa') > 0) {
-	
+
 	        $('body').addClass('isIOSNotSafari');
 	        // alert('isIOSNotSafari');
 	        return true;
 	      } else {
-	
+
 	        $('html').addClass('isIOSSafari');
 	        // alert('isSafari');
 	        return false;
@@ -1126,27 +1126,27 @@
 	  }, {
 	    key: "isAPPBrowser",
 	    value: function isAPPBrowser() {
-	
+
 	      // debug
 	      // var r01 = this.ua.indexOf("fban/fbios;fbav") !== -1;
 	      // var r02 = this.ua.indexOf("twitter") !== -1;
-	
+
 	      // // $('body').prepend(String(r01));
 	      // // $('body').prepend(String(r02));
-	
+
 	      // // alert(r01);
 	      // // alert(r02);
-	
+
 	      if (this.ua.indexOf("fban/fbios;fbav") !== -1 || this.ua.indexOf("twitter") !== -1) {
-	
+
 	        $('body').addClass('isAPPBrowser');
 	        return true;
 	      } else {
-	
+
 	        return false;
 	      }
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  version
@@ -1156,85 +1156,85 @@
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIe8Under",
 	    value: function isIe8Under() {
-	
+
 	      var msie;
 	      msie = navigator.appVersion.toLowerCase();
 	      msie = msie.indexOf('msie') > -1 ? parseInt(msie.replace(/.*msie[ ]/, '').match(/^[0-9]+/)) : 0;
 	      return msie <= 8 && msie !== 0;
 	    }
-	
+
 	    // IE9以下かどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIe9Under",
 	    value: function isIe9Under() {
-	
+
 	      var msie;
 	      msie = navigator.appVersion.toLowerCase();
 	      msie = msie.indexOf('msie') > -1 ? parseInt(msie.replace(/.*msie[ ]/, '').match(/^[0-9]+/)) : 0;
 	      return msie <= 9 && msie !== 0;
 	    }
-	
+
 	    // IE10以下かどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIe10Under",
 	    value: function isIe10Under() {
-	
+
 	      var msie;
 	      msie = navigator.appVersion.toLowerCase();
 	      msie = msie.indexOf('msie') > -1 ? parseInt(msie.replace(/.*msie[ ]/, '').match(/^[0-9]+/)) : 0;
 	      return msie <= 10 && msie !== 0;
 	    }
-	
+
 	    // IE11以下かどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isIe11Under",
 	    value: function isIe11Under() {
-	
+
 	      var b = this.isIe10Under() || this.ua.indexOf("trident") != -1;
 	      return b;
 	      // return true;
 	    }
-	
+
 	    // edgeかどうか
 	    // -----------------------------------
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "isEdge",
 	    value: function isEdge() {
-	
+
 	      log(this.ua.indexOf("AppleWebkit"), this.ua.indexOf("Edge"), this.ua, this.appV);
 	      var b = this.ua.indexOf("applewebkit") >= 0 && this.ua.indexOf("edge") != -1;
-	
+
 	      if (b) $('body').addClass('isEdge');
-	
+
 	      return b;
 	      // return true;
 	    }
 	  }, {
 	    key: "isIEVersion",
 	    value: function isIEVersion() {
-	
+
 	      $('body').addClass('isIE');
 	      this.isIE = true;
-	
+
 	      if (this.appV.indexOf("msie 10.") != -1) {
 	        $('body').addClass('isIE10');
 	        return 'ie10';
@@ -1254,7 +1254,7 @@
 	        $('body').addClass('isIE11');
 	        return 'ie11';
 	      }
-	
+
 	      $('body').removeClass('isIE');
 	      this.isIE = false;
 	      return 'notIE';
@@ -1262,9 +1262,9 @@
 	  }, {
 	    key: "isAndroidVersion",
 	    value: function isAndroidVersion() {
-	
+
 	      if (this.ua.indexOf("android") > 0) {
-	
+
 	        var version = parseFloat(this.ua.slice(this.ua.indexOf("android") + 8));
 	        return version;
 	      }
@@ -1272,27 +1272,27 @@
 	  }, {
 	    key: "isiphoneVersion",
 	    value: function isiphoneVersion() {
-	
+
 	      if (this.ua.indexOf("iPhone OS") > 0) {
-	
+
 	        var version = parseFloat(this.ua.slice(this.ua.indexOf("iPhone OS") + 10));
 	        return version;
 	      }
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  portrait / landscape
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: "isDirection",
 	    value: function isDirection() {
-	
+
 	      var W = window.innerWidth,
 	          H = window.innerHeight;
-	
+
 	      if (H > W) {
 	        $("body").addClass("portrait");
 	        $("body").removeClass("landscape");
@@ -1301,13 +1301,13 @@
 	        $("body").removeClass("portrait");
 	      }
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  responsive 横幅を見る
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: "isResponsive",
 	    value: function isResponsive() {
@@ -1315,11 +1315,11 @@
 	      var bp01 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 960;
 	      var bp02 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1080;
 	      var bp03 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1280 + 1;
-	
-	
+
+
 	      var W = window.innerWidth,
 	          H = window.innerHeight;
-	
+
 	      // ブレイクしたときに一度だけイベントを発行する
 	      if (W > bp00 && this.isRes == 'sp-s') $(window).trigger('sp_s_sp');
 	      if (W <= bp00 && this.isRes == 'sp') $(window).trigger('sp_sp_s');
@@ -1329,14 +1329,14 @@
 	      if (W <= bp02 && this.isRes == 'pc') $(window).trigger('pc_tab');
 	      if (W > bp03 && this.isRes == 'pc') $(window).trigger('pc_pc_w');
 	      if (W <= bp03 && this.isRes == 'pc-w') $(window).trigger('pc_w_pc');
-	
+
 	      // isRes
 	      if (W <= bp00) this.isRes = 'sp-s';
 	      if (W > bp00 && W <= bp01) this.isRes = 'sp';
 	      if (W > bp01 && W <= bp02) this.isRes = 'tab';
 	      if (W > bp02 && W <= bp03) this.isRes = 'pc';
 	      if (W > bp03) this.isRes = 'pc-w';
-	
+
 	      // isResPC, isResSP
 	      if (W > bp01) {
 	        this.isResSP = false;
@@ -1349,42 +1349,42 @@
 	        $('body').addClass('isResponsiveSP');
 	        $('body').removeClass('isResponsivePC');
 	      }
-	
+
 	      log(this.isResSP, this.isResPC);
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  user agentでpc,sp振り分け
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: "isPCSP",
 	    value: function isPCSP(urlPC, urlSP) {
-	
+
 	      var url = location.href;
-	
+
 	      if (!this.isPC && !this.isTAB && url.indexOf('pc') != -1) {
-	
+
 	        location.href = urlSP;
 	      }
-	
+
 	      if (this.isPC && url.indexOf('pc') == -1) {
-	
+
 	        location.href = urlPC;
 	      }
-	
+
 	      if (this.isTAB && url.indexOf('pc') == -1) {
-	
+
 	        location.href = urlPC;
 	      }
 	    }
 	  }]);
-	
+
 	  return Device;
 	}();
-	
+
 	exports.default = Device;
 
 /***/ }),
@@ -1392,41 +1392,41 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  MyMath
 	//
 	// ------------------------------------------------------------
-	
+
 	var MyMath = function () {
 	  function MyMath() {
 	    _classCallCheck(this, MyMath);
 	  }
-	
+
 	  // ランダムな整数を取得
 	  // -----------------------------------
 	  // @min : 最小値(int)
 	  // @max : 最大値(int)
 	  // return : minからmaxまでのランダムな整数(int)
 	  // -----------------------------------
-	
-	
+
+
 	  _createClass(MyMath, [{
 	    key: "randomInt",
 	    value: function randomInt(min, max) {
-	
+
 	      return Math.floor(Math.random() * (max + 1 - min) + min);
 	    }
-	
+
 	    // ランダムな整数を2つの範囲から取得
 	    // -----------------------------------
 	    // @min1 : 最小値1(int)
@@ -1435,44 +1435,44 @@
 	    // @max2 : 最大値2(int)
 	    // return : minからmaxまでのランダムな整数(int)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "random2",
 	    value: function random2(min1, max1, min2, max2) {
-	
+
 	      if (this.hit(2)) {
 	        return this.randomInt(min1, max1);
 	      } else {
 	        return this.randomInt(min2, max2);
 	      }
 	    }
-	
+
 	    // 1/@rangeの確率でtrueを取得
 	    // -----------------------------------
 	    // @range : 母数(int)
 	    // return : true or false(boolean)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "hit",
 	    value: function hit(range) {
-	
+
 	      return this.randomInt(0, range - 1) === 0;
 	    }
-	
+
 	    // 0から範囲内でランダムな整数を取得
 	    // -----------------------------------
 	    // @val : 範囲(int)
 	    // return : ランダムな整数(int)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "range",
 	    value: function range(val) {
-	
+
 	      return this.randomInt(-val, val);
 	    }
-	
+
 	    // 値をマッピング
 	    // -----------------------------------
 	    // @num : マッピングする値(Number)
@@ -1482,11 +1482,11 @@
 	    // @baseMax : 元となる値の最大値(Number)
 	    // return : マッピングされた値(Number)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "map",
 	    value: function map(num, resMin, resMax, baseMin, baseMax) {
-	
+
 	      var p;
 	      if (num < baseMin) {
 	        return resMin;
@@ -1495,29 +1495,29 @@
 	        return resMax;
 	      }
 	      p = (resMax - resMin) / (baseMax - baseMin);
-	
+
 	      return (num - baseMin) * p + resMin;
 	    }
 	  }, {
 	    key: "demical",
 	    value: function demical(v) {
 	      var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	
-	
+
+
 	      // 計算 ( Math.pow( 10, 4 ) = 10000 )
 	      var val = Math.floor(v * Math.pow(10, n)) / Math.pow(10, n);
-	
+
 	      return val;
 	    }
 	  }, {
 	    key: "float",
 	    value: function float(v) {
 	      var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	
-	
+
+
 	      return v.toFixed(n);
 	    }
-	
+
 	    // 数値に小数点第@n位までをつけた文字列を返す
 	    // -----------------------------------
 	    // @num : 値(Number)
@@ -1543,27 +1543,27 @@
 	    //   num = num.substr(0, pos) + num.substr(pos, n + 1);
 	    //   return num;
 	    // }
-	
+
 	  }, {
 	    key: "clamp",
 	    value: function clamp(val, min, max, minVal, maxVal) {
-	
+
 	      if (val < min) val = minVal == undefined ? min : minVal;else if (val > max) val = maxVal == undefined ? max : maxVal;
-	
+
 	      return val;
 	    }
 	  }, {
 	    key: "rate",
 	    value: function rate(val, base) {
-	
+
 	      var v = val / base;
-	
+
 	      return v;
 	    }
 	  }, {
 	    key: "lerp",
 	    value: function lerp(val01, val02, val) {
-	
+
 	      val = val < 0 ? 0 : val;
 	      val = val > 1 ? 1 : val;
 	      return val01 + (val02 - val01) * val;
@@ -1571,28 +1571,28 @@
 	  }, {
 	    key: "degree",
 	    value: function degree(radians) {
-	
+
 	      return radians * 180 / Math.PI; //1ラジアンが何度か
 	    }
-	
+
 	    // to radians
-	
+
 	  }, {
 	    key: "radian",
 	    value: function radian(angle) {
-	
+
 	      return angle * Math.PI / 180; //1度何ラジアンか
 	    }
 	  }, {
 	    key: "dist",
 	    value: function dist(p1, p2) {
-	
+
 	      return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 	    }
 	  }, {
 	    key: "ascend",
 	    value: function ascend(arr) {
-	
+
 	      arr.sort(function (a, b) {
 	        if (a > b) return -1;
 	        if (a < b) return 1;
@@ -1600,52 +1600,52 @@
 	      });
 	      // var a = [5,3,9,1,10]
 	      // 結果:10,9,5,3,1
-	
+
 	      return arr;
 	    }
 	  }, {
 	    key: "descend",
 	    value: function descend(arr) {
-	
+
 	      arr.sort(function (a, b) {
 	        if (a < b) return -1;
 	        if (a > b) return 1;
 	        return 0;
 	      });
-	
+
 	      // var a = [5,3,9,1,10]
 	      // 結果:1,3,5,9,10
-	
+
 	      return arr;
 	    }
-	
+
 	    // map(value, min01, max01, min02, max02) {
-	
+
 	    //   var dis01 = max01 - min01;
 	    //   var dis02 = max02 - min02
-	
+
 	    //   var rate = dis02 / dis01;
-	
+
 	    //   value = value * rate;
-	
+
 	    //   return value;
 	    // }
-	
+
 	  }, {
 	    key: "constrain",
 	    value: function constrain(value, min, max) {
-	
+
 	      return Math.min(max, Math.max(value, min));
-	
+
 	      // if (value <= low) value = low;
 	      // if (value >= high) value = high;     
 	      // return value;
 	    }
 	  }]);
-	
+
 	  return MyMath;
 	}();
-	
+
 	exports.default = MyMath;
 
 /***/ }),
@@ -1653,46 +1653,46 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Other
 	//
 	// ------------------------------------------------------------
-	
+
 	var Other = function () {
 	  function Other() {
 	    _classCallCheck(this, Other);
 	  }
-	
+
 	  // ------------------------------------------------------------
 	  //  getPageID
 	  // ------------------------------------------------------------
-	
-	
+
+
 	  _createClass(Other, [{
 	    key: 'getPageID',
 	    value: function getPageID() {
-	
+
 	      this.pageID = $('body').attr('id');
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  Data type check
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: 'isObject',
 	    value: function isObject(value, ignoreArray) {
@@ -1728,124 +1728,124 @@
 	    value: function isUndefined(value) {
 	      return typeof value === 'undefined';
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  other
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: 'setImgSPSize',
 	    value: function setImgSPSize($target) {
-	
+
 	      // responsive spのとき処理
 	      // if (!this.isResSP) return;
 	      // 一度だけ処理
 	      if (this.isSetSPSize) return;
 	      this.isSetSPSize = true;
-	
+
 	      var $img = $target,
 	          len = $img.length;
-	
+
 	      $img.each(function (i) {
-	
+
 	        var w = Math.floor($(this).width() / 2),
 	            h = Math.floor($(this).height() / 2);
-	
+
 	        $(this).attr({
 	          'width': w,
 	          'height': h
 	        });
-	
+
 	        if (len == i + 1) $(window).trigger('setSpZieEnd');
 	      });
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //  スマホ操作無効
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: 'notMove',
 	    value: function notMove() {
 	      var flag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 	      var $wrap = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : $('#wrapper');
-	
-	
+
+
 	      if (flag) {
-	
+
 	        $wrap.on('touchstart.noControl touchmove.noControl touchend.noControl', function (e) {
 	          e.preventDefault();
 	        });
-	
+
 	        // this.f = (e)=>{e.preventDefault();};
 	        // document.addEventListener('touchmove', this.f, { passive: false });
 	      } else {
-	
+
 	        $wrap.off('touchstart.noControl touchmove.noControl touchend.noControl');
-	
+
 	        // document.removeEventListener('touchmove', this.f, false);
 	      }
-	
+
 	      // this.offNotMove();
-	
+
 	      // $(window).on('touchstart.noControl touchmove.noControl touchend.noControl click.noControl', function(e){e.preventDefault();});
 	    }
-	
+
 	    // offNotMove() {
-	
+
 	    //   $(window).off('touchstart.noControl touchmove.noControl touchend.noControl');
 	    //   // $(window).off('touchstart.noControl touchmove.noControl touchend.noControl click.noControl');
-	
+
 	    // }
-	
+
 	    // notMove(flag=true) {
-	
+
 	    //   if (flag) {
-	
+
 	    //     this.f = (e)=>{e.preventDefault();};
-	
+
 	    //     document.addEventListener('touchmove', this.f, { passive: false });
-	
+
 	    //   } else {
-	
+
 	    //     log('off',this.f)
-	
+
 	    //     document.removeEventListener('touchmove', this.f, false);
-	
+
 	    //   }
-	
+
 	    // }
-	
+
 	    // notMove() {
-	
+
 	    //   this.offNotMove();
-	
+
 	    //   this.f = (e)=>{e.preventDefault();};
-	
+
 	    //   document.addEventListener('touchmove', this.f.bind(this), { passive: false });
-	
+
 	    // }
-	
+
 	    // offNotMove() {
-	
-	
+
+
 	    //   log(111,this.f);
 	    //   if (this.f) {
 	    //     log(111,this.f);
 	    //     document.removeEventListener('touchmove', this.f.bind(this));  
 	    //   }
-	
+
 	    // }
-	
-	
+
+
 	  }, {
 	    key: 'setPreventMousemove',
 	    value: function setPreventMousemove() {
-	
+
 	      var self = this;
-	
+
 	      this.removePrevent();
 	      $(window).on('touchmove.noControl', function (e) {
 	        e.preventDefault();
@@ -1854,7 +1854,7 @@
 	  }, {
 	    key: 'preventDefault',
 	    value: function preventDefault(e) {
-	
+
 	      e = e || window.event;
 	      if (e.preventDefault) e.preventDefault();
 	      e.returnValue = false;
@@ -1862,7 +1862,7 @@
 	  }, {
 	    key: 'preventDefaultForScrollKeys',
 	    value: function preventDefaultForScrollKeys(e) {
-	
+
 	      if (keys[e.keyCode]) {
 	        preventDefault(e);
 	        return false;
@@ -1871,7 +1871,7 @@
 	  }, {
 	    key: 'disableScroll',
 	    value: function disableScroll($target) {
-	
+
 	      if ($target.get(0).addEventListener) // older FF
 	        $target.get(0).addEventListener('DOMMouseScroll', this.preventDefault, false);
 	      $target.get(0).onwheel = this.preventDefault; // modern standard
@@ -1882,24 +1882,24 @@
 	  }, {
 	    key: 'enableScroll',
 	    value: function enableScroll($target) {
-	
+
 	      if ($target.get(0).removeEventListener) $target.get(0).removeEventListener('DOMMouseScroll', this.preventDefault, false);
 	      $target.get(0).onmousewheel = document.onmousewheel = null;
 	      $target.get(0).onwheel = null;
 	      $target.get(0).ontouchmove = null;
 	      document.onkeydown = null;
 	    }
-	
+
 	    // 全画面
-	
+
 	  }, {
 	    key: 'full',
 	    value: function full() {
-	
+
 	      var b = document.body;
 	      // var b = document.getElementById("wrapper")
 	      // var b = document.getElementsByClassName('menu03');
-	
+
 	      if (b.requestFullScreen) {
 	        b.requestFullScreen();
 	      } else if (b.webkitRequestFullScreen) {
@@ -1914,10 +1914,10 @@
 	      }
 	    }
 	  }]);
-	
+
 	  return Other;
 	}();
-	
+
 	exports.default = Other;
 
 /***/ }),
@@ -1925,69 +1925,69 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  String
 	//
 	// ------------------------------------------------------------
-	
+
 	var String = function () {
 	  function String() {
 	    _classCallCheck(this, String);
 	  }
-	
+
 	  _createClass(String, [{
 	    key: "isContain",
 	    value: function isContain(str, contain) {
-	
+
 	      // strの中に,containが存在したら
 	      if (str.indexOf(contain) != -1) {
 	        return true;
 	      }
-	
+
 	      return false;
 	    }
-	
+
 	    // 0埋めで2桁にする関数
-	
+
 	  }, {
 	    key: "add0",
 	    value: function add0(str) {
 	      var num = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -2;
-	
-	
+
+
 	      return ("000000000000" + str).substr(num);
 	    }
-	
+
 	    // 値段表記
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "price",
 	    value: function price(num) {
-	
+
 	      return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	    }
-	
+
 	    // 文字列を反転
 	    // -----------------------------------
 	    // @str : 文字列(String)
 	    // return : 文字列(String)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "strReverse",
 	    value: function strReverse(str) {
-	
+
 	      var i, len, res;
 	      res = "";
 	      len = str.length;
@@ -1998,43 +1998,43 @@
 	      }
 	      return res;
 	    }
-	
+
 	    // 文字列の全置換
 	    // -----------------------------------
 	    // @val  : 文字列
 	    // @oeg  : 置換前の文字列
 	    // @dest : 置換後の文字列
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "replaceAll",
 	    value: function replaceAll(val, org, dest) {
-	
+
 	      return val.split(org).join(dest);
 	    }
 	  }, {
 	    key: "strReplace",
 	    value: function strReplace(str, before, after) {
-	
+
 	      var r = new RegExp(before, 'g');
-	
+
 	      return str.replace(r, after);
 	    }
-	
+
 	    // ユニークIDを取得
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "unique",
 	    value: function unique() {
-	
+
 	      return new Date().getTime();
 	    }
 	  }]);
-	
+
 	  return String;
 	}();
-	
+
 	exports.default = String;
 
 /***/ }),
@@ -2042,147 +2042,147 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Url
 	//
 	// ------------------------------------------------------------
-	
+
 	var Url = function () {
 	  function Url() {
 	    _classCallCheck(this, Url);
 	  }
-	
+
 	  // クエリ抜き出し
-	
-	
+
+
 	  _createClass(Url, [{
 	    key: 'getParam',
 	    value: function getParam() {
-	
+
 	      var url = location.href;
 	      var param = url.split('?')[1];
 	      if (param == undefined) return undefined;
 	      var paramItems = param.split('&');
 	      var list = {};
-	
+
 	      for (var i = 0; i < paramItems.length; i++) {
-	
+
 	        paramItem = paramItems[i].split('=');
 	        list[paramItem[0]] = paramItem[1];
 	      }
-	
+
 	      return list;
 	    }
 	  }, {
 	    key: 'setParam',
 	    value: function setParam(text) {
-	
+
 	      window.history.pushState('', '', '?' + text);
 	    }
-	
+
 	    // ハッシュ取得
 	    // -----------------------------------
 	    // return : location.hashの#を削除したやつ
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: 'hash',
 	    value: function hash() {
-	
+
 	      return location.hash.replace("#", "");
 	    }
 	  }, {
 	    key: 'getHash',
 	    value: function getHash() {
-	
+
 	      return location.hash;
 	    }
 	  }, {
 	    key: 'setHash',
 	    value: function setHash(text) {
-	
+
 	      location.hash = text;
 	    }
-	
+
 	    // 指定したstringがクッキーにセットされていたらtrue
-	
+
 	  }, {
 	    key: 'checkCookie',
 	    value: function checkCookie(str) {
-	
+
 	      var flag = null;
-	
+
 	      if ($.cookie(str) == undefined || $.cookie(str) == '') flag = false;else flag = true;
-	
+
 	      return flag;
 	    }
-	
+
 	    // 指定したstringがクッキーにセットされていたらtrue
-	
+
 	  }, {
 	    key: 'getCookie',
 	    value: function getCookie(str) {
-	
+
 	      if ($.cookie(str) == undefined || $.cookie(str) == '') return null;else return $.cookie(str);
 	    }
 	  }, {
 	    key: 'setCookie',
 	    value: function setCookie(str, val, period) {
-	
+
 	      var p = period || 5 * 1000; // 5秒
 	      // var p = period || 30 * 1000; // 30秒
 	      // var p = period || 15 * 60 * 1000; // 15分
 	      // var p = period || 7 * 24 * 60 * 60 * 1000; //7日
 	      var date = new Date();
 	      date.setTime(date.getTime() + p);
-	
+
 	      $.cookie(str, val, { expires: date, path: '/' });
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //  host,protcol
 	    // ------------------------------------------------------------
-	
+
 	  }, {
 	    key: 'protocol',
 	    value: function protocol() {
-	
+
 	      return location.protocol;
 	    }
 	  }, {
 	    key: 'host',
 	    value: function host() {
-	
+
 	      return location.hostname;
 	      // return location.host
 	    }
 	  }, {
 	    key: 'port',
 	    value: function port() {
-	
+
 	      return location.port;
 	    }
 	  }, {
 	    key: 'path',
 	    value: function path() {
-	
+
 	      return location.pathname;
 	    }
 	  }]);
-	
+
 	  return Url;
 	}();
-	
+
 	exports.default = Url;
 
 /***/ }),
@@ -2190,35 +2190,35 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Func
 	//
 	// ------------------------------------------------------------
-	
+
 	var Func = function () {
 	  function Func() {
 	    _classCallCheck(this, Func);
-	
+
 	    this.blank();
 	    this.requestAnimationFrame();
 	    this.scrollRestoration(false);
 	    this.checkPassive();
 	  }
-	
+
 	  _createClass(Func, [{
 	    key: 'blank',
 	    value: function blank() {
-	
+
 	      $(function () {
 	        $('.blank').attr('target', '_blank');
 	      });
@@ -2227,49 +2227,49 @@
 	    key: 'scrollRestoration',
 	    value: function scrollRestoration() {
 	      var bool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-	
-	
+
+
 	      // スクロール位置を元の位置に戻す
 	      if (bool) {
-	
+
 	        window.history.scrollRestoration = 'auto';
-	
+
 	        // スクロール位置を必ず一番上に
 	      } else {
-	
+
 	        window.history.scrollRestoration = 'manual';
 	      }
 	    }
 	  }, {
 	    key: 'requestAnimationFrame',
 	    value: function requestAnimationFrame() {
-	
+
 	      var FPS = 1000 / 60;
-	
+
 	      window.requestAnimationFrame = window.requestAnimationFrame || // chromeや最新の
 	      window.mozRequestAnimationFrame || // 古いfirefox用
 	      window.webkitRequestAnimationFrame || // safari6以前、iOS6 safari用
 	      function (callback) {
 	        window.setTimeout(callback, FPS);
 	      };
-	
+
 	      window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || function (timer) {
 	        window.clearTimeout(timer);
 	      };
 	    }
-	
+
 	    // smart phone 全画面
-	
+
 	  }, {
 	    key: 'SPH',
 	    value: function SPH() {
 	      var _this = this;
-	
+
 	      var $target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $('#wrapper');
-	
-	
+
+
 	      if (gb.u.dv.isPC) return;
-	
+
 	      var r = function r() {
 	        clearTimeout(_this.Timer);
 	        _this.Timer = setTimeout(function () {
@@ -2278,58 +2278,58 @@
 	          $target.innerHeight(gb.r.h + adjust);
 	        }, 100);
 	      };
-	
+
 	      r();
-	
+
 	      // $(window).on('resize', r);
 	      $(window).on('orientationchange', r);
 	    }
 	  }, {
 	    key: 'checkCssBlend',
 	    value: function checkCssBlend() {
-	
+
 	      if ('CSS' in window && 'supports' in window.CSS) {
 	        if (!window.CSS.supports('mix-blend-mode', 'soft-light')) {
 	          document.documentElement.classList.add('not-mix-blend-mode');
 	        }
 	      }
-	
+
 	      log(gb.u.isIE);
-	
+
 	      if (gb.u.isIE) {
-	
+
 	        document.documentElement.classList.add('not-mix-blend-mode');
 	      };
 	    }
 	  }, {
 	    key: 'notSaveImg',
 	    value: function notSaveImg() {
-	
+
 	      // ------------------------------------------------------------
 	      //
 	      //  pc
 	      //
 	      // ------------------------------------------------------------
-	
+
 	      if (gb.u.isPC) {
-	
+
 	        $(function () {
 	          $("img").on("contextmenu", function () {
 	            return false;
 	          });
 	        });
 	      }
-	
+
 	      // ------------------------------------------------------------
 	      //
 	      //  sp android
 	      //
 	      // ------------------------------------------------------------
 	      var v = gb.u.isAndroidVersion();
-	
+
 	      if (v == undefined) return;
 	      if (v < 5) {
-	
+
 	        var timer;
 	        $("img").on("touchstart", function () {
 	          timer = setTimeout(function () {
@@ -2348,16 +2348,16 @@
 	    value: function smartRollover($target) {
 	      var off = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '_off.';
 	      var on = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '_on.';
-	
-	
+
+
 	      var $images = $target;
-	
+
 	      for (var i = 0; i < $images.length; i++) {
-	
+
 	        if ($images.eq(i).get(0).getAttribute("src").match(off)) {
-	
+
 	          log(111);
-	
+
 	          $images.eq(i).get(0).onmouseover = function () {
 	            this.setAttribute("src", this.getAttribute("src").replace(off, on));
 	          };
@@ -2370,7 +2370,7 @@
 	  }, {
 	    key: 'checkPassive',
 	    value: function checkPassive() {
-	
+
 	      // check passive 
 	      var supportsPassive = false;
 	      try {
@@ -2386,7 +2386,7 @@
 	        window.addEventListener("test", null, opts);
 	        window.removeEventListener("test", null, opts);
 	      } catch (e) {}
-	
+
 	      window.addEventListenerWithOptions = function (target, type, handler, options) {
 	        var optionsOrCapture = options;
 	        if (!supportsPassive) {
@@ -2399,10 +2399,10 @@
 	      };
 	    }
 	  }]);
-	
+
 	  return Func;
 	}();
-	
+
 	exports.default = Func;
 
 /***/ }),
@@ -2410,47 +2410,47 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Debugger
 	//
 	// ------------------------------------------------------------
-	
+
 	var Debugger = function () {
 	  function Debugger() {
 	    _classCallCheck(this, Debugger);
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Debugger, [{
 	    key: 'setup',
 	    value: function setup() {
-	
+
 	      this.console(); // console
 	    }
-	
+
 	    // html外出し用
-	
+
 	  }, {
 	    key: 'setupHTML',
 	    value: function setupHTML() {
-	
+
 	      // 本番だったら、div追加しない
 	      if (!gb.conf.LOG) return;
-	
+
 	      this.$target = $('<div class="debug"></div>');
-	
+
 	      this.$target.prependTo($('body')).css({
 	        position: 'fixed',
 	        'z-index': 99999,
@@ -2458,35 +2458,35 @@
 	        top: 20
 	      });
 	    }
-	
+
 	    // log系を短く
-	
+
 	  }, {
 	    key: 'console',
 	    value: function (_console) {
 	      function console() {
 	        return _console.apply(this, arguments);
 	      }
-	
+
 	      console.toString = function () {
 	        return _console.toString();
 	      };
-	
+
 	      return console;
 	    }(function () {
-	
+
 	      // 置換対象のメソッドを配列として保持する
 	      var methods = ['log'];
-	
+
 	      // consoleが使えない場合は空のオブジェクトを設定しておく
 	      if (typeof window.console === "undefined") {
 	        window.console = {};
 	      }
-	
+
 	      // 各メソッドをwindowへ直接追加して行く
 	      for (var i in methods) {
 	        (function (m) {
-	
+
 	          // consoleにある？デバッグモードは有効？consoleのものは関数？
 	          if (console[m] && typeof console[m] === "function" && gb.conf.LOG) {
 	            window[m] = console[m].bind(console);
@@ -2497,44 +2497,44 @@
 	        })(methods[i]);
 	      }
 	    })
-	
+
 	    // htmlに外出し
-	
+
 	  }, {
 	    key: 'html',
 	    value: function html(v) {
-	
+
 	      // 本番だったら、div追加しない
 	      if (!gb.conf.LOG) return;
-	
+
 	      this.$target.text(v);
 	    }
-	
+
 	    // alert
-	
+
 	  }, {
 	    key: 'alert',
 	    value: function alert(v) {
-	
+
 	      window.alert(v);
 	    }
 	  }, {
 	    key: 'onReady',
 	    value: function onReady() {
-	
+
 	      this.setupHTML();
 	    }
 	  }, {
 	    key: 'setEvents',
 	    value: function setEvents() {
-	
+
 	      $(document).on('ready', this.onReady.bind(this));
 	    }
 	  }]);
-	
+
 	  return Debugger;
 	}();
-	
+
 	exports.default = Debugger;
 
 /***/ }),
@@ -2542,56 +2542,56 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var _JudgeEnvironment = __webpack_require__(14);
-	
+
 	var _JudgeEnvironment2 = _interopRequireDefault(_JudgeEnvironment);
-	
+
 	var _Profiler = __webpack_require__(16);
-	
+
 	var _Profiler2 = _interopRequireDefault(_Profiler);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
 	      // page id
 	      gb.pageID = $("body").attr("id");
-	
+
 	      // デバイス確認
 	      gb.je = new _JudgeEnvironment2.default();
-	
+
 	      if (gb.conf.Profiler) new _Profiler2.default(); // Profiler
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {}
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -2599,66 +2599,66 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  JudgeEnvironment
 	//
 	//--------------------------------------------------
-	
+
 	var JudgeEnvironment = function (_Base) {
 	  _inherits(JudgeEnvironment, _Base);
-	
+
 	  function JudgeEnvironment() {
 	    _classCallCheck(this, JudgeEnvironment);
-	
+
 	    var _this = _possibleConstructorReturn(this, (JudgeEnvironment.__proto__ || Object.getPrototypeOf(JudgeEnvironment)).call(this));
-	
+
 	    _this.name = 'JudgeEnvironment';
-	
+
 	    _this.isUEv = false; // update
 	    _this.isREv = true; // resize
 	    _this.isSEv = false; // scroll
 	    _this.isMEv = false; // mouse
-	
+
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    return _this;
 	  }
-	
+
 	  _createClass(JudgeEnvironment, [{
 	    key: 'setup',
 	    value: function setup() {
-	
+
 	      this.isREv = true;
-	
+
 	      // デバイス判定
 	      gb.u.dv.isDeviceSP();
 	      gb.u.dv.isDeviceTAB();
 	      gb.u.dv.isDeviceMB();
 	      gb.u.dv.isDevicePC();
 	      gb.u.dv.setEventString();
-	
+
 	      // ブラウザ判定
 	      gb.u.dv.isBrowserCheck();
-	
+
 	      // responsive / portrait / landscape
 	      gb.u.dv.isDirection();
 	      gb.u.dv.isResponsive(gb.conf.bp00, gb.conf.bp01, gb.conf.bp02, gb.conf.bp03);
@@ -2666,15 +2666,15 @@
 	  }, {
 	    key: 'onResize',
 	    value: function onResize() {
-	
+
 	      gb.u.dv.isDirection.call(gb.u.dv);
 	      gb.u.dv.isResponsive.call(gb.u.dv, gb.conf.bp00, gb.conf.bp01, gb.conf.bp02, gb.conf.bp03);
 	    }
 	  }]);
-	
+
 	  return JudgeEnvironment;
 	}(_Base3.default);
-	
+
 	exports.default = JudgeEnvironment;
 
 /***/ }),
@@ -2682,36 +2682,36 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	// ------------------------------------------------------------
 	//
 	//  Base
 	//
 	// ------------------------------------------------------------
-	
+
 	var Base = function () {
 	  function Base() {
 	    _classCallCheck(this, Base);
-	
+
 	    this.name = 'Base';
-	
+
 	    this.isUEv = false; // update
 	    this.isREv = false; // resize
 	    this.isSEv = false; // scroll
 	    this.isMEv = false; // mouse
 	    this.prevent = true;
-	
+
 	    this.isloop = true;
 	  }
-	
+
 	  _createClass(Base, [{
 	    key: 'setup',
 	    value: function setup() {}
@@ -2724,12 +2724,12 @@
 	  }, {
 	    key: 'loop',
 	    value: function loop() {
-	
+
 	      if (this.isloop) {
-	
+
 	        this.update();
 	        this.draw();
-	
+
 	        this.Timer = requestAnimationFrame(this.loop.bind(this));
 	      }
 	    }
@@ -2745,9 +2745,9 @@
 	  }, {
 	    key: 'setEvents',
 	    value: function setEvents() {
-	
+
 	      var self = this;
-	
+
 	      if (this.isUEv) this.loop();
 	      if (this.isREv) $(window).on('resize' + '.' + this.name, this.onResize.bind(this));
 	      if (this.isSEv) $(window).on('scroll' + '.' + this.name, this.onScroll.bind(this));
@@ -2759,7 +2759,7 @@
 	  }, {
 	    key: 'removeEvents',
 	    value: function removeEvents() {
-	
+
 	      if (this.isUEv) {
 	        this.isloop = false;
 	        cancelAnimationFrame(this.Timer);
@@ -2771,7 +2771,7 @@
 	  }, {
 	    key: 'onU',
 	    value: function onU() {
-	
+
 	      this.isUEv = true;
 	      this.isloop = true;
 	      this.loop();
@@ -2779,33 +2779,33 @@
 	  }, {
 	    key: 'offU',
 	    value: function offU() {
-	
+
 	      this.isloop = false;
 	      if (this.isUEv) cancelAnimationFrame(this.Timer);
 	    }
 	  }, {
 	    key: 'offR',
 	    value: function offR() {
-	
+
 	      if (this.isREv) $(window).off('resize' + '.' + this.name);
 	    }
 	  }, {
 	    key: 'offS',
 	    value: function offS() {
-	
+
 	      if (this.isSEv) $(window).off('scroll' + '.' + this.name);
 	    }
 	  }, {
 	    key: 'offM',
 	    value: function offM() {
-	
+
 	      if (this.isMEv) $(window).off('touchmove' + '.' + this.name);
 	    }
 	  }]);
-	
+
 	  return Base;
 	}();
-	
+
 	exports.default = Base;
 
 /***/ }),
@@ -2813,51 +2813,51 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Profiler
 	//
 	//--------------------------------------------------
-	
+
 	var Profiler = function (_Base) {
 	  _inherits(Profiler, _Base);
-	
+
 	  function Profiler() {
 	    _classCallCheck(this, Profiler);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Profiler.__proto__ || Object.getPrototypeOf(Profiler)).call(this));
-	
+
 	    _this.name = 'Profiler';
-	
+
 	    _this.isUEv = true; // update
-	
+
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    return _this;
 	  }
-	
+
 	  _createClass(Profiler, [{
 	    key: 'setup',
 	    value: function setup() {
-	
+
 	      this.Stats = new Stats();
 	      this.Stats.domElement.style.position = "fixed";
 	      this.Stats.domElement.style.left = "0px";
@@ -2867,14 +2867,14 @@
 	  }, {
 	    key: 'update',
 	    value: function update() {
-	
+
 	      if (this.Stats) this.Stats.update();
 	    }
 	  }]);
-	
+
 	  return Profiler;
 	}(_Base3.default);
-	
+
 	exports.default = Profiler;
 
 /***/ }),
@@ -2882,42 +2882,42 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	//--------------------------------------------------
 	//
 	//  updateManager
 	//
 	//--------------------------------------------------
-	
+
 	var UpdateMgr = function () {
 	  function UpdateMgr() {
 	    _classCallCheck(this, UpdateMgr);
-	
+
 	    this.frame = 0;
 	    this.len = 0;
 	    this.Timer = null;
 	    this.isStop = false;
-	
+
 	    this.st = 0;
 	    this.et = 0;
 	    this.delta = 0;
 	    this.frameRate = 0;
-	
+
 	    this.setup();
 	  }
-	
+
 	  _createClass(UpdateMgr, [{
 	    key: "setup",
 	    value: function setup() {
-	
+
 	      this.start = this.st = new Date().getTime();
 	      this.fps = 60.0;
 	      this.frameLength = 6.0;
@@ -2925,43 +2925,43 @@
 	  }, {
 	    key: "loop",
 	    value: function loop() {
-	
+
 	      // delta
 	      var et = new Date().getTime();
 	      this.delta = et - this.st;
 	      this.st = et;
-	
+
 	      // frame
 	      this.frame++;
-	
+
 	      // 再帰
 	      this.Timer = requestAnimationFrame(this.loop.bind(this));
 	    }
 	  }, {
 	    key: "stop",
 	    value: function stop() {
-	
+
 	      cancelAnimationFrame(this.Timer);
 	    }
 	  }, {
 	    key: "resume",
 	    value: function resume() {
-	
+
 	      this.loop();
 	    }
 	  }, {
 	    key: "getElapsedTime",
 	    value: function getElapsedTime() {
-	
+
 	      var elapsed = new Date().getTime() - this.start;
-	
+
 	      return elapsed / 1000;
 	    }
 	  }]);
-	
+
 	  return UpdateMgr;
 	}();
-	
+
 	exports.default = UpdateMgr;
 
 /***/ }),
@@ -2969,76 +2969,76 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	//--------------------------------------------------
 	//
 	//  ResizeMgr
 	//
 	//--------------------------------------------------
-	
+
 	var ResizeMgr = function () {
 	  function ResizeMgr() {
 	    _classCallCheck(this, ResizeMgr);
-	
+
 	    this.w = 0;
 	    this.h = 0;
 	    this.oldW = 0;
 	    this.oldH = 0;
 	    this.ww = 0;
 	    this.wh = 0;
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(ResizeMgr, [{
 	    key: 'setup',
 	    value: function setup() {
-	
+
 	      this.getWindowSize();
 	    }
 	  }, {
 	    key: 'getWindowSize',
 	    value: function getWindowSize() {
-	
+
 	      this.oldW = this.w;
 	      this.oldH = this.h;
 	      this.w = window.innerWidth;
 	      this.h = window.innerHeight;
-	
+
 	      this.ww = $(window).width();
 	      this.hh = $(window).height();
-	
+
 	      this.haw = this.w / 2;
 	      this.hah = this.h / 2;
 	    }
 	  }, {
 	    key: 'onResize',
 	    value: function onResize(e) {
-	
+
 	      this.getWindowSize();
 	    }
 	  }, {
 	    key: 'setEvents',
 	    value: function setEvents() {
-	
+
 	      $(window).on('resize', this.onResize.bind(this));
 	      // $(window).on('resize', $.throttle(100, false, this.onResize.bind(this)));
 	      // $(window).on('resize', $.debounce(200, this.onResize.bind(this)));
 	    }
 	  }]);
-	
+
 	  return ResizeMgr;
 	}();
-	
+
 	exports.default = ResizeMgr;
 
 /***/ }),
@@ -3046,53 +3046,53 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	//--------------------------------------------------
 	//
 	//  ScrollMgr
 	//
 	//--------------------------------------------------
-	
+
 	var ScrollMgr = function () {
 	  function ScrollMgr() {
 	    _classCallCheck(this, ScrollMgr);
-	
+
 	    // this.$wrap = $(window);
 	    if (gb.u.dv.isPC) this.$wrap = $(window);else this.$wrap = $('#wrapper');
-	
+
 	    this.st = 0; // 現在のscroll top
 	    this.prest = 0;
 	    this.sb = 0; // 現在のscroll bottom
-	
+
 	    this.isUp = null; // 上スクロールか下スクロールか;
 	    this.dis = 0;
 	    this.deltaY = 0;
 	    this.offset = 0;
-	
+
 	    this.isSetWheel = false;
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(ScrollMgr, [{
 	    key: 'setup',
 	    value: function setup() {}
 	  }, {
 	    key: 'onScroll',
 	    value: function onScroll() {
-	
+
 	      this.st = this.$wrap.scrollTop();
 	      this.sb = this.st + gb.r.h;
-	
+
 	      // down or up
 	      // if (this.st > this.prest) {
 	      //   console.log('down');
@@ -3104,11 +3104,11 @@
 	  }, {
 	    key: 'onWheel',
 	    value: function onWheel(e, delta, deltaX, deltaY) {
-	
+
 	      this.isWheel = true;
-	
+
 	      if (deltaY > 0) this.isUp = true;else this.isUp = false;
-	
+
 	      this.dis = deltaY - this.deltaY;
 	      this.offset += deltaY;
 	      this.deltaY = deltaY;
@@ -3117,12 +3117,12 @@
 	    key: 'setEvents',
 	    value: function setEvents() {
 	      var _this = this;
-	
+
 	      // scroll
 	      var $wrap = this.$wrap.get(0);
 	      window.addEventListenerWithOptions($wrap, 'scroll', this.onScroll.bind(this), { passive: true, capture: false });
 	      // this.$wrap.on('scroll', $.throttle(100, false, this.onScroll.bind(this)));
-	
+
 	      // wheel
 	      if (this.isSetWheel) $(document).on('mousewheel', function (e, delta, deltaX, deltaY) {
 	        _this.onWheel(e, delta, deltaX, deltaY);
@@ -3130,10 +3130,10 @@
 	      // $('canvas').on('mousewheel', (e,delta,deltaX,deltaY)=>{this.onWheel(e,delta,deltaX,deltaY);});
 	    }
 	  }]);
-	
+
 	  return ScrollMgr;
 	}();
-	
+
 	exports.default = ScrollMgr;
 
 /***/ }),
@@ -3141,61 +3141,61 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	//--------------------------------------------------
 	//
 	//  MouseMgr
 	//
 	//--------------------------------------------------
-	
+
 	var MouseMgr = function () {
 	  function MouseMgr() {
 	    var $wrap = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : $(document);
-	
+
 	    _classCallCheck(this, MouseMgr);
-	
+
 	    this.$wrap = $wrap;
-	
+
 	    this.x = 0;
 	    this.y = 0;
 	    this.px = 0; // previous
 	    this.py = 0; // previous
-	
+
 	    this.cx = 0;
 	    this.cy = 0;
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(MouseMgr, [{
 	    key: "setup",
 	    value: function setup() {}
 	  }, {
 	    key: "onMousemove",
 	    value: function onMousemove(e) {
-	
+
 	      this.getPos(e);
 	    }
 	  }, {
 	    key: "onTouchmove",
 	    value: function onTouchmove(e) {
-	
+
 	      this.x = e.originalEvent.changedTouches[0].pageX;
 	      this.y = e.originalEvent.changedTouches[0].pageY;
 	    }
 	  }, {
 	    key: "getPos",
 	    value: function getPos(e) {
-	
+
 	      if (e.offsetX == undefined) {
 	        // this works for Firefox
 	        this.x = e.pageX - this.$wrap.offset().left;
@@ -3205,7 +3205,7 @@
 	        this.x = e.pageX - $(window).scrollLeft();
 	        this.y = e.pageY - $(window).scrollTop();
 	      }
-	
+
 	      this.cx = e.clientX - gb.r.haw;
 	      this.cy = e.clientY - gb.r.hah;
 	    }
@@ -3213,7 +3213,7 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this = this;
-	
+
 	      this.$wrap.on("touchmove.MouseMgr", function (e) {
 	        _this.onTouchmove(e);
 	      });
@@ -3224,15 +3224,15 @@
 	  }, {
 	    key: "removeEvents",
 	    value: function removeEvents() {
-	
+
 	      this.$wrap.off("touchmove.MouseMgr");
 	      this.$wrap.off("mousemove.MouseMgr");
 	    }
 	  }]);
-	
+
 	  return MouseMgr;
 	}();
-	
+
 	exports.default = MouseMgr;
 
 /***/ }),
@@ -3240,67 +3240,67 @@
 /***/ (function(module, exports) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	//--------------------------------------------------
 	//
 	//  ScrollList
 	//
 	//--------------------------------------------------
-	
+
 	var ScrollList = function () {
 	  function ScrollList() {
 	    _classCallCheck(this, ScrollList);
-	
+
 	    this.list = [];
 	    this.endList = [];
-	
+
 	    this.isStart = true;
 	    this.isWheel = false; // wheel中か、そうでないか
 	    this.endTimer = 200;
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(ScrollList, [{
 	    key: 'setup',
 	    value: function setup() {
-	
+
 	      // this.add('end',this.onEnd.bind(this));
-	
+
 	    }
 	  }, {
 	    key: 'add',
 	    value: function add(name, func) {
-	
+
 	      var obj = { name: name, func: func };
-	
+
 	      this.list.push(obj);
 	    }
 	  }, {
 	    key: 'remove',
 	    value: function remove(name) {
-	
+
 	      ScrollList.arrRemove(this.list, name);
 	    }
 	  }, {
 	    key: 'onScroll',
 	    value: function onScroll(e) {
-	
+
 	      // if (this.isStart) {
 	      //   this.isStart = false;
 	      //   // log('resizeStart');
 	      //   // 最初だけの処理
 	      // };
-	
+
 	      for (var i in this.list) {
 	        this.list[i].func();
 	      }
@@ -3308,11 +3308,11 @@
 	  }, {
 	    key: 'onMouseWheel',
 	    value: function onMouseWheel(e, delta, deltaX, deltaY) {
-	
+
 	      this.isWheel = true;
-	
+
 	      if (deltaY > 0) this.upWheel = true;else this.upWheel = false;
-	
+
 	      for (var i in this.list) {
 	        this.list[i].func();
 	      }
@@ -3320,14 +3320,14 @@
 	  }, {
 	    key: 'onEnd',
 	    value: function onEnd(e) {
-	
+
 	      var self = this;
-	
+
 	      if (this.Timer) clearTimeout(this.Timer);
 	      this.Timer = setTimeout(function () {
 	        self.isStart = true;
 	        self.isWheel = false;
-	
+
 	        for (var i in self.endList) {
 	          self.endList[i]();
 	        }
@@ -3336,16 +3336,16 @@
 	  }, {
 	    key: 'addFixedObjectScroll',
 	    value: function addFixedObjectScroll($target) {
-	
+
 	      this.list.push(function () {
-	
+
 	        $target.css("left", -$(window).scrollLeft());
 	      });
 	    }
 	  }, {
 	    key: 'setEvents',
 	    value: function setEvents() {
-	
+
 	      // $(window).on('scroll', (e)=>{this.onScroll(e);});
 	      // var $wrap = $(window).get(0);
 	      if (gb.u.dv.isPC) var $wrap = $(window).get(0);else var $wrap = $('#wrapper').get(0);
@@ -3354,36 +3354,36 @@
 	      // $(document).on('mousewheel', (e,delta,deltaX,deltaY)=>{this.onMouseWheel(e,delta,deltaX,deltaY);}); // → document指定だと、trackball controlsが上手く動かない
 	      // $('canvas').on('mousewheel', (e,delta,deltaX,deltaY)=>{this.onMouseWheel(e,delta,deltaX,deltaY);});
 	    }
-	
+
 	    // ------------------------------------------------------------
 	    //
 	    //  静的メンバ
 	    //
 	    // ------------------------------------------------------------
-	
+
 	  }], [{
 	    key: 'arrRemove',
 	    value: function arrRemove(arr, name) {
-	
+
 	      var len = arr.length;
 	      var check;
 	      for (var i = 0; i < len; i++) {
 	        check = arr[i];
-	
+
 	        if (check.name == name) {
 	          arr.splice(i, 1);
 	          i--;
 	          len--;
 	        }
 	      }
-	
+
 	      return arr;
 	    }
 	  }]);
-	
+
 	  return ScrollList;
 	}();
-	
+
 	exports.default = ScrollList;
 
 /***/ }),
@@ -3391,56 +3391,56 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _Controller = __webpack_require__(23);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  ViewTop sss
 	//
 	//--------------------------------------------------
-	
-	
+
+
 	var ViewCommon = function (_Base) {
 	  _inherits(ViewCommon, _Base);
-	
+
 	  function ViewCommon() {
 	    _classCallCheck(this, ViewCommon);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ViewCommon.__proto__ || Object.getPrototypeOf(ViewCommon)).call(this));
-	
+
 	    _this.name = "ViewCommon";
-	
+
 	    _this.isUEv = false; // update
 	    _this.isREv = true; // resize
 	    _this.isSEv = false; // scroll
 	    _this.isMEv = false; // mouse
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(ViewCommon, [{
 	    key: "setup",
 	    value: function setup() {
@@ -3488,16 +3488,16 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(ViewCommon.prototype.__proto__ || Object.getPrototypeOf(ViewCommon.prototype), "setEvents", this).call(this);
-	
+
 	      $(window).on("load", this.onLoad.bind(this));
 	      $(window).on("loadingEnd", this.onLoadingEnd.bind(this));
 	      $(window).on("loadAll", this.onLoadAll.bind(this));
 	    }
 	  }]);
-	
+
 	  return ViewCommon;
 	}(_Base3.default);
-	
+
 	exports.default = ViewCommon;
 
 /***/ }),
@@ -3505,56 +3505,56 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _index = __webpack_require__(24);
-	
+
 	var m = _interopRequireWildcard(_index);
-	
+
 	var _Controller = __webpack_require__(25);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    // this.setup()
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -3575,10 +3575,10 @@
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -3586,7 +3586,7 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -3617,11 +3617,11 @@
 	 */
 	function random(minValue, maxValue) {
 	  var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-	
-	
+
+
 	  return parseFloat(Math.min(minValue + Math.random() * (maxValue - minValue), maxValue).toFixed(precision));
 	}
-	
+
 	// ランダムな整数を取得
 	// -----------------------------------
 	// @min : 最小値(int)
@@ -3629,10 +3629,10 @@
 	// return : minからmaxまでのランダムな整数(int)
 	// -----------------------------------
 	function randomInt(min, max) {
-	
+
 	  return Math.floor(Math.random() * (max + 1 - min) + min);
 	}
-	
+
 	// ランダムな整数を2つの範囲から取得
 	// -----------------------------------
 	// @min1 : 最小値1(int)
@@ -3642,34 +3642,34 @@
 	// return : minからmaxまでのランダムな整数(int)
 	// -----------------------------------
 	function random2(min1, max1, min2, max2) {
-	
+
 	  if (this.hit(2)) {
 	    return this.randomInt(min1, max1);
 	  } else {
 	    return this.randomInt(min2, max2);
 	  }
 	}
-	
+
 	// 1/@rangeの確率でtrueを取得
 	// -----------------------------------
 	// @range : 母数(int)
 	// return : true or false(boolean)
 	// -----------------------------------
 	function hit(range) {
-	
+
 	  return this.randomInt(0, range - 1) === 0;
 	}
-	
+
 	// 0から範囲内でランダムな整数を取得
 	// -----------------------------------
 	// @val : 範囲(int)
 	// return : ランダムな整数(int)
 	// -----------------------------------
 	function range(val) {
-	
+
 	  return this.randomInt(-val, val);
 	}
-	
+
 	// 値をマッピング
 	// -----------------------------------
 	// @num : マッピングする値(Number)
@@ -3680,7 +3680,7 @@
 	// return : マッピングされた値(Number)
 	// -----------------------------------
 	function map(num, resMin, resMax, baseMin, baseMax) {
-	
+
 	  var p;
 	  if (num < baseMin) {
 	    return resMin;
@@ -3689,27 +3689,27 @@
 	    return resMax;
 	  }
 	  p = (resMax - resMin) / (baseMax - baseMin);
-	
+
 	  return (num - baseMin) * p + resMin;
 	}
-	
+
 	function demical(v) {
 	  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	
-	
+
+
 	  // 計算 ( Math.pow( 10, 4 ) = 10000 )
 	  var val = Math.floor(v * Math.pow(10, n)) / Math.pow(10, n);
-	
+
 	  return val;
 	}
-	
+
 	function float(v) {
 	  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-	
-	
+
+
 	  return v.toFixed(n);
 	}
-	
+
 	// 数値に小数点第@n位までをつけた文字列を返す
 	// -----------------------------------
 	// @num : 値(Number)
@@ -3735,46 +3735,46 @@
 	//   num = num.substr(0, pos) + num.substr(pos, n + 1);
 	//   return num;
 	// }
-	
+
 	function clamp(val, min, max, minVal, maxVal) {
-	
+
 	  if (val < min) val = minVal == undefined ? min : minVal;else if (val > max) val = maxVal == undefined ? max : maxVal;
-	
+
 	  return val;
 	}
-	
+
 	function rate(val, base) {
-	
+
 	  var v = val / base;
-	
+
 	  return v;
 	}
-	
+
 	function lerp(val01, val02, val) {
-	
+
 	  val = val < 0 ? 0 : val;
 	  val = val > 1 ? 1 : val;
 	  return val01 + (val02 - val01) * val;
 	}
-	
+
 	function degree(radians) {
-	
+
 	  return radians * 180 / Math.PI; //1ラジアンが何度か
 	}
-	
+
 	// to radians
 	function radian(angle) {
-	
+
 	  return angle * Math.PI / 180; //1度何ラジアンか
 	}
-	
+
 	function dist(p1, p2) {
-	
+
 	  return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 	}
-	
+
 	function ascend(arr) {
-	
+
 	  arr.sort(function (a, b) {
 	    if (a > b) return -1;
 	    if (a < b) return 1;
@@ -3782,40 +3782,40 @@
 	  });
 	  // var a = [5,3,9,1,10]
 	  // 結果:10,9,5,3,1
-	
+
 	  return arr;
 	}
-	
+
 	function descend(arr) {
-	
+
 	  arr.sort(function (a, b) {
 	    if (a < b) return -1;
 	    if (a > b) return 1;
 	    return 0;
 	  });
-	
+
 	  // var a = [5,3,9,1,10]
 	  // 結果:1,3,5,9,10
-	
+
 	  return arr;
 	}
-	
+
 	// map(value, min01, max01, min02, max02) {
-	
+
 	//   var dis01 = max01 - min01;
 	//   var dis02 = max02 - min02
-	
+
 	//   var rate = dis02 / dis01;
-	
+
 	//   value = value * rate;
-	
+
 	//   return value;
 	// }
-	
+
 	function constrain(value, min, max) {
-	
+
 	  return Math.min(max, Math.max(value, min));
-	
+
 	  // if (value <= low) value = low;
 	  // if (value >= high) value = high;     
 	  // return value;
@@ -3826,92 +3826,92 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _Controller = __webpack_require__(26);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _Controller3 = __webpack_require__(27);
-	
+
 	var _Controller4 = _interopRequireDefault(_Controller3);
-	
+
 	var _Controller5 = __webpack_require__(29);
-	
+
 	var _Controller6 = _interopRequireDefault(_Controller5);
-	
+
 	var _Controller7 = __webpack_require__(30);
-	
+
 	var _Controller8 = _interopRequireDefault(_Controller7);
-	
+
 	var _Controller9 = __webpack_require__(35);
-	
+
 	var _Controller10 = _interopRequireDefault(_Controller9);
-	
+
 	var _Controller11 = __webpack_require__(36);
-	
+
 	var _Controller12 = _interopRequireDefault(_Controller11);
-	
+
 	var _Controller13 = __webpack_require__(37);
-	
+
 	var _Controller14 = _interopRequireDefault(_Controller13);
-	
+
 	var _Controller15 = __webpack_require__(38);
-	
+
 	var _Controller16 = _interopRequireDefault(_Controller15);
-	
+
 	var _Controller17 = __webpack_require__(56);
-	
+
 	var _Controller18 = _interopRequireDefault(_Controller17);
-	
+
 	var _Controller19 = __webpack_require__(58);
-	
+
 	var _Controller20 = _interopRequireDefault(_Controller19);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var UAParser = __webpack_require__(59);
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.w = window.innerWidth;
 	    _this.isUEv = true;
 	    _this.result = UAParser();
 	    _this.setup();
 	    _this.setEvents();
 	    _this.onResize();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -3930,19 +3930,19 @@
 	      $(".HoverImg").each(function (i, e) {
 	        new _Controller12.default(e);
 	      });
-	
+
 	      //whitebgクラスがついてる要素がheaderとかぶったら、色を変える
 	      new _Controller20.default($(".header"), ".whitebg");
-	
+
 	      // tab
 	      new _Controller4.default($(".tabWrap"));
-	
+
 	      // menu
 	      this.menu = new _Controller8.default({
 	        $btn: $(".header-menu-btn"),
 	        $contents: $(".menu")
 	      });
-	
+
 	      // parallax box
 	      $(".parallax,.parallax2,.parallax3").each(function (i, e) {
 	        new _Controller10.default($(e), {
@@ -3955,22 +3955,22 @@
 	        var val = 0.05 + (Math.random() - 0.5) * 0.07;
 	        var max = 200 + (Math.random() - 0.5) * 100;
 	        $(e).attr("data-ease", val);
-	
+
 	        new _Controller10.default($(e), {
 	          ease: e.dataset.ease - 0,
 	          max: e.dataset.max - 0
 	        });
 	      });
-	
+
 	      // scroll 示唆
 	      this.scrollBtn = new _Controller14.default($(".scroll-btn"));
-	
+
 	      // KV
 	      this.kv = new _Controller16.default();
-	
+
 	      // cookie
 	      this.cookie = new _Controller18.default();
-	
+
 	      // opening
 	      this.show();
 	    }
@@ -3978,7 +3978,7 @@
 	    key: "show",
 	    value: function show() {
 	      var _this2 = this;
-	
+
 	      this.kv.timeline(function (e) {
 	        _this2.scrollBtn.show();
 	        return _this2.menu.showBtn();
@@ -4012,15 +4012,15 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      // $(window).on("resize", this.onResize.bind(this));
 	      $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4028,45 +4028,45 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
 	    _this.name = "HoverClass";
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -4093,7 +4093,7 @@
 	    key: "hide",
 	    value: function hide(progress) {
 	      var tl = new TimelineMax();
-	
+
 	      var t = (0.5 - 0.5 * progress) * 0.5;
 	      tl
 	      //途中で終わったscaleを最後までやる
@@ -4110,7 +4110,7 @@
 	          "transform-origin": "100% 0"
 	        }
 	      }, t);
-	
+
 	      return tl;
 	    }
 	  }, {
@@ -4152,10 +4152,10 @@
 	      this.removeEvents();
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4163,46 +4163,46 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _Controller = __webpack_require__(28);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	// import gsap from ''
-	
-	
+
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller($ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $ele;
 	    _this.color = {
 	      activeBtnbg: "#fff",
@@ -4214,24 +4214,24 @@
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
 	      this.onResize();
-	
+
 	      this.$ele.find(".tabbtn.is-active .base_bg").css({
 	        "background-color": this.color.activeBtnbg
 	      });
 	      this.$ele.find(".tabbtn.is-active span").css({
 	        color: this.color.activeBtnColor
 	      });
-	
+
 	      this.$ele.find(".tabContents.is-active .tabContentsItem").css({
 	        opacity: 1,
 	        transform: "translateY(0px)"
 	      });
-	
+
 	      this.$ele.find(".tabbtn").each(function (i, e) {
 	        new _Controller2.default(e);
 	      });
@@ -4240,7 +4240,7 @@
 	    key: "onResize",
 	    value: function onResize() {
 	      var h = this.$ele.find(".tabContents.is-active").outerHeight(true);
-	
+
 	      $(".index-solution-contents-inner").height(h);
 	    }
 	  }, {
@@ -4250,7 +4250,7 @@
 	          $prevBtn = _ref.$prevBtn,
 	          $nextContents = _ref.$nextContents,
 	          $nextBtn = _ref.$nextBtn;
-	
+
 	      $prevContents.removeClass("is-active");
 	      $prevBtn.removeClass("is-active");
 	      $nextContents.addClass("is-active");
@@ -4274,7 +4274,7 @@
 	    key: "show",
 	    value: function show($contents, $btn) {
 	      var tl = new TimelineMax();
-	
+
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
 	        tl.to(item, 0.8, {
@@ -4286,7 +4286,7 @@
 	          }
 	        }, i * 0.03);
 	      });
-	
+
 	      return tl;
 	    }
 	  }, {
@@ -4297,7 +4297,7 @@
 	      //btn
 	      .to($btn.find(".base_bg"), 0.5, {
 	        "background-color": this.color.activeBtnbg,
-	
+
 	        ease: Expo.easeOut
 	      }).to($btn.find("span"), 0.5, {
 	        color: this.color.activeBtnColor,
@@ -4313,7 +4313,7 @@
 	      //btn
 	      .to($btn.find(".base_bg"), 0.5, {
 	        "background-color": this.color.nonActiveBtnBg,
-	
+
 	        ease: Expo.easeOut
 	      }).to($btn.find("span"), 0.5, {
 	        color: this.color.nonActiveBtnColor
@@ -4333,20 +4333,20 @@
 	          ease: Expo.easeOut
 	        }, i * 0.03);
 	      });
-	
+
 	      return tl;
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this2 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.find(".tabbtn").on("click", function (e) {
 	        var $target = $(e.currentTarget);
 	        if ($target.hasClass("is-active")) return;
-	
+
 	        var index = $target.index();
 	        var $prevBtn = _this2.$ele.find(".tabbtn.is-active");
 	        var $prevContents = _this2.$ele.find(".tabContents.is-active");
@@ -4357,14 +4357,14 @@
 	          $nextContents: _this2.$ele.find(".tabContents").eq(index)
 	        });
 	      });
-	
+
 	      $(window).on("resize", this.onResize.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4372,45 +4372,45 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
 	    _this.name = "HoverClass";
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -4437,7 +4437,7 @@
 	    key: "hide",
 	    value: function hide(progress) {
 	      var tl = new TimelineMax();
-	
+
 	      var t = (0.5 - 0.5 * progress) * 0.5;
 	      tl
 	      //途中で終わったscaleを最後までやる
@@ -4454,7 +4454,7 @@
 	          "transform-origin": "100% 0"
 	        }
 	      }, t);
-	
+
 	      return tl;
 	    }
 	  }, {
@@ -4496,10 +4496,10 @@
 	      this.removeEvents();
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4507,49 +4507,49 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
 	    _this.l = _this.$ele.find("svg").width();
 	    _this.scale = 1.5;
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -4596,7 +4596,7 @@
 	      // this.tl.kill();
 	      if (this.tl) this.tl.kill();
 	      this.tl = new TimelineMax();
-	
+
 	      this.tl.add(this.show());
 	    }
 	  }, {
@@ -4611,17 +4611,17 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("mouseenter." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("mouseleave." + this.name, this.onLeave.bind(this));
 	      this.$ele.on("touchstart." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("touchend." + this.name, this.onLeave.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4629,68 +4629,68 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _Controller = __webpack_require__(31);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _Controller3 = __webpack_require__(32);
-	
+
 	var _Controller4 = _interopRequireDefault(_Controller3);
-	
+
 	var _Controller5 = __webpack_require__(33);
-	
+
 	var _Controller6 = _interopRequireDefault(_Controller5);
-	
+
 	var _Renderer = __webpack_require__(34);
-	
+
 	var _Renderer2 = _interopRequireDefault(_Renderer);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(_ref) {
 	    var $btn = _ref.$btn,
 	        $contents = _ref.$contents;
-	
+
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$btn = $btn;
 	    _this.$contents = $contents;
-	
+
 	    _this.isLock = false;
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -4698,10 +4698,10 @@
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        new _Controller2.default(e, i);
 	      });
-	
+
 	      this.closeBtn = new _Controller4.default(this.$contents.find(".menu-close"));
 	      this.openBtn = new _Controller6.default($(".header-menu-btn"));
-	
+
 	      this.renderer = new _Renderer2.default(this.$contents);
 	    }
 	  }, {
@@ -4730,7 +4730,7 @@
 	    key: "show",
 	    value: function show() {
 	      var _this2 = this;
-	
+
 	      var tl = new TimelineMax();
 	      this.isShow = true;
 	      tl
@@ -4751,12 +4751,12 @@
 	    key: "hide",
 	    value: function hide() {
 	      var _this3 = this;
-	
+
 	      var tl = new TimelineMax();
 	      this.$contents.removeClass("is-active");
 	      this.isShow = false;
 	      tl
-	
+
 	      //hide
 	      .add(this.renderer.hide(function (e) {
 	        return _this3.closeBtn.hide();
@@ -4781,9 +4781,9 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this4 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$btn.on("click", function (e) {
 	        if (_this4.isLock) return;
 	        _this4.isLock = true;
@@ -4798,14 +4798,14 @@
 	        if (_this4.isLock) return;
 	        _this4.hide();
 	      });
-	
+
 	      $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4813,48 +4813,48 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
-	
+
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -4923,17 +4923,17 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("mouseenter." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("mouseleave." + this.name, this.onLeave.bind(this));
 	      this.$ele.on("touchstart." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("touchend." + this.name, this.onLeave.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -4941,48 +4941,48 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
-	
+
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -5000,7 +5000,7 @@
 	    value: function show() {
 	      var tl = new TimelineMax();
 	      var $line = this.$ele.find(".menu-close-line span");
-	
+
 	      $line.each(function (i, e) {
 	        tl.to(e, 0.5, {
 	          scaleX: 1,
@@ -5026,7 +5026,7 @@
 	    key: "hide",
 	    value: function hide() {
 	      if (this.tl) this.tl.kill();
-	
+
 	      var tl = new TimelineMax();
 	      var $line = this.$ele.find(".menu-close-line span");
 	      $line.each(function (i, e) {
@@ -5083,23 +5083,23 @@
 	      // this.tl.kill();
 	      if (this.tl) this.tl.kill();
 	      this.tl = new TimelineMax();
-	
+
 	      this.tl.add(this.showHover());
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("mouseenter." + this.name, this.onEnter.bind(this));
-	
+
 	      this.$ele.on("touchstart." + this.name, this.onEnter.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5107,48 +5107,48 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
-	
+
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -5223,23 +5223,23 @@
 	      // this.tl.kill();
 	      if (this.tl) this.tl.kill();
 	      this.tl = new TimelineMax();
-	
+
 	      this.tl.add(this.showHover());
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("mouseenter." + this.name, this.onEnter.bind(this));
-	
+
 	      this.$ele.on("touchstart." + this.name, this.onEnter.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5247,32 +5247,32 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var _Base = __webpack_require__(15);
-	
+
 	var _Base2 = _interopRequireDefault(_Base);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller($contents) {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.$contents = $contents;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -5280,14 +5280,14 @@
 	    key: "show",
 	    value: function show() {
 	      var _this = this;
-	
+
 	      var btnshow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
-	
+
 	      var tl = new TimelineMax();
 	      this.$contents.css({
 	        display: "block"
 	      });
-	
+
 	      tl
 	      // bg
 	      .to(this.$contents.find(".bg"), 0.8, {
@@ -5303,7 +5303,7 @@
 	        opacity: 1,
 	        ease: Expo.easeOut
 	      }, 0.0)
-	
+
 	      // bg line
 	      .add(function () {
 	        _this.$contents.find(".bg span").each(function (i, e) {
@@ -5328,7 +5328,7 @@
 	          }, i * 0.05);
 	        });
 	      }, 0.0)
-	
+
 	      // item
 	      .add(function () {
 	        _this.$contents.find(".menu-item").each(function (i, e) {
@@ -5344,7 +5344,7 @@
 	          });
 	        });
 	      }, 0.3)
-	
+
 	      // lang item
 	      .add(function () {
 	        _this.$contents.find(".menu-lang-item").each(function (i, e) {
@@ -5360,7 +5360,7 @@
 	          });
 	        });
 	      }, 0.3 + 0.2)
-	
+
 	      // search
 	      .add(function () {
 	        TweenMax.to(_this.$contents.find(".menu-search"), 1.0, {
@@ -5372,7 +5372,7 @@
 	          }
 	        });
 	      }, 0.3 + 0.4);
-	
+
 	      tl.add(btnshow(), 0.7); // ?
 	      return tl;
 	    }
@@ -5380,11 +5380,11 @@
 	    key: "hide",
 	    value: function hide() {
 	      var _this2 = this;
-	
+
 	      var btnhide = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
-	
+
 	      var tl = new TimelineMax();
-	
+
 	      // item
 	      this.$contents.find(".menu-item").each(function (i, e) {
 	        TweenMax.to(e, 0.7, {
@@ -5394,7 +5394,7 @@
 	          delay: i * 0.01
 	        });
 	      });
-	
+
 	      // lang item
 	      this.$contents.find(".menu-lang-item").each(function (i, e) {
 	        TweenMax.to(e, 0.7, {
@@ -5404,7 +5404,7 @@
 	          delay: i * 0.02
 	        });
 	      });
-	
+
 	      tl
 	      // search
 	      .to(this.$contents.find(".menu-search"), 0.7, {
@@ -5412,7 +5412,7 @@
 	        x: 0,
 	        ease: Expo.easeOut
 	      }, 0.0);
-	
+
 	      // bg line
 	      // this.$contents.find(".bg span").each((i, e) => {
 	      //   const index = this.$contents.find(".bg span").length - i - 1;
@@ -5450,7 +5450,7 @@
 	      //       index * 0.05
 	      //     );
 	      // });
-	
+
 	      tl
 	      // bg
 	      .to(this.$contents.find(".bg"), 0.4, {
@@ -5467,15 +5467,15 @@
 	        opacity: 0,
 	        ease: Expo.easeOut
 	      }, 0.0);
-	
+
 	      tl.add(btnhide(), 0); // ?
 	      return tl;
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5483,31 +5483,31 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var MathUtils = {
 	  map: function map(x, a, b, c, d) {
 	    return (x - a) * (d - c) / (b - a) + c;
@@ -5516,38 +5516,38 @@
 	    return (1 - n) * a + n * b;
 	  }
 	};
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller($ele, _ref) {
 	    var ease = _ref.ease,
 	        max = _ref.max;
-	
+
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.isUEv = true;
-	
+
 	    _this.$ele = $ele;
 	    _this.ease = ease;
 	    _this.max = max;
-	
+
 	    _this.$ele.get(0).style.setProperty("--max", max + "px");
-	
+
 	    _this.target = _this.$ele.find(".parallax-inner").get(0);
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
 	      var _this2 = this;
-	
+
 	      this.renderedStyles = {
 	        previous: 0,
 	        current: 0,
@@ -5587,25 +5587,25 @@
 	      // this.getSize();
 	      this.renderedStyles.current = this.renderedStyles.setValue();
 	      this.renderedStyles.previous = MathUtils.lerp(this.renderedStyles.previous, this.renderedStyles.current, this.renderedStyles.ease);
-	
+
 	      this.target.style.transform = "translate3d(0, " + -this.renderedStyles.previous + "px, 0)";
 	    }
 	  }, {
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this3 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      $(window).on("scroll", function (e) {
 	        _this3.scroll();
 	      });
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5613,47 +5613,47 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller(ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $(ele);
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -5671,7 +5671,7 @@
 	    value: function show() {
 	      var tl = new TimelineMax();
 	      tl
-	
+
 	      //img
 	      .to(this.$ele.find("img"), 1.2, {
 	        scale: 1.05,
@@ -5680,7 +5680,7 @@
 	        opacity: 0.5,
 	        ease: Expo.easeOut
 	      }, 0);
-	
+
 	      return tl;
 	    }
 	  }, {
@@ -5705,7 +5705,7 @@
 	      // this.tl.kill();
 	      if (this.tl) this.tl.kill();
 	      this.tl = new TimelineMax();
-	
+
 	      this.tl.add(this.show());
 	    }
 	  }, {
@@ -5720,17 +5720,17 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("mouseenter." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("mouseleave." + this.name, this.onLeave.bind(this));
 	      this.$ele.on("touchstart." + this.name, this.onEnter.bind(this));
 	      this.$ele.on("touchend." + this.name, this.onLeave.bind(this));
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5738,47 +5738,47 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller($ele) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $ele;
 	    _this.setup();
 	    _this.setEvents();
-	
+
 	    // this.timeline();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -5786,7 +5786,7 @@
 	    key: "timeline",
 	    value: function timeline() {
 	      var _this2 = this;
-	
+
 	      var tl = new TimelineMax();
 	      var h = this.$ele.find(".bar").height() * 1.1;
 	      tl.to(this.$ele.find(".bar"), 1.75, {
@@ -5802,7 +5802,7 @@
 	    key: "show",
 	    value: function show() {
 	      var _this3 = this;
-	
+
 	      var tl = new TimelineMax();
 	      var h = this.$ele.find(".bar").height() * 1.1;
 	      tl.to(this.$ele.find(".bar"), 1.75, {
@@ -5841,18 +5841,18 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this4 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      this.$ele.on("click", function (e) {
 	        _this4.scroll();
 	      });
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -5860,44 +5860,44 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Controller = __webpack_require__(39);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _Controller3 = __webpack_require__(40);
-	
+
 	var _Controller4 = _interopRequireDefault(_Controller3);
-	
+
 	var _Controller5 = __webpack_require__(55);
-	
+
 	var _Controller6 = _interopRequireDefault(_Controller5);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    return _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "init",
 	    value: function init() {
@@ -5905,21 +5905,21 @@
 	      this.flag = new _Controller4.default();
 	      this.dom = new _Controller6.default();
 	      this.$c = $("canvas");
-	
+
 	      this.bp = 768;
 	    }
 	  }, {
 	    key: "timeline",
 	    value: function timeline() {
 	      var _this2 = this;
-	
+
 	      var menuBtnShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (e) {};
-	
+
 	      return new Promise(function (resolve, reject) {
 	        var tl = new TimelineMax({ delay: 0.0 });
-	
+
 	        tl
-	
+
 	        // ------------------------------------------------------------
 	        // canvas
 	        // ------------------------------------------------------------
@@ -5930,14 +5930,14 @@
 	            ease: Power2.easeInOut
 	          });
 	        }, 0.0)
-	
+
 	        // draw line
 	        // 広がる
 	        //   y,z
 	        .add(function () {
 	          _this2.flag.show();
 	        }, 0.2)
-	
+
 	        // effectを強める
 	        .add(function () {
 	          TweenMax.to(_this2.flag.setup.effectBloom, 2.0, {
@@ -5949,17 +5949,17 @@
 	          //   ease: Power2.easeInOut,
 	          // });
 	        }, 0.2 + 1.5)
-	
+
 	        // カメラひくとき → zでゆっくり、パパっと一気に移動 → infocusで書いてる
 	        //   rgb, blur, zigzag, gunya, glitch(テレビ線など)→ kddi
 	        //     1frame強めの → this.frameか？
 	        //     3frame弱めでrandomなのを2、3回？
-	
+
 	        //   composerに入れる → soyフォルダに書いてるか？
 	        .add(function () {
 	          // camera
 	          var tl = new TimelineMax();
-	
+
 	          tl
 	          // ゆっくり引く
 	          .to(_this2.flag.setup.camera.position, 2.0, {
@@ -5998,7 +5998,7 @@
 	                _this2.flag.defY = _this2.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
 	                _this2.flag.tar = _this2.flag.per * (-window.innerHeight * 0.5 + 340); // yを正しい位置に
 	              }
-	
+
 	              _this2.flag.setup.effectBloom.strength = 10;
 	              _this2.flag.setup.effectBloom.radius = 3;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.5, 4.0);
@@ -6010,64 +6010,65 @@
 	            ease: Expo.easeOut,
 	            onStart: function onStart() {
 	              var tl = new TimelineMax({ repeat: 0, repeatDelay: 2.0 });
-	
+
 	              tl
 	              //rgb shift show
 	              .add(function () {
 	                _this2.flag.sail.setColor(true);
 	                _this2.flag.setup.rgbshift.show(0.03, 5);
-	
+
 	                var strength = 1;
 	                if (gb.r.w <= 768) strength = 0.5;
-	
+
 	                _this2.flag.setup.effectBloom.strength = 10 * strength;
 	                _this2.flag.setup.effectBloom.radius = 0.5;
 	              }, 0.02 + 0.0)
 	              //rgb shift hide
-	
+
 	              .add(function () {
 	                _this2.flag.sail.setColor(false);
 	                _this2.flag.setup.rgbshift.hide();
-	
+
 	                _this2.flag.setup.effectBloom.strength = 3;
 	                _this2.flag.setup.effectBloom.radius = 0.6;
 	              }, 0.02 + 0.1);
-	
+
 	              // //rgb shift show
 	              // .add(() => {
 	              //   this.flag.sail.setColor(true);
 	              //   this.flag.setup.rgbshift.show(0.02, 2);
-	
+
 	              //   this.flag.setup.effectBloom.strength = 6;
 	              //   this.flag.setup.effectBloom.radius = 0.5;
 	              // }, 0.05 + 0.1 + 0.0)
 	              // //rgb shift hide
-	
+
 	              // .add(() => {
 	              //   this.flag.sail.setColor(false);
 	              //   this.flag.setup.rgbshift.hide();
-	
+
 	              //   this.flag.setup.effectBloom.strength = 3;
 	              //   this.flag.setup.effectBloom.radius = 0.6;
 	              // }, 0.05 + 0.1 + 0.05);
-	
+
 	              // //rgb shift show
 	              // .add(() => {
 	              //   this.flag.sail.setColor(true);
 	              //   this.flag.setup.rgbshift.show(0.02, 2);
-	
+
 	              //   this.flag.setup.effectBloom.strength = 6;
 	              //   this.flag.setup.effectBloom.radius = 0.5;
 	              // }, 0.05 + 0.1 + 0.1 + 0.0)
 	              // //rgb shift hide
-	
+
 	              // .add(() => {
 	              //   this.flag.sail.setColor(false);
 	              //   this.flag.setup.rgbshift.hide();
-	
+
 	              //   this.flag.setup.effectBloom.strength = 3;
 	              //   this.flag.setup.effectBloom.radius = 0.6;
 	              // }, 0.05 + 0.1 + 0.1 + 0.05);
+<<<<<<< HEAD
 	
 	              // this.flag.setup.effectBloom.strength = 3;
 	              // this.flag.setup.effectBloom.radius = 0.6;
@@ -6078,10 +6079,16 @@
 	              _this2.flag.setup.effectBloom.strength = 0.6;
 	              _this2.flag.setup.effectBloom.radius = 0.3;
 	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.7, 4.0);
+=======
+
+	              _this2.flag.setup.effectBloom.strength = 3;
+	              _this2.flag.setup.effectBloom.radius = 0.6;
+	              _this2.flag.setup.renderer.toneMappingExposure = Math.pow(1.3, 4.0);
+>>>>>>> 4958d26493ed1366596d378e72a1343239579c17
 	            }
 	          }, 0.8 + 0.05);
 	        }, -0.3 + 3.8)
-	
+
 	        // bg line
 	        .add(function () {
 	          //scrollを解除
@@ -6091,7 +6098,7 @@
 	        // dom
 	        .add(function () {
 	          _this2.dom.show(menuBtnShow);
-	
+
 	          // frame数を抑える
 	          TweenMax.to(_this2.flag, 2.0, {
 	            // fr: 4,
@@ -6112,10 +6119,10 @@
 	    key: "reset",
 	    value: function reset() {}
 	  }]);
-	
+
 	  return Controller;
 	}(_Controller2.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -6123,23 +6130,23 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller(param) {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.__init();
 	    this.__setEvent();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "__init",
 	    value: function __init() {
@@ -6155,7 +6162,7 @@
 	    key: "__setUpdate",
 	    value: function __setUpdate() {
 	      var _this = this;
-	
+
 	      window.updates.push({
 	        id: this.name,
 	        cb: function cb(e) {
@@ -6167,7 +6174,7 @@
 	    key: "__setUpdateFlag",
 	    value: function __setUpdateFlag() {
 	      var flag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-	
+
 	      this.__is_update = flag;
 	    }
 	  }, {
@@ -6176,10 +6183,10 @@
 	      if (this.__is_update) this.update();
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -6187,49 +6194,49 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Controller = __webpack_require__(39);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _Controller3 = __webpack_require__(41);
-	
+
 	var _Controller4 = _interopRequireDefault(_Controller3);
-	
+
 	var _Controller5 = __webpack_require__(45);
-	
+
 	var _Controller6 = _interopRequireDefault(_Controller5);
-	
+
 	var _Controller7 = __webpack_require__(50);
-	
+
 	var _Controller8 = _interopRequireDefault(_Controller7);
-	
+
 	var _Controller9 = __webpack_require__(53);
-	
+
 	var _Controller10 = _interopRequireDefault(_Controller9);
-	
+
 	var _dat = __webpack_require__(54);
-	
+
 	var dat = _interopRequireWildcard(_dat);
-	
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var MathUtils = {
 	  map: function map(x, a, b, c, d) {
 	    return (x - a) * (d - c) / (b - a) + c;
@@ -6241,16 +6248,16 @@
 	    return Math.max(Math.min(val, max), min);
 	  }
 	};
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    return _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "init",
 	    value: function init() {
@@ -6262,42 +6269,42 @@
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.per > 1) this.per = 1;
-	
+
 	      this.mouseMove = true;
-	
+
 	      this.speed = 0.04;
-	
+
 	      this.disY = 0;
 	      this.dis = 0;
 	      this.defY = 0;
 	      this.tar = 0;
 	      this.st = 0;
 	      this.tarSt = 0;
-	
+
 	      this.fr = 1;
-	
+
 	      this.$f = $(".footer");
-	
+
 	      // layout
 	      var posi = [new THREE.Vector3(
 	      // -this.baseW * 0.5 + 100,
 	      0, this.$canvas.height() * 0.5, 0), new THREE.Vector3(
 	      // -this.baseW * 0.5 - 25,
 	      -125, this.$canvas.height() * 0.5 - 800, 0)];
-	
+
 	      // objects
 	      this.bg = new _Controller10.default();
 	      this.stick = new _Controller6.default(posi, 10);
 	      this.sail = new _Controller8.default(posi, 10);
-	
+
 	      this.wrap = new THREE.Group();
 	      this.obj = new THREE.Group();
-	
+
 	      this.obj.add(this.stick.obj);
 	      this.obj.add(this.sail.obj);
-	
+
 	      // this.obj.position.z = -1000
-	
+
 	      // add scene
 	      var scene = new THREE.Scene();
 	      scene.add(this.bg.obj);
@@ -6307,7 +6314,7 @@
 	      scene.background = new THREE.Color(0x00076d);
 	      this.setup = new _Controller4.default(this.$canvas, this.obj, scene);
 	      // this.setup.scene.add();
-	
+
 	      this.mousePosi = {
 	        x: 0,
 	        y: 0
@@ -6317,14 +6324,14 @@
 	        y: 0
 	      };
 	      // this.update();
-	
+
 	      // layout
 	      this.defY = 0;
 	      this.obj.position.y = this.defY;
-	
+
 	      // resize
 	      this.onResize(true);
-	
+
 	      this.frame = 0;
 	    }
 	  }, {
@@ -6336,7 +6343,7 @@
 	      this.sail.show();
 	      this.stick.show();
 	      // this.bg.show();
-	
+
 	      // move Y
 	      // positionを正しい位置に
 	      var tarY = this.$canvas.width() <= this.bp ? -window.innerHeight * 0.5 + 325 : this.per * (-window.innerHeight * 0.5 + 315);
@@ -6345,7 +6352,7 @@
 	        ease: Expo.easeInOut,
 	        delay: 1.5
 	      });
-	
+
 	      // TweenMax.to(this.obj.position, 1.5, {
 	      //   y: -window.innerHeight * 0.5 + 375,
 	      //   ease: Power2.easeInOut,
@@ -6365,7 +6372,7 @@
 	        this.stick.update();
 	        this.sail.update();
 	      }
-	
+
 	      // マウス インタラクション
 	      this.prevMosePosi = {
 	        x: Math.floor(MathUtils.lerp(this.prevMosePosi.x, this.mousePosi.x, this.speed) * 100) / 100,
@@ -6373,7 +6380,7 @@
 	      };
 	      this.obj.rotation.y = (this.prevMosePosi.x - window.innerWidth * 0.5) / window.innerWidth * 0.15;
 	      this.obj.rotation.x = (this.prevMosePosi.y - window.innerHeight * 0.7) / window.innerHeight * 0.15;
-	
+
 	      // 一番下にいったときにfooterまでいかないように
 	      this.dis += (this.disY - this.dis) * 0.12;
 	      this.obj.position.y = this.defY - this.dis;
@@ -6381,25 +6388,25 @@
 	        var diff = window.innerHeight - $(window).height();
 	        document.getElementsByClassName("canvasWrap")[0].style.top = diff * 0.5 - 57 + "px";
 	      }
-	
+
 	      this.setup.render();
 	    }
 	  }, {
 	    key: "onResize",
 	    value: function onResize() {
 	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-	
+
 	      this.setup.onWindowResize(isFirst);
 	      this.bg.resize();
-	
+
 	      this.baseW = 1424;
 	      if (this.$canvas.width() <= this.bp) this.baseW = 375;
 	      this.per = this.$canvas.width() / this.baseW;
 	      if (this.$canvas.width() <= this.bp) {
 	        this.obj.position.x = -35 * 4 * this.per;
-	
+
 	        this.obj.scale.set(this.per * 0.4, this.per * 0.4, this.per * 0.4);
-	
+
 	        // this.obj.position.x = ;
 	        //   this.obj.scale.x * (window.innerWidth * 0.5) * (scale - this.per * 0.4);
 	      } else {
@@ -6407,20 +6414,20 @@
 	        this.obj.scale.set(this.per, this.per, this.per);
 	        this.obj.position.x = -390 * this.per;
 	      }
-	
+
 	      // this.obj.updateMatrixWorld();
 	    }
 	  }, {
 	    key: "setEvent",
 	    value: function setEvent() {
 	      var _this2 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, true);
-	
+
 	      // resize
 	      $(window).on("resize", this.onResize.bind(this, false));
 	      // $(window).on("resize", $.debounce(200, this.onResize.bind(this)));
-	
+
 	      // マウスの揺れ
 	      $(window).on("mousemove", function (e) {
 	        if (_this2.mouseMove) {
@@ -6431,13 +6438,13 @@
 	          _this2.mousePosi.y = 0;
 	        }
 	      });
-	
+
 	      // // 一番下にいったときにfooterまでいかないように
 	      $(window).on("scroll", function (e) {
 	        var st = $(window).scrollTop();
-	
+
 	        var ftop = _this2.$f.offset().top - window.innerHeight;
-	
+
 	        var dis = ftop - st;
 	        if (dis > 0) _this2.disY = 0;else _this2.disY = dis - 100;
 	      });
@@ -6446,15 +6453,15 @@
 	      //   this.st = st;
 	      //   var ftop = this.$f.offset().top - window.innerHeight;
 	      //   if (st > ftop - 150) st = ftop - 150;
-	
+
 	      //   this.defY = -st + -window.innerHeight * 0.5 + 375;
 	      // });
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Controller2.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -6462,39 +6469,39 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Controller = __webpack_require__(39);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	var _Controller3 = __webpack_require__(42);
-	
+
 	var _Controller4 = _interopRequireDefault(_Controller3);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ClassName = function (_Base) {
 	  _inherits(ClassName, _Base);
-	
+
 	  function ClassName($dom, obj, scene) {
 	    _classCallCheck(this, ClassName);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ClassName.__proto__ || Object.getPrototypeOf(ClassName)).call(this));
-	
+
 	    _this.$dom = $dom;
 	    _this.obj = obj;
 	    _this.objScene = scene;
@@ -6503,17 +6510,17 @@
 	    _this.initCamera();
 	    _this.initRender();
 	    _this.initComposer();
-	
+
 	    _this.render();
 	    return _this;
 	  }
-	
+
 	  _createClass(ClassName, [{
 	    key: "init",
 	    value: function init() {
 	      this.frame = 0;
 	      this.pixcels = 2;
-	
+
 	      // clearTimeout(this.Timer);
 	      // this.Timer = setTimeout(() => {
 	      //   TweenMax.to(this, 1.0, {
@@ -6545,7 +6552,7 @@
 	    key: "setCameraByPixel",
 	    value: function setCameraByPixel() {
 	      var isFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-	
+
 	      this.w = this.$dom.width();
 	      this.h = this.$dom.height();
 	      var fov = 45;
@@ -6556,7 +6563,7 @@
 	      this.z = isFirst ? z * 0.5 : z * 1.1;
 	      this.camera.position.set(0, 0, this.z);
 	      this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-	
+
 	      // this.camera.aspect = this.w / this.h;
 	      this.camera.aspect = this.w / this.h;
 	      this.camera.updateProjectionMatrix();
@@ -6565,7 +6572,7 @@
 	    key: "initRender",
 	    value: function initRender() {
 	      var _this2 = this;
-	
+
 	      this.renderer = new THREE.WebGLRenderer({
 	        antialias: false,
 	        alpha: true
@@ -6573,7 +6580,7 @@
 	      var v = {
 	        画面の明るさ: 1.3
 	      };
-	
+
 	      // this.renderer.setPixelRatio(window.devicePixelRatio);
 	      this.renderer.toneMappingExposure = Math.pow(v["画面の明るさ"], 4.0);
 	      this._dat = dat.addFolder("glow");
@@ -6582,7 +6589,7 @@
 	        _this2.renderer.toneMappingExposure = Math.pow(e, 4.0);
 	        // console.log(Math.pow(e, 4.0));
 	      });
-	
+
 	      this.renderer.toneMapping = THREE.ReinhardToneMapping;
 	      // this.renderer.context.enable(
 	      //   this.renderer.context.SAMPLE_ALPHA_TO_COVERAGE
@@ -6593,12 +6600,12 @@
 	    key: "initComposer",
 	    value: function initComposer() {
 	      var _this3 = this;
-	
+
 	      // console.log(THREE.EffectComposer);
 	      this.composer = new THREE.EffectComposer(this.renderer);
 	      var renderPass = new THREE.RenderPass(this.objScene, this.camera);
 	      this.composer.addPass(renderPass);
-	
+
 	      var param = {
 	        しきい値: 0.139,
 	        // 対象の明るさ: 1.9,
@@ -6619,11 +6626,11 @@
 	      this._dat.add(param, "グローの半径", 0, 1).onChange(function (e) {
 	        _this3.effectBloom.radius = e;
 	      });
-	
+
 	      this.rgbshift = new _Controller4.default();
 	      this.composer.addPass(this.effectBloom);
 	      this.composer.addPass(this.rgbshift.shaderPass);
-	
+
 	      var toScreen = new THREE.ShaderPass(THREE.CopyShader);
 	      toScreen.renderToScreen = true;
 	      this.composer.addPass(toScreen);
@@ -6643,21 +6650,21 @@
 	    key: "render",
 	    value: function render() {
 	      // this.renderer.render(this.objScene, this.camera);
-	
+
 	      this.composer.render();
 	      // if (this.frame % 2 == 0) this.composer.render();
-	
+
 	      if (this.is_autoRender) {
 	        requestAnimationFrame(this.render.bind(this));
 	      }
-	
+
 	      this.frame++;
 	    }
 	  }]);
-	
+
 	  return ClassName;
 	}(_Controller2.default);
-	
+
 	exports.default = ClassName;
 
 /***/ }),
@@ -6665,41 +6672,41 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	var _frag = __webpack_require__(43);
-	
+
 	var _frag2 = _interopRequireDefault(_frag);
-	
+
 	var _vert = __webpack_require__(44);
-	
+
 	var _vert2 = _interopRequireDefault(_vert);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.shaderPass = new THREE.ShaderPass({
 	      uniforms: {
 	        tDiffuse: {
@@ -6714,7 +6721,7 @@
 	          value: new THREE.Vector2(0, 0),
 	          type: "v2"
 	        },
-	
+
 	        seed: {
 	          value: 0.0,
 	          type: "f"
@@ -6746,29 +6753,29 @@
 	      vertexShader: _vert2.default,
 	      fragmentShader: _frag2.default
 	    });
-	
+
 	    _this.s = 1;
-	
+
 	    _this.shaderPass.uniforms["tDisp"].value = _this.generateHeightmap(20);
-	
+
 	    // this.isUEv = true;
-	
+
 	    _this.length = 5;
 	    var num = Math.floor(Math.random() * _this.length);
-	
+
 	    _this.indexs = { rs: num, rot: num };
-	
+
 	    _this.rs = [[{ x: -0.010489452844089288, y: -0.00011556168180350962 }, { x: 0.02153890440739005, y: -0.018825871386566086 }, { x: -0.009503529150921147, y: 0.005832495273852966 }, { x: -0.00955320521303106, y: 0.003986087230209346 }, { x: 0.0038713956548604538, y: 0.006393353523377892 }], [{ x: 0.002556995841385766, y: -0.01323360920370218 }, { x: -0.0065528160704775296, y: 0.014599657482177945 }, { x: 0.01839122349874283, y: 0.011415956509402622 }, { x: -0.0036990995240794257, y: -0.006772296991942741 }, { x: 0.0013265611534168803, y: -0.0037175693131984433 }], [{ x: 0.009208502258821707, y: 0.005096356080471931 }, { x: -0.016285727557276322, y: -0.016413366826711864 }, { x: 0.00788376143229623, y: -0.01643369401649223 }, { x: -0.0038168554320219036, y: -0.009477488079248477 }, { x: -0.008254845428130896, y: -0.0014466892684972792 }, { x: 0.0012270783316180728, y: -0.0009990535492530352 }], [{ x: 0.01712948574884411, y: 0.019055525736086466 }, { x: -0.015894106216007498, y: 0.0064974559663508735 }, { x: -0.00038315686810484056, y: 0.014259511751858155 }, { x: -0.0015336922245549854, y: -0.001722102643359636 }, { x: 0.008487175587695963, y: 0.003752977050670174 }, { x: 0.006349529157634324, y: -0.0012990211130618334 }], [{ x: 0.010124847830813556, y: 0.0019656769858854353 }, { x: 0.018803765518696218, y: 0.016419887669363975 }, { x: -0.004646537537137584, y: 0.009549564420081189 }, { x: 0.00326713667254154, y: -0.008892752909115363 }, { x: -0.004059448806918566, y: -0.008148005355458733 }, { x: -0.006979483393190682, y: -0.006696166737559968 }]];
 	    _this.index = 0;
-	
+
 	    _this.rots = [[0, 3], [2, 3], [4, 4], [3, 4], [0, 2]];
 	    _this.indexRot = 0;
-	
+
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "update",
 	    value: function update() {
@@ -6781,9 +6788,9 @@
 	      // ].y;
 	      this.shaderPass.uniforms["seed_x"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
 	      this.shaderPass.uniforms["seed_y"].value = THREE.Math.randFloat(-0.005 * this.s, 0.005 * this.s);
-	
+
 	      console.log(this.shaderPass.uniforms["seed_x"].value, this.shaderPass.uniforms["seed_y"].value);
-	
+
 	      this.index++;
 	      this.index %= this.rs[this.indexs.rs].length;
 	    }
@@ -6791,26 +6798,26 @@
 	    key: "show",
 	    value: function show(v) {
 	      var s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-	
+
 	      var strength = 1;
 	      if (gb.r.w <= 768) strength = 0.8;
-	
+
 	      this.s = s * strength;
 	      this.onU();
-	
+
 	      this.shaderPass.uniforms.tDiffuse.value.wrapS = THREE.MirroredRepeatWrapping;
 	      this.shaderPass.uniforms.tDiffuse.value.wrapT = THREE.MirroredRepeatWrapping;
-	
+
 	      // var rotateX = Math.random() * Math.PI * 2;
 	      // var rotateY = Math.random() * Math.PI * 2;
-	
+
 	      var rotates = [{ x: 4.534725472242586, y: 1.9779006645015587 }, { x: 4.145211998776186, y: 4.500798660131272 }, { x: 2.7464663514791408, y: 4.590382318407328 }, { x: 0.08328790724654228, y: 0.841139124249118 }, { x: 1.7587981681678089, y: 1.137486829022558 }];
-	
+
 	      var index = Math.floor(Math.random() * rotates.length);
 	      // var index = this.rots[this.indexs.rot][this.indexRot];
 	      console.log("index:", index);
 	      this.indexRot++;
-	
+
 	      var tl = new TimelineMax();
 	      var uniforms = this.shaderPass.uniforms;
 	      tl
@@ -6833,6 +6840,7 @@
 	      //start
 	      .set(uniforms.offset, {
 	        value: 0.0
+<<<<<<< HEAD
 	      }, 0.0).add(function () {
 	        _this2.shaderPass.uniforms["seed"].value = 0;
 	        _this2.shaderPass.uniforms["seed_x"].value = 0;
@@ -6840,6 +6848,15 @@
 	      }, 0.02);
 	
 	      this.offU();
+=======
+	      }, 0.0);
+
+	      this.offU();
+
+	      this.shaderPass.uniforms["seed"].value = 0;
+	      this.shaderPass.uniforms["seed_x"].value = 0;
+	      this.shaderPass.uniforms["seed_y"].value = 0;
+>>>>>>> 4958d26493ed1366596d378e72a1343239579c17
 	    }
 	  }, {
 	    key: "generateHeightmap",
@@ -6847,31 +6864,31 @@
 	      // block noise
 	      var data_arr = new Float32Array(dt_size * dt_size * 3);
 	      var length = dt_size * dt_size;
-	
+
 	      for (var i = 0; i < length; i++) {
 	        var val = THREE.Math.randFloat(0, 1);
 	        data_arr[i * 3 + 0] = val;
 	        data_arr[i * 3 + 1] = val;
 	        data_arr[i * 3 + 2] = val;
 	      }
-	
+
 	      var texture = new THREE.DataTexture(data_arr, dt_size, dt_size, THREE.RGBFormat, THREE.FloatType);
 	      texture.needsUpdate = true;
 	      return texture;
-	
+
 	      // // texture
 	      // var textures = [];
 	      // var loader = new THREE.TextureLoader();
 	      // for ( var i = 0; i < 6; i ++ ) textures[ i ] = loader.load( './assets/resource/tex/transition' + ( i + 1 ) + '.png' );
-	
+
 	      // // return texture;
 	      // return textures[3];
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -6891,29 +6908,29 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Base = __webpack_require__(46);
-	
+
 	var _Base2 = __webpack_require__(47);
-	
+
 	var _Cap = __webpack_require__(48);
-	
+
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var noise = __webpack_require__(49);
-	
+
 	var Controller = function () {
 	  function Controller(posi, r) {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.posi = posi;
 	    this.r = r;
 	    this.obj = new THREE.Group();
@@ -6921,12 +6938,12 @@
 	    this.TIME = 0;
 	    this.setup();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
 	      var _this = this;
-	
+
 	      //line
 	      this.base = (0, _Base.Base)(this.posi, this.color, this.r);
 	      this.base2 = (0, _Base2.Base2)(this.posi, this.color, this.r);
@@ -6938,14 +6955,14 @@
 	      this.getMesh(this.obj).map(function (obj) {
 	        if (obj.name == "chobiline") _this.chobisens.push(obj);
 	      });
-	
+
 	      console.log(this.chobisens[0].geometry.attributes.position.array);
 	    }
 	  }, {
 	    key: "update",
 	    value: function update() {
 	      var _this2 = this;
-	
+
 	      var time = Date.now() / 10000;
 	      ++this.TIME;
 	      this.chobisens.forEach(function (obj) {
@@ -6953,14 +6970,14 @@
 	        // console.log(obj.geometry.attributes.position);
 	        var l = points.length;
 	        var count = obj.geometry.attributes.position.count;
-	
+
 	        for (var i = 0; i < count; i++) {
 	          if (i == count - 1) {
 	            var n = noise.perlin2(obj.ss, time * 0.3);
 	            var p = Math.sin(obj.ss + _this2.TIME * 0.07) * n * 10;
-	
+
 	            points[i * 3 + 1] = obj.defY + p;
-	
+
 	            obj.geometry.attributes.position.needsUpdate = true;
 	          }
 	        }
@@ -6976,14 +6993,14 @@
 	          ease: Expo.easeOut
 	        }, index * 0);
 	      });
-	
+
 	      return tl;
 	    }
 	  }, {
 	    key: "getMesh",
 	    value: function getMesh(obj) {
 	      var _this3 = this;
-	
+
 	      var arr = [];
 	      obj.children.forEach(function (children) {
 	        if (children.type == "Group") {
@@ -6995,10 +7012,10 @@
 	      return arr;
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -7006,7 +7023,7 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7020,10 +7037,10 @@
 	  }
 	  var _curve = curve(r, color, posi);
 	  obj.add(_curve);
-	
+
 	  return obj;
 	}
-	
+
 	function line(posi, color) {
 	  var points = [];
 	  for (var i = 0; i < 2; i++) {
@@ -7041,7 +7058,7 @@
 	  });
 	  return new THREE.Line(geometry, material);
 	}
-	
+
 	function curve(r, color, posi) {
 	  var points = [];
 	  for (var j = 0; j < Math.PI; j += 2 * Math.PI / 10) {
@@ -7049,7 +7066,7 @@
 	  }
 	  var geometry = new THREE.BufferGeometry();
 	  geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(points), 3));
-	
+
 	  var material = new THREE.LineBasicMaterial({
 	    color: color,
 	    opacity: 0,
@@ -7068,7 +7085,7 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7078,26 +7095,26 @@
 	  var v = new THREE.Vector3(posi[0].x - posi[1].x, posi[0].y - posi[1].y, posi[0].z - posi[1].z);
 	  var linePer = -0.76;
 	  var _line = curve2(posi[0], v.clone().multiplyScalar(linePer).add(new THREE.Vector3(posi[0].x, posi[0].y, posi[0].z)), color, v.clone());
-	
+
 	  _line.position.x += r + 3;
 	  obj.add(_line);
-	
+
 	  var _line2 = curve(v.clone().multiplyScalar(linePer + 0.04).add(new THREE.Vector3(posi[0].x, posi[0].y, posi[0].z)), posi[1], color, v.clone());
-	
+
 	  _line2.position.x += r + 3;
 	  obj.add(_line2);
-	
+
 	  var _pole = pole(posi[0], color, v.clone());
 	  _pole.position.x += r + 5;
 	  obj.add(_pole);
-	
+
 	  var _pole2 = pole(v.clone().multiplyScalar(linePer + 0.02).add(new THREE.Vector3(posi[0].x, posi[0].y, posi[0].z)), color, v.clone());
 	  _pole2.position.x += r + 5;
 	  obj.add(_pole2);
-	
+
 	  return obj;
 	}
-	
+
 	function pole(posi, color, v) {
 	  var obj = new THREE.Group();
 	  var _v = v.clone().multiplyScalar(-0.05).add(new THREE.Vector3(posi.x, posi.y, posi.z));
@@ -7106,7 +7123,7 @@
 	  points.push(_v.x, _v.y, _v.z);
 	  points.push(_v2.x, _v2.y, _v2.z);
 	  var geometry = new THREE.BufferGeometry();
-	
+
 	  var material = new THREE.LineBasicMaterial({
 	    color: color,
 	    opacity: 0,
@@ -7114,12 +7131,12 @@
 	  });
 	  geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(points), 3));
 	  obj.add(new THREE.Line(geometry, material));
-	
+
 	  var _tube = tube(_v, _v2, material);
 	  obj.add(_tube);
 	  return obj;
 	}
-	
+
 	function tube(_v, _v2, material) {
 	  var obj = new THREE.Group();
 	  for (var i = 0; i < 2; i++) {
@@ -7142,7 +7159,7 @@
 	      var _geometry2 = new THREE.BufferGeometry();
 	      // _points.push(v1.x, v1.y, v1.z);
 	      var _v5 = v4.clone().sub(v1);
-	
+
 	      var l = _v5.length();
 	      _points.push(v1.x, v1.y, v1.z);
 	      _points.push(v4.x, v4.y, v4.z);
@@ -7162,10 +7179,10 @@
 	      obj.add(line);
 	    }
 	  }
-	
+
 	  return obj;
 	}
-	
+
 	function curve2(posi, posi2, color, v) {
 	  var points = [];
 	  var _v = v.clone().multiplyScalar(-0.35).add(new THREE.Vector3(posi.x, posi.y, posi.z));
@@ -7186,7 +7203,7 @@
 	  });
 	  return new THREE.Line(geometry, material);
 	}
-	
+
 	function curve(posi, posi2, color, v) {
 	  var points = [];
 	  var _v = v.clone().multiplyScalar(-0.35).add(new THREE.Vector3(posi.x, posi.y, posi.z));
@@ -7213,7 +7230,7 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7226,19 +7243,19 @@
 	  //   _line.position.x = r * i;
 	  //   obj.add(_line);
 	  // }
-	
+
 	  var _curve = curve(posi[0].clone().add(new THREE.Vector3(0, 0, 0)), posi[0].clone().add(new THREE.Vector3(baser, 0, 0)), color);
 	  obj.add(_curve);
-	
+
 	  var _curve2 = curve2(posi, baser, color);
 	  obj.add(_curve2);
 	  // obj.position.x = 1;
 	  return obj;
 	}
-	
+
 	function curve(posi1, posi2, color) {
 	  var obj = new THREE.Group();
-	
+
 	  var points = [];
 	  var v = posi1.clone().sub(posi2).multiplyScalar(0.5).add(posi2).add(new THREE.Vector3(0, 4.5, 0));
 	  var v2 = posi1.clone().sub(v).multiplyScalar(0.5).add(v).add(new THREE.Vector3(-10, 3, 0));
@@ -7247,16 +7264,16 @@
 	  for (var u = 0; u < arr.length; u++) {
 	    points.push(arr[u].x, arr[u].y, arr[u].z);
 	  }
-	
+
 	  var v3 = posi2.clone().sub(v).multiplyScalar(0.5).add(v).add(new THREE.Vector3(9, -2, 0));
-	
+
 	  var v4 = posi2.clone().add(new THREE.Vector3(0, -3, 0));
 	  var _curve2 = new THREE.QuadraticBezierCurve3(v, v3, v4);
 	  var arr2 = _curve2.getPoints(30);
 	  for (var u = 0; u < arr2.length; u++) {
 	    points.push(arr2[u].x, arr2[u].y, arr2[u].z);
 	  }
-	
+
 	  var geometry = new THREE.BufferGeometry();
 	  var material = new THREE.LineBasicMaterial({
 	    color: color,
@@ -7266,15 +7283,15 @@
 	  });
 	  geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(points), 3));
 	  obj.add(new THREE.Line(geometry, material));
-	
+
 	  return obj;
 	}
-	
+
 	function curve2(posi, r, color) {
 	  var obj = new THREE.Group();
 	  var v = posi[0].clone().sub(posi[1]).normalize().multiplyScalar(8);
 	  var v1 = v.add(posi[0]).add(new THREE.Vector3(1, 0, 0));
-	
+
 	  var points = [];
 	  //左側直線
 	  points.push(posi[0].x + 0.5, posi[0].y, posi[0].z);
@@ -7288,7 +7305,7 @@
 	  for (var u = 0; u < arr.length; u++) {
 	    points.push(arr[u].x, arr[u].y, arr[u].z);
 	  }
-	
+
 	  //右側直線
 	  points.push(v3.x, v3.y, v3.z);
 	  points.push(v2.x + 1, v2.y - 3, v2.z);
@@ -7303,7 +7320,7 @@
 	  var line = new THREE.Line(geometry, material);
 	  line.position.x = -4;
 	  line.position.y = 4;
-	
+
 	  obj.add(line);
 	  return obj;
 	}
@@ -7320,10 +7337,10 @@
 	 * Better rank ordering method by Stefan Gustavson in 2012.
 	 * Converted to Javascript by Joseph Gentle.
 	 */
-	
+
 	(function(global){
 	  var module =  true ? exports : (global.noise = {});
-	
+
 	  function Grad(x, y, z) {
 	    this.x = x; this.y = y; this.z = z;
 	  }
@@ -7331,15 +7348,15 @@
 	  Grad.prototype.dot2 = function(x, y) {
 	    return this.x*x + this.y*y;
 	  };
-	
+
 	  Grad.prototype.dot3 = function(x, y, z) {
 	    return this.x*x + this.y*y + this.z*z;
 	  };
-	
+
 	  var grad3 = [new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
 	               new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
 	               new Grad(0,1,1),new Grad(0,-1,1),new Grad(0,1,-1),new Grad(0,-1,-1)];
-	
+
 	  var p = [151,160,137,91,90,15,
 	  131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
 	  190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
@@ -7356,7 +7373,7 @@
 	  // To remove the need for index wrapping, double the permutation table length
 	  var perm = new Array(512);
 	  var gradP = new Array(512);
-	
+
 	  // This isn't a very good seeding function, but it works ok. It supports 2^16
 	  // different seed values. Write something better if you need more seeds.
 	  module.seed = function(seed) {
@@ -7364,12 +7381,12 @@
 	      // Scale the seed out
 	      seed *= 65536;
 	    }
-	
+
 	    seed = Math.floor(seed);
 	    if(seed < 256) {
 	      seed |= seed << 8;
 	    }
-	
+
 	    for(var i = 0; i < 256; i++) {
 	      var v;
 	      if (i & 1) {
@@ -7377,27 +7394,27 @@
 	      } else {
 	        v = p[i] ^ ((seed>>8) & 255);
 	      }
-	
+
 	      perm[i] = perm[i + 256] = v;
 	      gradP[i] = gradP[i + 256] = grad3[v % 12];
 	    }
 	  };
-	
+
 	  module.seed(0);
-	
+
 	  /*
 	  for(var i=0; i<256; i++) {
 	    perm[i] = perm[i + 256] = p[i];
 	    gradP[i] = gradP[i + 256] = grad3[perm[i] % 12];
 	  }*/
-	
+
 	  // Skewing and unskewing factors for 2, 3, and 4 dimensions
 	  var F2 = 0.5*(Math.sqrt(3)-1);
 	  var G2 = (3-Math.sqrt(3))/6;
-	
+
 	  var F3 = 1/3;
 	  var G3 = 1/6;
-	
+
 	  // 2D simplex noise
 	  module.simplex2 = function(xin, yin) {
 	    var n0, n1, n2; // Noise contributions from the three corners
@@ -7455,22 +7472,22 @@
 	    // The result is scaled to return values in the interval [-1,1].
 	    return 70 * (n0 + n1 + n2);
 	  };
-	
+
 	  // 3D simplex noise
 	  module.simplex3 = function(xin, yin, zin) {
 	    var n0, n1, n2, n3; // Noise contributions from the four corners
-	
+
 	    // Skew the input space to determine which simplex cell we're in
 	    var s = (xin+yin+zin)*F3; // Hairy factor for 2D
 	    var i = Math.floor(xin+s);
 	    var j = Math.floor(yin+s);
 	    var k = Math.floor(zin+s);
-	
+
 	    var t = (i+j+k)*G3;
 	    var x0 = xin-i+t; // The x,y distances from the cell origin, unskewed.
 	    var y0 = yin-j+t;
 	    var z0 = zin-k+t;
-	
+
 	    // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
 	    // Determine which simplex we are in.
 	    var i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
@@ -7491,15 +7508,15 @@
 	    var x1 = x0 - i1 + G3; // Offsets for second corner
 	    var y1 = y0 - j1 + G3;
 	    var z1 = z0 - k1 + G3;
-	
+
 	    var x2 = x0 - i2 + 2 * G3; // Offsets for third corner
 	    var y2 = y0 - j2 + 2 * G3;
 	    var z2 = z0 - k2 + 2 * G3;
-	
+
 	    var x3 = x0 - 1 + 3 * G3; // Offsets for fourth corner
 	    var y3 = y0 - 1 + 3 * G3;
 	    var z3 = z0 - 1 + 3 * G3;
-	
+
 	    // Work out the hashed gradient indices of the four simplex corners
 	    i &= 255;
 	    j &= 255;
@@ -7508,7 +7525,7 @@
 	    var gi1 = gradP[i+i1+perm[j+j1+perm[k+k1]]];
 	    var gi2 = gradP[i+i2+perm[j+j2+perm[k+k2]]];
 	    var gi3 = gradP[i+ 1+perm[j+ 1+perm[k+ 1]]];
-	
+
 	    // Calculate the contribution from the four corners
 	    var t0 = 0.6 - x0*x0 - y0*y0 - z0*z0;
 	    if(t0<0) {
@@ -7541,19 +7558,19 @@
 	    // Add contributions from each corner to get the final noise value.
 	    // The result is scaled to return values in the interval [-1,1].
 	    return 32 * (n0 + n1 + n2 + n3);
-	
+
 	  };
-	
+
 	  // ##### Perlin noise stuff
-	
+
 	  function fade(t) {
 	    return t*t*t*(t*(t*6-15)+10);
 	  }
-	
+
 	  function lerp(a, b, t) {
 	    return (1-t)*a + t*b;
 	  }
-	
+
 	  // 2D Perlin Noise
 	  module.perlin2 = function(x, y) {
 	    // Find unit grid cell containing point
@@ -7562,23 +7579,23 @@
 	    x = x - X; y = y - Y;
 	    // Wrap the integer cells at 255 (smaller integer period can be introduced here)
 	    X = X & 255; Y = Y & 255;
-	
+
 	    // Calculate noise contributions from each of the four corners
 	    var n00 = gradP[X+perm[Y]].dot2(x, y);
 	    var n01 = gradP[X+perm[Y+1]].dot2(x, y-1);
 	    var n10 = gradP[X+1+perm[Y]].dot2(x-1, y);
 	    var n11 = gradP[X+1+perm[Y+1]].dot2(x-1, y-1);
-	
+
 	    // Compute the fade curve value for x
 	    var u = fade(x);
-	
+
 	    // Interpolate the four results
 	    return lerp(
 	        lerp(n00, n10, u),
 	        lerp(n01, n11, u),
 	       fade(y));
 	  };
-	
+
 	  // 3D Perlin Noise
 	  module.perlin3 = function(x, y, z) {
 	    // Find unit grid cell containing point
@@ -7587,7 +7604,7 @@
 	    x = x - X; y = y - Y; z = z - Z;
 	    // Wrap the integer cells at 255 (smaller integer period can be introduced here)
 	    X = X & 255; Y = Y & 255; Z = Z & 255;
-	
+
 	    // Calculate noise contributions from each of the eight corners
 	    var n000 = gradP[X+  perm[Y+  perm[Z  ]]].dot3(x,   y,     z);
 	    var n001 = gradP[X+  perm[Y+  perm[Z+1]]].dot3(x,   y,   z-1);
@@ -7597,12 +7614,12 @@
 	    var n101 = gradP[X+1+perm[Y+  perm[Z+1]]].dot3(x-1,   y, z-1);
 	    var n110 = gradP[X+1+perm[Y+1+perm[Z  ]]].dot3(x-1, y-1,   z);
 	    var n111 = gradP[X+1+perm[Y+1+perm[Z+1]]].dot3(x-1, y-1, z-1);
-	
+
 	    // Compute the fade curve value for x, y, z
 	    var u = fade(x);
 	    var v = fade(y);
 	    var w = fade(z);
-	
+
 	    // Interpolate
 	    return lerp(
 	        lerp(
@@ -7613,7 +7630,7 @@
 	          lerp(n011, n111, u), w),
 	       v);
 	  };
-	
+
 	})(this);
 
 
@@ -7622,50 +7639,50 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Obj = __webpack_require__(51);
-	
+
 	var _Obj2 = _interopRequireDefault(_Obj);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var noise = __webpack_require__(49);
-	
+
 	var Controller = function () {
 	  function Controller(posi, num) {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.posi = posi;
 	    this.LENGTH = 1000;
 	    this.obj = new THREE.Group();
 	    this.width = 15;
 	    this.lines = [];
-	
+
 	    // 可変 線の個数？
 	    this.NUM = this.verticalLength / this.width % 2 ? this.verticalLength / this.width : this.verticalLength / this.width - 1;
-	
+
 	    // this.NUM = 1;
-	
+
 	    console.log(this.NUM);
-	
+
 	    this.param = {
 	      height: 50,
 	      speed: 3,
 	      細かさ: 30
 	    };
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -7686,7 +7703,7 @@
 	        this.obj.add(line.obj);
 	        this.lines.push(line);
 	      }
-	
+
 	      // layout
 	      this.obj.position.x = 30;
 	      // this.obj.position.y = -35;
@@ -7695,7 +7712,7 @@
 	    key: "getVector",
 	    value: function getVector(index) {
 	      var v = new THREE.Vector3(this.posi[0].x - this.posi[1].x, this.posi[0].y - this.posi[1].y, this.posi[0].z - this.posi[1].z).normalize();
-	
+
 	      return v.multiplyScalar(-index * this.width);
 	    }
 	  }, {
@@ -7704,7 +7721,7 @@
 	      // update line
 	      this.lines.forEach(function (line, index) {
 	        // const time = (index + 1) * 0.0001;
-	
+
 	        // noise
 	        // const i = index / window.noiseparam.wave;
 	        // let n = noise.perlin2(i, time) * 10;
@@ -7716,9 +7733,9 @@
 	    key: "show",
 	    value: function show() {
 	      var _this = this;
-	
+
 	      var tl = new TimelineMax();
-	
+
 	      tl
 	      // draw line
 	      .add(function () {
@@ -7726,15 +7743,21 @@
 	          line.drawLine();
 	        });
 	      }, 0.0)
-	
+
 	      // spread
 	      .add(function () {
 	        _this.lines.forEach(function (line, index) {
 	          line.spread();
 	        });
+<<<<<<< HEAD
 	
 	        // positionを正しい位置に;
 	        TweenMax.to(_this.obj.position, 2.5, {
+=======
+
+	        // positionを正しい位置に
+	        TweenMax.to(_this.obj.position, 3.0, {
+>>>>>>> 4958d26493ed1366596d378e72a1343239579c17
 	          y: -35,
 	          ease: Expo.easeInOut
 	        });
@@ -7745,9 +7768,9 @@
 	    value: function setColor(isWhite) {
 	      var c1 = new THREE.Color("#ffffff");
 	      var c2 = new THREE.Color("#0047e9");
-	
+
 	      if (isWhite) var c = c1;else var c = c2;
-	
+
 	      this.lines.forEach(function (line, index) {
 	        line.obj.material.color = c;
 	      });
@@ -7761,10 +7784,10 @@
 	      return new THREE.Vector3(this.posi[0].x - this.posi[1].x, this.posi[0].y - this.posi[1].y, 0).length() * 0.79;
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -7772,27 +7795,27 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _Node = __webpack_require__(52);
-	
+
 	var _Node2 = _interopRequireDefault(_Node);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var noise = __webpack_require__(49);
-	
+
 	var Controller = function () {
 	  function Controller(posi, config) {
 	    _classCallCheck(this, Controller);
-	
+
 	    //height,i,offset,offset_x
 	    this.posi = posi;
 	    this.config = config;
@@ -7801,7 +7824,7 @@
 	    this.fixDist = 1;
 	    this.color = 0x0047e9;
 	    // this.color = 0xffffff;
-	
+
 	    this.noiseOffset0 = this.random(-100000, 100000);
 	    this.noiseOffset1 = this.random(-100000, 100000);
 	    this.noiseScale = 0.01;
@@ -7810,29 +7833,37 @@
 	    this.noiseTime2 = 100000;
 	    this.rad = 0;
 	    this.maxSpeed = 5;
-	
+
 	    this.s = 0;
 	    this.e = 0;
 	    this.t = 0;
-	
+
 	    this.start = {
 	      x: 0,
 	      y: 0,
 	      vx: 0,
 	      vy: 0
 	    };
+<<<<<<< HEAD
 	
 	    this.ookisa = 1.37;
 	    this.yureY = 2;
 	    this.yureZ = 0.71;
 	
+=======
+
+	    this.ookisa = 1;
+	    this.yureY = 1;
+	    this.yureZ = 1;
+
+>>>>>>> 4958d26493ed1366596d378e72a1343239579c17
 	    // this.fr = Math.floor(Math.random() * 2 + 1);
 	    // this.frame = 0;
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -7843,22 +7874,22 @@
 	        var x = this.posi[0].x + i * (10 / 1.3);
 	        var y = this.posi[0].y + this.sin(0, i);
 	        var z = this.posi[0].z;
-	
+
 	        var node = new _Node2.default(x, y, z);
 	        var v = new THREE.Vector3(x, y, z);
 	        node.defy2 = Math.sin(i * 0.05) * 10;
-	
+
 	        this.nodes.push(node);
 	        this.vec.push(v);
 	        this.points.push(node.x, node.y, node.z);
 	      }
-	
+
 	      // geometry
 	      var geometry = new THREE.BufferGeometry();
 	      // const positions = new Float32Array(100 * 3); // ここなんで？
 	      var positions = new Float32Array(this.config.num * 3); // ここなんで？
 	      geometry.addAttribute("position", new THREE.BufferAttribute(new Float32Array(this.points), 3));
-	
+
 	      // mat
 	      var material = new THREE.LineBasicMaterial({
 	        color: this.color,
@@ -7868,17 +7899,17 @@
 	        depthTest: false
 	      });
 	      this.obj = new THREE.Line(geometry, material);
-	
+
 	      this.pointsNUM = this.obj.geometry.attributes.position.array.length;
-	
+
 	      this.curve = new THREE.CatmullRomCurve3(this.vec);
 	      this.curve.curveType = "centripetal";
 	    }
-	
+
 	    // oka
 	    // update(n = 1, index) {
 	    //   ++this.TIME;
-	
+
 	    //   for (let i = 0; i < this.pointsNUM; i++) {
 	    //     // zの値を動かす
 	    //     if (i % 3 == 2) {
@@ -7892,15 +7923,15 @@
 	    //       const p =
 	    //         Math.abs(Math.sin(((i + 20) / this.NUM / 3) * Math.PI)) *
 	    //         this.sin(this.TIME * -1, i);
-	
+
 	    //       this.obj.geometry.attributes.position.array[i] = p;
 	    //     }
 	    //   }
-	
+
 	    // 深津さん
 	    //   // draw
 	    //   this.obj.geometry.attributes.position.needsUpdate = true;
-	
+
 	    //   // position
 	    //   // const time = (Date.now() - 1000) / 2000;
 	    //   // const r = noise.perlin2(index, time) * window.noiseparam.line;
@@ -7909,17 +7940,17 @@
 	    //   // this.obj.position.x = u * window.noiseparam.line;
 	    //   // this.obj.position.z = u * window.noiseparam.line;
 	    // }
-	
+
 	    // update(n = 1, index) {
 	    //   ++this.TIME;
 	    //   this.noiseTime += 0.01;
 	    //   this.rad += 0.01;
-	
+
 	    //   // update
 	    //   for (let i = 0; i < this.config.num; i++) {
 	    //     if (i == 0) {
 	    //       var nd = this.nodes[i];
-	
+
 	    //       // this.maxSpeed = 7 + Math.cos(this.rad) * 4;
 	    //       // this.start.vx +=
 	    //       //   noise.simplex3(
@@ -7937,7 +7968,7 @@
 	    //       // this.start.vy *= 0.99;
 	    //       // this.start.x += this.start.vx + this.random(-0.5, 0.5);
 	    //       // this.start.y += this.start.vy + this.random(-0.5, 0.5);
-	
+
 	    //       // nd.x = this.start.x;
 	    //       // nd.y = this.start.y;
 	    //       nd.x = 0;
@@ -7973,7 +8004,7 @@
 	    //       //   );
 	    //       nd1.vx *= 0.93;
 	    //       nd1.vy *= 0.93;
-	
+
 	    //       // var maxSpeed = 5;
 	    //       var maxSpeed = this.maxSpeed;
 	    //       var speed = Math.sqrt(nd1.vx * nd1.vx + nd1.vy * nd1.vy);
@@ -7981,62 +8012,62 @@
 	    //         nd1.vx = (nd1.vx / speed) * maxSpeed;
 	    //         nd1.vy = (nd1.vy / speed) * maxSpeed;
 	    //       }
-	
+
 	    //       nd1.x += nd1.vx;
 	    //       nd1.y += nd1.vy;
 	    //     }
 	    //   }
-	
+
 	    //   // draw
 	    //   for (let i = 0; i < this.config.num; i++) {
 	    //     var y = this.nodes[i].y;
-	
+
 	    //     this.obj.geometry.attributes.position.array[i * 3 + 1] = y;
 	    //   }
-	
+
 	    //   // draw
 	    //   this.obj.geometry.attributes.position.needsUpdate = true;
 	    // }
-	
+
 	  }, {
 	    key: "update",
 	    value: function update(index) {
 	      // this.frame++;
 	      // if (this.frame % this.fr !== 0) return;
-	
+
 	      this.noiseTime += 0.005;
 	      this.noiseTime2 -= 0.002;
-	
+
 	      for (var i = 0; i < this.config.num; i++) {
 	        // update
 	        var nd = this.nodes[i];
-	
+
 	        var rate = this.clamp(i / (this.config.num - 1), 0, 1.0);
 	        var val = this.outQuart(rate) * this.config.num;
-	
+
 	        // 揺れ
 	        nd.y = nd.defy + noise.simplex2(index * 0.1 + nd.x * 0.002, this.noiseTime) * 15 * this.yureY;
 	        nd.z = nd.defz + Math.sin(nd.x * 0.008 - this.noiseTime * 3) * val * 1.5 * this.ookisa + noise.simplex2(index * 0.05 + nd.x * 0.002, this.noiseTime2) * val * 2.0 * this.yureZ;
-	
+
 	        // spread motion用
 	        var y = this.lerp(nd.defy2, nd.y, this.t);
 	        var z = this.lerp(nd.defz, nd.z, this.t);
-	
+
 	        this.curve.points[i].y = y;
 	        this.curve.points[i].z = z;
-	
+
 	        // 線伸びる処理
 	        var s = this.s;
 	        var e = this.e * (i / this.config.num);
 	        var t = this.clamp(s + e, 0.0, 1.0);
 	        var v = this.curve.getPoint(t);
-	
+
 	        // draw
 	        this.obj.geometry.attributes.position.array[i * 3 + 0] = v.x;
 	        this.obj.geometry.attributes.position.array[i * 3 + 1] = v.y;
 	        this.obj.geometry.attributes.position.array[i * 3 + 2] = v.z;
 	      }
-	
+
 	      // draw
 	      this.obj.geometry.attributes.position.needsUpdate = true;
 	    }
@@ -8045,7 +8076,7 @@
 	    value: function drawLine() {
 	      var tl = new TimelineMax({ repeat: 0, yoyo: false });
 	      var dur = 3.0;
-	
+
 	      tl
 	      // end
 	      .to(this, dur, {
@@ -8057,8 +8088,13 @@
 	    key: "spread",
 	    value: function spread() {
 	      var tl = new TimelineMax({ repeat: 0, yoyo: false });
+<<<<<<< HEAD
 	      var dur = 2.5;
 	
+=======
+	      var dur = 3.0;
+
+>>>>>>> 4958d26493ed1366596d378e72a1343239579c17
 	      tl
 	      // end
 	      .to(this, dur, {
@@ -8071,7 +8107,7 @@
 	    value: function timeline() {
 	      var tl = new TimelineMax({ repeat: 0, yoyo: false });
 	      var dur = 3.0 + 3.0 + Math.random();
-	
+
 	      tl
 	      // end
 	      .to(this, dur, {
@@ -8109,7 +8145,7 @@
 	    // @val : 範囲(int)
 	    // return : ランダムな整数(int)
 	    // -----------------------------------
-	
+
 	  }, {
 	    key: "range",
 	    value: function range(val) {
@@ -8119,7 +8155,7 @@
 	    key: "clamp",
 	    value: function clamp(val, min, max, minVal, maxVal) {
 	      if (val < min) val = minVal == undefined ? min : minVal;else if (val > max) val = maxVal == undefined ? max : maxVal;
-	
+
 	      return val;
 	    }
 	  }, {
@@ -8149,10 +8185,10 @@
 	    key: "setEvents",
 	    value: function setEvents() {}
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -8160,19 +8196,19 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller(x, y, z) {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.x = x;
 	    this.y = y;
 	    this.z = z;
@@ -8183,10 +8219,10 @@
 	    this.defy = y;
 	    this.defy2 = y;
 	    this.defz = z;
-	
+
 	    this.cnt = 0;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {}
@@ -8194,10 +8230,10 @@
 	    key: "setEvents",
 	    value: function setEvents() {}
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -8205,22 +8241,22 @@
 /***/ (function(module, exports) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.setup();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -8238,7 +8274,7 @@
 	      this.obj.position.z = -10;
 	      this.lightObj.position.z = -10;
 	      // this.obj.position.;
-	
+
 	      for (var i = 0; i < this.num; i++) {
 	        var mesh = this.getObj({
 	          index: i,
@@ -8268,7 +8304,7 @@
 	          opacity = _ref$opacity === undefined ? 1 : _ref$opacity,
 	          _ref$dashOffset = _ref.dashOffset,
 	          dashOffset = _ref$dashOffset === undefined ? 0 : _ref$dashOffset;
-	
+
 	      var material = new MeshLineMaterial({
 	        color: new THREE.Color(0x9f9f9f),
 	        lineWidth: this.bp >= width ? 2 : 1,
@@ -8280,7 +8316,7 @@
 	      });
 	      var point = [];
 	      var _w = -width * 0.5;
-	
+
 	      point.push(_w + index * length, height * 0.5, -1);
 	      point.push(_w + index * length, -height * 0.5, -1);
 	      var line = new MeshLine();
@@ -8292,7 +8328,7 @@
 	    key: "show",
 	    value: function show() {
 	      var _this = this;
-	
+
 	      console.log("show");
 	      var tl = new TimelineMax();
 	      var h = $(".canvas").height();
@@ -8314,7 +8350,7 @@
 	          ease: Expo.easeOut
 	        }, 0 * 0.02 + 0.05);
 	      });
-	
+
 	      tl.add(function (e) {
 	        _this.timeline();
 	      });
@@ -8324,7 +8360,7 @@
 	    key: "timeline",
 	    value: function timeline() {
 	      var _this2 = this;
-	
+
 	      var l = this.lightObj.children.length;
 	      var index = Math.floor(Math.random() * l);
 	      var d = 0;
@@ -8336,7 +8372,7 @@
 	        opacity: 0.02,
 	        ease: Expo.easeOut
 	      }, d);
-	
+
 	      tl
 	      //線をひく
 	      .to(target.material.uniforms.dashOffset, 0.75, {
@@ -8348,7 +8384,7 @@
 	        y: -window.innerHeight * 1.1,
 	        ease: Expo.easeOut
 	      }, d + 0.05 + Math.random() * 0.2);
-	
+
 	      //loop
 	      tl.add(function (e) {
 	        target.material.uniforms.dashOffset.value = 0;
@@ -8393,7 +8429,7 @@
 	            height: h,
 	            length: l
 	          });
-	
+
 	          this.obj.add(mesh);
 	          this.lightObj.add(mesh2);
 	        }
@@ -8417,7 +8453,7 @@
 	        obj.material.lineWidth = this.bp >= w ? 2 : 1;
 	        // const geometry =
 	      }
-	
+
 	      for (var _i = 0; _i < cl; _i++) {
 	        var _obj = this.lightObj.children[_i];
 	        _obj.geometry.dispose();
@@ -8437,15 +8473,15 @@
 	    value: function update(_ref2) {
 	      var posi = _ref2.posi,
 	          depth = _ref2.depth;
-	
+
 	      this.obj.position.z = posi - depth;
 	      this.lightObj.position.z = posi - depth;
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -8464,13 +8500,13 @@
 	 *
 	 * http://www.apache.org/licenses/LICENSE-2.0
 	 */
-	
+
 	(function (global, factory) {
 		 true ? factory(exports) :
 		typeof define === 'function' && define.amd ? define(['exports'], factory) :
 		(factory((global.dat = {})));
 	}(this, (function (exports) { 'use strict';
-	
+
 	function ___$insertStyle(css) {
 	  if (!css) {
 	    return;
@@ -8478,16 +8514,16 @@
 	  if (typeof window === 'undefined') {
 	    return;
 	  }
-	
+
 	  var style = document.createElement('style');
-	
+
 	  style.setAttribute('type', 'text/css');
 	  style.innerHTML = css;
 	  document.head.appendChild(style);
-	
+
 	  return css;
 	}
-	
+
 	function colorToString (color, forceCSSHex) {
 	  var colorFormat = color.__state.conversionName.toString();
 	  var r = Math.round(color.r);
@@ -8524,7 +8560,7 @@
 	  }
 	  return 'unknown format';
 	}
-	
+
 	var ARR_EACH = Array.prototype.forEach;
 	var ARR_SLICE = Array.prototype.slice;
 	var Common = {
@@ -8643,7 +8679,7 @@
 	    return Object.prototype.toString.call(obj) === '[object Function]';
 	  }
 	};
-	
+
 	var INTERPRETATIONS = [
 	{
 	  litmus: Common.isString,
@@ -8870,7 +8906,7 @@
 	  });
 	  return toReturn;
 	};
-	
+
 	var tmpComponent = void 0;
 	var ColorMath = {
 	  hsv_to_rgb: function hsv_to_rgb(h, s, v) {
@@ -8931,29 +8967,29 @@
 	    return value << (tmpComponent = componentIndex * 8) | hex & ~(0xFF << tmpComponent);
 	  }
 	};
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
 	  return typeof obj;
 	} : function (obj) {
 	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 	var classCallCheck = function (instance, Constructor) {
 	  if (!(instance instanceof Constructor)) {
 	    throw new TypeError("Cannot call a class as a function");
 	  }
 	};
-	
+
 	var createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
@@ -8964,27 +9000,27 @@
 	      Object.defineProperty(target, descriptor.key, descriptor);
 	    }
 	  }
-	
+
 	  return function (Constructor, protoProps, staticProps) {
 	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
 	    if (staticProps) defineProperties(Constructor, staticProps);
 	    return Constructor;
 	  };
 	}();
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	var get = function get(object, property, receiver) {
 	  if (object === null) object = Function.prototype;
 	  var desc = Object.getOwnPropertyDescriptor(object, property);
-	
+
 	  if (desc === undefined) {
 	    var parent = Object.getPrototypeOf(object);
-	
+
 	    if (parent === null) {
 	      return undefined;
 	    } else {
@@ -8994,20 +9030,20 @@
 	    return desc.value;
 	  } else {
 	    var getter = desc.get;
-	
+
 	    if (getter === undefined) {
 	      return undefined;
 	    }
-	
+
 	    return getter.call(receiver);
 	  }
 	};
-	
+
 	var inherits = function (subClass, superClass) {
 	  if (typeof superClass !== "function" && superClass !== null) {
 	    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
 	  }
-	
+
 	  subClass.prototype = Object.create(superClass && superClass.prototype, {
 	    constructor: {
 	      value: subClass,
@@ -9018,25 +9054,25 @@
 	  });
 	  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 	var possibleConstructorReturn = function (self, call) {
 	  if (!self) {
 	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
 	  }
-	
+
 	  return call && (typeof call === "object" || typeof call === "function") ? call : self;
 	};
-	
+
 	var Color = function () {
 	  function Color() {
 	    classCallCheck(this, Color);
@@ -9148,7 +9184,7 @@
 	    this.__state.hex = v;
 	  }
 	});
-	
+
 	var Controller = function () {
 	  function Controller(object, property) {
 	    classCallCheck(this, Controller);
@@ -9199,7 +9235,7 @@
 	  }]);
 	  return Controller;
 	}();
-	
+
 	var EVENT_MAP = {
 	  HTMLEvents: ['change'],
 	  MouseEvents: ['click', 'mousemove', 'mousedown', 'mouseup', 'mouseover'],
@@ -9368,7 +9404,7 @@
 	    return elem === document.activeElement && (elem.type || elem.href);
 	  }
 	};
-	
+
 	var BooleanController = function (_Controller) {
 	  inherits(BooleanController, _Controller);
 	  function BooleanController(object, property) {
@@ -9412,7 +9448,7 @@
 	  }]);
 	  return BooleanController;
 	}(Controller);
-	
+
 	var OptionController = function (_Controller) {
 	  inherits(OptionController, _Controller);
 	  function OptionController(object, property, opts) {
@@ -9461,7 +9497,7 @@
 	  }]);
 	  return OptionController;
 	}(Controller);
-	
+
 	var StringController = function (_Controller) {
 	  inherits(StringController, _Controller);
 	  function StringController(object, property) {
@@ -9501,7 +9537,7 @@
 	  }]);
 	  return StringController;
 	}(Controller);
-	
+
 	function numDecimals(x) {
 	  var _x = x.toString();
 	  if (_x.indexOf('.') > -1) {
@@ -9567,7 +9603,7 @@
 	  }]);
 	  return NumberController;
 	}(Controller);
-	
+
 	function roundToDecimal(value, decimals) {
 	  var tenTo = Math.pow(10, decimals);
 	  return Math.round(value * tenTo) / tenTo;
@@ -9635,7 +9671,7 @@
 	  }]);
 	  return NumberControllerBox;
 	}(NumberController);
-	
+
 	function map(v, i1, i2, o1, o2) {
 	  return o1 + (o2 - o1) * ((v - i1) / (i2 - i1));
 	}
@@ -9705,7 +9741,7 @@
 	  }]);
 	  return NumberControllerSlider;
 	}(NumberController);
-	
+
 	var FunctionController = function (_Controller) {
 	  inherits(FunctionController, _Controller);
 	  function FunctionController(object, property, text) {
@@ -9737,7 +9773,7 @@
 	  }]);
 	  return FunctionController;
 	}(Controller);
-	
+
 	var ColorController = function (_Controller) {
 	  inherits(ColorController, _Controller);
 	  function ColorController(object, property) {
@@ -9989,7 +10025,7 @@
 	  elem.style.cssText += 'background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
 	  elem.style.cssText += 'background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);';
 	}
-	
+
 	var css = {
 	  load: function load(url, indoc) {
 	    var doc = indoc || document;
@@ -10011,9 +10047,9 @@
 	    }
 	  }
 	};
-	
+
 	var saveDialogContents = "<div id=\"dg-save\" class=\"dg dialogue\">\n\n  Here's the new load parameter for your <code>GUI</code>'s constructor:\n\n  <textarea id=\"dg-new-constructor\"></textarea>\n\n  <div id=\"dg-save-locally\">\n\n    <input id=\"dg-local-storage\" type=\"checkbox\"/> Automatically save\n    values to <code>localStorage</code> on exit.\n\n    <div id=\"dg-local-explain\">The values saved to <code>localStorage</code> will\n      override those passed to <code>dat.GUI</code>'s constructor. This makes it\n      easier to work incrementally, but <code>localStorage</code> is fragile,\n      and your friends may not see the same values you do.\n\n    </div>\n\n  </div>\n\n</div>";
-	
+
 	var ControllerFactory = function ControllerFactory(object, property) {
 	  var initialValue = object[property];
 	  if (Common.isArray(arguments[2]) || Common.isObject(arguments[2])) {
@@ -10042,12 +10078,12 @@
 	  }
 	  return null;
 	};
-	
+
 	function requestAnimationFrame(callback) {
 	  setTimeout(callback, 1000 / 60);
 	}
 	var requestAnimationFrame$1 = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || requestAnimationFrame;
-	
+
 	var CenteredDiv = function () {
 	  function CenteredDiv() {
 	    classCallCheck(this, CenteredDiv);
@@ -10122,9 +10158,9 @@
 	  }]);
 	  return CenteredDiv;
 	}();
-	
+
 	var styleSheet = ___$insertStyle(".dg ul{list-style:none;margin:0;padding:0;width:100%;clear:both}.dg.ac{position:fixed;top:0;left:0;right:0;height:0;z-index:0}.dg:not(.ac) .main{overflow:hidden}.dg.main{-webkit-transition:opacity .1s linear;-o-transition:opacity .1s linear;-moz-transition:opacity .1s linear;transition:opacity .1s linear}.dg.main.taller-than-window{overflow-y:auto}.dg.main.taller-than-window .close-button{opacity:1;margin-top:-1px;border-top:1px solid #2c2c2c}.dg.main ul.closed .close-button{opacity:1 !important}.dg.main:hover .close-button,.dg.main .close-button.drag{opacity:1}.dg.main .close-button{-webkit-transition:opacity .1s linear;-o-transition:opacity .1s linear;-moz-transition:opacity .1s linear;transition:opacity .1s linear;border:0;line-height:19px;height:20px;cursor:pointer;text-align:center;background-color:#000}.dg.main .close-button.close-top{position:relative}.dg.main .close-button.close-bottom{position:absolute}.dg.main .close-button:hover{background-color:#111}.dg.a{float:right;margin-right:15px;overflow-y:visible}.dg.a.has-save>ul.close-top{margin-top:0}.dg.a.has-save>ul.close-bottom{margin-top:27px}.dg.a.has-save>ul.closed{margin-top:0}.dg.a .save-row{top:0;z-index:1002}.dg.a .save-row.close-top{position:relative}.dg.a .save-row.close-bottom{position:fixed}.dg li{-webkit-transition:height .1s ease-out;-o-transition:height .1s ease-out;-moz-transition:height .1s ease-out;transition:height .1s ease-out;-webkit-transition:overflow .1s linear;-o-transition:overflow .1s linear;-moz-transition:overflow .1s linear;transition:overflow .1s linear}.dg li:not(.folder){cursor:auto;height:27px;line-height:27px;padding:0 4px 0 5px}.dg li.folder{padding:0;border-left:4px solid rgba(0,0,0,0)}.dg li.title{cursor:pointer;margin-left:-4px}.dg .closed li:not(.title),.dg .closed ul li,.dg .closed ul li>*{height:0;overflow:hidden;border:0}.dg .cr{clear:both;padding-left:3px;height:27px;overflow:hidden}.dg .property-name{cursor:default;float:left;clear:left;width:40%;overflow:hidden;text-overflow:ellipsis}.dg .c{float:left;width:60%;position:relative}.dg .c input[type=text]{border:0;margin-top:4px;padding:3px;width:100%;float:right}.dg .has-slider input[type=text]{width:30%;margin-left:0}.dg .slider{float:left;width:66%;margin-left:-5px;margin-right:0;height:19px;margin-top:4px}.dg .slider-fg{height:100%}.dg .c input[type=checkbox]{margin-top:7px}.dg .c select{margin-top:5px}.dg .cr.function,.dg .cr.function .property-name,.dg .cr.function *,.dg .cr.boolean,.dg .cr.boolean *{cursor:pointer}.dg .cr.color{overflow:visible}.dg .selector{display:none;position:absolute;margin-left:-9px;margin-top:23px;z-index:10}.dg .c:hover .selector,.dg .selector.drag{display:block}.dg li.save-row{padding:0}.dg li.save-row .button{display:inline-block;padding:0px 6px}.dg.dialogue{background-color:#222;width:460px;padding:15px;font-size:13px;line-height:15px}#dg-new-constructor{padding:10px;color:#222;font-family:Monaco, monospace;font-size:10px;border:0;resize:none;box-shadow:inset 1px 1px 1px #888;word-wrap:break-word;margin:12px 0;display:block;width:440px;overflow-y:scroll;height:100px;position:relative}#dg-local-explain{display:none;font-size:11px;line-height:17px;border-radius:3px;background-color:#333;padding:8px;margin-top:10px}#dg-local-explain code{font-size:10px}#dat-gui-save-locally{display:none}.dg{color:#eee;font:11px 'Lucida Grande', sans-serif;text-shadow:0 -1px 0 #111}.dg.main::-webkit-scrollbar{width:5px;background:#1a1a1a}.dg.main::-webkit-scrollbar-corner{height:0;display:none}.dg.main::-webkit-scrollbar-thumb{border-radius:5px;background:#676767}.dg li:not(.folder){background:#1a1a1a;border-bottom:1px solid #2c2c2c}.dg li.save-row{line-height:25px;background:#dad5cb;border:0}.dg li.save-row select{margin-left:5px;width:108px}.dg li.save-row .button{margin-left:5px;margin-top:1px;border-radius:2px;font-size:9px;line-height:7px;padding:4px 4px 5px 4px;background:#c5bdad;color:#fff;text-shadow:0 1px 0 #b0a58f;box-shadow:0 -1px 0 #b0a58f;cursor:pointer}.dg li.save-row .button.gears{background:#c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;height:7px;width:8px}.dg li.save-row .button:hover{background-color:#bab19e;box-shadow:0 -1px 0 #b0a58f}.dg li.folder{border-bottom:0}.dg li.title{padding-left:16px;background:#000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.2)}.dg .closed li.title{background-image:url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==)}.dg .cr.boolean{border-left:3px solid #806787}.dg .cr.color{border-left:3px solid}.dg .cr.function{border-left:3px solid #e61d5f}.dg .cr.number{border-left:3px solid #2FA1D6}.dg .cr.number input[type=text]{color:#2FA1D6}.dg .cr.string{border-left:3px solid #1ed36f}.dg .cr.string input[type=text]{color:#1ed36f}.dg .cr.function:hover,.dg .cr.boolean:hover{background:#111}.dg .c input[type=text]{background:#303030;outline:none}.dg .c input[type=text]:hover{background:#3c3c3c}.dg .c input[type=text]:focus{background:#494949;color:#fff}.dg .c .slider{background:#303030;cursor:ew-resize}.dg .c .slider-fg{background:#2FA1D6;max-width:100%}.dg .c .slider:hover{background:#3c3c3c}.dg .c .slider:hover .slider-fg{background:#44abda}\n");
-	
+
 	css.inject(styleSheet);
 	var CSS_NAMESPACE = 'dg';
 	var HIDE_KEY_CODE = 72;
@@ -10944,7 +10980,7 @@
 	    c.updateDisplay();
 	  });
 	}
-	
+
 	var color = {
 	  Color: Color,
 	  math: ColorMath,
@@ -10971,16 +11007,16 @@
 	  gui: gui,
 	  GUI: GUI$1
 	};
-	
+
 	exports.color = color;
 	exports.controllers = controllers;
 	exports.dom = dom$1;
 	exports.gui = gui;
 	exports.GUI = GUI$1;
 	exports['default'] = index;
-	
+
 	Object.defineProperty(exports, '__esModule', { value: true });
-	
+
 	})));
 	//# sourceMappingURL=dat.gui.js.map
 
@@ -10990,36 +11026,36 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Controller = __webpack_require__(39);
-	
+
 	var _Controller2 = _interopRequireDefault(_Controller);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    return _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "init",
 	    value: function init() {
@@ -11039,13 +11075,13 @@
 	      var $leadL = $innerLine.find(".index-kv-lead");
 	      var $titL = $innerLine.find(".index-kv-title");
 	      var tl = new TimelineMax();
-	
+
 	      // ready
 	      TweenMax.set($tit, { x: 100 });
 	      TweenMax.set($titL, { x: 100 });
 	      TweenMax.set($lead, { x: 20 });
 	      TweenMax.set($leadL, { x: 20 });
-	
+
 	      tl
 	      // $tit show
 	      .to($tit, 0.01, {
@@ -11057,7 +11093,7 @@
 	        x: 0,
 	        ease: Expo.easeOut
 	      }, 0.0)
-	
+
 	      // $titL show
 	      .to($titL, 0.01, {
 	        opacity: 1,
@@ -11068,7 +11104,7 @@
 	        x: 0,
 	        ease: Expo.easeOut
 	      }, 0.05)
-	
+
 	      // $lead x
 	      .to($lead, 1.5, {
 	        x: 0,
@@ -11080,7 +11116,7 @@
 	        opacity: 0,
 	        ease: Power2.easeInOut
 	      }, 0.2)
-	
+
 	      // logo
 	      .to(logo, 1, {
 	        opacity: 1,
@@ -11114,7 +11150,7 @@
 	    key: "setEvent",
 	    value: function setEvent() {
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "__setUpdateFlag", this).call(this, false);
-	
+
 	      // $(window).on("scroll", (e) => {
 	      //   const st = $(window).scrollTop();
 	      //   this.canvasStop(st);
@@ -11124,10 +11160,10 @@
 	    key: "reset",
 	    value: function reset() {}
 	  }]);
-	
+
 	  return Controller;
 	}(_Controller2.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -11135,29 +11171,29 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _jsCookie = __webpack_require__(57);
-	
+
 	var _jsCookie2 = _interopRequireDefault(_jsCookie);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	var Controller = function () {
 	  function Controller() {
 	    _classCallCheck(this, Controller);
-	
+
 	    this.setup();
 	    this.setEvents();
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -11198,7 +11234,7 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this = this;
-	
+
 	      $(".cookie .btn").on("click", function (e) {
 	        // this.hide();
 	        if (e.currentTarget.classList.contains("btn-primary")) {
@@ -11208,16 +11244,16 @@
 	          //非同意
 	          _jsCookie2.default.set("isAllowCookie", "0", { expires: 31 });
 	        }
-	
+
 	        _this.hide();
 	        return false;
 	      });
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}();
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -11261,46 +11297,46 @@
 			}
 			return result;
 		}
-	
+
 		function decode (s) {
 			return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
 		}
-	
+
 		function init (converter) {
 			function api() {}
-	
+
 			function set (key, value, attributes) {
 				if (typeof document === 'undefined') {
 					return;
 				}
-	
+
 				attributes = extend({
 					path: '/'
 				}, api.defaults, attributes);
-	
+
 				if (typeof attributes.expires === 'number') {
 					attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
 				}
-	
+
 				// We're using "expires" because "max-age" is not supported by IE
 				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-	
+
 				try {
 					var result = JSON.stringify(value);
 					if (/^[\{\[]/.test(result)) {
 						value = result;
 					}
 				} catch (e) {}
-	
+
 				value = converter.write ?
 					converter.write(value, key) :
 					encodeURIComponent(String(value))
 						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-	
+
 				key = encodeURIComponent(String(key))
 					.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
 					.replace(/[\(\)]/g, escape);
-	
+
 				var stringifiedAttributes = '';
 				for (var attributeName in attributes) {
 					if (!attributes[attributeName]) {
@@ -11310,7 +11346,7 @@
 					if (attributes[attributeName] === true) {
 						continue;
 					}
-	
+
 					// Considers RFC 6265 section 5.2:
 					// ...
 					// 3.  If the remaining unparsed-attributes contains a %x3B (";")
@@ -11320,51 +11356,51 @@
 					// ...
 					stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
 				}
-	
+
 				return (document.cookie = key + '=' + value + stringifiedAttributes);
 			}
-	
+
 			function get (key, json) {
 				if (typeof document === 'undefined') {
 					return;
 				}
-	
+
 				var jar = {};
 				// To prevent the for loop in the first place assign an empty array
 				// in case there are no cookies at all.
 				var cookies = document.cookie ? document.cookie.split('; ') : [];
 				var i = 0;
-	
+
 				for (; i < cookies.length; i++) {
 					var parts = cookies[i].split('=');
 					var cookie = parts.slice(1).join('=');
-	
+
 					if (!json && cookie.charAt(0) === '"') {
 						cookie = cookie.slice(1, -1);
 					}
-	
+
 					try {
 						var name = decode(parts[0]);
 						cookie = (converter.read || converter)(cookie, name) ||
 							decode(cookie);
-	
+
 						if (json) {
 							try {
 								cookie = JSON.parse(cookie);
 							} catch (e) {}
 						}
-	
+
 						jar[name] = cookie;
-	
+
 						if (key === name) {
 							break;
 						}
 					} catch (e) {}
 				}
-	
+
 				return key ? jar[key] : jar;
 			}
-	
+
 			api.set = set;
 			api.get = function (key) {
 				return get(key, false /* read as raw */);
@@ -11377,14 +11413,14 @@
 					expires: -1
 				}));
 			};
-	
+
 			api.defaults = {};
-	
+
 			api.withConverter = init;
-	
+
 			return api;
 		}
-	
+
 		return init(function () {});
 	}));
 
@@ -11394,46 +11430,46 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-	
+
 	var _Base2 = __webpack_require__(15);
-	
+
 	var _Base3 = _interopRequireDefault(_Base2);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //--------------------------------------------------
 	//
 	//  Controller
 	//
 	//--------------------------------------------------
-	
+
 	var Controller = function (_Base) {
 	  _inherits(Controller, _Base);
-	
+
 	  function Controller($ele, targetClass) {
 	    _classCallCheck(this, Controller);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Controller.__proto__ || Object.getPrototypeOf(Controller)).call(this));
-	
+
 	    _this.$ele = $ele;
 	    _this.targetClass = targetClass;
 	    _this.setup();
 	    _this.setEvents();
 	    return _this;
 	  }
-	
+
 	  _createClass(Controller, [{
 	    key: "setup",
 	    value: function setup() {
@@ -11460,18 +11496,18 @@
 	    key: "setEvents",
 	    value: function setEvents() {
 	      var _this2 = this;
-	
+
 	      _get(Controller.prototype.__proto__ || Object.getPrototypeOf(Controller.prototype), "setEvents", this).call(this);
-	
+
 	      $(window).on("scroll", function (e) {
 	        _this2.scroll();
 	      });
 	    }
 	  }]);
-	
+
 	  return Controller;
 	}(_Base3.default);
-	
+
 	exports.default = Controller;
 
 /***/ }),
@@ -11486,16 +11522,16 @@
 	 * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
 	 * Dual licensed under GPLv2 & MIT
 	 */
-	
+
 	(function (window, undefined) {
-	
+
 	    'use strict';
-	
+
 	    //////////////
 	    // Constants
 	    /////////////
-	
-	
+
+
 	    var LIBVERSION  = '0.7.17',
 	        EMPTY       = '',
 	        UNKNOWN     = '?',
@@ -11516,13 +11552,13 @@
 	        SMARTTV     = 'smarttv',
 	        WEARABLE    = 'wearable',
 	        EMBEDDED    = 'embedded';
-	
-	
+
+
 	    ///////////
 	    // Helper
 	    //////////
-	
-	
+
+
 	    var util = {
 	        extend : function (regexes, extensions) {
 	            var margedRegexes = {};
@@ -11552,38 +11588,38 @@
 	          return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 	        }
 	    };
-	
-	
+
+
 	    ///////////////
 	    // Map helper
 	    //////////////
-	
-	
+
+
 	    var mapper = {
-	
+
 	        rgx : function (ua, arrays) {
-	
+
 	            //var result = {},
 	            var i = 0, j, k, p, q, matches, match;//, args = arguments;
-	
+
 	            /*// construct object barebones
 	            for (p = 0; p < args[1].length; p++) {
 	                q = args[1][p];
 	                result[typeof q === OBJ_TYPE ? q[0] : q] = undefined;
 	            }*/
-	
+
 	            // loop through all regexes maps
 	            while (i < arrays.length && !matches) {
-	
+
 	                var regex = arrays[i],       // even sequence (0,2,4,..)
 	                    props = arrays[i + 1];   // odd sequence (1,3,5,..)
 	                j = k = 0;
-	
+
 	                // try matching uastring with regexes
 	                while (j < regex.length && !matches) {
-	
+
 	                    matches = regex[j++].exec(ua);
-	
+
 	                    if (!!matches) {
 	                        for (p = 0; p < props.length; p++) {
 	                            match = matches[++k];
@@ -11621,9 +11657,9 @@
 	            // console.log(this);
 	            //return this;
 	        },
-	
+
 	        str : function (str, map) {
-	
+
 	            for (var i in map) {
 	                // check if array
 	                if (typeof map[i] === OBJ_TYPE && map[i].length > 0) {
@@ -11639,15 +11675,15 @@
 	            return str;
 	        }
 	    };
-	
-	
+
+
 	    ///////////////
 	    // String map
 	    //////////////
-	
-	
+
+
 	    var maps = {
-	
+
 	        browser : {
 	            oldsafari : {
 	                version : {
@@ -11662,7 +11698,7 @@
 	                }
 	            }
 	        },
-	
+
 	        device : {
 	            amazon : {
 	                model : {
@@ -11679,7 +11715,7 @@
 	                }
 	            }
 	        },
-	
+
 	        os : {
 	            windows : {
 	                version : {
@@ -11698,124 +11734,124 @@
 	            }
 	        }
 	    };
-	
-	
+
+
 	    //////////////
 	    // Regex map
 	    /////////////
-	
-	
+
+
 	    var regexes = {
-	
+
 	        browser : [[
-	
+
 	            // Presto based
 	            /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
 	            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
 	            /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
 	            /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
 	            ], [NAME, VERSION], [
-	
+
 	            /(opios)[\/\s]+([\w\.]+)/i                                          // Opera mini on iphone >= 8.0
 	            ], [[NAME, 'Opera Mini'], VERSION], [
-	
+
 	            /\s(opr)\/([\w\.]+)/i                                               // Opera Webkit
 	            ], [[NAME, 'Opera'], VERSION], [
-	
+
 	            // Mixed
 	            /(kindle)\/([\w\.]+)/i,                                             // Kindle
 	            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
 	                                                                                // Lunascape/Maxthon/Netfront/Jasmine/Blazer
-	
+
 	            // Trident based
 	            /(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?([\w\.]*)/i,
 	                                                                                // Avant/IEMobile/SlimBrowser/Baidu
 	            /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
-	
+
 	            // Webkit/KHTML based
 	            /(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
 	            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser)\/([\w\.-]+)/i
 	                                                                                // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser
 	            ], [NAME, VERSION], [
-	
+
 	            /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
 	            ], [[NAME, 'IE'], VERSION], [
-	
+
 	            /(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
 	            ], [NAME, VERSION], [
-	
+
 	            /(yabrowser)\/([\w\.]+)/i                                           // Yandex
 	            ], [[NAME, 'Yandex'], VERSION], [
-	
+
 	            /(puffin)\/([\w\.]+)/i                                              // Puffin
 	            ], [[NAME, 'Puffin'], VERSION], [
-	
+
 	            /((?:[\s\/])uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i
 	                                                                                // UCBrowser
 	            ], [[NAME, 'UCBrowser'], VERSION], [
-	
+
 	            /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
 	            ], [[NAME, /_/g, ' '], VERSION], [
-	
+
 	            /(micromessenger)\/([\w\.]+)/i                                      // WeChat
 	            ], [[NAME, 'WeChat'], VERSION], [
-	
+
 	            /(QQ)\/([\d\.]+)/i                                                  // QQ, aka ShouQ
 	            ], [NAME, VERSION], [
-	
+
 	            /m?(qqbrowser)[\/\s]?([\w\.]+)/i                                    // QQBrowser
 	            ], [NAME, VERSION], [
-	
+
 	            /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
 	            ], [VERSION, [NAME, 'MIUI Browser']], [
-	
+
 	            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android
 	            ], [VERSION, [NAME, 'Facebook']], [
-	
+
 	            /headlesschrome(?:\/([\w\.]+)|\s)/i                                 // Chrome Headless
 	            ], [VERSION, [NAME, 'Chrome Headless']], [
-	
+
 	            /\swv\).+(chrome)\/([\w\.]+)/i                                      // Chrome WebView
 	            ], [[NAME, /(.+)/, '$1 WebView'], VERSION], [
-	
+
 	            /((?:oculus|samsung)browser)\/([\w\.]+)/i
 	            ], [[NAME, /(.+(?:g|us))(.+)/, '$1 $2'], VERSION], [                // Oculus / Samsung Browser
-	
+
 	            /android.+version\/([\w\.]+)\s+(?:mobile\s?safari|safari)*/i        // Android Browser
 	            ], [VERSION, [NAME, 'Android Browser']], [
-	
+
 	            /(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?([\w\.]+)/i
 	                                                                                // Chrome/OmniWeb/Arora/Tizen/Nokia
 	            ], [NAME, VERSION], [
-	
+
 	            /(dolfin)\/([\w\.]+)/i                                              // Dolphin
 	            ], [[NAME, 'Dolphin'], VERSION], [
-	
+
 	            /((?:android.+)crmo|crios)\/([\w\.]+)/i                             // Chrome for Android/iOS
 	            ], [[NAME, 'Chrome'], VERSION], [
-	
+
 	            /(coast)\/([\w\.]+)/i                                               // Opera Coast
 	            ], [[NAME, 'Opera Coast'], VERSION], [
-	
+
 	            /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
 	            ], [VERSION, [NAME, 'Firefox']], [
-	
+
 	            /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
 	            ], [VERSION, [NAME, 'Mobile Safari']], [
-	
+
 	            /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
 	            ], [VERSION, NAME], [
-	
+
 	            /webkit.+?(gsa)\/([\w\.]+).+?(mobile\s?safari|safari)(\/[\w\.]+)/i  // Google Search Appliance on iOS
 	            ], [[NAME, 'GSA'], VERSION], [
-	
+
 	            /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
 	            ], [NAME, [VERSION, mapper.str, maps.browser.oldsafari.version]], [
-	
+
 	            /(konqueror)\/([\w\.]+)/i,                                          // Konqueror
 	            /(webkit|khtml)\/([\w\.]+)/i
 	            ], [NAME, VERSION], [
-	
+
 	            // Gecko based
 	            /(navigator|netscape)\/([\w\.-]+)/i                                 // Netscape
 	            ], [[NAME, 'Netscape'], VERSION], [
@@ -11825,7 +11861,7 @@
 	            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
 	                                                                                // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
 	            /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
-	
+
 	            // Other
 	            /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
 	                                                                                // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf/Sleipnir
@@ -11834,23 +11870,23 @@
 	            /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
 	            /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
 	            ], [NAME, VERSION]
-	
+
 	            /* /////////////////////
 	            // Media players BEGIN
 	            ////////////////////////
-	
+
 	            , [
-	
+
 	            /(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,                          // Generic Apple CoreMedia
 	            /(coremedia) v((\d+)[\w\._]+)/i
 	            ], [NAME, VERSION], [
-	
+
 	            /(aqualung|lyssna|bsplayer)\/((\d+)?[\w\.-]+)/i                     // Aqualung/Lyssna/BSPlayer
 	            ], [NAME, VERSION], [
-	
+
 	            /(ares|ossproxy)\s((\d+)[\w\.-]+)/i                                 // Ares/OSSProxy
 	            ], [NAME, VERSION], [
-	
+
 	            /(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,
 	                                                                                // Audacious/AudiMusicStream/Amarok/BASS/OpenCORE/Dalvik/GnomeMplayer/MoC
 	                                                                                // NSPlayer/PSP-InternetRadioPlayer/Videos
@@ -11860,130 +11896,130 @@
 	            ], [NAME, VERSION], [
 	            /(nexplayer)\s((\d+)[\w\.-]+)/i                                     // Nexplayer
 	            ], [NAME, VERSION], [
-	
+
 	            /(flrp)\/((\d+)[\w\.-]+)/i                                          // Flip Player
 	            ], [[NAME, 'Flip Player'], VERSION], [
-	
+
 	            /(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i
 	                                                                                // FStream/NativeHost/QuerySeekSpider/IA Archiver/facebookexternalhit
 	            ], [NAME], [
-	
+
 	            /(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i
 	                                                                                // Gstreamer
 	            ], [NAME, VERSION], [
-	
+
 	            /(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,              // HTC Streaming Player
 	            /(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,
 	                                                                                // Java/urllib/requests/wget/cURL
 	            /(lavf)((\d+)[\d\.]+)/i                                             // Lavf (FFMPEG)
 	            ], [NAME, VERSION], [
-	
+
 	            /(htc_one_s)\/((\d+)[\d\.]+)/i                                      // HTC One S
 	            ], [[NAME, /_/g, ' '], VERSION], [
-	
+
 	            /(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i
 	                                                                                // MPlayer SVN
 	            ], [NAME, VERSION], [
-	
+
 	            /(mplayer)(?:\s|\/|[unkow-]+)((\d+)[\w\.-]+)/i                      // MPlayer
 	            ], [NAME, VERSION], [
-	
+
 	            /(mplayer)/i,                                                       // MPlayer (no other info)
 	            /(yourmuze)/i,                                                      // YourMuze
 	            /(media player classic|nero showtime)/i                             // Media Player Classic/Nero ShowTime
 	            ], [NAME], [
-	
+
 	            /(nero (?:home|scout))\/((\d+)[\w\.-]+)/i                           // Nero Home/Nero Scout
 	            ], [NAME, VERSION], [
-	
+
 	            /(nokia\d+)\/((\d+)[\w\.-]+)/i                                      // Nokia
 	            ], [NAME, VERSION], [
-	
+
 	            /\s(songbird)\/((\d+)[\w\.-]+)/i                                    // Songbird/Philips-Songbird
 	            ], [NAME, VERSION], [
-	
+
 	            /(winamp)3 version ((\d+)[\w\.-]+)/i,                               // Winamp
 	            /(winamp)\s((\d+)[\w\.-]+)/i,
 	            /(winamp)mpeg\/((\d+)[\w\.-]+)/i
 	            ], [NAME, VERSION], [
-	
+
 	            /(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i  // OCMS-bot/tap in radio/tunein/unknown/winamp (no other info)
 	                                                                                // inlight radio
 	            ], [NAME], [
-	
+
 	            /(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i
 	                                                                                // QuickTime/RealMedia/RadioApp/RadioClientApplication/
 	                                                                                // SoundTap/Totem/Stagefright/Streamium
 	            ], [NAME, VERSION], [
-	
+
 	            /(smp)((\d+)[\d\.]+)/i                                              // SMP
 	            ], [NAME, VERSION], [
-	
+
 	            /(vlc) media player - version ((\d+)[\w\.]+)/i,                     // VLC Videolan
 	            /(vlc)\/((\d+)[\w\.-]+)/i,
 	            /(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,                    // XBMC/gvfs/Xine/XMMS/irapp
 	            /(foobar2000)\/((\d+)[\d\.]+)/i,                                    // Foobar2000
 	            /(itunes)\/((\d+)[\d\.]+)/i                                         // iTunes
 	            ], [NAME, VERSION], [
-	
+
 	            /(wmplayer)\/((\d+)[\w\.-]+)/i,                                     // Windows Media Player
 	            /(windows-media-player)\/((\d+)[\w\.-]+)/i
 	            ], [[NAME, /-/g, ' '], VERSION], [
-	
+
 	            /windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i
 	                                                                                // Windows Media Server
 	            ], [VERSION, [NAME, 'Windows']], [
-	
+
 	            /(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i                          // RiseUP Radio Alarm
 	            ], [NAME, VERSION], [
-	
+
 	            /(rad.io)\s((\d+)[\d\.]+)/i,                                        // Rad.io
 	            /(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i
 	            ], [[NAME, 'rad.io'], VERSION]
-	
+
 	            //////////////////////
 	            // Media players END
 	            ////////////////////*/
-	
+
 	        ],
-	
+
 	        cpu : [[
-	
+
 	            /(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i                     // AMD64
 	            ], [[ARCHITECTURE, 'amd64']], [
-	
+
 	            /(ia32(?=;))/i                                                      // IA32 (quicktime)
 	            ], [[ARCHITECTURE, util.lowerize]], [
-	
+
 	            /((?:i[346]|x)86)[;\)]/i                                            // IA32
 	            ], [[ARCHITECTURE, 'ia32']], [
-	
+
 	            // PocketPC mistakenly identified as PowerPC
 	            /windows\s(ce|mobile);\sppc;/i
 	            ], [[ARCHITECTURE, 'arm']], [
-	
+
 	            /((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i                           // PowerPC
 	            ], [[ARCHITECTURE, /ower/, '', util.lowerize]], [
-	
+
 	            /(sun4\w)[;\)]/i                                                    // SPARC
 	            ], [[ARCHITECTURE, 'sparc']], [
-	
+
 	            /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+;))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
 	                                                                                // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
 	            ], [[ARCHITECTURE, util.lowerize]]
 	        ],
-	
+
 	        device : [[
-	
+
 	            /\((ipad|playbook);[\w\s\);-]+(rim|apple)/i                         // iPad/PlayBook
 	            ], [MODEL, VENDOR, [TYPE, TABLET]], [
-	
+
 	            /applecoremedia\/[\w\.]+ \((ipad)/                                  // iPad
 	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, TABLET]], [
-	
+
 	            /(apple\s{0,1}tv)/i                                                 // Apple TV
 	            ], [[MODEL, 'Apple TV'], [VENDOR, 'Apple']], [
-	
+
 	            /(archos)\s(gamepad2?)/i,                                           // Archos
 	            /(hp).+(touchpad)/i,                                                // HP TouchPad
 	            /(hp).+(tablet)/i,                                                  // HP Tablet
@@ -11991,17 +12027,17 @@
 	            /\s(nook)[\w\s]+build\/(\w+)/i,                                     // Nook
 	            /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
 	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
-	
+
 	            /(kf[A-z]+)\sbuild\/[\w\.]+.*silk\//i                               // Kindle Fire HD
 	            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
 	            /(sd|kf)[0349hijorstuw]+\sbuild\/[\w\.]+.*silk\//i                  // Fire Phone
 	            ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
-	
+
 	            /\((ip[honed|\s\w*]+);.+(apple)/i                                   // iPod/iPhone
 	            ], [MODEL, VENDOR, [TYPE, MOBILE]], [
 	            /\((ip[honed|\s\w*]+);/i                                            // iPod/iPhone
 	            ], [MODEL, [VENDOR, 'Apple'], [TYPE, MOBILE]], [
-	
+
 	            /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
 	            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]+)*/i,
 	                                                                                // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Meizu/Motorola/Polytron
@@ -12013,50 +12049,50 @@
 	                                                                                // Asus Tablets
 	            /android.+(transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+|nexus 7|padfone)/i
 	            ], [MODEL, [VENDOR, 'Asus'], [TYPE, TABLET]], [
-	
+
 	            /(sony)\s(tablet\s[ps])\sbuild\//i,                                  // Sony
 	            /(sony)?(?:sgp.+)\sbuild\//i
 	            ], [[VENDOR, 'Sony'], [MODEL, 'Xperia Tablet'], [TYPE, TABLET]], [
 	            /android.+\s([c-g]\d{4}|so[-l]\w+)\sbuild\//i
 	            ], [MODEL, [VENDOR, 'Sony'], [TYPE, MOBILE]], [
-	
+
 	            /\s(ouya)\s/i,                                                      // Ouya
 	            /(nintendo)\s([wids3u]+)/i                                          // Nintendo
 	            ], [VENDOR, MODEL, [TYPE, CONSOLE]], [
-	
+
 	            /android.+;\s(shield)\sbuild/i                                      // Nvidia
 	            ], [MODEL, [VENDOR, 'Nvidia'], [TYPE, CONSOLE]], [
-	
+
 	            /(playstation\s[34portablevi]+)/i                                   // Playstation
 	            ], [MODEL, [VENDOR, 'Sony'], [TYPE, CONSOLE]], [
-	
+
 	            /(sprint\s(\w+))/i                                                  // Sprint Phones
 	            ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
-	
+
 	            /(lenovo)\s?(S(?:5000|6000)+(?:[-][\w+]))/i                         // Lenovo tablets
 	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
-	
+
 	            /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
 	            /(zte)-(\w+)*/i,                                                    // ZTE
 	            /(alcatel|geeksphone|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
 	                                                                                // Alcatel/GeeksPhone/Lenovo/Nexian/Panasonic/Sony
 	            ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
-	
+
 	            /(nexus\s9)/i                                                       // HTC Nexus 9
 	            ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
-	
+
 	            /d\/huawei([\w\s-]+)[;\)]/i,
 	            /(nexus\s6p)/i                                                      // Huawei
 	            ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
-	
+
 	            /(microsoft);\s(lumia[\s\w]+)/i                                     // Microsoft Lumia
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
-	
+
 	            /[\s\(;](xbox(?:\sone)?)[\s\);]/i                                   // Microsoft Xbox
 	            ], [MODEL, [VENDOR, 'Microsoft'], [TYPE, CONSOLE]], [
 	            /(kin\.[onetw]{3})/i                                                // Microsoft Kin
 	            ], [[MODEL, /\./g, ' '], [VENDOR, 'Microsoft'], [TYPE, MOBILE]], [
-	
+
 	                                                                                // Motorola
 	            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
 	            /mot[\s-]?(\w+)*/i,
@@ -12065,16 +12101,16 @@
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
 	            /android.+\s(mz60\d|xoom[\s2]{0,2})\sbuild\//i
 	            ], [MODEL, [VENDOR, 'Motorola'], [TYPE, TABLET]], [
-	
+
 	            /hbbtv\/\d+\.\d+\.\d+\s+\([\w\s]*;\s*(\w[^;]*);([^;]*)/i            // HbbTV devices
 	            ], [[VENDOR, util.trim], [MODEL, util.trim], [TYPE, SMARTTV]], [
-	
+
 	            /hbbtv.+maple;(\d+)/i
 	            ], [[MODEL, /^/, 'SmartTV'], [VENDOR, 'Samsung'], [TYPE, SMARTTV]], [
-	
+
 	            /\(dtv[\);].+(aquos)/i                                              // Sharp
 	            ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
-	
+
 	            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
 	            /((SM-T\w+))/i
 	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
@@ -12084,17 +12120,17 @@
 	            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
 	            /sec-((sgh\w+))/i
 	            ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
-	
+
 	            /sie-(\w+)*/i                                                       // Siemens
 	            ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
-	
+
 	            /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
 	            /(nokia)[\s_-]?([\w-]+)*/i
 	            ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
-	
+
 	            /android\s3\.[\s\w;-]{10}(a\d{3})/i                                 // Acer
 	            ], [MODEL, [VENDOR, 'Acer'], [TYPE, TABLET]], [
-	
+
 	            /android.+([vl]k\-?\d{3})\s+build/i                                 // LG Tablet
 	            ], [MODEL, [VENDOR, 'LG'], [TYPE, TABLET]], [
 	            /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i                     // LG Tablet
@@ -12105,31 +12141,31 @@
 	            /lg[e;\s\/-]+(\w+)*/i,
 	            /android.+lg(\-?[\d\w]+)\s+build/i
 	            ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
-	
+
 	            /android.+(ideatab[a-z0-9\-\s]+)/i                                  // Lenovo
 	            ], [MODEL, [VENDOR, 'Lenovo'], [TYPE, TABLET]], [
-	
+
 	            /linux;.+((jolla));/i                                               // Jolla
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
-	
+
 	            /((pebble))app\/[\d\.]+\s/i                                         // Pebble
 	            ], [VENDOR, MODEL, [TYPE, WEARABLE]], [
-	
+
 	            /android.+;\s(oppo)\s?([\w\s]+)\sbuild/i                            // OPPO
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
-	
+
 	            /crkey/i                                                            // Google Chromecast
 	            ], [[MODEL, 'Chromecast'], [VENDOR, 'Google']], [
-	
+
 	            /android.+;\s(glass)\s\d/i                                          // Google Glass
 	            ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
-	
+
 	            /android.+;\s(pixel c)\s/i                                          // Google Pixel C
 	            ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
-	
+
 	            /android.+;\s(pixel xl|pixel)\s/i                                   // Google Pixel
 	            ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
-	
+
 	            /android.+(\w+)\s+build\/hm\1/i,                                    // Xiaomi Hongmi 'numeric' models
 	            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
 	            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d\w)?)\s+build/i,    // Xiaomi Mi
@@ -12139,91 +12175,91 @@
 	            ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
 	            /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu Tablet
 	            ], [MODEL, [VENDOR, 'Meizu'], [TYPE, TABLET]], [
-	
+
 	            /android.+a000(1)\s+build/i                                         // OnePlus
 	            ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
-	
+
 	            /android.+[;\/]\s*(RCT[\d\w]+)\s+build/i                            // RCA Tablets
 	            ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Venue[\d\s]*)\s+build/i                          // Dell Venue Tablets
 	            ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Q[T|M][\d\w]+)\s+build/i                         // Verizon Tablet
 	            ], [MODEL, [VENDOR, 'Verizon'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s+(Barnes[&\s]+Noble\s+|BN[RT])(V?.*)\s+build/i     // Barnes & Noble Tablet
 	            ], [[VENDOR, 'Barnes & Noble'], MODEL, [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s+(TM\d{3}.*\b)\s+build/i                           // Barnes & Noble Tablet
 	            ], [MODEL, [VENDOR, 'NuVision'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(zte)?.+(k\d{2})\s+build/i                        // ZTE K Series Tablet
 	            ], [[VENDOR, 'ZTE'], MODEL, [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(gen\d{3})\s+build.*49h/i                         // Swiss GEN Mobile
 	            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, MOBILE]], [
-	
+
 	            /android.+[;\/]\s*(zur\d{3})\s+build/i                              // Swiss ZUR Tablet
 	            ], [MODEL, [VENDOR, 'Swiss'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*((Zeki)?TB.*\b)\s+build/i                         // Zeki Tablets
 	            ], [MODEL, [VENDOR, 'Zeki'], [TYPE, TABLET]], [
-	
+
 	            /(android).+[;\/]\s+([YR]\d{2}x?.*)\s+build/i,
 	            /android.+[;\/]\s+(Dragon[\-\s]+Touch\s+|DT)(.+)\s+build/i          // Dragon Touch Tablet
 	            ], [[VENDOR, 'Dragon Touch'], MODEL, [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(NS-?.+)\s+build/i                                // Insignia Tablets
 	            ], [MODEL, [VENDOR, 'Insignia'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*((NX|Next)-?.+)\s+build/i                         // NextBook Tablets
 	            ], [MODEL, [VENDOR, 'NextBook'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Xtreme\_?)?(V(1[045]|2[015]|30|40|60|7[05]|90))\s+build/i
 	            ], [[VENDOR, 'Voice'], MODEL, [TYPE, MOBILE]], [                    // Voice Xtreme Phones
-	
+
 	            /android.+[;\/]\s*(LVTEL\-?)?(V1[12])\s+build/i                     // LvTel Phones
 	            ], [[VENDOR, 'LvTel'], MODEL, [TYPE, MOBILE]], [
-	
+
 	            /android.+[;\/]\s*(V(100MD|700NA|7011|917G).*\b)\s+build/i          // Envizen Tablets
 	            ], [MODEL, [VENDOR, 'Envizen'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(.*\b)\s+build/i             // Le Pan Tablets
 	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Trio[\s\-]*.*)\s+build/i                         // MachSpeed Tablets
 	            ], [MODEL, [VENDOR, 'MachSpeed'], [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*(Trinity)[\-\s]*(T\d{3})\s+build/i                // Trinity Tablets
 	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
-	
+
 	            /android.+[;\/]\s*TU_(1491)\s+build/i                               // Rotor Tablets
 	            ], [MODEL, [VENDOR, 'Rotor'], [TYPE, TABLET]], [
-	
+
 	            /android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
 	            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
-	
+
 	            /android.+(Gigaset)[\s\-]+(Q.+)\s+build/i                           // Gigaset Tablets
 	            ], [VENDOR, MODEL, [TYPE, TABLET]], [
-	
+
 	            /\s(tablet|tab)[;\/]/i,                                             // Unidentifiable Tablet
 	            /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
 	            ], [[TYPE, util.lowerize], VENDOR, MODEL], [
-	
+
 	            /(android.+)[;\/].+build/i                                          // Generic Android Device
 	            ], [MODEL, [VENDOR, 'Generic']]
-	
-	
+
+
 	        /*//////////////////////////
 	            // TODO: move to string map
 	            ////////////////////////////
-	
+
 	            /(C6603)/i                                                          // Sony Xperia Z C6603
 	            ], [[MODEL, 'Xperia Z C6603'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
 	            /(C6903)/i                                                          // Sony Xperia Z 1
 	            ], [[MODEL, 'Xperia Z 1'], [VENDOR, 'Sony'], [TYPE, MOBILE]], [
-	
+
 	            /(SM-G900[F|H])/i                                                   // Samsung Galaxy S5
 	            ], [[MODEL, 'Galaxy S5'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
 	            /(SM-G7102)/i                                                       // Samsung Galaxy Grand 2
@@ -12238,17 +12274,17 @@
 	            ], [[MODEL, 'Galaxy S5 Mini'], [VENDOR, 'Samsung'], [TYPE, MOBILE]], [
 	            /(SM-T311)/i                                                        // Samsung Galaxy Tab 3 8.0
 	            ], [[MODEL, 'Galaxy Tab 3 8.0'], [VENDOR, 'Samsung'], [TYPE, TABLET]], [
-	
+
 	            /(T3C)/i                                                            // Advan Vandroid T3C
 	            ], [MODEL, [VENDOR, 'Advan'], [TYPE, TABLET]], [
 	            /(ADVAN T1J\+)/i                                                    // Advan Vandroid T1J+
 	            ], [[MODEL, 'Vandroid T1J+'], [VENDOR, 'Advan'], [TYPE, TABLET]], [
 	            /(ADVAN S4A)/i                                                      // Advan Vandroid S4A
 	            ], [[MODEL, 'Vandroid S4A'], [VENDOR, 'Advan'], [TYPE, MOBILE]], [
-	
+
 	            /(V972M)/i                                                          // ZTE V972M
 	            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, MOBILE]], [
-	
+
 	            /(i-mobile)\s(IQ\s[\d\.]+)/i                                        // i-mobile IQ
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 	            /(IQ6.3)/i                                                          // i-mobile IQ IQ 6.3
@@ -12257,33 +12293,33 @@
 	            ], [VENDOR, MODEL, [TYPE, MOBILE]], [
 	            /(i-STYLE2.1)/i                                                     // i-mobile i-STYLE 2.1
 	            ], [[MODEL, 'i-STYLE 2.1'], [VENDOR, 'i-mobile'], [TYPE, MOBILE]], [
-	
+
 	            /(mobiistar touch LAI 512)/i                                        // mobiistar touch LAI 512
 	            ], [[MODEL, 'Touch LAI 512'], [VENDOR, 'mobiistar'], [TYPE, MOBILE]], [
-	
+
 	            /////////////
 	            // END TODO
 	            ///////////*/
-	
+
 	        ],
-	
+
 	        engine : [[
-	
+
 	            /windows.+\sedge\/([\w\.]+)/i                                       // EdgeHTML
 	            ], [VERSION, [NAME, 'EdgeHTML']], [
-	
+
 	            /(presto)\/([\w\.]+)/i,                                             // Presto
 	            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,     // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m
 	            /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
 	            /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
 	            ], [NAME, VERSION], [
-	
+
 	            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
 	            ], [VERSION, NAME]
 	        ],
-	
+
 	        os : [[
-	
+
 	            // Windows based
 	            /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
 	            ], [NAME, VERSION], [
@@ -12293,7 +12329,7 @@
 	            ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
 	            /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
 	            ], [[NAME, 'Windows'], [VERSION, mapper.str, maps.os.windows.version]], [
-	
+
 	            // Mobile/Embedded OS
 	            /\((bb)(10);/i                                                      // BlackBerry 10
 	            ], [[NAME, 'BlackBerry'], VERSION], [
@@ -12309,10 +12345,10 @@
 	            ], [NAME], [
 	            /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
 	            ], [[NAME, 'Firefox OS'], VERSION], [
-	
+
 	            // Console
 	            /(nintendo|playstation)\s([wids34portablevu]+)/i,                   // Nintendo/Playstation
-	
+
 	            // GNU/Linux based
 	            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
 	            /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
@@ -12322,29 +12358,29 @@
 	            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
 	            /(gnu)\s?([\w\.]+)*/i                                               // GNU
 	            ], [NAME, VERSION], [
-	
+
 	            /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
 	            ], [[NAME, 'Chromium OS'], VERSION],[
-	
+
 	            // Solaris
 	            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
 	            ], [[NAME, 'Solaris'], VERSION], [
-	
+
 	            // BSD based
 	            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
 	            ], [NAME, VERSION],[
-	
+
 	            /(haiku)\s(\w+)/i                                                  // Haiku
 	            ], [NAME, VERSION],[
-	
+
 	            /cfnetwork\/.+darwin/i,
 	            /ip[honead]+(?:.*os\s([\w]+)\slike\smac|;\sopera)/i                 // iOS
 	            ], [[VERSION, /_/g, '.'], [NAME, 'iOS']], [
-	
+
 	            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,
 	            /(macintosh|mac(?=_powerpc)\s)/i                                    // Mac OS
 	            ], [[NAME, 'Mac OS'], [VERSION, /_/g, '.']], [
-	
+
 	            // Other
 	            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
 	            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
@@ -12354,8 +12390,8 @@
 	            ], [NAME, VERSION]
 	        ]
 	    };
-	
-	
+
+
 	    /////////////////
 	    // Constructor
 	    ////////////////
@@ -12376,16 +12412,16 @@
 	    var OS = Browser;
 	    */
 	    var UAParser = function (uastring, extensions) {
-	
+
 	        if (typeof uastring === 'object') {
 	            extensions = uastring;
 	            uastring = undefined;
 	        }
-	
+
 	        if (!(this instanceof UAParser)) {
 	            return new UAParser(uastring, extensions).getResult();
 	        }
-	
+
 	        var ua = uastring || ((window && window.navigator && window.navigator.userAgent) ? window.navigator.userAgent : EMPTY);
 	        var rgxmap = extensions ? util.extend(regexes, extensions) : regexes;
 	        //var browser = new Browser();
@@ -12393,7 +12429,7 @@
 	        //var device = new Device();
 	        //var engine = new Engine();
 	        //var os = new OS();
-	
+
 	        this.getBrowser = function () {
 	            var browser = { name: undefined, version: undefined };
 	            mapper.rgx.call(browser, ua, rgxmap.browser);
@@ -12444,7 +12480,7 @@
 	        };
 	        return this;
 	    };
-	
+
 	    UAParser.VERSION = LIBVERSION;
 	    UAParser.BROWSER = {
 	        NAME    : NAME,
@@ -12474,12 +12510,12 @@
 	        VERSION : VERSION
 	    };
 	    //UAParser.Utils = util;
-	
+
 	    ///////////
 	    // Export
 	    //////////
-	
-	
+
+
 	    // check js environment
 	    if (typeof(exports) !== UNDEF_TYPE) {
 	        // nodejs env
@@ -12527,7 +12563,7 @@
 	            window.UAParser = UAParser;
 	        }
 	    }
-	
+
 	    // jQuery/Zepto specific (optional)
 	    // Note:
 	    //   In AMD env the global scope should be kept clean, but jQuery is an exception.
@@ -12548,7 +12584,7 @@
 	            }
 	        };
 	    }
-	
+
 	})(typeof window === 'object' ? window : this);
 
 
@@ -12557,9 +12593,8 @@
 /***/ (function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=main.js.map
