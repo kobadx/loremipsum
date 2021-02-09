@@ -55318,8 +55318,6 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "show",
 	    value: function show() {
-	      var _this = this;
-	
 	      console.log("show");
 	      var tl = new TimelineMax();
 	      var h = $(".canvas").height();
@@ -55343,14 +55341,14 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      });
 	
 	      tl.add(function (e) {
-	        _this.timeline();
+	        // this.timeline();
 	      });
 	      return tl;
 	    }
 	  }, {
 	    key: "timeline",
 	    value: function timeline() {
-	      var _this2 = this;
+	      var _this = this;
 	
 	      var l = this.lightObj.children.length;
 	      var index = Math.floor(Math.random() * l);
@@ -55381,7 +55379,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	        target.material.uniforms.dashOffset.value = 0;
 	        target.material.opacity = 0.15;
 	        target.position.y = 0;
-	        _this2.timeline();
+	        _this.timeline();
 	      }, "+=" + 1.5);
 	    }
 	  }, {

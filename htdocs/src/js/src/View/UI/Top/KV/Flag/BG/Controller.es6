@@ -98,7 +98,7 @@ export default class Controller {
     });
 
     tl.add((e) => {
-      this.timeline();
+      // this.timeline();
     });
     return tl;
   }
