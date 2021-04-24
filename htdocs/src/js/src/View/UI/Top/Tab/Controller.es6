@@ -25,12 +25,12 @@ export default class Controller extends Base {
   setup() {
     this.onResize();
 
-    this.$ele.find(".tabbtn.is-active .base_bg").css({
-      "background-color": this.color.activeBtnbg,
-    });
-    this.$ele.find(".tabbtn.is-active span").css({
-      color: this.color.activeBtnColor,
-    });
+    // this.$ele.find(".tabbtn.is-active .base_bg").css({
+    //   "background-color": this.color.activeBtnbg,
+    // });
+    // this.$ele.find(".tabbtn.is-active span").css({
+    //   color: this.color.activeBtnColor,
+    // });
 
     this.$ele.find(".tabContents.is-active .tabContentsItem").css({
       opacity: 1,
@@ -59,7 +59,7 @@ export default class Controller extends Base {
     this.tl
       //hide
       .add(this.hide($prevContents, $prevBtn), 0.0)
-      .add(this.showBtn($nextBtn), 0.0)
+      //.add(this.showBtn($nextBtn), 0.0)
       //show
       .add(this.show($nextContents, $nextBtn), 0.4);
   }
@@ -135,7 +135,7 @@ export default class Controller extends Base {
 
   hide($contents, $btn) {
     const tl = new TimelineMax();
-    tl.add(this.hideBtn($btn));
+    //tl.add(this.hideBtn($btn));
     //contents
     $contents.find(".tabContentsItem").each((i, item) => {
       tl.to(

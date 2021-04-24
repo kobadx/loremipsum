@@ -3909,6 +3909,18 @@
 	    _this.onResize();
 	
 	    // this.timeline();
+	
+	    // Swiper
+	    var swiper = new Swiper('.swiper-container', {
+	      slidesPerView: 'auto',
+	      spaceBetween: 2,
+	      freeMode: true,
+	      slidesOffsetAfter: window.innerWidth - $('.swiper-wrapper').width(),
+	      navigation: {
+	        nextEl: '.swiper-button-next',
+	        prevEl: '.swiper-button-prev'
+	      }
+	    });
 	    return _this;
 	  }
 	
@@ -3916,9 +3928,9 @@
 	    key: "setup",
 	    value: function setup() {
 	      // hover btn
-	      $(".btn-primary").each(function (i, e) {
-	        new _Controller2.default(e);
-	      });
+	      // $(".btn-primary").each((i, e) => {
+	      //   new Hover(e);
+	      // });
 	      // hover footer
 	      $(".footer-link").each(function (i, e) {
 	        new _Controller6.default(e);
@@ -4220,12 +4232,12 @@
 	    value: function setup() {
 	      this.onResize();
 	
-	      this.$ele.find(".tabbtn.is-active .base_bg").css({
-	        "background-color": this.color.activeBtnbg
-	      });
-	      this.$ele.find(".tabbtn.is-active span").css({
-	        color: this.color.activeBtnColor
-	      });
+	      // this.$ele.find(".tabbtn.is-active .base_bg").css({
+	      //   "background-color": this.color.activeBtnbg,
+	      // });
+	      // this.$ele.find(".tabbtn.is-active span").css({
+	      //   color: this.color.activeBtnColor,
+	      // });
 	
 	      this.$ele.find(".tabContents.is-active .tabContentsItem").css({
 	        opacity: 1,
@@ -4260,7 +4272,8 @@
 	      this.tl = new TimelineMax();
 	      this.tl
 	      //hide
-	      .add(this.hide($prevContents, $prevBtn), 0.0).add(this.showBtn($nextBtn), 0.0)
+	      .add(this.hide($prevContents, $prevBtn), 0.0)
+	      //.add(this.showBtn($nextBtn), 0.0)
 	      //show
 	      .add(this.show($nextContents, $nextBtn), 0.4);
 	    }
@@ -4324,7 +4337,7 @@
 	    key: "hide",
 	    value: function hide($contents, $btn) {
 	      var tl = new TimelineMax();
-	      tl.add(this.hideBtn($btn));
+	      //tl.add(this.hideBtn($btn));
 	      //contents
 	      $contents.find(".tabContentsItem").each(function (i, item) {
 	        tl.to(item, 0.8, {

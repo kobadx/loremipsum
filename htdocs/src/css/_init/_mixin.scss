@@ -38,13 +38,25 @@
     }
 }
 
+@mixin font-en($weight: regular) {
+  font-family: 'Jost', sans-serif;
+
+	@if $weight == 'bold' {
+    font-weight: 600;
+	}
+
+	@if $weight == 'regular' {
+    font-weight: 400;
+	}
+
+}
 
 /* --------------------------------------------------------------------------------
 *
 *   animation
 *
 -------------------------------------------------------------------------------- */
-    
+
 // animation
 @mixin keyframes($name) {
   @-webkit-keyframes $name {
@@ -52,14 +64,14 @@
   }
   @-moz-keyframes $name {
     @content;
-  } 
+  }
   @keyframes $name {
     @content;
   }
 }
 
 	// #hoge{
-	//     @include animation(animationSample 1.2s ease 0.15s);   
+	//     @include animation(animationSample 1.2s ease 0.15s);
 	// }
 	// @include keyframes(name){
 	//     0% {
@@ -69,7 +81,7 @@
 	//         opacity:1;
 	//     }
 	// }
-	
+
 	// 補完(インターポレーション)：#{}
 	// Sassは補完を行うための構文として #{} を用意している。
 	// 変数に入った文字列は通常は値として認識されてエラーが出てしまうため、そのままだとプロパティの値にしか使用できないが、 シャープ記号を前に置いた波括弧 #{}と組み合わせることでセレクタやプロパティ名にも使うことができるようになる。
@@ -83,7 +95,7 @@
 // pc-w | pc | tablet | mobile | mobile-s
 
 @mixin media-max($media-width) {
-  
+
   // - | - | - | - | ○
 	@if $media-width == 'sp-s' {
 		@media only screen and (max-width: $bp00 - 1) {
@@ -97,7 +109,7 @@
           @content;
       }
   }
-  
+
   // - | - | - | ○ | ○
   @else if $media-width == 'tab' {
       @media only screen and (max-width: $bp02) {
@@ -111,7 +123,7 @@
           @content;
       }
   }
-  
+
   // ○ | - | - | - | -
 	@else if $media-width == 'pc-w' {
 		@media only screen and (min-width: $bp03 + 1) {
@@ -128,7 +140,7 @@
 }
 
 @mixin media-min($media-width) {
-	
+
   // - | - | - | - | ○
   @if $media-width == 'sp-s' {
     @media only screen and (max-width: $bp00 - 1) {
@@ -142,7 +154,7 @@
           @content;
       }
   }
-  
+
   // ○ | ○ | ○ | - | -
   @else if $media-width == 'tab' {
       @media only screen and (min-width: $bp01 + 1) {
@@ -156,7 +168,7 @@
           @content;
       }
   }
-  
+
   // ○ | - | - | - | -
   @else if $media-width == 'pc-w' {
     @media only screen and (min-width: $bp03 + 1) {
@@ -175,62 +187,62 @@
 
 /*
 *
-*   max order 
+*   max order
 *
 */
 // @include media-max('pc-w') {
-  
+
 //   width: 20px;
 
 // }
 // @include media-max('pc') {
-  
+
 //   width: 40px;
 
 // }
 // @include media-max('tab') {
-  
+
 //   width: 60px;
 
 // }
 // @include max(768) {
-  
+
 //   width: 90px;
 
 // }
 // @include media-max('sp-s') {
-  
+
 //   width: 200px;
 
 // }
 
 /*
 *
-*   min order 
+*   min order
 *
 */
 // @include media-min('sp-s') {
-  
+
 //   width: 20px;
 
 // }
 // @include media-min('sp') {
-  
+
 //   width: 40px;
 
 // }
 // @include media-min('tab') {
-  
+
 //   width: 60px;
 
 // }
 // @include media-min('pc') {
-  
+
 //   width: 90px;
 
 // }
 // @include media-min('pc-w') {
-  
+
 //   width: 200px;
 
 // }
@@ -238,7 +250,7 @@
 
 /*
 *
-*   how to   
+*   how to
 *
 */
   // #main {
@@ -255,7 +267,7 @@
   // 			margin: 0 10px;
   // 		}
   // }
-  
+
 // MediaQueries
 @mixin max($bp: 767) {
   @media (max-width: $bp+'px') {
@@ -314,6 +326,6 @@
   // 		}
   // 	}
   // }
-  
+
   // cf
   // http://webskillup.com/ety/20141213193916/

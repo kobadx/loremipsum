@@ -3,13 +3,13 @@
 <html lang="ja" class="htmlTop">
 <head>
 <%- include(rootPATH + 'inc/_meta', {data:data, meta:data['common']}); %>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
 <link href="<%- PATH %>assets/css/style.css" rel="stylesheet">
 <%- include(rootPATH + 'inc/_log'); %>
 </head>
 <body id="<%- page %>" class="">
 
-<div id="wrapper" class="id_<%- page %> fixed">
+<!-- <div id="wrapper" class="id_<%- page %> fixed"> -->
+<div id="wrapper" class="id_<%- page %>">
 
   <!-- canvas -->
   <div class="canvasWrap">
@@ -26,11 +26,14 @@
   <div id="inner">
 
     <%- include(contentsPATH + '_section01', {page:page, PATH: PATH}); %>
-    <%- include(contentsPATH + '_section02', {page:page, PATH: PATH}); %>
-    <%- include(contentsPATH + '_section03', {page:page, PATH: PATH}); %>
-    <%- include(contentsPATH + '_section04', {page:page, PATH: PATH}); %>
-    <%- include(contentsPATH + '_section05', {page:page, PATH: PATH}); %>
-    <%- include(contentsPATH + '_section06', {page:page, PATH: PATH}); %>
+
+    <div id="body" class="whitebg">
+      <%- include(contentsPATH + '_section02', {page:page, PATH: PATH}); %>
+      <%- include(contentsPATH + '_section03', {page:page, PATH: PATH}); %>
+      <%- include(contentsPATH + '_section04', {page:page, PATH: PATH}); %>
+      <%- include(contentsPATH + '_section05', {page:page, PATH: PATH}); %>
+      <%- include(contentsPATH + '_section06', {page:page, PATH: PATH}); %>
+    </div>
 
   </div>
 

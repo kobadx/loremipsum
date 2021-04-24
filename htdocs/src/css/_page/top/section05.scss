@@ -6,97 +6,111 @@
 *
 -------------------------------------------------------------------------------- */
 .index-casestudy {
-  margin-bottom: 240px;
+  margin-bottom: 196px;
 
   @media only screen and (max-width: $bp01) {
-    margin-bottom: 140px;
-  }
-}
-
-.index-casestudy-inner {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 20px;
-
-  @media only screen and (max-width: $bp01) {
-    padding: 0 22px;
-  }
-}
-
-.index-casestudy-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
-
-  @media only screen and (max-width: $bp01) {
-    display: block;
-    margin-top: 40px;
-    margin-bottom: 35px;
-  }
-}
-
-.index-casestudy-item {
-  flex: 0 0 32.2%;
-  width: 32.2%;
-  margin-right: 1.7%;
-
-  @media only screen and (max-width: $bp01) {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 25px;
+    margin-bottom: 60px;
   }
 
-  &:nth-child(3n) {
-    margin-right: 0;
-  }
+  .index-casestudy-inner {
+    max-width: 1120px;
+    margin: 0 auto 64px;
+    padding: 0 20px;
 
-  &:last-child {
     @media only screen and (max-width: $bp01) {
-      margin-bottom: 0;
+      margin-bottom: 32px;
+    }
+
+    .index-casestudy-head {
+      display: flex;
+      justify-content: space-between;
     }
   }
-}
 
-.index-casestudy-link {
-  display: block;
-}
+  .index-casestudy-container {
+    .index-casestudy-wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px;
 
-.index-casestudy-img {
-  margin-bottom: 15px;
-  overflow: hidden;
-  backface-visibility: hidden;
-  img {
-    backface-visibility: hidden;
-  }
-  @media only screen and (max-width: $bp01) {
-    margin-bottom: 20px;
-  }
-}
+      @media only screen and (max-width: $bp01) {
+        width: calc(100vw - 40px);
+      }
 
-.index-casestudy-img-item {
-  width: 100%;
-  height: auto;
-}
+      .index-casestudy-slide {
+        width: calc(100% / 3);
 
-.index-casestudy-title {
-  font-size: 1.42rem;
-  color: #fff;
-  margin-top: 15px;
-  margin-bottom: 10px;
+        @media only screen and (max-width: $bp01) {
+          width: calc(100% / 2);
+        }
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.24rem;
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-}
+        .index-casestudy-link {
+          display: block;
 
-.index-casestudy-name {
-  font-size: 1.28rem;
-  color: #fff;
+          .index-casestudy-img {
+            margin-bottom: 28px;
+            overflow: hidden;
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.12rem;
+            @media only screen and (max-width: $bp01) {
+              margin-bottom: 12px;
+            }
+
+            .index-casestudy-img-item {
+              width: 100%;
+              transition: transform 1000ms $easeOutCubic;
+            }
+          }
+
+          .index-casestudy-title {
+            font-size: 1.4rem;
+            font-feature-settings: 'palt';
+            letter-spacing: 0.05em;
+            line-height: 1.5;
+            margin: -4px 0 24-4px;
+
+            @media only screen and (max-width: $bp01) {
+              font-size: 1.2rem;
+              margin: -3px 0 12-3px;
+            }
+          }
+
+          &:hover {
+            .index-casestudy-img {
+              .index-casestudy-img-item {
+                transform: scale(1.1);
+                transition: transform 500ms $easeOutCubic;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .index-casestudy-button {
+      .index-casestudy-button-next,
+      .index-casestudy-button-prev {
+        width: 48px;
+        height: 48px;
+        background: $white url('/assets/img/common/icon_link.svg') no-repeat 60% center;
+
+        @media only screen and (max-width: $bp01) {
+          display: none;
+        }
+
+        &:after {
+          display: none;
+        }
+      }
+
+      .index-casestudy-button-next {
+        right: 0px;
+      }
+
+      .index-casestudy-button-prev {
+        left: 0px;
+        transform: rotateY(-180deg);
+      }
+
+    }
   }
 }

@@ -6,24 +6,90 @@
 *
 -------------------------------------------------------------------------------- */
 .index-contact {
-  margin-bottom: 300px;
+  background: $blue;
 
-  @media only screen and (max-width: $bp01) {
-    margin-bottom: 95px;
-  }
-}
+  .index-contact-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 80px 20px 96px;
+    display: flex;
+    justify-content: center;
 
-.index-contact-text {
-  text-align: center;
-  max-width: 560px;
-  margin: 0 auto;
-  font-size: 1.6rem;
-  color: #fff;
-  line-height: 1.75;
+    @media only screen and (max-width: $bp01) {
+      padding: 44px 20px 48px;
+      display: block;
+    }
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.4rem;
-    padding: 0 20px;
-    text-align: left;
+    .index-contact-item {
+      width: calc((100% - 320px) / 2);
+
+      @media only screen and (max-width: $bp01) {
+        width: 100%;
+      }
+
+      &+.index-contact-item {
+        margin-left: 80px;
+        border-left: 1px solid rgba(255,255,255,0.2);
+        padding-left: 80-1px;
+
+        @media only screen and (max-width: $bp01) {
+          margin: 40px 0 0 0;
+          border-top: 1px solid rgba(255,255,255,0.2);
+          border-left: 0;
+          padding: 40px 0 0 0;
+        }
+      }
+
+      .index-contact-img {
+        text-align: center;
+        margin-bottom: 48px;
+
+        @media only screen and (max-width: $bp01) {
+          margin-bottom: 32px;
+        }
+      }
+
+      .index-contact-title {
+        color: $white;
+        font-size: 2.0rem;
+        font-weight: normal;
+        font-feature-settings: 'palt';
+        text-align: center;
+        letter-spacing: 0.1em;
+        margin-bottom: 16px;
+
+        @media only screen and (max-width: $bp01) {
+          font-size: 1.6rem;
+          margin-bottom: 6px;
+        }
+      }
+
+      .index-contact-title-en {
+        @include font-en;
+        color: $white;
+        font-size: 1.4rem;
+        text-align: center;
+        letter-spacing: 0.05em;
+        margin-bottom: 40px;
+        opacity: 0.5;
+
+        @media only screen and (max-width: $bp01) {
+          font-size: 1.0rem;
+          margin-bottom: 28px;
+        }
+      }
+
+      .index-contact-text {
+        color: $white;
+        font-size: 1.4rem;
+        line-height: 2;
+        margin: -7px 0 56-7px;
+
+        @media only screen and (max-width: $bp01) {
+          font-size: 1.2rem;
+          margin: -6px 0 32-6px;
+        }
+      }
+    }
   }
 }

@@ -34,13 +34,25 @@ export default class Controller extends Base {
     this.onResize();
 
     // this.timeline();
+
+    // Swiper
+    const swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 2,
+      freeMode: true,
+      slidesOffsetAfter: window.innerWidth-$('.swiper-wrapper').width(),
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
   }
 
   setup() {
     // hover btn
-    $(".btn-primary").each((i, e) => {
-      new Hover(e);
-    });
+    // $(".btn-primary").each((i, e) => {
+    //   new Hover(e);
+    // });
     // hover footer
     $(".footer-link").each((i, e) => {
       new HoverText(e);

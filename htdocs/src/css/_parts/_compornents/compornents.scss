@@ -5,92 +5,163 @@
 -------------------------------------------------------------------------------- */
 
 .btn-block {
-  margin-top: 55px;
-  display: flex;
-  justify-content: center;
+  .btn-primary,
+  .btn-secondary {
+    display: block;
+    position: relative;
 
-  @media only screen and (max-width: $bp01) {
-    margin-top: 25px;
+    &:hover {
+      &:after {
+        transform: translateX(4px) rotateX(-180deg);
+        transition: transform 500ms $easeOutCubic;
+      }
+    }
   }
 
-  &.is-right {
-    justify-content: flex-end;
+  .btn-primary {
+    width: 100%;
+    height: 72px;
 
     @media only screen and (max-width: $bp01) {
-      justify-content: center;
+      height: 48px;
+    }
+
+    .bg {
+      width: 100%;
+      height: 100%;
+      background: $blue;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    p {
+      @include font-en;
+      color: $white;
+      font-size: 1.6rem;
+      line-height: 72px;
+      letter-spacing: 0.05em;
+      padding-left: 28px;
+      position: relative;
+      z-index: 1;
+      top: -0.5px;
+
+      @media only screen and (max-width: $bp01) {
+        font-size: 1.2rem;
+        line-height: 48px;
+        padding-left: 20px;
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 20px;
+      height: 7px;
+      background: url('/assets/img/common/icon_link_wht.svg') no-repeat center center;
+      background-size: cover;
+      position: absolute;
+      top: calc(50% - 4.5px);
+      right: 28px;
+      transition: transform 500ms $easeOutCubic;
+
+      @media only screen and (max-width: $bp01) {
+        width: 15px;
+        height: 6px;
+        top: calc(50% - 3px);
+        right: 20px
+      }
+    }
+
+    &.is-blank {
+      &:after {
+        width: 15px;
+        height: 11px;
+        background: url('/assets/img/common/icon_blank_wht.svg') no-repeat center center;
+        background-size: cover;
+        top: calc(50% - 5.5px);
+
+        @media only screen and (max-width: $bp01) {
+          width: 11px;
+          height: 8px;
+          top: calc(50% - 5px);
+          right: 20px
+        }
+      }
+    }
+
+    &.wht {
+      .bg {
+        background: $white;
+      }
+
+      p {
+        color: $blue;
+      }
+
+      &:after {
+        background: url('/assets/img/common/icon_link.svg') no-repeat center center;
+        background-size: cover;
+      }
+
+      &.is-blank {
+        &:after {
+          background: url('/assets/img/common/icon_blank.svg') no-repeat center center;
+          background-size: cover;
+        }
+      }
     }
   }
-}
 
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 290px;
-  height: 64px;
-  font-size: 1.6rem;
+  .btn-secondary {
+    padding-right: 56px;
 
-  @media only screen and (max-width: $bp01) {
-    width: 198px;
-    height: 44px;
-    font-size: 1.4rem;
-  }
-
-  &.is-blank {
-    &::after {
-      content: "";
-      display: inline-block;
-      width: 15px;
-      height: 11px;
-      background: url(/assets/img/common/icon_blank.png) no-repeat 0;
-      background-size: 15px 11px;
-      vertical-align: middle;
-      margin-left: 10px;
+    @media only screen and (max-width: $bp01) {
+      padding-right: 40px;
     }
-  }
-}
 
-.btn-primary,
-.btn-primary:visited {
-  background-color: #000ba3;
-  color: #fff;
-}
+    p {
+      @include font-en;
+      color: $blue;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
+      top: -0.5px;
 
-.btn-primary {
-  position: relative;
-  .bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    transform: scaleX(0);
-  }
-  p {
-    position: relative;
-  }
-}
+      @media only screen and (max-width: $bp01) {
+        font-size: 1.2rem;
+      }
+    }
 
-.btn-secondary,
-.btn-secondary:visited {
-  background-color: #2e2f30;
-  color: #fff;
-}
+    &:after {
+      content: '';
+      width: 20px;
+      height: 7px;
+      background: url('/assets/img/common/icon_link.svg') no-repeat center center;
+      background-size: cover;
+      position: absolute;
+      top: calc(50% - 4.5px);
+      right: 0;
+      transition: transform 500ms $easeOutCubic;
 
-.btn-secondary {
-  position: relative;
-  .bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    transform: scaleX(0);
-  }
-  p {
-    position: relative;
+      @media only screen and (max-width: $bp01) {
+        height: 15px;
+        height: 6px;
+        top: calc(50% - 3px);
+      }
+    }
+
+    &.wht {
+      p {
+        color: $white;
+      }
+
+      &:after {
+        background: url('/assets/img/common/icon_link_wht.svg') no-repeat center center;
+        background-size: cover;
+      }
+    }
   }
 }
 
@@ -99,67 +170,39 @@
 *   title
 *
 -------------------------------------------------------------------------------- */
-.section-head {
-  margin-bottom: 40px;
+.section-head-title-en {
+  @include font-en;
+  color: $blue;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  padding-left: 56px;
+  position: relative;
 
   @media only screen and (max-width: $bp01) {
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    padding-left: 28px;
   }
 
-  &.is-center {
-    text-align: center;
+  &:before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: $blue;
+    position: absolute;
+    top: 14px;
+    left: 0;
 
-    .section-head-lead {
-      font-size: 1.83rem;
-      margin-bottom: 20px;
-
-      @media only screen and (max-width: $bp01) {
-        font-size: 1.24rem;
-        margin-bottom: 5px;
-      }
+    @media only screen and (max-width: $bp01) {
+      width: 20px;
+      top: 8px;
     }
-
-    .section-head-title {
-      font-size: 4.25rem;
-
-      @media only screen and (max-width: $bp01) {
-        font-size: 2.8rem;
-      }
-    }
   }
-}
 
-.section-head-lead {
-  color: #00a2ff;
-  font-size: 1.4rem;
+  &.wht{
+    color: $white;
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-}
-
-.section-head-title {
-  color: #fff;
-  font-size: 2.56rem;
-  font-weight: normal;
-
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.87rem;
-  }
-}
-
-.section-head-lead-img {
-  @media only screen and (max-width: $bp01) {
-    height: 8px;
-    width: auto;
-
-    &.is-casestudy {
-      height: 14px;
-    }
-
-    &.is-contact {
-      height: 14px;
+    &:before{
+      background: $white;
     }
   }
 }
@@ -170,19 +213,23 @@
 *
 -------------------------------------------------------------------------------- */
 .category {
-  color: #fff;
-  font-size: 1.05rem;
+  color: $blue;
+  font-size: 1.1rem;
+  font-feature-settings: 'palt';
+  letter-spacing: 0.05em;
+  line-height: 1;
   display: inline-block;
-  border: solid 1px #fff;
-  padding: 0 5px;
+  border: solid 1px $blue;
+  border-radius: 3px;
+  padding: 2px 3px;
+
+  &.wht {
+    color: $white;
+    border-color: $white;
+  }
 
   @media only screen and (max-width: $bp01) {
     font-size: 0.93rem;
-  }
-
-  &.is-bg {
-    color: #2e2f30;
-    background-color: #e4e4e4;
   }
 }
 
@@ -334,6 +381,33 @@ body.no-select {
     height: 34px;
     font-size: 1.42rem;
     margin-bottom: 10px;
+    color: $white;
+    text-align: center;
+    line-height: 34px;
+    display: block;
+    position: relative;
+
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    &.btn-primary {
+      margin-bottom: 8px;
+      .bg {
+        background: $blue;
+      }
+    }
+
+    &.btn-secondary {
+      .bg {
+        background: #2e2f30;
+      }
+    }
 
     @media only screen and (max-width: $bp01) {
       flex: 0 0 91px;
@@ -341,6 +415,7 @@ body.no-select {
       height: 24px;
       margin: 0 5px;
       font-size: 1.12rem;
+      line-height: 24px;
     }
   }
 }

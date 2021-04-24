@@ -16,8 +16,7 @@ $hidden: false; // スクロール表示・非表示
 // color
 //------------------------------------
 $font-color: #000; // テキスト
-$bg-color: #fff; // 背景
-// $bg-color: #000;
+$bg-color: #f5f7f9; // 背景
 
 // リンク
 $link-color: $font-color;
@@ -30,8 +29,10 @@ $grayDarker  : #222 !default;
 $grayDark    : #333 !default;
 $gray        : #555 !default;
 $grayLight   : #999 !default;
-$grayLighter : #eee !default;
+$grayLighter : #edeff1 !default;
 $white       : #fff !default;
+
+$blue: #00076d;
 
 /* --------------------------------------------------------------------------------
 *   text / font

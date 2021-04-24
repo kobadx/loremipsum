@@ -39,11 +39,13 @@ gulp.task("concatJSLibs", () => {
 
     PATH.src.js + "libs/tween/TweenMax.min.js",
     PATH.src.js + "libs/tween/DrawSVGPlugin.min.js",
-    PATH.src.js + "libs/tween/CustomEase.js"
+    PATH.src.js + "libs/tween/CustomEase.js",
     // PATH.src.js + 'libs/tween/ImprovedNoise.js',
     // PATH.src.js + 'libs/tween/perlin.js',
 
     // PATH.src.js + 'libs/physics/p2.min.js',
+
+    PATH.src.js + "libs/swiper/swiper-bundle.min.js"
   ];
 
   gulp

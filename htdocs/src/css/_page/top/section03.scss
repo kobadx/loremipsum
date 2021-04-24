@@ -6,127 +6,263 @@
 *
 -------------------------------------------------------------------------------- */
 .index-column {
+  margin-bottom: 168px;
   position: relative;
-  margin-bottom: 140px;
 
-  & > .bg {
-    position: absolute;
-    width: 82%;
-    height: 106%;
-    padding-top: 0;
-    right: 0;
-    top: -60px;
+  @media only screen and (max-width: $bp01) {
+    margin-bottom: 60px;
+  }
+
+  .index-column-bg {
+    width: 100%;
+    height: calc(100% - 160px);
     overflow: visible;
-    .bg-inner {
-      background-color: rgba(0, 0, 0, 0.2);
+    padding: 0;
+    position: absolute;
+    top: 80+50px;
+    left: 0;
+
+    .index-column-bg-inner{
+      width: 100%;
       height: 100%;
-      top: 0;
+      background: $blue;
     }
   }
-}
 
-.index-column-inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  position: relative;
-  padding: 0 20px;
-  & > .parallax-inner {
+  .index-column-inner {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+
     @media only screen and (max-width: $bp01) {
       display: block;
     }
+
+    .index-recruit {
+      width: 25%;
+      box-sizing: border-box;
+      order: 2;
+
+      @media only screen and (max-width: $bp01) {
+        width: 100%;
+        margin-bottom: 40px;
+      }
+
+      .index-recruit-inner {
+        background: url('/assets/img/index/bg_recruit.jpg') no-repeat 65% center;
+        background-size: cover;
+        padding: 36px 24px 24px;
+        display: block;
+        transition: transform 375ms $easeOutCubic;
+
+        @media only screen and (max-width: $bp01) {
+          padding: 20px;
+        }
+
+        &:hover {
+          transform: translateY(-16px);
+          transition: transform 375ms $easeOutCubic;
+        }
+
+        .index-recruit-logo {
+          width: 180px;
+          margin-bottom: 16px;
+
+          @media only screen and (max-width: $bp01) {
+            width: 100px;
+            margin-bottom: 10px;
+          }
+
+          img{
+            width: 100%;
+          }
+        }
+
+        .index-recruit-title {
+          color: $white;
+          font-size: 1.4rem;
+          letter-spacing: 0.05em;
+          margin-bottom: 56px;
+          padding-left: 36px;
+          position: relative;
+
+          @media only screen and (max-width: $bp01) {
+            font-size: 1.0rem;
+            margin-bottom: 24px;
+            padding-left: 20px;
+          }
+
+          &:before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: $white;
+            position: absolute;
+            top: 10px;
+            left: 0;
+
+            @media only screen and (max-width: $bp01) {
+              width: 12px;
+              top: 7.5px;
+            }
+          }
+        }
+
+        .index-recruit-lead {
+          margin-bottom: 64px;
+
+          .sp {
+            display: none;
+          }
+
+          @media only screen and (max-width: $bp01) {
+            margin-bottom: 30px;
+
+            .pc {
+              display: none;
+            }
+
+            .sp {
+              display: block;
+              width: 100%;
+            }
+          }
+        }
+
+        .btn-block {
+          .btn-primary {
+            &:hover {
+              &:after {
+                transform: none;
+              }
+            }
+          }
+        }
+      }
+    }
   }
-}
 
-.index-recruit {
-  width: 46.4%;
-  flex: 0 0 46.4%;
-  padding: 0;
-  height: auto;
-  @media only screen and (max-width: $bp01) {
-    width: 100%;
-    margin-bottom: 35px;
-  }
-}
+  .index-news {
+    width: calc(75% - 96px);
+    margin: 172px 96px 0 0;
+    position: relative;
+    order: 1;
 
-.index-recruit-inner {
-}
+    @media only screen and (max-width: $bp01) {
+      width: 100%;
+      margin: 0;
+    }
 
-.index-recruit-img {
-  @media only screen and (max-width: $bp01) {
-    margin-bottom: 40px;
-  }
-}
+    .section-head-title-en {
+      margin-bottom: 56px;
 
-.index-recruit-img-item {
-  width: 100%;
-  // height: auto;
-}
+      @media only screen and (max-width: $bp01) {
+        margin-bottom: 28px;
+      }
+    }
 
-.index-news {
-  width: 46.4%;
-  flex: 0 0 46.4%;
-  padding: 0;
-  height: auto;
-  @media only screen and (max-width: $bp01) {
-    width: 100%;
-  }
-}
+    .btn-block {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
 
-.index-news-inner {
-}
+    .index-news-inner {
+      height: 560px;
+      position: relative;
 
-.index-news-list {
-  height: 262px;
-  overflow: auto;
+      @media only screen and (max-width: $bp01) {
+        height: 280px;
+      }
 
-  @media only screen and (max-width: $bp01) {
-    height: 225px;
-    margin-bottom: 35px;
-  }
-}
+      &:before {
+        content: '';
+        width: calc((100vw - 100%) / 2);
+        height: 100%;
+        background: $white;
+        position: absolute;
+        top: 0;
+        left: calc((100vw - 100%) / -2);
 
-.index-news-item {
-  padding: 10px 0;
-  border-bottom: solid 1px #fff;
-}
+        @media only screen and (max-width: $bp01) {
+          width: 20px;
+          left: -20px;
+        }
+      }
 
-.index-news-head {
-  display: flex;
-  margin-bottom: 10px;
-}
+      .index-news-list {
+        background: $white;
+        height: 100%;
+        padding: 52px 56px 0 0;
+        box-sizing: border-box;
+        overflow: auto;
 
-.index-news-date {
-  color: #fff;
-  font-size: 1.05rem;
-  margin-right: 15px;
+        @media only screen and (max-width: $bp01) {
+          padding: 28px 20px 0 0;
+        }
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.1rem;
-  }
-}
+        .index-news-item {
+          &:last-child {
+            margin-bottom: 56px;
 
-.index-news-text {
-  color: #fff;
-  font-size: 1.6rem;
-  position: relative;
-  display: block;
-  p {
-    font-feature-settings: "palt";
-  }
-  .arrow {
-    display: block;
-    position: absolute;
-    background: url(/assets/img/common/arrow_r_wht.png) no-repeat 0;
-    background-size: 52px auto;
-    width: 52px;
-    height: 8px;
-    right: 0;
-    bottom: 5px;
-  }
+            @media only screen and (max-width: $bp01) {
+              margin-bottom: 28px;
+            }
+          }
 
-  @media only screen and (max-width: $bp01) {
-    font-size: 1.25rem;
+          &+.index-news-item {
+            margin-top: 32px;
+            border-top: 1px solid $grayLighter;
+            padding-top: 32px;
+
+            @media only screen and (max-width: $bp01) {
+              margin-top: 16px;
+              padding-top: 16px;
+            }
+          }
+
+          .index-news-link {
+            display: block;
+
+            .index-news-head {
+              display: flex;
+              align-items: center;
+              margin-bottom: 16px;
+
+              @media only screen and (max-width: $bp01) {
+                margin-bottom: 12px;
+              }
+
+              .index-news-date {
+                @include font-en;
+                color: $blue;
+                font-size: 1.4rem;
+                margin-right: 16px;
+
+                @media only screen and (max-width: $bp01) {
+                  margin-right: 8px;
+                }
+              }
+            }
+
+            .index-news-text {
+              font-size: 1.6rem;
+              line-height: 1.5;
+              margin: -4px 0;
+
+              @media only screen and (max-width: $bp01) {
+                font-size: 1.2rem;
+                margin: -3px 0;
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 }

@@ -38,7 +38,6 @@
 
   @media only screen and (max-width: $bp01) {
     font-size: 1.4rem;
-    margin-bottom: 5px;
   }
 }
 
@@ -46,6 +45,7 @@
   color: #fff;
   font-size: 8.6rem;
   line-height: 1.1;
+  margin-bottom: 36px;
 
   opacity: 0;
 
@@ -84,38 +84,92 @@
   }
 }
 
-.scroll-btn {
-  width: 1px;
-  height: 60px;
-  overflow: hidden;
-  position: relative;
-  margin: auto;
-  padding: 0 20px;
-  cursor: pointer;
-  margin-top: -25px;
-  @media only screen and (min-width: $bp01 + 1px) {
-    display: none;
-  }
-  .bar {
-    width: 1px;
-    height: 100%;
-    background: #eeeff2;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    margin: auto;
-    transform: translateY(-110%);
-  }
-  .bar2 {
-    width: 1px;
-    height: 100%;
-    background: rgba(238, 239, 242, 0.3);
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    margin: auto;
-    transform: translateY(-110%);
+.index-kv-news {
+  .index-kv-news-inner {
+    display: flex;
+    align-items: center;
+    width: 75%;
+    background: $bg-color;
+    margin-left: 25%;
+    padding: 24px 0 16px;
+    box-sizing: border-box;
+    position: relative;
+
+    @media only screen and (max-width: $bp01) {
+      display: block;
+      width: calc(100% - 20px);
+      margin-left: 20px;
+      padding: 20px 20px 0;
+    }
+
+    .index-kv-news-link {
+      width: calc(100% - 240px);
+      padding: 0 40px;
+      display: flex;
+      box-sizing: border-box;
+      transition: opacity 250ms $easeOutCubic;
+
+      @media only screen and (max-width: $bp01) {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+      }
+
+      .index-kv-news-date {
+        @include font-en;
+        color: $blue;
+        font-size: 1.4rem;
+        margin-right: 32px;
+
+        @media only screen and (max-width: $bp01) {
+          font-size: 1.2rem;
+          margin: 0 0 16px 0;
+        }
+      }
+
+      .index-kv-news-text {
+        font-size: 1.4rem;
+        line-height: 1.5;
+        margin: -3.5px 0;
+
+        @media only screen and (max-width: $bp01) {
+          font-size: 1.2rem;
+          margin: -3px 0;
+        }
+      }
+
+      &:hover{
+        opacity: 0.5;
+        transition: opacity 250ms $easeOutCubic;
+      }
+    }
+
+    .btn-block {
+      width: 200px;
+
+      @media only screen and (max-width: $bp01) {
+        width: 75%;
+        margin-left: 25%;
+      }
+
+      .btn-primary {
+        height: 48px;
+
+        p{
+          font-size: 1.4rem;
+          line-height: 48px;
+          padding-left: 20px;
+
+          @media only screen and (max-width: $bp01) {
+            font-size: 1.2rem;
+          }
+        }
+
+        &:after {
+          right: 20px;
+        }
+      }
+    }
   }
 }
