@@ -21,7 +21,7 @@ export default class Controller extends Base {
   }
 
   scroll() {
-    if (this.bp <= window.innerWidth) return;
+    //if (this.bp <= window.innerWidth) return;
     const st = $(window).scrollTop();
     const headerHeight = this.$ele.height();
     let isWhite = false;

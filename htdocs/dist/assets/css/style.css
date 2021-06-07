@@ -1805,7 +1805,7 @@ button.swiper-pagination-bullet
 -------------------------------------------------------------------------------- */
 .header
 {
-    position: fixed;
+    position: absolute;
     z-index: 100;
     top: 0;
     left: 0;
@@ -1885,7 +1885,9 @@ button.swiper-pagination-bullet
 
 .header-menu-btn
 {
-    position: relative;
+    position: fixed;
+    top: 55px;
+    right: 60px;
 
     display: block;
 
@@ -1899,6 +1901,9 @@ button.swiper-pagination-bullet
 {
     .header-menu-btn
     {
+        top: 30px;
+        right: 24px;
+
         width: 44px;
         height: 25px;
     }
@@ -1925,7 +1930,7 @@ button.swiper-pagination-bullet
 
 .is-blue .header-menu-btn-line
 {
-    background-color: #000ba3;
+    background-color: #aaa;
 }
 
 .header-menu-btn-line:nth-child(1)
@@ -1976,7 +1981,7 @@ button.swiper-pagination-bullet
 
 .is-blue .header-menu-btn-text
 {
-    color: #000ba3;
+    color: #aaa;
 }
 
 .menu
@@ -4510,7 +4515,7 @@ a:active
 #wrapper.id_top .index-column .index-column-inner .index-recruit
 {
     box-sizing: border-box;
-    width: 25%;
+    width: 33%;
 
     -webkit-order: 2;
     -ms-flex-order: 2;
@@ -4530,7 +4535,7 @@ a:active
 {
     display: block;
 
-    padding: 36px 24px 24px;
+    padding: 44px 36px 36px;
 
     transition: -webkit-transform 375ms cubic-bezier(.215, .61, .355, 1);
     transition:         transform 375ms cubic-bezier(.215, .61, .355, 1);
@@ -4666,7 +4671,7 @@ a:active
 {
     position: relative;
 
-    width: calc(75% - 96px);
+    width: calc(67% - 96px);
     margin: 172px 96px 0 0;
 
     -webkit-order: 1;

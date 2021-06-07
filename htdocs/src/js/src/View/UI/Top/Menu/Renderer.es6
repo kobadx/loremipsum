@@ -47,44 +47,44 @@ export default class Controller {
       )
 
       // bg line
-      .add(() => {
-        this.$contents.find(".bg span").each((i, e) => {
-          tl
-            // color 濃く
-            .to(
-              e,
-              0.2,
-              {
-                "background-color": "rgb(200,200,200)",
-                ease: Expo.easeOut
-              },
-              i * 0.05
-            )
-            // color 薄く
-            .to(
-              e,
-              0.5,
-              {
-                "background-color": "rgb(243,243,243)",
-                ease: Expo.easeOut
-              },
-              i * 0.05 + 0.2
-            )
-            // 線伸ばす
-            .to(
-              e,
-              0.75,
-              {
-                scaleY: 1,
-                startAt: {
-                  scaleY: 0
-                },
-                ease: Expo.easeOut
-              },
-              i * 0.05
-            );
-        });
-      }, 0.0)
+      // .add(() => {
+      //   this.$contents.find(".bg span").each((i, e) => {
+      //     tl
+      //       // color 濃く
+      //       .to(
+      //         e,
+      //         0.2,
+      //         {
+      //           "background-color": "rgb(200,200,200)",
+      //           ease: Expo.easeOut
+      //         },
+      //         i * 0.05
+      //       )
+      //       // color 薄く
+      //       .to(
+      //         e,
+      //         0.5,
+      //         {
+      //           "background-color": "rgb(243,243,243)",
+      //           ease: Expo.easeOut
+      //         },
+      //         i * 0.05 + 0.2
+      //       )
+      //       // 線伸ばす
+      //       .to(
+      //         e,
+      //         0.75,
+      //         {
+      //           scaleY: 1,
+      //           startAt: {
+      //             scaleY: 0
+      //           },
+      //           ease: Expo.easeOut
+      //         },
+      //         i * 0.05
+      //       );
+      //   });
+      // }, 0.0)
 
       // item
       .add(() => {

@@ -4,7 +4,7 @@
 *
 -------------------------------------------------------------------------------- */
 .header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -57,13 +57,17 @@
   display: block;
   width: 62px;
   height: 35px;
-  position: relative;
+  position: fixed;
+  top: 55px;
+  right: 60px;
   cursor: pointer;
   // transform: translateY(-10px);
 
   @media only screen and (max-width: $bp01) {
     width: 44px;
     height: 25px;
+    top: 30px;
+    right: 24px;
   }
 }
 
@@ -76,7 +80,7 @@
   transform-origin: right;
   transform: scaleX(0);
   .is-blue & {
-    background-color: #000ba3;
+    background-color: #aaa;
   }
 
   &:nth-child(1) {
@@ -109,7 +113,7 @@
   }
 
   .is-blue & {
-    color: #000ba3;
+    color: #aaa;
   }
 }
 

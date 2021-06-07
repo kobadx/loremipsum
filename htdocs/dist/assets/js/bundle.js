@@ -52359,29 +52359,44 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	      }, 0.0)
 	
 	      // bg line
-	      .add(function () {
-	        _this.$contents.find(".bg span").each(function (i, e) {
-	          tl
-	          // color 濃く
-	          .to(e, 0.2, {
-	            "background-color": "rgb(200,200,200)",
-	            ease: Expo.easeOut
-	          }, i * 0.05)
-	          // color 薄く
-	          .to(e, 0.5, {
-	            "background-color": "rgb(243,243,243)",
-	            ease: Expo.easeOut
-	          }, i * 0.05 + 0.2)
-	          // 線伸ばす
-	          .to(e, 0.75, {
-	            scaleY: 1,
-	            startAt: {
-	              scaleY: 0
-	            },
-	            ease: Expo.easeOut
-	          }, i * 0.05);
-	        });
-	      }, 0.0)
+	      // .add(() => {
+	      //   this.$contents.find(".bg span").each((i, e) => {
+	      //     tl
+	      //       // color 濃く
+	      //       .to(
+	      //         e,
+	      //         0.2,
+	      //         {
+	      //           "background-color": "rgb(200,200,200)",
+	      //           ease: Expo.easeOut
+	      //         },
+	      //         i * 0.05
+	      //       )
+	      //       // color 薄く
+	      //       .to(
+	      //         e,
+	      //         0.5,
+	      //         {
+	      //           "background-color": "rgb(243,243,243)",
+	      //           ease: Expo.easeOut
+	      //         },
+	      //         i * 0.05 + 0.2
+	      //       )
+	      //       // 線伸ばす
+	      //       .to(
+	      //         e,
+	      //         0.75,
+	      //         {
+	      //           scaleY: 1,
+	      //           startAt: {
+	      //             scaleY: 0
+	      //           },
+	      //           ease: Expo.easeOut
+	      //         },
+	      //         i * 0.05
+	      //       );
+	      //   });
+	      // }, 0.0)
 	
 	      // item
 	      .add(function () {
@@ -58495,7 +58510,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 	  }, {
 	    key: "scroll",
 	    value: function scroll() {
-	      if (this.bp <= window.innerWidth) return;
+	      //if (this.bp <= window.innerWidth) return;
 	      var st = $(window).scrollTop();
 	      var headerHeight = this.$ele.height();
 	      var isWhite = false;

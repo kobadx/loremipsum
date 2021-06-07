@@ -43,7 +43,7 @@
     }
 
     .index-recruit {
-      width: 25%;
+      width: 33%;
       box-sizing: border-box;
       order: 2;
 
@@ -55,7 +55,7 @@
       .index-recruit-inner {
         background: url('/assets/img/index/bg_recruit.jpg') no-repeat 65% center;
         background-size: cover;
-        padding: 36px 24px 24px;
+        padding: 44px 36px 36px;
         display: block;
         transition: transform 375ms $easeOutCubic;
 
@@ -147,7 +147,7 @@
   }
 
   .index-news {
-    width: calc(75% - 96px);
+    width: calc(67% - 96px);
     margin: 172px 96px 0 0;
     position: relative;
     order: 1;
