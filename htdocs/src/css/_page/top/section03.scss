@@ -53,13 +53,15 @@
       }
 
       .index-recruit-inner {
-        background: url('/assets/img/index/bg_recruit.jpg') no-repeat 65% center;
+        background: url('/assets/img/index/bg_recruit_pc.jpg') no-repeat center center;
         background-size: cover;
         padding: 44px 36px 36px;
         display: block;
         transition: transform 375ms $easeOutCubic;
 
         @media only screen and (max-width: $bp01) {
+          background: url('/assets/img/index/bg_recruit_sp.jpg') no-repeat center center;
+          background-size: cover;
           padding: 20px;
         }
 

@@ -4541,7 +4541,7 @@ a:active
     transition:         transform 375ms cubic-bezier(.215, .61, .355, 1);
     transition:         transform 375ms cubic-bezier(.215, .61, .355, 1), -webkit-transform 375ms cubic-bezier(.215, .61, .355, 1);
 
-    background: url('/assets/img/index/bg_recruit.jpg') no-repeat 65% center;
+    background: url('/assets/img/index/bg_recruit_pc.jpg') no-repeat center center;
     background-size: cover;
 }
 
@@ -4550,6 +4550,9 @@ a:active
     #wrapper.id_top .index-column .index-column-inner .index-recruit .index-recruit-inner
     {
         padding: 20px;
+
+        background: url('/assets/img/index/bg_recruit_sp.jpg') no-repeat center center;
+        background-size: cover;
     }
 }
 
